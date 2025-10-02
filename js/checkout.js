@@ -310,7 +310,7 @@ Bạn có chắc chắn muốn thanh toán?
 
     setTimeout(() => {
       completePayment(shippingAddress);
-    }, 2000);
+    }, 1000);
   }
 }
 
@@ -360,7 +360,7 @@ function completePayment(shippingAddress) {
     if (window.opener && !window.opener.closed) {
       window.opener.location.reload();
     }
-  }, 3000);
+  }, 2000);
 }
 
 function getCartItems() {
@@ -384,27 +384,59 @@ function saveOrderToHistory(order) {
 }
 
 function showMessage(message, type) {
-  const messageDiv = document.getElementById("paymentMessage");
-  if (messageDiv) {
-    messageDiv.innerHTML = message;
-    messageDiv.style.color =
-      type === "error"
-        ? "#dc3545"
-        : type === "success"
-        ? "#28a745"
-        : type === "processing"
-        ? "#007bff"
-        : "#666";
-    messageDiv.style.fontWeight = "bold";
-    messageDiv.style.padding = "10px";
-    messageDiv.style.borderRadius = "5px";
-    messageDiv.style.background =
-      type === "error"
-        ? "#f8d7da"
-        : type === "success"
-        ? "#d4edda"
-        : type === "processing"
-        ? "#d1ecf1"
-        : "#f8f9fa";
+  // Xóa overlay cũ nếu có
+  let overlay = document.getElementById("paymentOverlay");
+  if (overlay) overlay.remove();
+
+  // Tạo overlay mới
+  overlay = document.createElement("div");
+  overlay.id = "paymentOverlay";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background =
+    type === "processing" ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.4)";
+  overlay.style.display = "flex";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = "9999";
+
+  // Tạo hộp thông báo
+  const msgDiv = document.createElement("div");
+  msgDiv.innerHTML = message;
+  msgDiv.style.background =
+    type === "error"
+      ? "#f8d7da"
+      : type === "success"
+      ? "#d4edda"
+      : type === "processing"
+      ? "#d1ecf1"
+      : "#f8f9fa";
+  msgDiv.style.color =
+    type === "error"
+      ? "#dc3545"
+      : type === "success"
+      ? "#28a745"
+      : type === "processing"
+      ? "#007bff"
+      : "#666";
+  msgDiv.style.padding = "20px 30px";
+  msgDiv.style.borderRadius = "12px";
+  msgDiv.style.fontWeight = "bold";
+  msgDiv.style.fontSize = "18px";
+  msgDiv.style.textAlign = "center";
+  msgDiv.style.minWidth = "300px";
+  msgDiv.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
+
+  overlay.appendChild(msgDiv);
+  document.body.appendChild(overlay);
+
+  // Nếu là success hoặc error thì tự động ẩn sau 2s
+  if (type === "success" || type === "error") {
+    setTimeout(() => {
+      overlay.remove();
+    }, 2000);
   }
 }
