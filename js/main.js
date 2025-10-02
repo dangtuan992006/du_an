@@ -5,29 +5,29 @@ const logoutBtn = document.querySelector(".logout-btn");
 
 // Cập nhật giao diện theo trạng thái đăng nhập
 function updateAuthUI() {
+  const role = localStorage.getItem("currentUserRole");
   const user = localStorage.getItem("currentUser");
-  if (user) {
+
+  // Chỉ hiện tên khách
+  if (role === "customer" && user) {
     userText.textContent = user;
   } else {
     userText.textContent = "Đăng nhập";
   }
 }
 
-// Xử lý click vào nút user
-if (userToggle) {
-  userToggle.addEventListener("click", function (e) {
-    e.stopPropagation();
-    const isLoggedIn = localStorage.getItem("currentUser");
+// Optional: nếu bạn có nút logout trên index.html
 
-    if (isLoggedIn) {
-      // Đã đăng nhập → bật/tắt dropdown
-      dropdownMenu.classList.toggle("show");
-    } else {
-      // Chưa đăng nhập → chuyển đến trang login
-      window.location.href = "../pages/login.html";
-    }
-  });
-}
+// Xử lý click vào nút user
+userToggle.addEventListener("click", function (e) {
+  e.stopPropagation();
+  const isLoggedIn = localStorage.getItem("currentUser"); // chỉ khách
+  if (isLoggedIn) {
+    dropdownMenu.classList.toggle("show");
+  } else {
+    window.location.href = "../pages/login.html";
+  }
+});
 
 // Đóng dropdown khi click ngoài
 document.addEventListener("click", () => {

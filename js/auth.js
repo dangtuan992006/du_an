@@ -24,7 +24,13 @@ emailInput.addEventListener("input", () => {
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem("registeredUsers"));
+  const allUsers = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+  // Loại bỏ admin để chỉ còn khách
+  const users = Object.fromEntries(
+    Object.entries(allUsers).filter(
+      ([email, user]) => email !== "admin@gmail.com"
+    )
+  );
   if (users[email]) {
     // Nếu đã có tài khoản → chỉ hiện mật khẩu, không hiện thông báo
     passwordGroup.style.display = "block";
@@ -64,6 +70,7 @@ emailForm.addEventListener("submit", (e) => {
     localStorage.setItem("registeredUsers", JSON.stringify(users));
     localStorage.setItem("currentUser", username);
     localStorage.setItem("currentUserEmail", email);
+    localStorage.setItem("currentUserRole", "customer");
     alert(` Tài khoản mới đã được tạo cho ${email}!`);
     window.location.href = "../pages/index.html";
   } else {
@@ -71,6 +78,7 @@ emailForm.addEventListener("submit", (e) => {
     if (users[email].password === password) {
       localStorage.setItem("currentUser", users[email].name);
       localStorage.setItem("currentUserEmail", email);
+      localStorage.setItem("currentUserRole", "customer");
       alert(` Chào mừng trở lại, ${users[email].name}!`);
       window.location.href = "../pages/index.html";
     } else {
