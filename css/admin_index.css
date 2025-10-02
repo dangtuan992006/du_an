@@ -23,11 +23,32 @@ body {
     color: #9e182b;
     background-color: #f9cbd6;
     border-radius: 0 0 15px 15px;
-    display: flex;
+    display: grid;
     justify-content: center;
     font-weight: bold;
     text-transform: uppercase;
+    grid-template-columns: 90% 1fr ;
 }
+.item.header h1{
+    text-align: center;
+}
+.item button{
+    color: #9e182b;
+    border: none;
+    background-color: #f9cbd6;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.item i{
+    transition: all 0.3s ease;
+}
+
+.item i:hover{
+    transform: translateX(-5px);
+}
+
 
 /* Menu trái */
 .item.selection {
@@ -45,7 +66,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 3px;
-
 }
 
 .item.selection button {
