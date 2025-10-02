@@ -5,72 +5,84 @@ if (!localStorage.getItem("registeredUsers")) {
 }
 
 const emailInput = document.getElementById("email");
+const passwordGroup = document.getElementById("passwordGroup");
+const passwordInput = document.getElementById("password");
 const statusHint = document.getElementById("statusHint");
 const emailForm = document.getElementById("emailForm");
+const submitBtn = document.getElementById("submitBtn");
 
-// Kiểm tra email khi gõ
-emailInput.addEventListener("input", checkEmailStatus);
+let isNewAccount = false;
 
-function checkEmailStatus() {
-  const email = emailInput.value.trim().toLowerCase();
+//  Khi người dùng nhập email
+emailInput.addEventListener("input", () => {
+  const email = emailInput.value.trim();
+
   if (!email || !isValidEmail(email)) {
     statusHint.textContent = "";
-    statusHint.className = "status-hint";
+    passwordGroup.style.display = "none";
+    submitBtn.textContent = "Continue";
     return;
   }
 
   const users = JSON.parse(localStorage.getItem("registeredUsers"));
   if (users[email]) {
-    statusHint.className = "status-hint existing";
+    // Nếu đã có tài khoản → chỉ hiện mật khẩu, không hiện thông báo
+    passwordGroup.style.display = "block";
+    submitBtn.textContent = "Đăng nhập";
+    isNewAccount = false;
   } else {
-    statusHint.className = "status-hint new";
+    // Nếu chưa có tài khoản → hiện mật khẩu để tạo mới
+    statusHint.textContent =
+      "Email chưa có tài khoản. Hãy nhập mật khẩu để tạo tài khoản mới.";
+    passwordGroup.style.display = "block";
+    submitBtn.textContent = "Tạo tài khoản";
+    isNewAccount = true;
   }
-}
+});
 
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-// Xử lý form email
-emailForm.addEventListener("submit", function (e) {
+//  Khi submit form
+emailForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const email = emailInput.value.trim().toLowerCase();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const users = JSON.parse(localStorage.getItem("registeredUsers"));
+
   if (!isValidEmail(email)) {
     alert("Vui lòng nhập email hợp lệ.");
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem("registeredUsers"));
-
-  if (users[email]) {
-    // ĐÃ CÓ TÀI KHOẢN → chỉ đăng nhập
-    const username = users[email].name || email.split("@")[0];
-    localStorage.setItem("currentUser", username);
-    localStorage.setItem("currentUserEmail", email); // Lưu email để kiểm tra sau
-    alert(`Chào mừng trở lại, ${username}!`);
-    window.location.href = "../pages/index.html";
-  } else {
-    // CHƯA CÓ → tạo mới
+  if (isNewAccount) {
+    //  Tạo tài khoản mới
     const username = email.split("@")[0];
     users[email] = {
       name: username,
-      email: email, // Lưu email để dễ truy xuất
+      email: email,
+      password: password, // ❗ không mã hóa
       created: new Date().toISOString(),
-      isVerified: false, // Thêm trạng thái xác minh
     };
     localStorage.setItem("registeredUsers", JSON.stringify(users));
     localStorage.setItem("currentUser", username);
     localStorage.setItem("currentUserEmail", email);
-    alert(`Tài khoản mới đã được tạo cho ${email}!`);
-    //window.location.href = "../pages/index.html";
-    // Nếu được mở từ popup, đóng login và quay lại popup
-    if (window.opener && !window.opener.closed) {
-      window.close();
-    } else {
+    alert(` Tài khoản mới đã được tạo cho ${email}!`);
+    window.location.href = "../pages/index.html";
+  } else {
+    //  Đăng nhập
+    if (users[email].password === password) {
+      localStorage.setItem("currentUser", users[email].name);
+      localStorage.setItem("currentUserEmail", email);
+      alert(` Chào mừng trở lại, ${users[email].name}!`);
       window.location.href = "../pages/index.html";
+    } else {
+      alert(" Sai mật khẩu, vui lòng thử lại.");
     }
   }
 });
+
+//  Hàm kiểm tra email hợp lệ
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 // Xử lý social login - ĐÃ SỬA: không tạo mới nếu đã tồn tại
 function handleSocialLogin(provider) {
