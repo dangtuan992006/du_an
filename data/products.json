@@ -1,9 +1,59 @@
-[
-  {
-    "id": 1,
-    "name": "Banana",
-    "image": "../images/banana_duct_taped_to_the_wall.glb",
-    "price": "2000000000",
-    "description": "Chuối cao cấp"
-  }
-]
+
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Chuối Mỹ",
+      "image": "../images/bananas.jpg",
+      "price": "70.000 đồng/kg",
+      "description": "Chuối Mỹ nhập khẩu, quả dài, ngọt thơm tự nhiên.",
+      "category": "Trái cây",
+      "stock": 25
+    },
+    {
+      "id": 2,
+      "name": "Táo Mỹ",
+      "image": "../images/apple.jpg",
+      "price": "120.000 đồng/kg",
+      "description": "Táo Mỹ giòn ngọt, mọng nước, giàu vitamin C.",
+      "category": "Trái cây",
+      "stock": 18
+    },
+    {
+      "id": 3,
+      "name": "Cà Rốt Đà Lạt",
+      "image": "../images/carrot.jpg",
+      "price": "35.000 đồng/kg",
+      "description": "Cà rốt Đà Lạt tươi ngon, nhiều dinh dưỡng, dùng cho nấu ăn và ép nước.",
+      "category": "Rau củ",
+      "stock": 40
+    },
+    {
+      "id": 4,
+      "name": "Xoài Cát Hòa Lộc",
+      "image": "../images/mango.jpg",
+      "price": "60.000 đồng/kg",
+      "description": "Xoài Cát Hòa Lộc nổi tiếng miền Tây, thịt vàng, ngọt lịm, thơm ngon.",
+      "category": "Trái cây",
+      "stock": 20
+    },
+    {
+      "id": 5,
+      "name": "Nho Đen Không Hạt Mỹ",
+      "image": "../images/grape.jpg",
+      "price": "180.000 đồng/kg",
+      "description": "Nho đen Mỹ không hạt, ngọt đậm, giàu chất chống oxy hoá.",
+      "category": "Trái cây",
+      "stock": 12
+    },
+    {
+      "id": 6,
+      "name": "Dưa Hấu Ruột Đỏ",
+      "image": "../images/watermelon.jpg",
+      "price": "20.000 đồng/kg",
+      "description": "Dưa hấu ruột đỏ ngọt mát, giải nhiệt mùa hè tuyệt vời.",
+      "category": "Trái cây",
+      "stock": 30
+    }
+  ]
+}
