@@ -99,7 +99,9 @@ body {
 
 /* Card hiển thị thông tin admin */
 .admin-profile {
-    background: linear-gradient(-45deg, #f9cbd6, #9e182b);
+    background-image: linear-gradient(rgba(158, 24, 43, 0.6), rgba(158, 24, 43, 0.6)),url("../images/_.jpeg");
+    /* background-size: cover */
+    
     box-sizing: border-box;
     background-color: #f9cbd6;      
     padding: 20px;
