@@ -158,23 +158,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Loading State */
-.loading {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #9e182b;
-}
-
-.loading i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-}
-
-.loading p {
-    font-size: 1.2rem;
-}
-
 /* Empty State */
 .empty-state {
     grid-column: 1 / -1;
@@ -193,39 +176,67 @@ body {
     font-size: 1.2rem;
 }
 
-/* Error State */
-.error-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #9e182b;
-    background: rgba(158, 24, 43, 0.1);
-    border-radius: 15px;
+.new-product-card {
+    border: 2px dashed #aaa;
+    padding: 15px;
+    background: #fafafa;
 }
 
-.error-state i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-}
-
-.error-state p {
-    font-size: 1.2rem;
+.new-product-card input {
+    display: block;
+    width: 100%;
     margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
-.error-state button {
-    margin-top: 15px;
-    padding: 10px 25px;
-    background: #9e182b;
-    color: #fff;
+.new-product-card .actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions button {
+    width: 100px;
+    height: 50px;
+    color: #9e182b;
+    background-color: #fff;
     border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1rem;
+    border-radius: 15px;
     transition: all 0.3s ease;
 }
 
-.error-state button:hover {
+.actions button:hover{
+    transform:  scale(1.1);
+}
+
+
+/* Nút xóa sản phẩm */
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f9cbd6;
+    color: #9e182b;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.product-card:hover .delete-btn {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.delete-btn:hover {
     background: #7d1322;
-    transform: scale(1.05);
+    color: #f9cbd6;
 }
