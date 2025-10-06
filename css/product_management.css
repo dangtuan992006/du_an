@@ -88,6 +88,12 @@ body {
     box-shadow: 0 8px 25px rgba(158, 24, 43, 0.2);
 }
 
+.product-card.hidden {
+    opacity: 0.5;
+    /* Dễ nhận biết sản phẩm bị ẩn */
+    border: 2px dashed #9e182b; 
+}
+
 .product-image {
     width: 100%;
     height: 280px;
@@ -158,6 +164,27 @@ body {
     font-size: 0.9rem;
 }
 
+/* Actions - Nút Thêm sản phẩm */
+.actions {
+    margin-bottom: 25px;
+}
+
+#add-product-btn {
+    width: 100%;
+    background-color: #f5f5f5;
+    color: #9e182b;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
 /* Empty State */
 .empty-state {
     grid-column: 1 / -1;
@@ -194,6 +221,7 @@ body {
 .new-product-card .actions {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 .actions button {
@@ -204,18 +232,34 @@ body {
     border: none;
     border-radius: 15px;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .actions button:hover{
-    transform:  scale(1.1);
+    transform: scale(1.04);
 }
 
 
-/* Nút xóa sản phẩm */
-.delete-btn {
+/* chức năng xóa, ẩn/hiện, sữa */
+.product-card .actions-top {
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex; 
+    gap: 8px; 
+    z-index: 10; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .actions-top {
+    opacity: 1;
+}
+
+.edit-btn, .hide-btn, .delete-btn {
+    position: static; 
+    opacity: 1 !important; 
+    transform: none !important;
     background: #f9cbd6;
     color: #9e182b;
     border: none;
@@ -227,16 +271,12 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.product-card:hover .delete-btn {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.delete-btn:hover {
+.delete-btn:hover, .hide-btn:hover, .edit-btn:hover {
     background: #7d1322;
     color: #f9cbd6;
+    transform: scale(1.1);
 }
