@@ -37,9 +37,6 @@ fetch("../data/users.json")
         localStorage.setItem("adminPassword", users[email].password);
         localStorage.setItem("adminjoi_date", users[email].join_date);
 
-
-
-
         alert("Đăng nhập Admin thành công!");
 
         // Mở admin trong tab mới

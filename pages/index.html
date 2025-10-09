@@ -9,6 +9,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <!-- feather icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <!-- font chu logo -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,18 +25,348 @@
       href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap"
       rel="stylesheet"
     />
+    <!-- Playfair Display font for banner -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- file -->
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <!-- CSS riêng cho banner -->
+    <link rel="stylesheet" href="../css/components/banner.css" />
     <!-- mo hinh 3D -->
-     <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      background-color: transparent;
-    }
-  </style>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+      }
+    </style>
+    <style>
+      /* Modern Footer Styles */
+      .main-footer {
+        background: #1a1a1a;
+        color: white;
+        margin-top: 80px;
+        padding: 60px 0 0;
+        border-top: 4px solid #e74c3c;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: 50px;
+      }
+
+      .footer-brand {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        text-decoration: none;
+      }
+
+      .footer-logo-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+
+      .footer-logo-text {
+        font-family: "Pacifico", cursive;
+        font-size: 2.2rem;
+        color: #e74c3c;
+        margin: 0;
+      }
+
+      .footer-tagline {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin-bottom: 25px;
+        line-height: 1.6;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid #444;
+        border-radius: 8px;
+        background: #2a2a2a;
+        color: white;
+        font-size: 0.9rem;
+      }
+
+      .newsletter-input::placeholder {
+        color: #888;
+      }
+
+      .newsletter-btn {
+        padding: 12px 20px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+
+      .newsletter-btn:hover {
+        background: #c0392b;
+      }
+
+      .footer-column h4 {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        color: white;
+        position: relative;
+      }
+
+      .footer-column h4::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: #e74c3c;
+        border-radius: 2px;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: #bbb;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .footer-links a:hover {
+        color: #e74c3c;
+        transform: translateX(5px);
+      }
+
+      .footer-links a i {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: #bbb;
+      }
+
+      .contact-item i {
+        color: #e74c3c;
+        margin-top: 2px;
+        font-size: 1.1rem;
+      }
+
+      .social-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .social-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: #2a2a2a;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid #444;
+      }
+
+      .social-card:hover {
+        background: #e74c3c;
+        transform: translateY(-3px);
+        border-color: #e74c3c;
+      }
+
+      .footer-bottom {
+        margin-top: 60px;
+        padding: 25px 0;
+        background: #151515;
+        border-top: 1px solid #333;
+      }
+
+      .footer-bottom-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .copyright {
+        color: #888;
+        font-size: 0.9rem;
+      }
+
+      .footer-legal {
+        display: flex;
+        gap: 25px;
+      }
+
+      .footer-legal a {
+        color: #888;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .footer-legal a:hover {
+        color: #e74c3c;
+      }
+
+      .payment-methods {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .payment-text {
+        color: #888;
+        font-size: 0.9rem;
+        margin-right: 10px;
+      }
+
+      .payment-icon {
+        width: 40px;
+        height: 25px;
+        background: #2a2a2a;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        font-size: 0.8rem;
+        border: 1px solid #444;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .footer-container {
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .footer-container {
+          grid-template-columns: 1fr;
+          gap: 35px;
+          text-align: center;
+        }
+
+        .footer-column h4::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .footer-logo {
+          justify-content: center;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .footer-links a {
+          justify-content: center;
+        }
+
+        .contact-item {
+          justify-content: center;
+        }
+
+        .social-grid {
+          justify-content: center;
+        }
+
+        .footer-bottom-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .payment-methods {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-footer {
+          margin-top: 50px;
+          padding: 40px 0 0;
+        }
+
+        .footer-container {
+          padding: 0 15px;
+          gap: 30px;
+        }
+
+        .footer-logo-text {
+          font-size: 1.8rem;
+        }
+
+        .footer-logo-img {
+          width: 50px;
+          height: 50px;
+        }
+
+        .social-grid {
+          grid-template-columns: repeat(3, 50px);
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Thanh điều hướng -->
@@ -56,8 +388,10 @@
           <div class="search-category">
             <select class="category-select">
               <option>ALL</option>
+              <option>Bán chạy nhất</option>
               <option>Quà tặng trái cây</option>
               <option>Trái cây Việt Nam</option>
+              <option>Đặc biệt</option>
             </select>
           </div>
           <input
@@ -80,92 +414,343 @@
               >
             </button>
             <div class="dropdown-menu">
-              <a href="../pages/profile.html"  target="_blank" class="dropdown-item">Thông tin cá nhân</a>
+              <a
+                href="../pages/profile.html"
+                target="_blank"
+                class="dropdown-item"
+                >Thông tin cá nhân</a
+              >
+              <a href="../pages/order-history.html" class="dropdown-item"
+                >Xem lại đơn hàng</a
+              >
               <a href="../pages/settings.html" class="dropdown-item">Cài đặt</a>
               <button class="dropdown-item logout-btn">Đăng xuất</button>
             </div>
           </div>
           <button class="nav-button" id="openCartPopup">
-  <i class="fas fa-shopping-cart"></i>
-  Giỏ hàng
-  <span class="cart-count">0</span>
-</button>
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </button>
           <!-- Trong .box3, dưới 2 nút hiện tại -->
           <!-- Trong navbar, thay nút thanh toán giỏ hàng -->
-<button id="checkoutCartBtn" class="checkout-cart-btn nav-button">
-  Thanh toán giỏ hàng
-</button>
+          <button id="checkoutCartBtn" class="checkout-cart-btn nav-button">
+            Thanh toán giỏ hàng
+          </button>
         </li>
       </ul>
     </nav>
 
-    <!-- Main Con tent -->
-    <main>
-      <div class="container">
-        <div class="box box1">
-          <h2 class="title_box1 pacifico-regular">Banana</h2>
-          <p class="noidung_box1">
-             <div class="slogan-line line1">Vừa để ăn</div>
-            <div class="slogan-line line2">Vừa để ngắm </div>
-            <div class="slogan-line line3">Ngon miệng, ngon mắt</div>
-            <div class="slogan-line line4">Sản phẩm bán chạy nhất</div>
-           <div class="slogan-line line5 pacifico-regular">MUA NGAY!</div>
-          </p>
+    <!-- Banner Carousel -->
+    <section id="hero-carousel" class="hero-carousel">
+      <div id="carousel-track" class="carousel-track">
+        <!-- Slide 1 - ĐÃ THÊM ẢNH MỚI -->
+        <!-- Slide 1 với multiple resolutions -->
+        <div class="slide">
+          <picture>
+            <source
+              media="(min-width: 1200px)"
+              srcset="
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1920w,
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w
+              "
+            />
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w,
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png  768w
+              "
+            />
+            <img
+              src="../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png"
+              alt="Benefits of Pomegranate"
+              class="slide-image"
+              loading="eager"
+            />
+          </picture>
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Lợi Ích Từ Trái Lựu</h2>
+              <p class="slide-description">
+                Khám phá những giá trị dinh dưỡng tuyệt vời
+              </p>
+              <a href="#" class="btn-primary">Khám Phá Ngay</a>
+            </div>
+          </div>
         </div>
-        <div class="box box2">
-          <model-viewer src="../images/banana_duct_taped_to_the_wall.glb" alt="Banana 3D" auto-rotate camera-controls></model-viewer>
-          <!-- <img src="banana.jpg" alt="Quả chuối tươi" /> -->
-          <button onclick="toggleLayout()" class="toggle-btn">
-            Tìm hiểu thêm
-          </button>
+        <!-- Slide 2 -->
+        <div class="slide">
+          <img src="../images/cam.png" alt="Banner 2" class="slide-image" />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Flash Sale</h2>
+              <p class="slide-description">
+                Giảm giá đến 50% chỉ trong tuần này
+              </p>
+              <a href="#" class="btn-primary">Mua Sắm Ngay</a>
+            </div>
+          </div>
         </div>
-        <div class="box box3">
-          <h2 class="title_box3">Giá Trị Của Ánh Sáng Và Thời Gian</h2>
-          <p class="mota_box3">
-            Từng quả chuối là một tác phẩm nghệ thuật của đất trời, được gửi
-            trao với tâm hồn và sự tươi mới. Hãy cùng cảm nhận và giữ lấy cái
-            đẹp giản đơn ấy giữa bộn bề cuộc sống.
-          </p>
-          <ul>
-            <li>
-              <strong>2 tỷ VNĐ / quả</strong> – giá trị của một khoảnh khắc ngọt ngào.
-            </li>
-          </ul>
+        <!-- Slide 3 -->
+        <div class="slide">
+          <img
+            src="https://placehold.co/1920x1080/1a1a1a/ffffff?text=Premium+Quality"
+            alt="Banner 3"
+            class="slide-image"
+          />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Chất Lượng Premium</h2>
+              <p class="slide-description">Trải nghiệm sự khác biệt</p>
+              <a href="#" class="btn-primary">Xem Thêm</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <!-- Hai nút: MUA NGAY + THÊM VÀO GIỎ -->
-          <div class="action-buttons">
-            <button class="buy-now-btn" data-id="1">MUA NGAY</button>
-            <button class="add-to-cart-btn">
-              <i class="fas fa-shopping-cart"></i>
-              Thêm vào giỏ hàng
+      <!-- Navigation Arrows -->
+      <button id="prev-slide" class="carousel-nav carousel-nav-prev">
+        <i data-feather="chevron-left" class="nav-icon"></i>
+      </button>
+      <button id="next-slide" class="carousel-nav carousel-nav-next">
+        <i data-feather="chevron-right" class="nav-icon"></i>
+      </button>
+
+      <!-- Indicators -->
+      <div id="carousel-indicators" class="carousel-indicators">
+        <button class="indicator" data-slide="0"></button>
+        <button class="indicator" data-slide="1"></button>
+        <button class="indicator" data-slide="2"></button>
+      </div>
+    </section>
+
+    <!-- Favorites Modal -->
+    <div id="favorites-modal-overlay" class="modal-overlay"></div>
+    <div id="favorites-modal" class="product-modal">
+      <button id="close-favorites-modal-button" class="modal-close-btn">
+        <i data-feather="x" class="modal-close-icon"></i>
+      </button>
+      <h2 class="modal-title">Danh sách yêu thích</h2>
+
+      <div id="favorites-grid" class="favorites-grid">
+        <!-- Các sản phẩm yêu thích sẽ được render vào đây -->
+      </div>
+
+      <div id="favorites-empty" class="favorites-empty">
+        <p>Bạn chưa có sản phẩm yêu thích nào.</p>
+      </div>
+
+      <!-- PHẦN THÊM VÀO: Footer của modal với nút thanh toán -->
+      <div id="favorites-footer" class="favorites-footer">
+        <button id="add-favorites-to-cart-btn" class="btn-primary">
+          Thêm tất cả vào giỏ hàng
+        </button>
+      </div>
+    </div>
+    <!-- End Favorites Modal -->
+
+    <!-- Main Content -->
+    <main>
+      <!-- Phần sản phẩm mới -->
+      <section class="products-section">
+        <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+
+        <div id="loading" class="loading">Đang tải sản phẩm...</div>
+
+        <p id="noResults" class="no-results">Không tìm thấy sản phẩm nào.</p>
+
+        <div class="products-container" id="productsContainer">
+          <!-- Sản phẩm sẽ được render động bằng JavaScript -->
+        </div>
+
+        <!-- Phân trang đơn giản -->
+        <div class="pagination-container" id="paginationContainer">
+          <div class="pagination">
+            <button
+              id="prev-page"
+              class="pagination-btn pagination-prev"
+              disabled
+            >
+              <i class="fas fa-chevron-left"></i>
+              Trước
+            </button>
+
+            <div class="pagination-info">
+              Trang <span id="current-page">1</span> /
+              <span id="total-pages">1</span>
+            </div>
+
+            <button id="next-page" class="pagination-btn pagination-next">
+              Sau
+              <i class="fas fa-chevron-right"></i>
             </button>
           </div>
+        </div>
+      </section>
 
-          <!-- Thông báo giỏ hàng -->
-          <div class="cart-notification" id="cartNotification">
-            <i class="fas fa-check"></i> Đã thêm vào giỏ!
+      <!-- Giỏ hàng drawer -->
+      <div id="cartOverlay" class="cart-overlay"></div>
+      <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+          <h2>🛒 Giỏ hàng</h2>
+          <button id="closeCartDrawer" class="close-drawer">×</button>
+        </div>
+        <div id="cartDrawerContent" class="cart-drawer-content">
+          <!-- Nội dung giỏ hàng sẽ được render ở đây -->
+        </div>
+        <div id="cartDrawerFooter" class="cart-drawer-footer">
+          <!-- Footer giỏ hàng sẽ được render ở đây -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer HTML -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Nhập email để nhận ưu đãi"
+            />
+            <button class="newsletter-btn">Đăng ký</button>
           </div>
         </div>
 
-      </div>
-      <!-- Thêm vào file HTML chính (index.html) -->
-<div id="cartOverlay" class="cart-overlay"></div>
-<div id="cartDrawer" class="cart-drawer">
-  <div class="cart-drawer-header">
-    <h2>🛒 Giỏ hàng</h2>
-    <button id="closeCartDrawer" class="close-drawer">×</button>
-  </div>
-  <div id="cartDrawerContent" class="cart-drawer-content">
-    <!-- Nội dung giỏ hàng sẽ được render ở đây -->
-  </div>
-  <div id="cartDrawerFooter" class="cart-drawer-footer">
-    <!-- Footer giỏ hàng sẽ được render ở đây -->
-  </div>
-</div>
-    </main>
-    <script src="../js/auth.js"></script>
-    <script src="../js/cart.js"></script>
-    <script src="../js/main.js"></script>
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/products.html"
+                ><i class="fas fa-shopping-bag"></i> Sản phẩm</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/promotions.html"
+                ><i class="fas fa-tag"></i> Khuyến mãi</a
+              >
+            </li>
+          </ul>
+        </div>
 
+        <!-- Categories -->
+        <div class="footer-column">
+          <h4>Danh mục</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#"><i class="fas fa-apple-alt"></i> Trái cây Việt Nam</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-gift"></i> Quà tặng trái cây</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-globe"></i> Trái cây nhập khẩu</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-star"></i> Đặc biệt</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-leaf"></i> Hữu cơ</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
+          <div class="social-grid">
+            <a href="#" class="social-card"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-zalo"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/search.js" defer></script>
+    <script src="../js/mainjs.js" defer></script>
+    <script>
+      // Khởi tạo Feather Icons
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+      });
+    </script>
   </body>
 </html>

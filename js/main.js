@@ -87,7 +87,7 @@ function updateCartUI() {
   }
 }
 
-// Render giỏ hàng trong drawer
+// Render giỏ hàng trong drawer (KHÔNG CÓ HÌNH ẢNH)
 function renderCartDrawer() {
   const cart = getCurrentUserCart();
   const contentDiv = document.getElementById("cartDrawerContent");
@@ -97,11 +97,11 @@ function renderCartDrawer() {
 
   if (cart.length === 0) {
     contentDiv.innerHTML = `
-      <div class="empty-cart">
-        <i class="fas fa-shopping-cart"></i>
-        <p>Giỏ hàng của bạn đang trống</p>
-      </div>
-    `;
+        <div class="empty-cart">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Giỏ hàng của bạn đang trống</p>
+        </div>
+      `;
     footerDiv.innerHTML = "";
     return;
   }
@@ -114,26 +114,31 @@ function renderCartDrawer() {
     const itemTotal = priceNum * item.qty;
     total += itemTotal;
 
+    // KHÔNG HIỂN THỊ HÌNH ẢNH, CHỈ HIỂN THỊ THÔNG TIN
     itemsHTML += `
-      <div class="cart-item" data-id="${item.id}">
-        <div class="item-info">
-          <div class="item-name">${item.name}</div>
-          <div class="item-price">${priceNum.toLocaleString("vi-VN")} VNĐ</div>
-          <div class="quantity-controls">
-            <button class="qty-btn" onclick="updateQtyInDrawer(${
-              item.id
-            }, -1)">-</button>
-            <span class="quantity">${item.qty}</span>
-            <button class="qty-btn" onclick="updateQtyInDrawer(${
-              item.id
-            }, 1)">+</button>
-            <button class="remove-btn" onclick="removeItemInDrawer(${item.id})">
-              <i class="fas fa-trash"></i>
-            </button>
+        <div class="cart-item" data-id="${item.id}">
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">${priceNum.toLocaleString(
+              "vi-VN"
+            )} VNĐ</div>
+            <div class="quantity-controls">
+              <button class="qty-btn" onclick="updateQtyInDrawer(${
+                item.id
+              }, -1)">-</button>
+              <span class="quantity">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQtyInDrawer(${
+                item.id
+              }, 1)">+</button>
+              <button class="remove-btn" onclick="removeItemInDrawer(${
+                item.id
+              })">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    `;
+      `;
   });
 
   contentDiv.innerHTML = itemsHTML;
@@ -143,22 +148,22 @@ function renderCartDrawer() {
 
   if (isLoggedIn) {
     footerDiv.innerHTML = `
-      <div class="total-section">
-        <span class="total-label">Tổng cộng:</span>
-        <span class="total-amount">${total.toLocaleString("vi-VN")} VNĐ</span>
-      </div>
-      <button class="checkout-btn" onclick="checkoutFromDrawer()">Thanh toán</button>
-    `;
+        <div class="total-section">
+          <span class="total-label">Tổng cộng:</span>
+          <span class="total-amount">${total.toLocaleString("vi-VN")} VNĐ</span>
+        </div>
+        <button class="checkout-btn" onclick="checkoutFromDrawer()">Thanh toán</button>
+      `;
   } else {
     footerDiv.innerHTML = `
-      <div class="total-section">
-        <span class="total-label">Tổng cộng:</span>
-        <span class="total-amount">${total.toLocaleString("vi-VN")} VNĐ</span>
-      </div>
-      <button class="checkout-btn login-required" onclick="redirectToLogin()">
-        Đăng nhập để thanh toán
-      </button>
-    `;
+        <div class="total-section">
+          <span class="total-label">Tổng cộng:</span>
+          <span class="total-amount">${total.toLocaleString("vi-VN")} VNĐ</span>
+        </div>
+        <button class="checkout-btn login-required" onclick="redirectToLogin()">
+          Đăng nhập để thanh toán
+        </button>
+      `;
   }
 }
 
@@ -251,4 +256,143 @@ document.addEventListener("DOMContentLoaded", function () {
   updateAuthUI();
   updateCartUI();
   console.log("Main.js loaded - User:", localStorage.getItem("currentUser"));
+});
+// Banner Carousel Functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const carouselTrack = document.getElementById("carousel-track");
+  const slides = document.querySelectorAll(".slide");
+  const prevButton = document.getElementById("prev-slide");
+  const nextButton = document.getElementById("next-slide");
+  const indicators = document.querySelectorAll(".indicator");
+
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  // Initialize carousel
+  function initCarousel() {
+    updateCarousel();
+    startAutoSlide();
+  }
+
+  // Update carousel position
+  function updateCarousel() {
+    carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      if (index === currentSlide) {
+        indicator.classList.add("active");
+      } else {
+        indicator.classList.remove("active");
+      }
+    });
+  }
+
+  // Go to next slide
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  // Go to previous slide
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // Go to specific slide
+  function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    updateCarousel();
+  }
+
+  // Auto slide every 5 seconds
+  let autoSlideInterval;
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(nextSlide, 1000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+  }
+
+  // Event listeners
+  if (nextButton) {
+    nextButton.addEventListener("click", function () {
+      stopAutoSlide();
+      nextSlide();
+      startAutoSlide();
+    });
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener("click", function () {
+      stopAutoSlide();
+      prevSlide();
+      startAutoSlide();
+    });
+  }
+
+  // Indicator click events
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", function () {
+      stopAutoSlide();
+      goToSlide(index);
+      startAutoSlide();
+    });
+  });
+
+  // Pause auto slide on hover
+  const carousel = document.getElementById("hero-carousel");
+  if (carousel) {
+    carousel.addEventListener("mouseenter", stopAutoSlide);
+    carousel.addEventListener("mouseleave", startAutoSlide);
+  }
+
+  // Touch swipe support for mobile
+  let startX = 0;
+  let endX = 0;
+
+  if (carouselTrack) {
+    carouselTrack.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
+      stopAutoSlide();
+    });
+
+    carouselTrack.addEventListener("touchmove", function (e) {
+      endX = e.touches[0].clientX;
+    });
+
+    carouselTrack.addEventListener("touchend", function () {
+      const diff = startX - endX;
+      const swipeThreshold = 50;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next slide
+          nextSlide();
+        } else {
+          // Swipe right - previous slide
+          prevSlide();
+        }
+      }
+      startAutoSlide();
+    });
+  }
+
+  // Initialize carousel
+  initCarousel();
+
+  // Keyboard navigation
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") {
+      stopAutoSlide();
+      prevSlide();
+      startAutoSlide();
+    } else if (e.key === "ArrowRight") {
+      stopAutoSlide();
+      nextSlide();
+      startAutoSlide();
+    }
+  });
 });
