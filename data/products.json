@@ -2,145 +2,145 @@
   {
     "id": 1,
     "name": "Banana",
-    "image": "../images/banana_duct_taped_to_the_wall.glb",
+    "image": "../images/chuoi.webp",
     "price": "2000000000",
-    "description": "Chuối cao cấp",
+    "description": "Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.",
     "category": "Đặc biệt"
   },
   {
     "id": 2,
-    "name": "Táo Vàng",
-    "image": "https://picsum.photos/seed/apple/400/300.jpg",
-    "price": "1500000000",
-    "description": "Quả táo vàng óng, tượng trưng cho sự thịnh vượng và may mắn.",
-    "category": "Bán chạy nhất"
+    "name": "Dâu Tây",
+    "image": "../images/quatang2.jpeg",
+    "price": "1600000000",
+    "description": "Dâu tây đỏ mọng, vị ngọt nhẹ, hương thơm dịu dàng khiến ai cũng muốn thưởng thức mãi.",
+    "category": "Quà tặng trái cây"
   },
   {
     "id": 3,
     "name": "Cam Ngọt",
-    "image": "https://picsum.photos/seed/orange/400/300.jpg",
+    "image": "../images/cam;).jpeg",
     "price": "800000000",
-    "description": "Vị ngọt thanh của cam tươi mát, mang lại năng lượng tích cực.",
+    "description": "Cam ngọt tươi mát, mọng nước và giàu vitamin giúp bạn khởi đầu ngày mới thật sảng khoái.",
     "category": "Trái cây"
   },
   {
     "id": 4,
     "name": "Nho Tím",
-    "image": "https://picsum.photos/seed/grape/400/300.jpg",
+    "image": "../images/nho.jpeg",
     "price": "1200000000",
-    "description": "Chùm nho tím mọng nước, biểu tượng của sự sang trọng và đẳng cấp.",
+    "description": "Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 5,
-    "name": "Dưa Hấu Đỏ",
-    "image": "https://picsum.photos/seed/watermelon/400/300.jpg",
-    "price": "2500000000",
-    "description": "Vị ngọt mát của dưa hấu trong ngày hè nóng bức.",
-    "category": "Quà tặng trái cây"
+    "name": "Bơ",
+    "image": "../images/bo.jpeg",
+    "price": "350000000",
+    "description": "Bơ sáp thơm béo, mềm mịn, chứa nhiều dưỡng chất giúp làn da mịn màng và cơ thể khỏe mạnh.",
+    "category": "Trái cây"
   },
   {
     "id": 6,
-    "name": "Xoài Cát Hòa Lộc",
-    "image": "https://picsum.photos/seed/mango/400/300.jpg",
-    "price": "900000000",
-    "description": "Vị ngọt đậm đà và thơm lừng đặc trưng của xoài cát hoa lộc.",
-    "category": "Quà tặng"
+    "name": "Vải Thiều",
+    "image": "../images/vai.jpeg",
+    "price": "950000000",
+    "description": "Vải thiều ngọt thanh, hương thơm quyến rũ, là món quà tinh tế mang hương vị mùa hè Việt.",
+    "category": "Đặc biệt"
   },
   {
     "id": 7,
     "name": "Lựu Đỏ",
-    "image": "https://picsum.photos/seed/pomegranate/400/300.jpg",
+    "image": "../images/luu.jpeg",
     "price": "1800000000",
-    "description": "Những hạt lựu ruby đỏ rực rỡ, đầy dinh dưỡng và sức sống.",
+    "description": "Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 8,
     "name": "Cherry Đỏ",
-    "image": "https://picsum.photos/seed/cherry/400/300.jpg",
+    "image": "../images/cherry.jpeg",
     "price": "1300000000",
-    "description": "Những quả cherry đỏ mọng, ngọt ngào và đầy quyến rũ.",
+    "description": "Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ khiến bạn khó quên ngay lần đầu.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 9,
     "name": "Dứa Vàng",
-    "image": "https://picsum.photos/seed/pineapple/400/300.jpg",
+    "image": "../images/duavang.jpeg",
     "price": "700000000",
-    "description": "Vị chua ngọt hài hòa của dứa tươi, mang đến cảm giác nhiệt đới.",
+    "description": "Dứa vàng chín mọng, vị chua ngọt hài hòa mang lại cảm giác sảng khoái trong ngày oi bức.",
     "category": "Trái cây"
   },
   {
     "id": 10,
-    "name": "Bưởi Da Xanh",
-    "image": "https://picsum.photos/seed/pomelo/400/300.jpg",
+    "name": "Quà tặng",
+    "image": "../images/quatang1.jpeg",
     "price": "600000000",
-    "description": "Bưởi da xanh ruột hồng, ngọt thanh và nhiều vitamin C.",
+    "description": "Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.",
     "category": "Trái cây"
   },
   {
     "id": 11,
-    "name": "Chanh Leo",
-    "image": "https://picsum.photos/seed/passionfruit/400/300.jpg",
+    "name": "Chanh",
+    "image": "../images/chanh.jpeg",
     "price": "500000000",
-    "description": "Chanh leo vàng, vị chua ngọt thơm mát.",
+    "description": "Chanh tươi mọng nước, vị chua dịu nhẹ giúp thanh lọc cơ thể và mang lại cảm giác sảng khoái.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 12,
     "name": "Kiwi Xanh",
-    "image": "https://picsum.photos/seed/kiwi/400/300.jpg",
+    "image": "../images/kiwi.jpeg",
     "price": "1100000000",
-    "description": "Kiwi xanh mọng nước, giàu vitamin và chất xơ.",
+    "description": "Kiwi xanh chua ngọt hài hòa, chứa nhiều vitamin giúp làn da tươi sáng và cơ thể khỏe mạnh.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 13,
-    "name": "Dâu Tây",
-    "image": "https://picsum.photos/seed/strawberry/400/300.jpg",
-    "price": "1600000000",
-    "description": "Dâu tây đỏ mọng, ngọt lịm và thơm ngon.",
-    "category": "Quà tặng trái cây"
+    "name": "Táo",
+    "image": "../images/tao.jpeg",
+    "price": "1500000000",
+    "description": "Táo giòn ngọt, hương thơm dễ chịu, biểu tượng cho sức khỏe dồi dào và sự may mắn lâu dài.",
+    "category": "Bán chạy nhất"
   },
   {
     "id": 14,
-    "name": "Mận Hậu",
-    "image": "https://picsum.photos/seed/plum/400/300.jpg",
+    "name": "Mận",
+    "image": "../images/man.jpeg",
     "price": "400000000",
-    "description": "Mận hậu chua ngọt, giòn tan trong miệng.",
+    "description": "Mận chín đỏ, vị chua ngọt giòn tan, là món ăn thanh mát giúp xua tan mệt mỏi ngày hè.",
     "category": "Trái cây"
   },
   {
     "id": 15,
-    "name": "Ổi Nữ Hoàng",
-    "image": "https://picsum.photos/seed/guava/400/300.jpg",
+    "name": "Carrot",
+    "image": "../images/carrot.jpg",
     "price": "300000000",
-    "description": "Ổi nữ hoàng giòn ngọt, ít hạt và thơm dịu.",
+    "description": "Cà rốt tươi giòn, giàu vitamin A, giúp sáng mắt, đẹp da và tăng cường sức đề kháng tự nhiên.",
     "category": "Trái cây"
   },
   {
     "id": 16,
-    "name": "Măng Cụt",
-    "image": "https://picsum.photos/seed/mangosteen/400/300.jpg",
+    "name": "Quà tặng",
+    "image": "../images/quatang3.jpeg",
     "price": "1400000000",
-    "description": "Măng cụt tím, vị ngọt thanh và thơm đặc trưng.",
+    "description": "Hộp quà trái cây cao cấp, lựa chọn hoàn hảo để gửi gắm yêu thương và tri ân người thân yêu.",
     "category": "Quà tặng trái cây"
   },
   {
     "id": 17,
-    "name": "Nhãn Lồng",
-    "image": "https://picsum.photos/seed/longan/400/300.jpg",
-    "price": "350000000",
-    "description": "Nhãn lồng cùi dày, ngọt thanh và thơm mát.",
-    "category": "Trái cây"
+    "name": "Dưa Hấu Đỏ",
+    "image": "../images/watermelon.jpg",
+    "price": "2500000000",
+    "description": "Dưa hấu đỏ ngọt thanh, mọng nước, giúp giải nhiệt và mang lại cảm giác mát lành tuyệt vời.",
+    "category": "Quà tặng trái cây"
   },
   {
     "id": 18,
-    "name": "Vải Thiều",
-    "image": "https://picsum.photos/seed/lychee/400/300.jpg",
-    "price": "950000000",
-    "description": "Vải thiều Thanh Hà, ngọt lịm và thơm ngon.",
-    "category": "Quà tặng trái cây"
+    "name": "Xoài ",
+    "image": "../images/mango.jpg",
+    "price": "900000000",
+    "description": "Xoài cát vàng chín ngọt, thơm lừng đặc trưng, mang hương vị đậm đà khó quên của miền nhiệt đới.",
+    "category": "Trái cây"
   }
 ]

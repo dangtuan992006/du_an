@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../css/components/header.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
     <!-- CSS riêng cho banner -->
     <link rel="stylesheet" href="../css/components/banner.css" />
     <!-- mo hinh 3D -->
@@ -50,325 +51,32 @@
       }
     </style>
     <style>
-      /* Modern Footer Styles */
-      .main-footer {
-        background: #1a1a1a;
-        color: white;
-        margin-top: 80px;
-        padding: 60px 0 0;
-        border-top: 4px solid #e74c3c;
+      /* --- Chat Support --- */
+      .chat-support {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
       }
-
-      .footer-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1.5fr;
-        gap: 50px;
-      }
-
-      .footer-brand {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .footer-logo {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-        text-decoration: none;
-      }
-
-      .footer-logo-img {
-        width: 60px;
-        height: 60px;
-        object-fit: contain;
-      }
-
-      .footer-logo-text {
-        font-family: "Pacifico", cursive;
-        font-size: 2.2rem;
-        color: #e74c3c;
-        margin: 0;
-      }
-
-      .footer-tagline {
-        font-size: 1.1rem;
-        color: #ccc;
-        margin-bottom: 25px;
-        line-height: 1.6;
-      }
-
-      .newsletter-form {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .newsletter-input {
-        flex: 1;
-        padding: 12px 15px;
-        border: 1px solid #444;
-        border-radius: 8px;
-        background: #2a2a2a;
-        color: white;
-        font-size: 0.9rem;
-      }
-
-      .newsletter-input::placeholder {
-        color: #888;
-      }
-
-      .newsletter-btn {
-        padding: 12px 20px;
-        background: #e74c3c;
-        color: white;
+      .chat-support button {
+        background: #ff4b5c;
+        color: #fff;
         border: none;
-        border-radius: 8px;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 14px;
         cursor: pointer;
-        font-weight: 600;
-        transition: background 0.3s ease;
-      }
-
-      .newsletter-btn:hover {
-        background: #c0392b;
-      }
-
-      .footer-column h4 {
-        font-size: 1.3rem;
-        margin-bottom: 25px;
-        color: white;
-        position: relative;
-      }
-
-      .footer-column h4::after {
-        content: "";
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-        width: 40px;
-        height: 3px;
-        background: #e74c3c;
-        border-radius: 2px;
-      }
-
-      .footer-links {
-        list-style: none;
-        padding: 0;
-      }
-
-      .footer-links li {
-        margin-bottom: 15px;
-      }
-
-      .footer-links a {
-        color: #bbb;
-        text-decoration: none;
-        transition: all 0.3s ease;
         display: flex;
         align-items: center;
-        gap: 8px;
       }
-
-      .footer-links a:hover {
-        color: #e74c3c;
-        transform: translateX(5px);
-      }
-
-      .footer-links a i {
-        font-size: 0.8rem;
-        opacity: 0.7;
-      }
-
-      .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        color: #bbb;
-      }
-
-      .contact-item i {
-        color: #e74c3c;
-        margin-top: 2px;
-        font-size: 1.1rem;
-      }
-
-      .social-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .social-card {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        background: #2a2a2a;
-        border-radius: 10px;
-        color: white;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        border: 1px solid #444;
-      }
-
-      .social-card:hover {
-        background: #e74c3c;
-        transform: translateY(-3px);
-        border-color: #e74c3c;
-      }
-
-      .footer-bottom {
-        margin-top: 60px;
-        padding: 25px 0;
-        background: #151515;
-        border-top: 1px solid #333;
-      }
-
-      .footer-bottom-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      .copyright {
-        color: #888;
-        font-size: 0.9rem;
-      }
-
-      .footer-legal {
-        display: flex;
-        gap: 25px;
-      }
-
-      .footer-legal a {
-        color: #888;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        font-size: 0.9rem;
-      }
-
-      .footer-legal a:hover {
-        color: #e74c3c;
-      }
-
-      .payment-methods {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-
-      .payment-text {
-        color: #888;
-        font-size: 0.9rem;
-        margin-right: 10px;
-      }
-
-      .payment-icon {
-        width: 40px;
-        height: 25px;
-        background: #2a2a2a;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #888;
-        font-size: 0.8rem;
-        border: 1px solid #444;
-      }
-
-      /* Responsive */
-      @media (max-width: 1024px) {
-        .footer-container {
-          grid-template-columns: 1fr 1fr;
-          gap: 40px;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .footer-container {
-          grid-template-columns: 1fr;
-          gap: 35px;
-          text-align: center;
-        }
-
-        .footer-column h4::after {
-          left: 50%;
-          transform: translateX(-50%);
-        }
-
-        .footer-logo {
-          justify-content: center;
-        }
-
-        .newsletter-form {
-          flex-direction: column;
-        }
-
-        .footer-links a {
-          justify-content: center;
-        }
-
-        .contact-item {
-          justify-content: center;
-        }
-
-        .social-grid {
-          justify-content: center;
-        }
-
-        .footer-bottom-content {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .payment-methods {
-          justify-content: center;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .main-footer {
-          margin-top: 50px;
-          padding: 40px 0 0;
-        }
-
-        .footer-container {
-          padding: 0 15px;
-          gap: 30px;
-        }
-
-        .footer-logo-text {
-          font-size: 1.8rem;
-        }
-
-        .footer-logo-img {
-          width: 50px;
-          height: 50px;
-        }
-
-        .social-grid {
-          grid-template-columns: repeat(3, 50px);
-        }
+      .chat-support button i {
+        margin-right: 5px;
       }
     </style>
   </head>
   <body>
+    <!-- Topbar -->
+
     <!-- Thanh điều hướng -->
     <nav>
       <ul class="nav-grid">
@@ -715,9 +423,9 @@
             ></a>
             <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-youtube"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-zalo"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
           </div>
         </div>
       </div>
@@ -741,7 +449,9 @@
         </div>
       </div>
     </footer>
-
+    <div class="chat-support">
+      <button id="chatButton"><i class="fas fa-comments"></i> Hỗ trợ</button>
+    </div>
     <script src="../js/search.js" defer></script>
     <script src="../js/mainjs.js" defer></script>
     <script>
