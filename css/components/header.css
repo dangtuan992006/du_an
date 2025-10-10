@@ -37,7 +37,7 @@ nav {
   gap: var(--spacing-xs); /* ↓ */
   text-decoration: none;
   color: var(--primary-dark);
-  font-size: 20px; /* ↓ từ 26px */
+  font-size: 26px; /* ↓ từ 26px */
   font-weight: 700; /* ↓ từ 800 */
   letter-spacing: -0.4px;
   font-family: var(--font-secondary);
@@ -226,7 +226,7 @@ nav {
 }
 
 .dropdown-item:not(:last-child) {
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f042;
 }
 
 /* Responsive */
