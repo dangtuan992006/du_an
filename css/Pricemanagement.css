@@ -10,7 +10,7 @@ body{
   height: 100vh;
   width:auto;
   inset: 0;
-  background-image:linear-gradient(rgba(158, 24, 43, 0.5),rgba(148, 22, 41, 0.5)),url(../images/strawberry.jpg);
+  background-image:linear-gradient(rgba(158, 24, 43, 0.5),rgba(148, 22, 41, 0.5)),url(../images/s4.jpg );
   background-position:center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -31,8 +31,14 @@ body{
     border-radius: 10px;
 }
 
-.table {
-    
+.table{
+    width: 100%;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.element th{
+    font-size: 20px;
 }
 
 
