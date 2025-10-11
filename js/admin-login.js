@@ -32,7 +32,13 @@ fetch("../data/users.json")
         // Chỉ set role + admin riêng
         localStorage.setItem("currentUserRole", "admin");
         localStorage.setItem("adminUser", users[email].name);
-        localStorage.setItem("adminEmail", email);
+        localStorage.setItem("adminEmail", users[email].email);
+        localStorage.setItem("adminPhone", users[email].phone);
+        localStorage.setItem("adminPassword", users[email].password);
+        localStorage.setItem("adminjoi_date", users[email].join_date);
+
+
+
 
         alert("Đăng nhập Admin thành công!");
 

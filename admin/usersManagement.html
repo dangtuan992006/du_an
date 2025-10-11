@@ -4,37 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Management</title>
-    <link rel="stylesheet" href="../css/product_management.css">
+    <link rel="stylesheet" href="../css/users_management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <button onclick="location.href='../admin/index.html'">
                 <i class="fa-solid fa-arrow-left"></i>
             </button>
-            <h1>Quản Lý Sản Phẩm</h1>
+            <h1>Quản Lý người dùng</h1>
             <button onclick="location.href='../pages/index.html'">
                 <i class="fa-solid fa-house"></i>
             </button>
         </div>
         
         <div class="content">
-            <!-- nút thêm sản phẩm -->
+
             <div class="actions">
-                <button id="add-product-btn">
-                    <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+                <button id="add-user-btn">
+                    <i class="fa-solid fa-user-plus"></i> Thêm người dùng
                 </button>
             </div>
 
-            <!-- danh sách sản phẩm -->
-            <div class="product-list" id="product-list">
-                <!-- JS sẽ render danh sách sản phẩm-->
-            </div>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Tên người dùng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày tham gia</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                    <!-- JS sẽ render dữ liệu user vào đây -->
+                </tbody>
+            </table>
+
         </div>
     </div>
 
-    <script src="../js/products.js"></script>
+    <script src="../js/users.js"></script>
 </body>
 </html>

@@ -1,15 +1,24 @@
+// receivingReport.js
+document.addEventListener('DOMContentLoaded', () => {
+    const addBtn = document.getElementById('addBtn');
+    const modal = document.getElementById('modal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const saveBtn = document.getElementById('saveBtn');
 
-/*ô nhập phiếu*/
-<script>
-const addBtn = document.getElementById("addBtn");
-const formContainer = document.getElementById("formContainer");
-const cancelBtn = document.getElementById("cancelBtn");
+    addBtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
 
-addBtn.addEventListener("click", () => {
-    formContainer.style.display = "flex"; // hiện form
+    cancelBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Ẩn form khi click bên ngoài
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    
 });
-
-cancelBtn.addEventListener("click", () => {
-    formContainer.style.display = "none"; // ẩn form
-});
-</script>

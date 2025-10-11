@@ -1,0 +1,41 @@
+.heading{
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;  
+    
+}
+/*baclk gtound*/
+body{
+  height: 100vh;
+  width:auto;
+  inset: 0;
+  background-image:linear-gradient(rgba(158, 24, 43, 0.5),rgba(148, 22, 41, 0.5)),url(../images/strawberry.jpg);
+  background-position:center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.manager input{
+    text-align:center;
+    font-size: 10px;
+    width:700px;
+    height:40px;
+    border-radius:10px;
+    font-size: 20px;
+}
+
+.manager select{
+    height: 40px;
+    border-radius: 10px;
+}
+
+.table {
+    
+}
+
+
+
+
+
