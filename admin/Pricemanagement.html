@@ -57,30 +57,43 @@
     </div>
 
     <div>
-        <button>thêm sản phẩm</button>
-        <table class="tableadd">
-            <thead class ="ele2">
-                <tr>
-                    <th>tên sản phẩm mới </th>
-                    <th>loại</th>
-                    <th>giá vốn</th>
-                    <th>lợi nhuận</th>
-                    <th>Giá bán</th>
-                    <th></th>   
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th><input type="text"></th>
-                    <th><label for="category"></label>
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </tbody>
+       <div>
+        <!-- Nút thêm sản phẩm -->
+        <button id="btnAdd">thêm sản phẩm</button>
+
+     <!-- Bảng thêm sản phẩm (ban đầu ẩn đi) -->
+     <table id="tableAdd" class="tableadd" style="display: none;">
+        <thead class ="ele2">
+            <tr>
+                <th>tên sản phẩm mới </th>
+                <th>loại</th>
+                <th>giá vốn</th>
+                <th>lợi nhuận(%)</th>
+                <th>Giá bán</th>
+                <th></th>   
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th><input type="text"></th>
+                <th>
+                    <label for="loai"></label>
+                    <select id="loai" name ="loai">
+                        <option value="">-- Tất cả loại --</option>
+                    </select>
+                </th>
+                <th><input type="text"></th>
+                <th><input type="text"></th>
+                <th><input type="text"></th>
+                <th>
+                    <button >thêm</button>
+                    <button id="btnCancel">hủy</button>
+                </th>
+            </tr>
+        </tbody>
         </table>
     </div>
+
+    <script src="../js/Pricemanagement.js"></script>
 </body>
 </html>
