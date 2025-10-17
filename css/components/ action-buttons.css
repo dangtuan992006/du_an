@@ -1,1 +1,63 @@
 /*Cac nut bam*/
+/* ========================================
+  ACTION BUTTONS COMPONENT
+  ======================================== */
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 320px;
+  margin: var(--spacing-lg) auto 0;
+}
+
+.buy-now-btn {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color, #e74c3c),
+    var(--accent-dark, #c0392b)
+  );
+  color: #8b4513;
+  border: none;
+  padding: var(--spacing-md);
+  border-radius: 50px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer !important;
+  transition: all var(--transition-normal, 0.3s ease);
+  box-shadow: 0 6px 16px rgba(255, 75, 43, 0.4);
+  font-family: var(--font-primary, "Arial", sans-serif);
+}
+
+.buy-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, var(--accent-dark, #c0392b), #ff8c00);
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(
+    135deg,
+    var(--accent-color, #e74c3c),
+    var(--accent-dark, #c0392b)
+  );
+  color: #8b4513;
+  border: none;
+  padding: var(--spacing-md);
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer !important;
+  transition: all var(--transition-normal, 0.3s ease);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.add-to-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, var(--accent-dark, #c0392b), #ff8c00);
+}

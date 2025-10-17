@@ -4,51 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi Tiết Sản Phẩm - Pomegranate</title>
-    <link rel="stylesheet" href="../css/base.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- file -->
+    <link rel="stylesheet" href="../css/main.css" />
     <style>
-      :root {
-        /* Biến màu sắc */
-        --primary-color: #e91e63;
-        --primary-light: #f8bbd9;
-        --primary-dark: #ad1457;
-        --accent-color: #ffeb3b;
-        --color-black: #333333;
-        --color-white: #ffffff;
-
-        /* Biến font */
-        --font-body: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        --font-heading: "Georgia", serif;
-        --font-special: "Brush Script MT", cursive;
-
-        /* Biến kích thước font */
-        --font-body-size-regular: 16px;
-        --font-body-size-regular-mobile: 14px;
-        --font-heading-h1-size: 48px;
-        --font-heading-h1-size-mobile: 36px;
-        --font-heading-h1-line-height: 1.2;
-        --font-heading-h1-line-height-mobile: 1.1;
-        --font-heading-h1-spacing: 0px;
-        --font-heading-h1-weight: 700;
-        --h1-font-case: none;
-
-        /* Biến spacing */
-        --top-spacing-desktop: 40px;
-        --top-spacing-mobile: 20px;
-
-        /* Biến transition */
-        --transition-normal: 0.3s ease;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       body {
         font-family: var(--font-body);
         font-size: var(--font-body-size-regular);
@@ -60,66 +29,9 @@
       }
 
       .container {
-        max-width: 1400px;
+        max-width: 1500px;
         margin: 0 auto;
         padding: 0 var(--top-spacing-desktop);
-      }
-
-      /* Header */
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30px 0;
-        margin-bottom: 40px;
-        position: relative;
-      }
-
-      .header::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--primary-color),
-          transparent
-        );
-      }
-
-      .logo {
-        font-family: var(--font-special);
-        font-size: 2.2rem;
-        color: var(--primary-color);
-        text-decoration: none;
-        transition: all var(--transition-normal);
-      }
-
-      .logo:hover {
-        transform: scale(1.05);
-      }
-
-      .back-btn {
-        background: transparent;
-        color: var(--primary-color);
-        border: 2px solid var(--primary-color);
-        padding: 12px 28px;
-        border-radius: 0;
-        cursor: pointer;
-        font-weight: 500;
-        transition: all var(--transition-normal);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-      }
-
-      .back-btn:hover {
-        background: var(--primary-color);
-        color: white;
       }
 
       /* Product Detail Layout */
@@ -169,14 +81,7 @@
         background: rgba(255, 255, 255, 0.8);
         border: 2px solid var(--primary-color);
         padding: 60px;
-        clip-path: polygon(
-          0 0,
-          calc(100% - 60px) 0,
-          100% 60px,
-          100% 100%,
-          60px 100%,
-          0 calc(100% - 60px)
-        );
+
         height: 700px;
         display: flex;
         align-items: center;
@@ -189,10 +94,6 @@
         object-fit: contain;
         filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
         transition: transform 0.5s ease;
-      }
-
-      .main-image img:hover {
-        transform: scale(1.05);
       }
 
       /* Product Info */
@@ -288,7 +189,7 @@
 
       /* Quantity Selector */
       .quantity-selector {
-        display: flex;
+        display: none;
         align-items: center;
         gap: 15px;
         margin: 30px 0;
@@ -316,11 +217,6 @@
         transition: all var(--transition-normal);
       }
 
-      .quantity-btn:hover {
-        background: var(--primary-color);
-        color: white;
-      }
-
       .quantity-input {
         width: 60px;
         height: 40px;
@@ -345,6 +241,7 @@
         display: flex;
         gap: 15px;
         margin: 30px 0;
+        /*background-color: yellow;*/
       }
 
       .action-btn {
@@ -364,27 +261,25 @@
       }
 
       .btn-primary {
-        background: var(--primary-color);
+        background: #ffd700;
         border-color: var(--primary-color);
-        color: white;
+        color: black;
       }
 
       .btn-primary:hover {
-        background: var(--primary-dark);
-        border-color: var(--primary-dark);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
       }
 
       .btn-secondary {
         background: transparent;
         border-color: var(--primary-color);
-        color: var(--primary-color);
+        color: black;
       }
 
       .btn-secondary:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: translateY(-2px);
+        background: #ffd700;
+        color: black;
+        transform: translateY(-1px);
       }
 
       /* Product Meta */
@@ -410,7 +305,7 @@
 
       /* Related Products */
       .related-products {
-        margin: 80px 0;
+        margin: 1px 0;
       }
 
       .section-title {
@@ -470,10 +365,6 @@
         height: 100%;
         object-fit: cover;
         transition: transform var(--transition-normal);
-      }
-
-      .product-card:hover .product-card-image img {
-        transform: scale(1.05);
       }
 
       .product-card-info {
@@ -689,14 +580,6 @@
       </ul>
     </nav>
     <div class="container">
-      <!-- Header -->
-      <header class="header">
-        <a href="../index.html" class="logo">Pomegranate</a>
-        <button class="back-btn" onclick="window.history.back()">
-          <i class="fas fa-arrow-left"></i> Quay lại
-        </button>
-      </header>
-
       <!-- Product Detail Content -->
       <div id="productDetail">
         <div class="loading">
