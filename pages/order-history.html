@@ -355,178 +355,6 @@
         }
       }
     </style>
-    <style>
-      /* Topbar Styles */
-      .topbar {
-        background: #ffd3d3;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-
-      .topbar-container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      /* Commitment Bar - TẤT CẢ CÙNG 1 HÀNG */
-      .commitment-bar {
-        background: #ffd3d3;
-        padding: 12px 0;
-      }
-
-      .commitment-link {
-        text-decoration: none;
-        display: block;
-      }
-
-      .commitment-items {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .commitment-items::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Cam kết title */
-      .commitment-title {
-        color: #a52a2a;
-        font-size: 14px;
-        font-weight: 600;
-        white-space: nowrap;
-        padding: 0 8px;
-        flex-shrink: 0;
-      }
-
-      .commitment-item {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 0 8px;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-
-      .commitment-item span {
-        color: #27272a;
-        font-size: 12px;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .commitment-item img {
-        flex-shrink: 0;
-      }
-
-      .divider {
-        width: 1px;
-        height: 20px;
-        background: #ebebf0;
-        flex-shrink: 0;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 1200px) {
-        .commitment-items {
-          justify-content: flex-start;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .topbar-container {
-          padding: 0 1rem;
-        }
-
-        .commitment-bar {
-          padding: 8px 0;
-        }
-
-        .commitment-title {
-          font-size: 13px;
-          padding: 0 6px;
-        }
-
-        .commitment-item span {
-          font-size: 11px;
-        }
-
-        .commitment-item {
-          padding: 0 6px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .commitment-title {
-          font-size: 12px;
-          padding: 0 4px;
-        }
-
-        .commitment-item span {
-          font-size: 10px;
-        }
-
-        .commitment-item img {
-          width: 16px;
-          height: 16px;
-        }
-
-        .divider {
-          height: 16px;
-        }
-      }
-
-      /* Animation */
-      .commitment-link:hover {
-        opacity: 0.9;
-      }
-
-      .commitment-item:hover {
-        transform: translateY(-1px);
-        transition: transform 0.2s ease;
-      }
-      /* Đổi màu icon bằng filter */
-      .commitment-item img {
-        flex-shrink: 0;
-        filter: hue-rotate(45deg) saturate(2) brightness(0.8); /* Màu cam */
-      }
-
-      /* Hoặc từng icon riêng biệt */
-      .commitment-item:nth-child(3) img {
-        /* 100% hàng thật */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-
-      .commitment-item:nth-child(5) img {
-        /* Freeship */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-
-      .commitment-item:nth-child(7) img {
-        /* Hoàn 200% */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-
-      .commitment-item:nth-child(9) img {
-        /* 30 ngày đổi trả */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-
-      .commitment-item:nth-child(11) img {
-        /* Giao nhanh 2h */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-
-      .commitment-item:nth-child(13) img {
-        /* Giá siêu rẻ */
-        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
-      }
-    </style>
   </head>
   <body>
     <!-- Thanh điều hướng -->
@@ -548,10 +376,8 @@
           <div class="search-category">
             <select class="category-select">
               <option>ALL</option>
-              <option>Bán chạy nhất</option>
               <option>Quà tặng trái cây</option>
               <option>Trái cây Việt Nam</option>
-              <option>Đặc biệt</option>
             </select>
           </div>
           <input
@@ -600,78 +426,7 @@
         </li>
       </ul>
     </nav>
-    <div class="topbar">
-      <div class="topbar-container">
-        <!-- Thanh cam kết -->
-        <div class="commitment-bar">
-          <a href="#products" class="commitment-link">
-            <div class="commitment-items">
-              <div class="commitment-title">Cam kết</div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
-                  alt="100% hàng chất lượng"
-                  width="20"
-                  height="20"
-                />
-                <span>100% hàng chất lượng</span>
-              </div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
-                  alt="Freeship mọi đơn"
-                  width="20"
-                  height="20"
-                />
-                <span>Freeship mọi đơn</span>
-              </div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
-                  alt="Hoàn 200% nếu hàng giả"
-                  width="20"
-                  height="20"
-                />
-                <span>Hoàn 200% nếu hàng hư</span>
-              </div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
-                  alt="30 ngày đổi trả"
-                  width="20"
-                  height="20"
-                />
-                <span>30 ngày đổi trả</span>
-              </div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
-                  alt="Giao nhanh 2h"
-                  width="20"
-                  height="20"
-                />
-                <span>Giao nhanh 2h</span>
-              </div>
-              <div class="divider"></div>
-              <div class="commitment-item">
-                <img
-                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
-                  alt="Giá siêu rẻ"
-                  width="20"
-                  height="20"
-                />
-                <span>Giá siêu rẻ</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
+
     <!-- Main Content -->
     <main>
       <div class="order-container">
@@ -704,6 +459,5 @@
       </div>
     </div>
     <script src="../js/order-history.js" defer></script>
-    <script src="../js/main.js"></script>
   </body>
 </html>

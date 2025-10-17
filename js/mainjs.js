@@ -675,7 +675,7 @@ App.Products = {
   createProductCardHTML(product) {
     return `
       <div class="product-card" data-product-id="${product.id}">
-        <a href="pages/product-detail.html?id=${
+        <a href="../pages/product-detail.html?id=${
           product.id
         }" class="product-link">
           <div class="product-image">${this.getProductImageHTML(product)}</div>
