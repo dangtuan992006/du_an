@@ -160,21 +160,69 @@ App.Auth = {
     e.preventDefault();
     const email = document.getElementById("adminEmail").value.trim();
     const password = document.getElementById("adminPassword").value;
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
 
-    if (
-      users[email] &&
-      users[email].password === password &&
-      email === "admin@gmail.com"
-    ) {
-      localStorage.setItem("currentUserRole", "admin");
-      localStorage.setItem("adminUser", users[email].name);
-      localStorage.setItem("adminEmail", email);
-      alert("Đăng nhập Admin thành công!");
-      window.open("../admin/index.html", "_blank");
-    } else {
-      alert("Sai tài khoản hoặc mật khẩu admin");
-    }
+    // Tải dữ liệu admin từ file admin.json
+    fetch("../data/admin.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể tải file admin.json");
+        }
+        return response.json();
+      })
+      .then((adminData) => {
+        console.log("Admin data loaded:", adminData); // Debug log
+
+        // Kiểm tra xem adminData là array hay object
+        let admin;
+        if (Array.isArray(adminData)) {
+          // Nếu là mảng
+          admin = adminData.find(
+            (admin) => admin.email === email && admin.password === password
+          );
+        } else {
+          // Nếu là object, chuyển thành array
+          const adminArray = Object.values(adminData);
+          admin = adminArray.find(
+            (admin) => admin.email === email && admin.password === password
+          );
+        }
+
+        if (admin) {
+          // Đăng nhập thành công
+          localStorage.setItem("currentUserRole", "admin");
+          localStorage.setItem("adminUser", admin.name);
+          localStorage.setItem("adminEmail", admin.email);
+
+          // Lưu thông tin permissions nếu có
+          if (admin.permissions) {
+            localStorage.setItem(
+              "adminPermissions",
+              JSON.stringify(admin.permissions)
+            );
+          }
+
+          App.utils.showNotification(
+            `Đăng nhập Admin thành công! Chào mừng ${admin.name}`
+          );
+
+          // Chuyển hướng sau 1 giây
+          setTimeout(() => {
+            window.open("../admin/index.html", "_blank");
+          }, 1000);
+        } else {
+          App.utils.showNotification(
+            "Sai tài khoản hoặc mật khẩu admin!",
+            "error"
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi tải admin.json:", error);
+        App.utils.showNotification(
+          "Lỗi hệ thống. Vui lòng thử lại sau!",
+          "error"
+        );
+      });
   },
 
   setupCustomerAuth(form) {
@@ -1179,7 +1227,7 @@ App.OrderHistory = {
   init() {
     if (!window.location.pathname.includes("order-history.html")) return;
     if (!localStorage.getItem("currentUser")) {
-      window.location.href = "login.html";
+      window.location.href = "../pages/login.html";
       return;
     }
 
