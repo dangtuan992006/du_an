@@ -1,0 +1,23 @@
+{
+    "admin1@gmail.com": {
+    "name": "Tuan",
+    "email": "admin1@gmail.com",
+    "password": "123456",
+    "phone": "0123456",
+    "join_date": "2025-10-01"
+    },
+    "admin2@gmail.com": {
+    "name": "tai",
+    "email": "admin2@gmail.com",
+    "password": "123456",
+    "phone": "0123456",
+    "join_date": "2025-10-01"
+    },
+    "admin3@gmail.com": {
+    "name": "Tuan",
+    "email": "admin3@gmail.com",
+    "password": "123456",
+    "phone": "0123456",
+    "join_date": "2025-10-01"
+    }
+}

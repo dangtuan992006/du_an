@@ -20,11 +20,16 @@
         </div>
         
         <div class="content">
-
             <div class="actions">
                 <button id="add-user-btn">
                     <i class="fa-solid fa-user-plus"></i> Thêm người dùng
                 </button>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Nhập tên hoặc email...">
+                    <button id="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    </button>
+                </div>
             </div>
 
             <table class="user-table">
@@ -33,10 +38,11 @@
                         <th>Tên người dùng</th>
                         <th>Email</th>
                         <th>Số điện thoại</th>
+                        <th>mật khẩu</th>
                         <th>Ngày tham gia</th>
                     </tr>
                 </thead>
-                <tbody id="user-list">
+                <tbody id="user-list" class = "user-list">
                     <!-- JS sẽ render dữ liệu user vào đây -->
                 </tbody>
             </table>

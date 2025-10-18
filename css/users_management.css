@@ -70,7 +70,11 @@ body {
     font-size: 16px;
 
 }
-
+.user-list{
+    align-items: center;
+    text-align: center;
+    height: 50px;
+}
 .user-table th,td{
     background-color: #fff;
     border: #9e182b solid;
@@ -82,4 +86,63 @@ body {
     text-align: center;
     align-items: center;
     cursor: pointer;
+    background-color: #fff;
+}
+
+.edit-btn{
+    color: #9e182b;
+    border: none;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between; /* chia đều hai bên */
+    align-items: center; /* căn giữa theo chiều dọc */
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+.actions button {
+    cursor: pointer;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-box input {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 220px;
+}
+
+.search-box button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #45a049;
+}
+#add-user-btn{
+    background-color: #9e182b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+#add-user-btn:hover {
+    background-color: #7e1424;
 }
