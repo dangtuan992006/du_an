@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý giá bán</title>
+    <link rel="stylesheet" href="../css/Pricemanagement.css">
+</head>
+<body>  
+    <div class="heading">
+        <h1 class="tieude">Quản lý giá bán cửa hàng</h1>
+        <div class="manager">   
+            <input type="text" placeholder="Tìm theo tên sản phẩm hoặc mã sản phẩm">
+            <label for="category"></label>
+            <select id="category" name="category">
+                <option value="">-- Tất cả loại --</option>
+            </select> 
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead class="element">
+                    <tr >
+                        <th>sản phẩm</th>
+                        <th>loại</th>
+                        <th>giá vốn</th>
+                        <th>lợi nhuận</th>
+                        <th>Giá bán</th>
+                        <th></th>
+                    </tr>
+            </thead>
+            <tbody class="data">
+                <tr>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>   
+                </tr>
+                <tr><th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th>t1</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+       <div>
+        <!-- Nút thêm sản phẩm -->
+        <button id="btnAdd">thêm sản phẩm</button>
+
+     <!-- Bảng thêm sản phẩm (ban đầu ẩn đi) -->
+     <table id="tableAdd" class="tableadd" style="display: none;">
+        <thead class ="ele2">
+            <tr>
+                <th>tên sản phẩm mới </th>
+                <th>loại</th>
+                <th>giá vốn</th>
+                <th>lợi nhuận(%)</th>
+                <th>Giá bán</th>
+                <th></th>   
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th><input type="text"></th>
+                <th>
+                    <label for="loai"></label>
+                    <select id="loai" name ="loai">
+                        <option value="">-- Tất cả loại --</option>
+                    </select>
+                </th>
+                <th><input type="text"></th>
+                <th><input type="text"></th>
+                <th><input type="text"></th>
+                <th>
+                    <button >thêm</button>
+                    <button id="btnCancel">hủy</button>
+                </th>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <script src="../js/Pricemanagement.js"></script>
+</body>
+</html>

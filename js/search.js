@@ -64,6 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+      // Thêm sự kiện nhấp chuột để chuyển đến trang chi tiết
+      productCard.addEventListener("click", () => {
+        window.location.href = `../pages/product-detail.html?id=${product.id}`;
+      });
       productsContainer.appendChild(productCard);
     });
 

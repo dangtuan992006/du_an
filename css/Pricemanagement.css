@@ -1,0 +1,97 @@
+.heading {
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;  
+}
+
+/* Nền trang */
+body {
+    height: 100vh;
+    width: auto;
+    inset: 0;
+    background-image: linear-gradient(rgba(158, 24, 43, 0.5), rgba(148, 22, 41, 0.5)), url(../images/s4.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Ô tìm kiếm và danh mục */
+.manager input {
+    text-align: center;
+    width: 700px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.manager select {
+    height: 40px;
+    border-radius: 10px;
+}
+
+/* Bảng sản phẩm */
+.table {
+    width: 100%;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 20px;
+    border-collapse: collapse;   /* Giúp viền liền mạch */
+    font-size: 18px;
+}
+
+/* Tiêu đề bảng */
+.element {
+    background-color: #f8d7da;    /* Màu nền nhẹ giúp nổi bật */
+    border-bottom: 3px solid black; /* Đường gạch giữa tiêu đề và dữ liệu */
+}
+
+.element th {
+    font-size: 20px;
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+/* Hàng dữ liệu */
+.data th {
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc; /* Đường kẻ mảnh giữa các dòng dữ liệu */
+}
+
+/* Nút sửa / xóa */
+.sua, .xoa {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sua {
+    background-color: #f1c40f;
+}
+
+.xoa {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.sua:hover {
+    background-color: #f39c12;
+}
+
+.xoa:hover {
+    background-color: #c0392b;
+}
+
+/* Bảng thêm sản phẩm mới */
+.tableadd {
+    display: none;
+}
+
+
+
+
