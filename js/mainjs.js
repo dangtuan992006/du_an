@@ -430,8 +430,13 @@ App.Cart = {
       return;
     }
     if (!localStorage.getItem("currentUser") && buyNow) {
-      alert("Vui lòng đăng nhập để mua hàng!");
-      window.location.href = "../pages/login.html";
+      App.utils.showNotification("Vui lòng đăng nhập để mua hàng");
+
+      // Chờ 1.5 giây rồi mới chuyển trang
+      setTimeout(() => {
+        window.location.href = "../pages/login.html";
+      }, 1500);
+
       return;
     }
 
@@ -578,12 +583,17 @@ App.Cart = {
   checkout() {
     const cart = this.get();
     if (cart.length === 0) {
-      alert("Giỏ hàng của bạn đang trống!");
+      App.utils.showNotification("Giỏ hàng của bạn đang trống");
       return;
     }
     if (!localStorage.getItem("currentUser")) {
-      alert("Vui lòng đăng nhập để thanh toán!");
-      window.location.href = "../pages/login.html";
+      App.utils.showNotification("Vui lòng đăng nhập để mua hàng");
+
+      // Chờ 1.5 giây rồi mới chuyển trang
+      setTimeout(() => {
+        window.location.href = "../pages/login.html";
+      }, 1500);
+
       return;
     }
     localStorage.removeItem("singleProductForPayment");
@@ -966,7 +976,6 @@ App.Checkout = {
               </div>
             </div>
           </div>
-          <div class="checkout-section"><h3>Thông tin khách hàng</h3><input type="text" id="fullName" placeholder="Họ và tên" required><input type="tel" id="phone" placeholder="Số điện thoại" required></div>
           <div class="checkout-section"><h3>Phương thức thanh toán</h3><div class="payment-methods"><div class="payment-option"><input type="radio" name="paymentMethod" value="banking" id="banking"><label for="banking">Chuyển khoản</label></div><div class="payment-option"><input type="radio" name="paymentMethod" value="cash" id="cash"><label for="cash">Tiền mặt</label></div></div></div>
           <div class="checkout-section"><h3>Địa chỉ nhận hàng</h3><div class="address-options"><div class="address-option"><input type="radio" name="addressMethod" value="saved" id="savedAddress"><label for="savedAddress">Địa chỉ mặc định</label></div><div class="address-option"><input type="radio" name="addressMethod" value="new" id="newAddress"><label for="newAddress">Địa chỉ mới</label></div></div><textarea id="customerAddress" placeholder="Nhập địa chỉ mới..." style="display:none;"></textarea></div>
           <div class="checkout-summary">
@@ -1223,68 +1232,68 @@ App.Checkout = {
 // ========================================
 // MODULE LỊCH SỬ ĐƠN HÀNG (ORDER HISTORY)
 // ========================================
-App.OrderHistory = {
-  init() {
-    if (!window.location.pathname.includes("order-history.html")) return;
-    if (!localStorage.getItem("currentUser")) {
-      window.location.href = "../pages/login.html";
-      return;
-    }
+// App.OrderHistory = {
+//   init() {
+//     if (!window.location.pathname.includes("order-history.html")) return;
+//     if (!localStorage.getItem("currentUser")) {
+//       window.location.href = "../pages/login.html";
+//       return;
+//     }
 
-    const userEmail = localStorage.getItem("currentUserEmail");
-    const orders = this.getUserOrders(userEmail);
-    this.displayOrders(orders);
-    document
-      .getElementById("closeOrderDrawer")
-      ?.addEventListener("click", this.closeOrderDrawer);
-    document
-      .getElementById("orderDetailOverlay")
-      ?.addEventListener("click", this.closeOrderDrawer);
-  },
+//     const userEmail = localStorage.getItem("currentUserEmail");
+//     const orders = this.getUserOrders(userEmail);
+//     this.displayOrders(orders);
+//     document
+//       .getElementById("closeOrderDrawer")
+//       ?.addEventListener("click", this.closeOrderDrawer);
+//     document
+//       .getElementById("orderDetailOverlay")
+//       ?.addEventListener("click", this.closeOrderDrawer);
+//   },
 
-  getUserOrders(userEmail) {
-    const localOrders = localStorage.getItem(`orders_${userEmail}`);
-    if (localOrders) return JSON.parse(localOrders);
-    // Dữ liệu mẫu nếu chưa có
-    const sampleOrders = [
-      /* ... (dữ liệu mẫu từ code gốc) ... */
-    ];
-    localStorage.setItem(`orders_${userEmail}`, JSON.stringify(sampleOrders));
-    return sampleOrders;
-  },
+//   getUserOrders(userEmail) {
+//     const localOrders = localStorage.getItem(`orders_${userEmail}`);
+//     if (localOrders) return JSON.parse(localOrders);
+//     // Dữ liệu mẫu nếu chưa có
+//     const sampleOrders = [
+//       /* ... (dữ liệu mẫu từ code gốc) ... */
+//     ];
+//     localStorage.setItem(`orders_${userEmail}`, JSON.stringify(sampleOrders));
+//     return sampleOrders;
+//   },
 
-  displayOrders(orders) {
-    const orderList = document.getElementById("orderList");
-    const emptyOrders = document.getElementById("emptyOrders");
-    if (!orderList) return;
+//   displayOrders(orders) {
+//     const orderList = document.getElementById("orderList");
+//     const emptyOrders = document.getElementById("emptyOrders");
+//     if (!orderList) return;
 
-    if (orders.length === 0) {
-      orderList.style.display = "none";
-      emptyOrders.style.display = "block";
-      return;
-    }
-    orderList.style.display = "grid";
-    emptyOrders.style.display = "none";
-    orderList.innerHTML = orders
-      .map((order) => this.createOrderCard(order))
-      .join("");
-  },
+//     if (orders.length === 0) {
+//       orderList.style.display = "none";
+//       emptyOrders.style.display = "block";
+//       return;
+//     }
+//     orderList.style.display = "grid";
+//     emptyOrders.style.display = "none";
+//     orderList.innerHTML = orders
+//       .map((order) => this.createOrderCard(order))
+//       .join("");
+//   },
 
-  createOrderCard(order) {
-    // ... (logic tạo order card từ code gốc) ...
-    // Đảm bảo các hàm onclick gọi đến App.OrderHistory.viewOrderDetail(order.id)
-    return `<div class="order-card">...</div>`;
-  },
+//   createOrderCard(order) {
+//     // ... (logic tạo order card từ code gốc) ...
+//     // Đảm bảo các hàm onclick gọi đến App.OrderHistory.viewOrderDetail(order.id)
+//     return `<div class="order-card">...</div>`;
+//   },
 
-  viewOrderDetail(orderId) {
-    // ... (logic hiển thị chi tiết đơn hàng trong drawer) ...
-  },
+//   viewOrderDetail(orderId) {
+//     // ... (logic hiển thị chi tiết đơn hàng trong drawer) ...
+//   },
 
-  closeOrderDrawer() {
-    document.getElementById("orderDetailOverlay").style.display = "none";
-    document.getElementById("orderDetailDrawer").classList.remove("active");
-  },
-};
+//   closeOrderDrawer() {
+//     document.getElementById("orderDetailOverlay").style.display = "none";
+//     document.getElementById("orderDetailDrawer").classList.remove("active");
+//   },
+// };
 
 // ========================================
 // MODULE BANNER CAROUSEL

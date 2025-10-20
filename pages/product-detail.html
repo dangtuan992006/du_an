@@ -16,9 +16,32 @@
       rel="stylesheet"
     />
     <!-- file -->
+
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
-
+    <style>
+      /* --- Chat Support --- */
+      .chat-support {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+      }
+      .chat-support button {
+        background: #ff4b5c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .chat-support button i {
+        margin-right: 5px;
+      }
+    </style>
     <style>
       body {
         font-family: var(--font-body);
@@ -737,6 +760,9 @@
         </div>
       </div>
     </footer>
+    <div class="chat-support">
+      <button id="chatButton"><i class="fas fa-comments"></i> Hỗ trợ</button>
+    </div>
     <script src="../js/mainjs.js" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
