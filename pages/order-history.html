@@ -17,6 +17,7 @@
     />
     <!-- file -->
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/components/cart.css " />
     <style>
       .order-container {
         max-width: 1200px;
@@ -456,6 +457,20 @@
       </div>
       <div class="order-detail-content" id="orderDetailContent">
         <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+      </div>
+    </div>
+    <!-- giỏ hàng trên thanh header -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <button id="closeCartDrawer" class="close-drawer">×</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-drawer-content">
+        <!-- Nội dung giỏ hàng sẽ được render ở đây -->
+      </div>
+      <div id="cartDrawerFooter" class="cart-drawer-footer">
+        <!-- Footer giỏ hàng sẽ được render ở đây -->
       </div>
     </div>
     <script src="../js/mainjs.js " defer></script>

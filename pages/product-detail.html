@@ -16,9 +16,14 @@
       rel="stylesheet"
     />
     <!-- file -->
-
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/components/cart.css " />
     <link rel="stylesheet" href="../css/components/footer.css" />
+    <style>
+      .header {
+        border: none;
+      }
+    </style>
     <style>
       /* --- Chat Support --- */
       .chat-support {
@@ -228,7 +233,7 @@
       .quantity-controls {
         display: flex;
         align-items: center;
-        border: 1px solid var(--primary-color);
+        border: none;
       }
 
       .quantity-btn {
@@ -760,6 +765,19 @@
         </div>
       </div>
     </footer>
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <button id="closeCartDrawer" class="close-drawer">×</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-drawer-content">
+        <!-- Nội dung giỏ hàng sẽ được render ở đây -->
+      </div>
+      <div id="cartDrawerFooter" class="cart-drawer-footer">
+        <!-- Footer giỏ hàng sẽ được render ở đây -->
+      </div>
+    </div>
     <div class="chat-support">
       <button id="chatButton"><i class="fas fa-comments"></i> Hỗ trợ</button>
     </div>
