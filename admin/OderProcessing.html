@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="../css/OderProcessing.css">
+</head>
+<body>
+    <div class="heading">
+        <h1 class="tieude">Quản lý đơn hàng</h1>
+        <div class="manager">
+            <input type="text" placeholder="Tìm theo mã đơn hoặc tên khách hàng">
+            <label for="status"></label>
+            <select id="status" name="status">
+                <option value="">-- Tất cả trạng thái --</option>
+                <option value="pending">Chờ xử lý</option>
+                <option value="shipping">Đang giao</option>
+                <option value="done">Hoàn tất</option>
+                <option value="cancel">Đã hủy</option>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead class="element">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody class="data">
+                <tr>
+                    <th>DH001</th>
+                    <th>Nguyễn Văn A</th>
+                    <th>20/10/2025</th>
+                    <th>850,000</th>
+                    <th><span class="status pending">Chờ xử lý</span></th>
+                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>DH002</th>
+                    <th>Trần Thị B</th>
+                    <th>19/10/2025</th>
+                    <th>1,200,000</th>
+                    <th><span class="status shipping">Đang giao</span></th>
+                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>DH003</th>
+                    <th>Lê Văn C</th>
+                    <th>15/10/2025</th>
+                    <th>650,000</th>
+                    <th><span class="status done">Hoàn tất</span></th>
+                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>DH004</th>
+                    <th>Phạm Thị D</th>
+                    <th>13/10/2025</th>
+                    <th>420,000</th>
+                    <th><span class="status cancel">Đã hủy</span></th>
+                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>DH005</th>
+                    <th>Võ Minh E</th>
+                    <th>10/10/2025</th>
+                    <th>1,050,000</th>
+                    <th><span class="status pending">Chờ xử lý</span></th>
+                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal xem chi tiết -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Chi tiết đơn hàng</h2>
+            <p><strong>Mã đơn:</strong> <span id="orderId"></span></p>
+            <p><strong>Tên khách hàng:</strong> <span id="customerName"></span></p>
+            <p><strong>Ngày đặt:</strong> <span id="orderDate"></span></p>
+            <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
+            <p><strong>Trạng thái:</strong> <span id="orderStatus"></span></p>
+        </div>
+    </div>
+
+    <!-- Phân trang -->
+    <div class="pagination">
+        <button class="prev">⟨</button>
+        <ul class="pages">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>...</li>
+            <li>10</li>
+        </ul>
+        <button class="next">⟩</button>
+    </div>
+
+    <script src="../js/orderProcessing.js"></script>
+</body>
+</html>
