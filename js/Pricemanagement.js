@@ -1,5 +1,6 @@
 // Pricemanagement.js
 const btnAdd = document.getElementById("btnAdd");
+const add = document.getElementById("add");
 const btnCancel = document.getElementById("btnCancel");
 const tableAdd = document.getElementById("tableAdd");
 const tbody = document.querySelector(".data");
@@ -30,12 +31,15 @@ addButtonInTable.addEventListener("click", (e) => {
     return;
   }
 
-  const tr = document.createElement("tr");
-  for (let i = 0; i < 5; i++) {
-    const th = document.createElement("th");
-    th.textContent = values[i] || "";
-    tr.appendChild(th);
-  }
+  // Reset form
+  inputs.forEach(i => {
+    if (i.tagName.toLowerCase() === "select") i.selectedIndex = 0;
+    else i.value = "";
+  });
+
+tableAdd.style.display = "none";
+btnAdd.style.display = "inline";
+
 
   // Cột thao tác
   const actionTh = document.createElement("th");
@@ -73,9 +77,6 @@ document.addEventListener("click", function (e) {
     if (!row) return;
     const ten = row.children[0] ? row.children[0].textContent : "";
     const confirmDel = confirm(`Bạn có chắc muốn xóa sản phẩm "${ten}" không?`);
-    if (confirmDel) {
-      row.remove();
-    }
     return;
   }
 
