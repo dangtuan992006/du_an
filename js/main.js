@@ -202,8 +202,13 @@ function checkoutFromDrawer() {
 
   const isLoggedIn = localStorage.getItem("currentUser") !== null;
   if (!isLoggedIn) {
-    alert("Vui lòng đăng nhập để thanh toán!");
-    window.location.href = "../pages/login.html";
+    App.utils.showNotification("Vui lòng đăng nhập để mua hàng");
+
+    // Chờ 1.5 giây rồi mới chuyển trang
+    setTimeout(() => {
+      window.location.href = "../pages/login.html";
+    }, 1500);
+
     return;
   }
 

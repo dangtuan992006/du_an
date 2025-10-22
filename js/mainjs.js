@@ -160,21 +160,69 @@ App.Auth = {
     e.preventDefault();
     const email = document.getElementById("adminEmail").value.trim();
     const password = document.getElementById("adminPassword").value;
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
 
-    if (
-      users[email] &&
-      users[email].password === password &&
-      email === "admin@gmail.com"
-    ) {
-      localStorage.setItem("currentUserRole", "admin");
-      localStorage.setItem("adminUser", users[email].name);
-      localStorage.setItem("adminEmail", email);
-      alert("Đăng nhập Admin thành công!");
-      window.open("../admin/index.html", "_blank");
-    } else {
-      alert("Sai tài khoản hoặc mật khẩu admin");
-    }
+    // Tải dữ liệu admin từ file admin.json
+    fetch("../data/admin.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể tải file admin.json");
+        }
+        return response.json();
+      })
+      .then((adminData) => {
+        console.log("Admin data loaded:", adminData); // Debug log
+
+        // Kiểm tra xem adminData là array hay object
+        let admin;
+        if (Array.isArray(adminData)) {
+          // Nếu là mảng
+          admin = adminData.find(
+            (admin) => admin.email === email && admin.password === password
+          );
+        } else {
+          // Nếu là object, chuyển thành array
+          const adminArray = Object.values(adminData);
+          admin = adminArray.find(
+            (admin) => admin.email === email && admin.password === password
+          );
+        }
+
+        if (admin) {
+          // Đăng nhập thành công
+          localStorage.setItem("currentUserRole", "admin");
+          localStorage.setItem("adminUser", admin.name);
+          localStorage.setItem("adminEmail", admin.email);
+
+          // Lưu thông tin permissions nếu có
+          if (admin.permissions) {
+            localStorage.setItem(
+              "adminPermissions",
+              JSON.stringify(admin.permissions)
+            );
+          }
+
+          App.utils.showNotification(
+            `Đăng nhập Admin thành công! Chào mừng ${admin.name}`
+          );
+
+          // Chuyển hướng sau 1 giây
+          setTimeout(() => {
+            window.open("../admin/index.html", "_blank");
+          }, 1000);
+        } else {
+          App.utils.showNotification(
+            "Sai tài khoản hoặc mật khẩu admin!",
+            "error"
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi tải admin.json:", error);
+        App.utils.showNotification(
+          "Lỗi hệ thống. Vui lòng thử lại sau!",
+          "error"
+        );
+      });
   },
 
   setupCustomerAuth(form) {
@@ -382,8 +430,13 @@ App.Cart = {
       return;
     }
     if (!localStorage.getItem("currentUser") && buyNow) {
-      alert("Vui lòng đăng nhập để mua hàng!");
-      window.location.href = "../pages/login.html";
+      App.utils.showNotification("Vui lòng đăng nhập để mua hàng");
+
+      // Chờ 1.5 giây rồi mới chuyển trang
+      setTimeout(() => {
+        window.location.href = "../pages/login.html";
+      }, 1500);
+
       return;
     }
 
@@ -530,12 +583,17 @@ App.Cart = {
   checkout() {
     const cart = this.get();
     if (cart.length === 0) {
-      alert("Giỏ hàng của bạn đang trống!");
+      App.utils.showNotification("Giỏ hàng của bạn đang trống");
       return;
     }
     if (!localStorage.getItem("currentUser")) {
-      alert("Vui lòng đăng nhập để thanh toán!");
-      window.location.href = "../pages/login.html";
+      App.utils.showNotification("Vui lòng đăng nhập để mua hàng");
+
+      // Chờ 1.5 giây rồi mới chuyển trang
+      setTimeout(() => {
+        window.location.href = "../pages/login.html";
+      }, 1500);
+
       return;
     }
     localStorage.removeItem("singleProductForPayment");
@@ -675,7 +733,7 @@ App.Products = {
   createProductCardHTML(product) {
     return `
       <div class="product-card" data-product-id="${product.id}">
-        <a href="pages/product-detail.html?id=${
+        <a href="../pages/product-detail.html?id=${
           product.id
         }" class="product-link">
           <div class="product-image">${this.getProductImageHTML(product)}</div>
@@ -918,7 +976,6 @@ App.Checkout = {
               </div>
             </div>
           </div>
-          <div class="checkout-section"><h3>Thông tin khách hàng</h3><input type="text" id="fullName" placeholder="Họ và tên" required><input type="tel" id="phone" placeholder="Số điện thoại" required></div>
           <div class="checkout-section"><h3>Phương thức thanh toán</h3><div class="payment-methods"><div class="payment-option"><input type="radio" name="paymentMethod" value="banking" id="banking"><label for="banking">Chuyển khoản</label></div><div class="payment-option"><input type="radio" name="paymentMethod" value="cash" id="cash"><label for="cash">Tiền mặt</label></div></div></div>
           <div class="checkout-section"><h3>Địa chỉ nhận hàng</h3><div class="address-options"><div class="address-option"><input type="radio" name="addressMethod" value="saved" id="savedAddress"><label for="savedAddress">Địa chỉ mặc định</label></div><div class="address-option"><input type="radio" name="addressMethod" value="new" id="newAddress"><label for="newAddress">Địa chỉ mới</label></div></div><textarea id="customerAddress" placeholder="Nhập địa chỉ mới..." style="display:none;"></textarea></div>
           <div class="checkout-summary">
@@ -1175,68 +1232,68 @@ App.Checkout = {
 // ========================================
 // MODULE LỊCH SỬ ĐƠN HÀNG (ORDER HISTORY)
 // ========================================
-App.OrderHistory = {
-  init() {
-    if (!window.location.pathname.includes("order-history.html")) return;
-    if (!localStorage.getItem("currentUser")) {
-      window.location.href = "login.html";
-      return;
-    }
+// App.OrderHistory = {
+//   init() {
+//     if (!window.location.pathname.includes("order-history.html")) return;
+//     if (!localStorage.getItem("currentUser")) {
+//       window.location.href = "../pages/login.html";
+//       return;
+//     }
 
-    const userEmail = localStorage.getItem("currentUserEmail");
-    const orders = this.getUserOrders(userEmail);
-    this.displayOrders(orders);
-    document
-      .getElementById("closeOrderDrawer")
-      ?.addEventListener("click", this.closeOrderDrawer);
-    document
-      .getElementById("orderDetailOverlay")
-      ?.addEventListener("click", this.closeOrderDrawer);
-  },
+//     const userEmail = localStorage.getItem("currentUserEmail");
+//     const orders = this.getUserOrders(userEmail);
+//     this.displayOrders(orders);
+//     document
+//       .getElementById("closeOrderDrawer")
+//       ?.addEventListener("click", this.closeOrderDrawer);
+//     document
+//       .getElementById("orderDetailOverlay")
+//       ?.addEventListener("click", this.closeOrderDrawer);
+//   },
 
-  getUserOrders(userEmail) {
-    const localOrders = localStorage.getItem(`orders_${userEmail}`);
-    if (localOrders) return JSON.parse(localOrders);
-    // Dữ liệu mẫu nếu chưa có
-    const sampleOrders = [
-      /* ... (dữ liệu mẫu từ code gốc) ... */
-    ];
-    localStorage.setItem(`orders_${userEmail}`, JSON.stringify(sampleOrders));
-    return sampleOrders;
-  },
+//   getUserOrders(userEmail) {
+//     const localOrders = localStorage.getItem(`orders_${userEmail}`);
+//     if (localOrders) return JSON.parse(localOrders);
+//     // Dữ liệu mẫu nếu chưa có
+//     const sampleOrders = [
+//       /* ... (dữ liệu mẫu từ code gốc) ... */
+//     ];
+//     localStorage.setItem(`orders_${userEmail}`, JSON.stringify(sampleOrders));
+//     return sampleOrders;
+//   },
 
-  displayOrders(orders) {
-    const orderList = document.getElementById("orderList");
-    const emptyOrders = document.getElementById("emptyOrders");
-    if (!orderList) return;
+//   displayOrders(orders) {
+//     const orderList = document.getElementById("orderList");
+//     const emptyOrders = document.getElementById("emptyOrders");
+//     if (!orderList) return;
 
-    if (orders.length === 0) {
-      orderList.style.display = "none";
-      emptyOrders.style.display = "block";
-      return;
-    }
-    orderList.style.display = "grid";
-    emptyOrders.style.display = "none";
-    orderList.innerHTML = orders
-      .map((order) => this.createOrderCard(order))
-      .join("");
-  },
+//     if (orders.length === 0) {
+//       orderList.style.display = "none";
+//       emptyOrders.style.display = "block";
+//       return;
+//     }
+//     orderList.style.display = "grid";
+//     emptyOrders.style.display = "none";
+//     orderList.innerHTML = orders
+//       .map((order) => this.createOrderCard(order))
+//       .join("");
+//   },
 
-  createOrderCard(order) {
-    // ... (logic tạo order card từ code gốc) ...
-    // Đảm bảo các hàm onclick gọi đến App.OrderHistory.viewOrderDetail(order.id)
-    return `<div class="order-card">...</div>`;
-  },
+//   createOrderCard(order) {
+//     // ... (logic tạo order card từ code gốc) ...
+//     // Đảm bảo các hàm onclick gọi đến App.OrderHistory.viewOrderDetail(order.id)
+//     return `<div class="order-card">...</div>`;
+//   },
 
-  viewOrderDetail(orderId) {
-    // ... (logic hiển thị chi tiết đơn hàng trong drawer) ...
-  },
+//   viewOrderDetail(orderId) {
+//     // ... (logic hiển thị chi tiết đơn hàng trong drawer) ...
+//   },
 
-  closeOrderDrawer() {
-    document.getElementById("orderDetailOverlay").style.display = "none";
-    document.getElementById("orderDetailDrawer").classList.remove("active");
-  },
-};
+//   closeOrderDrawer() {
+//     document.getElementById("orderDetailOverlay").style.display = "none";
+//     document.getElementById("orderDetailDrawer").classList.remove("active");
+//   },
+// };
 
 // ========================================
 // MODULE BANNER CAROUSEL
