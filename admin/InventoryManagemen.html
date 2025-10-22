@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý hàng tồn kho</title>
+  <link rel="stylesheet" href="../css/inventoryManagement.css">
+</head>
+<body>
+  <div class="heading">
+    <h1 class="tieude">Quản lý hàng tồn kho</h1>
+    <div class="manager">
+      <input type="text" placeholder="Tìm theo mã / tên sản phẩm">
+      <select id="category">
+        <option value="">-- Tất cả loại --</option>
+      </select>
+      <button id="btnAdd">Thêm sản phẩm</button>
+    </div>
+  </div>
+
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mã SP</th>
+          <th>Tên sản phẩm</th>
+          <th>Loại</th>
+          <th>Số lượng tồn</th>
+          <th>Đơn vị</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody class="data">
+        <tr>
+          <th>SP001</th>
+          <th>Dưa hấu đỏ</th>
+          <th>Trái cây Việt Nam</th>
+          <th>25</th>
+          <th>trái</th>
+          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+        </tr>
+        <tr>
+          <th>SP002</th>
+          <th>Dâu tây Đà Lạt</th>
+          <th>Quà tặng trái cây</th>
+          <th>10</th>
+          <th>hộp</th>
+          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+        </tr>
+        <tr>
+          <th>SP003</th>
+          <th>Nho tím</th>
+          <th>Bán chạy nhất</th>
+          <th>18</th>
+          <th>chùm</th>
+          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Form thêm sản phẩm -->
+  <div id="formAdd" class="modal">
+    <div class="modal-content">
+      <h2>Thêm sản phẩm tồn kho</h2>
+      <label>Mã SP:</label><input type="text" id="maSp"><br>
+      <label>Tên sản phẩm:</label><input type="text" id="tenSp"><br>
+      <label>Loại:</label><input type="text" id="loai"><br>
+      <label>Số lượng:</label><input type="number" id="soLuong"><br>
+      <label>Đơn vị:</label><input type="text" id="donVi"><br>
+
+      <div class="btn-group">
+        <button id="saveBtn">Lưu</button>
+        <button id="cancelBtn">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/inventoryManagement.js"></script>
+</body>
+</html>
