@@ -1,82 +1,189 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/receivingReport.css">
-    <title>Quản lý nhập sản phẩm</title>
-</head>
-<body>
-    <div class="header">
-        <h1>Quản lý Phiếu Nhập</h1>
-        <div class="search">
-            <input type="text" placeholder="Tìm theo phiếu theo mã / ngày / tên sản phẩm">
-            <button id="addBtn">Thêm phiếu nhập</button>
-        </div>
-    </div>
-
-    <div class="list">
-        <table>
-            <thead>
-                <tr class="tablehoadon">
-                    <th>Mã phiếu</th>
-                    <th>Ngày nhập</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Tổng SL</th>
-                    <th>Tổng Giá trị</th>
-                    <th>Chi tiết</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="tablesp">
-                    <th>MH001</th>
-                    <th>30/9/2025</th>
-                    <th>Dưa hấu</th>
-                    <th>2 (trái)</th>
-                    <th>200.000</th>
-                    <th></th>
-                </tr>
-                <tr class="tablesp">
-                    <th>MH002</th>
-                    <th>15/9/2025</th>
-                    <th>Dâu</th>
-                    <th>9 (hộp)</th>
-                    <th>1.800.000</th>
-                    <th></th>
-                </tr>
-                <tr class="tablesp">
-                    <th>MH003</th>
-                    <th>17/9/2025</th>
-                    <th>Cam sành</th>
-                    <th>10 (trái)</th>
-                    <th>100.000</th>
-                    <th></th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h2>Thêm Phiếu Nhập</h2>
-            <label>Mã phiếu:</label>
-            <input type="text" id="maPhieu"><br>
-            <label>Ngày nhập:</label>
-            <input type="date" id="ngayNhap"><br>
-            <label>Tên sản phẩm:</label>
-            <input type="text" id="tenSp"><br>
-            <label>Tổng SL:</label>
-            <input type="text" id="tongSl"><br>
-            <label>Tổng giá trị:</label>
-            <input type="text" id="tongGt"><br>
-
-            <div class="buttons">
-                <button id="saveBtn">Lưu</button>
-                <button id="cancelBtn">Hủy</button>
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../css/receivingReport.css">
+        <title>Quản lý nhập sản phẩm</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Quản lý Phiếu Nhập</h1>
+            <div class="search">
+                <input type="text" placeholder="Tìm theo phiếu theo mã / ngày / tên sản phẩm">
+                <button id="addBtn">Thêm phiếu nhập</button>
             </div>
         </div>
-    </div>
 
-    <!-- Link tới file JavaScript bên ngoài (thay đường dẫn nếu cần) -->
-    <script src="../js/receivingReport.js" defer></script>
-</body>
-</html>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2>Thêm Phiếu Nhập</h2>
+                <label>Mã phiếu:</label>
+                <input type="text" id="maPhieu"><br>
+                <label>Ngày nhập:</label>
+                <input type="date" id="ngayNhap"><br>
+                <label>Tên sản phẩm:</label>
+                <input type="text" id="tenSp"><br>
+                <label>Tổng SL:</label>
+                <input type="text" id="tongSl"><br>
+                <label>Tổng giá trị:</label>
+                <input type="text" id="tongGt"><br>
+
+                <div class="buttons">
+                    <button id="saveBtn">Lưu</button>
+                    <button id="cancelBtn">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="list">
+            <table>
+                <thead>
+                    <tr class="tablehoadon">
+                        <th>Mã phiếu</th>
+                        <th>Ngày nhập</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Tổng SL</th>
+                        <th>Tổng Giá trị</th>
+                        <th>Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="tablesp">
+                        <th>MH001</th>
+                        <th>30/09/2025</th>
+                        <th>Dưa hấu</th>
+                        <th>2 (trái)</th>
+                        <th>200.000</th>
+                        <th><button class="see" id="1">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH002</th>
+                        <th>15/09/2025</th>
+                        <th>Dâu</th>
+                        <th>9 (hộp)</th>
+                        <th>1.800.000</th>
+                        <th><button class="see" id="2">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH003</th>
+                        <th>17/09/2025</th>
+                        <th>Cam sành</th>
+                        <th>10 (trái)</th>
+                        <th>100.000</th>
+                        <th><button class="see" id="3">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH004</th>
+                        <th>10/09/2025</th>
+                        <th>Xoài cát Hòa Lộc</th>
+                        <th>5 (kg)</th>
+                        <th>450.000</th>
+                        <th><button class="see" id="4">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH005</th>
+                        <th>05/09/2025</th>
+                        <th>Táo Mỹ</th>
+                        <th>12 (trái)</th>
+                        <th>720.000</th>
+                        <th><button class="see" id="5">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH006</th>
+                        <th>01/09/2025</th>
+                        <th>Nho tím</th>
+                        <th>8 (chùm)</th>
+                        <th>640.000</th>
+                        <th><button class="see" id="6">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH007</th>
+                        <th>25/08/2025</th>
+                        <th>Mít Thái</th>
+                        <th>3 (trái)</th>
+                        <th>360.000</th>
+                        <th><button class="see" id="7">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH008</th>
+                        <th>20/08/2025</th>
+                        <th>Chuối tiêu</th>
+                        <th>10 (nải)</th>
+                        <th>500.000</th>
+                        <th><button class="see" id="8">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH009</th>
+                        <th>18/08/2025</th>
+                        <th>Lê Hàn Quốc</th>
+                        <th>6 (kg)</th>
+                        <th>720.000</th>
+                        <th><button class="see" id="9">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH010</th>
+                        <th>12/08/2025</th>
+                        <th>Thanh long ruột đỏ</th>
+                        <th>10 (trái)</th>
+                        <th>300.000</th>
+                        <th><button class="see" id="10">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH011</th>
+                        <th>05/08/2025</th>
+                        <th>Bưởi da xanh</th>
+                        <th>4 (trái)</th>
+                        <th>440.000</th>
+                        <th><button class="see" id="11">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH012</th>
+                        <th>01/08/2025</th>
+                        <th>Ổi ruột hồng</th>
+                        <th>8 (trái)</th>
+                        <th>160.000</th>
+                        <th><button class="see" id="12">xem</button></th>
+                    </tr>
+                    <tr class="tablesp">
+                        <th>MH013</th>
+                        <th>28/07/2025</th>
+                        <th>Dưa lưới</th>
+                        <th>5 (trái)</th>
+                        <th>500.000</th>
+                        <th><button class="see" id="13">xem</button></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    
+
+        <!-- Modal xem chi tiết -->
+                    <div id="viewModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Thông tin sản phẩm</h2>
+                        <p><strong>Mã phiếu:</strong> <span id="maPhieuInfo"></span></p>
+                        <p><strong>Tên sản phẩm:</strong> <span id="tenSpInfo"></span></p>
+                        <p><strong>Ngày nhập:</strong> <span id="ngayNhapInfo"></span></p>
+                        <p><strong>Tổng SL:</strong> <span id="tongSlInfo"></span></p>
+                        <p><strong>Tổng giá trị:</strong> <span id="tongGtInfo"></span></p>
+                    </div>
+                    </div>
+
+        <div class="pagination">
+            <button class="prev">⟨</button>
+            <ul class="pages">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>...</li>
+                <li>10</li>
+            </ul>
+            <button class="next">⟩</button>
+        </div>
+
+        <script src="../js/receivingReport.js" defer></script>
+    </body>
+    </html>
+        
