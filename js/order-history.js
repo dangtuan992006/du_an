@@ -21,6 +21,21 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("orderDetailOverlay")
     .addEventListener("click", closeOrderDrawer);
+
+  // Event delegation cho các nút hành động trong danh sách đơn hàng
+  const orderListEl = document.getElementById("orderList");
+  if (orderListEl) {
+    orderListEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const orderId = btn.getAttribute("data-order-id");
+      const action = btn.getAttribute("data-action");
+      if (!orderId || !action) return;
+      if (action === "view") return viewOrderDetail(orderId);
+      if (action === "cancel") return cancelOrder(orderId);
+      if (action === "reorder") return reorderItems(orderId);
+    });
+  }
 });
 
 // Lấy danh sách đơn hàng của người dùng
@@ -164,7 +179,7 @@ function createOrderCard(order) {
   card.className = "order-card";
 
   // Tạo HTML cho các sản phẩm trong đơn hàng
-  const itemsHTML = order.items
+  const itemsHTML = (order.items || [])
     .map(
       (item) => `
         <div class="order-item">
@@ -174,7 +189,13 @@ function createOrderCard(order) {
                   item.price
                 )} VNĐ</div>
             </div>
+<<<<<<< HEAD
             <div class="order-item-quantity">x${item.quantity}</div>
+=======
+            <div class="order-item-quantity">x${
+              item.quantity ?? item.qty ?? 1
+            }</div>
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
         </div>
     `
     )
@@ -238,17 +259,17 @@ function createOrderCard(order) {
               order.total
             )} VNĐ</div>
             <div class="order-actions">
-                <button class="btn btn-secondary" onclick="viewOrderDetail('${
+                <button class="btn btn-secondary js-view-detail" data-action="view" data-order-id="${
                   order.id
-                }')">Xem chi tiết</button>
+                }">Xem chi tiết</button>
                 ${
                   order.status === "delivered"
-                    ? `<button class="btn btn-primary" onclick="reorderItems('${order.id}')">Đặt lại</button>`
+                    ? `<button class="btn btn-primary js-reorder" data-action="reorder" data-order-id="${order.id}">Đặt lại</button>`
                     : ""
                 }
                 ${
                   order.status === "pending" || order.status === "processing"
-                    ? `<button class="btn btn-secondary" onclick="cancelOrder('${order.id}')">Hủy đơn</button>`
+                    ? `<button class="btn btn-secondary js-cancel-order" data-action="cancel" data-order-id="${order.id}">Hủy đơn</button>`
                     : ""
                 }
             </div>
@@ -279,11 +300,11 @@ function viewOrderDetail(orderId) {
                   item.price
                 )} VNĐ</div>
                 <div class="order-detail-item-quantity">Số lượng: ${
-                  item.quantity
+                  item.quantity ?? item.qty ?? 1
                 }</div>
             </div>
             <div class="order-detail-item-total">${formatPrice(
-              item.price * item.quantity
+              item.price * (item.quantity ?? item.qty ?? 1)
             )} VNĐ</div>
         </div>
     `
@@ -436,14 +457,15 @@ function reorderItems(orderId) {
     const existingItem = cart.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
-      existingItem.quantity += item.quantity;
+      existingItem.qty = (existingItem.qty ?? existingItem.quantity ?? 0) +
+        (item.quantity ?? item.qty ?? 1);
     } else {
       cart.push({
         id: item.id,
         name: item.name,
         price: item.price,
         image: item.image,
-        quantity: item.quantity,
+        qty: item.quantity ?? item.qty ?? 1,
       });
     }
   });
@@ -464,7 +486,10 @@ function reorderItems(orderId) {
 function updateCartCount() {
   const userEmail = localStorage.getItem("currentUserEmail");
   const cart = JSON.parse(localStorage.getItem(`cart_${userEmail}`)) || [];
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce(
+    (sum, item) => sum + (item.qty ?? item.quantity ?? 0),
+    0
+  );
 
   const cartCount = document.querySelector(".cart-count");
   if (cartCount) {
@@ -482,3 +507,9 @@ function formatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleDateString("vi-VN");
 }
+
+// Đảm bảo các hàm có thể gọi được từ HTML (phòng trường hợp trình duyệt chặn inline handler)
+window.viewOrderDetail = window.viewOrderDetail || viewOrderDetail;
+window.cancelOrder = window.cancelOrder || cancelOrder;
+window.reorderItems = window.reorderItems || reorderItems;
+window.closeOrderDrawer = window.closeOrderDrawer || closeOrderDrawer;

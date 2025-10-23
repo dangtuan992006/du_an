@@ -15,9 +15,21 @@
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
+<<<<<<< HEAD
     <!-- file -->
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/components/cart.css " />
+=======
+    <!-- feather icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- file (match index.html) -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/components/cart.css" />
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
     <style>
       .order-container {
         max-width: 1200px;
@@ -356,6 +368,155 @@
         }
       }
     </style>
+<<<<<<< HEAD
+=======
+    <!-- Topbar Styles (synced with index.html) -->
+    <style>
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+
+      .commitment-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .commitment-items::-webkit-scrollbar {
+        display: none;
+      }
+
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 1200px) {
+        .commitment-items {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0 1rem;
+        }
+
+        .commitment-bar {
+          padding: 8px 0;
+        }
+
+        .commitment-title {
+          font-size: 13px;
+          padding: 0 6px;
+        }
+
+        .commitment-item span {
+          font-size: 11px;
+        }
+
+        .commitment-item {
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .commitment-title {
+          font-size: 12px;
+          padding: 0 4px;
+        }
+
+        .commitment-item span {
+          font-size: 10px;
+        }
+
+        .commitment-item img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .divider {
+          height: 16px;
+        }
+      }
+
+      .commitment-link:hover {
+        opacity: 0.9;
+      }
+
+      .commitment-item:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+      }
+
+      .commitment-item:nth-child(3) img,
+      .commitment-item:nth-child(5) img,
+      .commitment-item:nth-child(7) img,
+      .commitment-item:nth-child(9) img,
+      .commitment-item:nth-child(11) img,
+      .commitment-item:nth-child(13) img {
+        filter: hue-rotate(120deg) saturate(1.5);
+      }
+    </style>
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
   </head>
   <body>
     <!-- Thanh điều hướng -->
@@ -377,8 +538,15 @@
           <div class="search-category">
             <select class="category-select">
               <option>ALL</option>
+<<<<<<< HEAD
               <option>Quà tặng trái cây</option>
               <option>Trái cây Việt Nam</option>
+=======
+              <option>Bán chạy nhất</option>
+              <option>Quà tặng trái cây</option>
+              <option>Trái cây Việt Nam</option>
+              <option>Đặc biệt</option>
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
             </select>
           </div>
           <input
@@ -402,7 +570,7 @@
             </button>
             <div class="dropdown-menu">
               <a
-                href="../pages/profile.html"
+                href="../pages/thongtintaikhoan.html"
                 target="_blank"
                 class="dropdown-item"
                 >Thông tin cá nhân</a
@@ -410,7 +578,6 @@
               <a href="../pages/order-history.html" class="dropdown-item"
                 >Xem lại đơn hàng</a
               >
-              <a href="../pages/settings.html" class="dropdown-item">Cài đặt</a>
               <button class="dropdown-item logout-btn">Đăng xuất</button>
             </div>
           </div>
@@ -428,6 +595,79 @@
       </ul>
     </nav>
 
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Content -->
     <main>
       <div class="order-container">
@@ -441,7 +681,11 @@
           <i class="fas fa-shopping-bag"></i>
           <h2>Bạn chưa có đơn hàng nào</h2>
           <p>Hãy mua sắm ngay để trải nghiệm dịch vụ của chúng tôi!</p>
+<<<<<<< HEAD
           <a href="../index.html" class="btn btn-primary">Mua sắm ngay</a>
+=======
+          <a href="../pages/index.html" class="btn btn-primary">Mua sắm ngay</a>
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
         </div>
       </div>
     </main>
@@ -473,7 +717,158 @@
         <!-- Footer giỏ hàng sẽ được render ở đây -->
       </div>
     </div>
+<<<<<<< HEAD
     <script src="../js/mainjs.js " defer></script>
     <script src="../js/order-history.js" defer></script>
+=======
+    
+    <!-- Footer (shared include) -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Nhập email để nhận ưu đãi"
+            />
+            <button class="newsletter-btn">Đăng ký</button>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/products.html"
+                ><i class="fas fa-shopping-bag"></i> Sản phẩm</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/promotions.html"
+                ><i class="fas fa-tag"></i> Khuyến mãi</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Categories -->
+        <div class="footer-column">
+          <h4>Danh mục</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#"><i class="fas fa-apple-alt"></i> Trái cây Việt Nam</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-gift"></i> Quà tặng trái cây</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-globe"></i> Trái cây nhập khẩu</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-star"></i> Đặc biệt</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-leaf"></i> Hữu cơ</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
+          <div class="social-grid">
+            <a href="#" class="social-card"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="../js/footer-include.js" defer></script>
+    <script src="../js/search.js" defer></script>
+    <script src="../js/mainjs.js" defer></script>
+    <script src="../js/order-history.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+      });
+    </script>
+>>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
   </body>
 </html>

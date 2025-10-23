@@ -32,6 +32,7 @@ const App = {
   UI: {},
   Checkout: {},
   OrderHistory: {},
+  Profile: {},
   Pagination: {},
   BannerCarousel: {},
 
@@ -56,6 +57,7 @@ const App = {
     // 4. Khởi tạo các module cho các trang cụ thể
     this.Checkout.init();
     this.OrderHistory.init();
+    this.Profile.init();
 
     console.log("App initialized.");
   },
@@ -129,6 +131,23 @@ App.Auth = {
 
     // === THÊM PHẦN NÀY: Gắn sự kiện cho nút logout ===
     this.setupLogoutHandler();
+  },
+
+  // Kiểm tra hồ sơ có trống không (chưa điền thông tin quan trọng)
+  // Ưu tiên cờ profileCompleted nếu có; nếu chưa có, fallback theo phone/address
+  isProfileEmpty(email) {
+    try {
+      const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+      const u = users[email] || {};
+      if (typeof u.profileCompleted === "boolean") {
+        return !u.profileCompleted;
+      }
+      const hasPhone = !!(u.phone && String(u.phone).trim());
+      const hasAddress = !!(u.address && String(u.address).trim());
+      return !(hasPhone || hasAddress);
+    } catch (e) {
+      return true;
+    }
   },
 
   // === THÊM HÀM NÀY ===
@@ -281,6 +300,7 @@ App.Auth = {
           email,
           password,
           created: new Date().toISOString(),
+          profileCompleted: false,
         };
         localStorage.setItem("registeredUsers", JSON.stringify(users));
         localStorage.setItem("currentUser", username);
@@ -290,6 +310,7 @@ App.Auth = {
         App.utils.showNotification(`Tài khoản đã được tạo thành công`);
 
         setTimeout(() => {
+          // Sau khi tạo tài khoản mới, luôn quay lại trang chủ
           window.location.href = "../pages/index.html";
         }, 1000);
       } else {
@@ -304,7 +325,7 @@ App.Auth = {
             `Chào mừng trở lại, ${users[email].name}!`
           );
 
-          // Chờ 1.5 giây rồi chuyển hướng
+          // Chờ 1 giây rồi chuyển hướng về trang chủ
           setTimeout(() => {
             window.location.href = "../pages/index.html";
           }, 1000);
@@ -341,6 +362,7 @@ App.Auth = {
         provider,
         created: new Date().toISOString(),
         isVerified: true,
+        profileCompleted: false,
       };
       localStorage.setItem("registeredUsers", JSON.stringify(users));
     }
@@ -348,6 +370,12 @@ App.Auth = {
     localStorage.setItem("currentUserEmail", email);
     App.Cart.transferTempCartToUser(email);
     if (window.opener && !window.opener.closed) {
+      // Nếu mở trong popup, ưu tiên đóng popup và điều hướng cửa sổ cha
+      try {
+        if (window.opener) {
+          window.opener.location.href = "../pages/index.html";
+        }
+      } catch (e) {}
       window.close();
     } else {
       window.location.href = "../pages/index.html";
@@ -918,6 +946,187 @@ App.UI = {
       dropdownMenu?.classList.remove("show")
     );
     dropdownMenu.addEventListener("click", (e) => e.stopPropagation());
+  },
+};
+
+// ========================================
+// MODULE HỒ SƠ NGƯỜI DÙNG (PROFILE)
+// ========================================
+App.Profile = {
+  init() {
+    // Chỉ chạy trên trang cài đặt hồ sơ
+    if (!window.location.pathname.includes("settings.html")) return;
+
+    if (!localStorage.getItem("currentUserEmail")) {
+      // Chưa đăng nhập -> đưa về trang đăng nhập
+      window.location.href = "../pages/login.html";
+      return;
+    }
+
+    this.cacheDom();
+    this.bindEvents();
+    this.loadProfile();
+  },
+
+  cacheDom() {
+    this.form = document.getElementById("profileForm");
+    this.nameInput = document.getElementById("fullName");
+    this.emailInput = document.getElementById("email");
+    this.phoneInput = document.getElementById("phone");
+    this.addressInput = document.getElementById("address");
+    this.createdAtEl = document.getElementById("createdAt");
+    this.saveBtn = document.getElementById("saveProfileBtn");
+    this.cancelBtn = document.getElementById("cancelProfileBtn");
+  },
+
+  bindEvents() {
+    this.form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.saveProfile();
+    });
+    this.cancelBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "../pages/thongtintaikhoan.html";
+    });
+  },
+
+  getUsersMap() {
+    return JSON.parse(localStorage.getItem("registeredUsers")) || {};
+  },
+
+  setUsersMap(map) {
+    localStorage.setItem("registeredUsers", JSON.stringify(map));
+  },
+
+  loadProfile() {
+    const email = localStorage.getItem("currentUserEmail");
+    const users = this.getUsersMap();
+    const user = users[email] || {};
+    // Prefill
+    if (this.nameInput) this.nameInput.value = user.name || localStorage.getItem("currentUser") || "";
+    if (this.emailInput) this.emailInput.value = user.email || email || "";
+    if (this.phoneInput) this.phoneInput.value = user.phone || "";
+    if (this.addressInput) this.addressInput.value = user.address || "";
+    if (this.createdAtEl) this.createdAtEl.textContent = this.formatDate(user.created || new Date().toISOString());
+  },
+
+  saveProfile() {
+    const oldEmail = localStorage.getItem("currentUserEmail");
+    const users = this.getUsersMap();
+    const user = users[oldEmail] || {};
+
+    const newName = (this.nameInput?.value || "").trim();
+    const newEmail = (this.emailInput?.value || "").trim();
+    const newPhone = (this.phoneInput?.value || "").trim();
+    const newAddress = (this.addressInput?.value || "").trim();
+
+    // Validate
+    if (!newName) {
+      App.utils.showNotification("Vui lòng nhập họ và tên", "error");
+      this.nameInput?.focus();
+      return;
+    }
+    if (!newEmail || !App.utils.isValidEmail(newEmail)) {
+      App.utils.showNotification("Email không hợp lệ", "error");
+      this.emailInput?.focus();
+      return;
+    }
+    if (newPhone && !/^\+?\d{8,15}$/.test(newPhone.replace(/\s|-/g, ""))) {
+      App.utils.showNotification("Số điện thoại không hợp lệ", "error");
+      this.phoneInput?.focus();
+      return;
+    }
+
+    // Handle email change and collision
+    const isEmailChanged = newEmail !== oldEmail;
+    if (isEmailChanged && users[newEmail] && oldEmail !== newEmail) {
+      App.utils.showNotification("Email đã được đăng ký, vui lòng chọn email khác", "error");
+      this.emailInput?.focus();
+      return;
+    }
+
+    // Build updated user
+    const updated = {
+      ...user,
+      name: newName,
+      email: newEmail,
+      phone: newPhone,
+      address: newAddress,
+      created: user.created || new Date().toISOString(),
+      profileCompleted: true,
+    };
+
+    // Persist
+    if (isEmailChanged) {
+      // move user entry
+      delete users[oldEmail];
+      users[newEmail] = updated;
+      this.setUsersMap(users);
+      // migrate keys tied to email
+      this.migrateEmailKeys(oldEmail, newEmail);
+      // update current user session keys
+      localStorage.setItem("currentUserEmail", newEmail);
+    } else {
+      users[oldEmail] = updated;
+      this.setUsersMap(users);
+    }
+
+    // Always update display name
+    localStorage.setItem("currentUser", newName);
+
+    const afterHide = () => {
+      // Always go to homepage after toast hides
+      try { sessionStorage.removeItem("needsProfileUpdate"); } catch (e) {}
+      window.location.href = "../pages/index.html";
+    };
+
+    // Prefer page's big top-center toast if available
+    if (typeof window.showProfileToast === "function") {
+      window.showProfileToast("Account Information Updated Successfully", afterHide);
+    } else {
+      const duration = 1200;
+      App.utils.showNotification("Account Information Updated Successfully", "success", duration);
+      setTimeout(afterHide, duration + 100);
+    }
+  },
+
+  migrateEmailKeys(oldEmail, newEmail) {
+    if (!oldEmail || !newEmail) return;
+    try {
+      const cartOldKey = `cart_${oldEmail}`;
+      const cartNewKey = `cart_${newEmail}`;
+      const ordersOldKey = `orders_${oldEmail}`;
+      const ordersNewKey = `orders_${newEmail}`;
+
+      const cart = localStorage.getItem(cartOldKey);
+      if (cart && !localStorage.getItem(cartNewKey)) {
+        localStorage.setItem(cartNewKey, cart);
+      }
+      if (cart) localStorage.removeItem(cartOldKey);
+
+      const orders = localStorage.getItem(ordersOldKey);
+      if (orders && !localStorage.getItem(ordersNewKey)) {
+        localStorage.setItem(ordersNewKey, orders);
+      }
+      if (orders) localStorage.removeItem(ordersOldKey);
+    } catch (e) {
+      console.warn("Không thể migrate dữ liệu theo email:", e);
+    }
+  },
+
+  formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      const yyyy = d.getFullYear();
+      const mo = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      // Format: ngày/tháng/năm giờ:phút
+      return `${dd}/${mo}/${yyyy} ${hh}:${mm}`;
+    } catch {
+      return iso;
+    }
   },
 };
 
