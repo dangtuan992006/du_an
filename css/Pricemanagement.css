@@ -87,10 +87,88 @@ body {
     background-color: #c0392b;
 }
 
-/* Bảng thêm sản phẩm mới */
+/* ===== BẢNG THÊM SẢN PHẨM MỚI ===== */
 .tableadd {
-    display: none;
+    margin: 30px auto;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    animation: fadeIn 0.4s ease;
 }
+
+/* Tiêu đề của bảng thêm */
+.tableadd thead {
+    background-color: #f8d7da;
+}
+
+.tableadd th {
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Các ô nhập liệu */
+.tableadd input[type="text"], 
+.tableadd select {
+    width: 90%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.tableadd input[type="text"]:focus,
+.tableadd select:focus {
+    border-color: #e67e22;
+    box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
+}
+
+/* Nút thêm & hủy */
+#add, #btnCancel {
+    padding: 8px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add {
+    background-color: #27ae60;
+    color: white;
+}
+
+#add:hover {
+    background-color: #219150;
+    transform: translateY(-2px);
+}
+
+#btnCancel {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#btnCancel:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Hiệu ứng hiện bảng */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
 
 
 .pagination {
@@ -160,3 +238,29 @@ body {
 }
 
 
+/* Nút thêm sản phẩm */
+#btnAdd {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    background-color: #e67e22; /* Cam đất, hợp nền đỏ */
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#btnAdd:hover {
+    background-color: #cf6e1c; /* Màu cam đậm hơn khi hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+#btnAdd:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
