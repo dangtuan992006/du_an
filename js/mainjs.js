@@ -1278,8 +1278,8 @@ App.Checkout = {
       items: [{ ...product, quantity: qty }],
       total: product.price * qty,
       customerInfo: {
-        fullName: document.getElementById("fullName").value,
-        phone: document.getElementById("phone").value,
+        fullName: document.getElementById("fullName")?.value || "N/A",
+        phone: document.getElementById("phone")?.value || "N/A",
         address: shippingAddress,
       },
       paymentMethod,
