@@ -1,105 +1,129 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const addBtn = document.getElementById('addBtn');
-    const modal = document.getElementById('modal');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const saveBtn = document.getElementById('saveBtn');
+// ===================== MỞ / ĐÓNG MODAL THÊM PHIẾU =====================
+const addBtn = document.getElementById("addBtn");
+const modal = document.getElementById("modal");
+const cancelBtn = document.getElementById("cancelBtn");
+const saveBtn = document.getElementById("saveBtn");
 
-    addBtn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-    });
-
-    cancelBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    // Ẩn form khi click bên ngoài
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    
+// Mở modal thêm phiếu nhập
+addBtn.addEventListener("click", () => {
+  modal.style.display = "flex";
 });
 
-// Lấy modal và các phần tử chính
+// Hủy thêm phiếu nhập
+cancelBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+  clearForm();
+});
+
+// Xóa nội dung form sau khi thêm/hủy
+function clearForm() {
+  document.getElementById("maPhieu").value = "";
+  document.getElementById("ngayNhap").value = "";
+  document.getElementById("tenSp").value = "";
+  document.getElementById("tongSl").value = "";
+  document.getElementById("tongGt").value = "";
+}
+
+// ===================== NÚT LƯU PHIẾU NHẬP =====================
+saveBtn.addEventListener("click", () => {
+  const maPhieu = document.getElementById("maPhieu").value.trim();
+  const ngayNhap = document.getElementById("ngayNhap").value;
+  const tenSp = document.getElementById("tenSp").value.trim();
+  const tongSl = document.getElementById("tongSl").value.trim();
+  const tongGt = document.getElementById("tongGt").value.trim();
+
+  // Kiểm tra dữ liệu hợp lệ
+  if (!maPhieu || !ngayNhap || !tenSp || !tongSl || !tongGt) {
+    alert("⚠️ Vui lòng nhập đầy đủ thông tin!");
+    return;
+  }
+
+  // Kiểm tra trùng mã phiếu
+  const allCodes = Array.from(document.querySelectorAll("tbody tr th:first-child"))
+    .map(th => th.textContent.trim());
+  if (allCodes.includes(maPhieu)) {
+    alert("❌ Mã phiếu này đã tồn tại!");
+    return;
+  }
+
+  // Tạo dòng mới
+  const tbody = document.querySelector("tbody");
+  const newRow = document.createElement("tr");
+  newRow.classList.add("tablesp");
+
+  const id = document.querySelectorAll(".see").length + 1;
+  newRow.innerHTML = `
+    <th>${maPhieu}</th>
+    <th>${formatDate(ngayNhap)}</th>
+    <th>${tenSp}</th>
+    <th>${tongSl}</th>
+    <th>${tongGt}</th>
+    <th><button class="see" id="${id}">xem</button></th>
+  `;
+
+  tbody.appendChild(newRow);
+
+  // Gắn lại sự kiện “xem” cho nút mới
+  attachViewListeners();
+
+  // Đóng modal + reset form
+  clearForm();
+  modal.style.display = "none";
+  alert("✅ Đã thêm phiếu nhập mới!");
+});
+
+// ===================== ĐỊNH DẠNG NGÀY =====================
+function formatDate(dateStr) {
+  if (!dateStr.includes("-")) return dateStr;
+  const [year, month, day] = dateStr.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+// ===================== XEM CHI TIẾT PHIẾU =====================
 const viewModal = document.getElementById("viewModal");
 const closeBtn = document.querySelector(".close");
-const seeButtons = document.querySelectorAll(".see");
 
-// Các phần tử thông tin cơ bản trong modal
-const maPhieuInfo = document.getElementById("maPhieuInfo");
-const ngayNhapInfo = document.getElementById("ngayNhapInfo");
-const tenSpInfo = document.getElementById("tenSpInfo");
-const tongSlInfo = document.getElementById("tongSlInfo");
-const tongGtInfo = document.getElementById("tongGtInfo");
+function attachViewListeners() {
+  const seeButtons = document.querySelectorAll(".see");
+  seeButtons.forEach((btn) => {
+    btn.onclick = (e) => {
+      const row = e.target.closest("tr");
+      const cells = row.querySelectorAll("th");
 
-// Lưu dữ liệu chi tiết nhà sản xuất
-let productDetails = [];
+      document.getElementById("maPhieuInfo").textContent = cells[0].textContent;
+      document.getElementById("ngayNhapInfo").textContent = cells[1].textContent;
+      document.getElementById("tenSpInfo").textContent = cells[2].textContent;
+      document.getElementById("tongSlInfo").textContent = cells[3].textContent;
+      document.getElementById("tongGtInfo").textContent = cells[4].textContent;
 
-// 🔹 Đọc dữ liệu từ file JSON
-fetch("../data/products.json")
-  .then((response) => response.json())
-  .then((data) => (productDetails = data))
-  .catch((err) => console.error("Không thể tải file JSON:", err));
-
-// 🔹 Gắn sự kiện cho các nút “xem”
-seeButtons.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    // Lấy dữ liệu từ hàng tương ứng
-    const row = this.closest("tr");
-    const maPhieu = row.children[0].textContent;
-    const ngayNhap = row.children[1].textContent;
-    const tenSp = row.children[2].textContent;
-    const tongSl = row.children[3].textContent;
-    const tongGt = row.children[4].textContent;
-
-    // Gán thông tin cơ bản vào modal
-    maPhieuInfo.textContent = maPhieu;
-    ngayNhapInfo.textContent = ngayNhap;
-    tenSpInfo.textContent = tenSp;
-    tongSlInfo.textContent = tongSl;
-    tongGtInfo.textContent = tongGt;
-
-    // Xóa phần “Nhà sản xuất” cũ nếu có
-    const oldExtra = viewModal.querySelector(".extra-info");
-    if (oldExtra) oldExtra.remove();
-
-    // Tìm thông tin thêm từ file JSON
-    const detail = productDetails.find((p) => p.maPhieu === maPhieu);
-
-    // Nếu tìm thấy → tạo thêm dòng hiển thị
-    if (detail) {
-      const extraInfo = document.createElement("div");
-      extraInfo.classList.add("extra-info");
-      extraInfo.innerHTML = `
-        <hr>
-        <p><strong>Nhà sản xuất:</strong> ${detail.nhaSanXuat}</p>
-        <p><strong>Xuất xứ:</strong> ${detail.xuatXu}</p>
-      `;
-      // Gắn vào cuối phần nội dung modal
-      viewModal.querySelector(".modal-content").appendChild(extraInfo);
-    }
-
-    // Hiển thị modal
-    viewModal.style.display = "block";
+      viewModal.style.display = "flex";
+    };
   });
-});
+}
 
-// 🔹 Đóng modal
+// Đóng modal xem chi tiết
 closeBtn.addEventListener("click", () => {
   viewModal.style.display = "none";
 });
 
-// 🔹 Đóng khi click ra ngoài
-window.addEventListener("click", (e) => {
-  if (e.target === viewModal) {
-    viewModal.style.display = "none";
-  }
+// Click ra ngoài để đóng modal
+window.addEventListener("click", (event) => {
+  if (event.target === modal) modal.style.display = "none";
+  if (event.target === viewModal) viewModal.style.display = "none";
 });
 
+// ===================== TÌM KIẾM PHIẾU NHẬP =====================
+const searchInput = document.querySelector(".search input");
 
+searchInput.addEventListener("keyup", () => {
+  const keyword = searchInput.value.toLowerCase().trim();
+  const rows = document.querySelectorAll("tbody tr");
 
+  rows.forEach((row) => {
+    const text = row.innerText.toLowerCase();
+    row.style.display = text.includes(keyword) ? "" : "none";
+  });
+});
 
-
-
+// Gán sự kiện “xem” khi trang load
+attachViewListeners();
