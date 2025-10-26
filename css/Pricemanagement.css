@@ -1,176 +1,164 @@
-.heading {
-    font-size: 30px;
+/* ô tìm kiếm */
+.header {
     display: flex;
     justify-content: space-between; 
-    align-items: center;  
+    align-items: center;            
+    padding: 10px 20px;
+    background-color: rgba(212, 107, 33, 0.799);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+
+} 
+.search input{
+    width: 350PX;
+    height: 50PX;
+    padding-left:30px;
+    border-radius:20px;
+    font-size: 15px;
+    border:2px solid #030b1b;
+    font-family: "Helvetica Neue", Arial, sans-serif
+}
+/*Quản lý Phiếu nhập*/
+.header h1{
+    font-size: 50px;
+    color:white;
 }
 
-/* Nền trang */
-body {
-    height: 100vh;
-    width: auto;
-    inset: 0;
-    background-image: linear-gradient(rgba(158, 24, 43, 0.5), rgba(148, 22, 41, 0.5)), url(../images/s4.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-/* Ô tìm kiếm và danh mục */
-.manager input {
-    text-align: center;
-    width: 700px;
-    height: 40px;
+/*ô thêm phiếu nhâp*/
+.search button{
+    padding:20px;
+    background-color:rgb(234, 145, 11);
+    color: black;
+    margin-right:100px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     border-radius: 10px;
-    font-size: 20px;
+    cursor: pointer;
 }
 
-.manager select {
-    height: 40px;
-    border-radius: 10px;
+.search button:hover{
+    background-color:rgb(236, 79, 12);
+    transform: translateY(-2px);
+    
 }
-
-/* Bảng sản phẩm */
-.table {
+/*ô nhập phiếu*/
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+/*bảng phiếu nhập*/
+.list table{
+    background-color:whitesmoke;
     width: 100%;
-    border: 2px solid black;
-    background-color: white;
-    border-radius: 20px;
-    border-collapse: collapse;   /* Giúp viền liền mạch */
-    font-size: 18px;
-}
-
-/* Tiêu đề bảng */
-.element {
-    background-color: #f8d7da;    /* Màu nền nhẹ giúp nổi bật */
-    border-bottom: 3px solid black; /* Đường gạch giữa tiêu đề và dữ liệu */
-}
-
-.element th {
-    font-size: 20px;
-    padding: 10px;
-    text-transform: capitalize;
-}
-
-/* Hàng dữ liệu */
-.data th {
-    font-size: 20px;
-    font-weight: normal;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc; /* Đường kẻ mảnh giữa các dòng dữ liệu */
-}
-
-/* Nút sửa / xóa */
-.sua, .xoa {
-    padding: 5px 10px;
-    border-radius: 6px;
-    border: 1px solid #333;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.sua {
-    background-color: #f1c40f;
-}
-
-.xoa {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.sua:hover {
-    background-color: #f39c12;
-}
-
-.xoa:hover {
-    background-color: #c0392b;
-}
-
-/* ===== BẢNG THÊM SẢN PHẨM MỚI ===== */
-.tableadd {
-    margin: 30px auto;
-    width: 90%;
-    background-color: #ffffff;
-    border-radius: 15px;
     border-collapse: collapse;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
-    animation: fadeIn 0.4s ease;
+    table-layout: fixed;
 }
 
-/* Tiêu đề của bảng thêm */
-.tableadd thead {
-    background-color: #f8d7da;
+.tablehoadon th{
+    font-size: 20px;
+    border-collapse: separate;
+    
 }
 
-.tableadd th {
-    padding: 12px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    color: #333;
-}
+.tablesp{
 
-/* Các ô nhập liệu */
-.tableadd input[type="text"], 
-.tableadd select {
-    width: 90%;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.tableadd input[type="text"]:focus,
-.tableadd select:focus {
-    border-color: #e67e22;
-    box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
-}
-
-/* Nút thêm & hủy */
-#add, #btnCancel {
-    padding: 8px 16px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#add {
-    background-color: #27ae60;
-    color: white;
-}
-
-#add:hover {
-    background-color: #219150;
-    transform: translateY(-2px);
-}
-
-#btnCancel {
-    background-color: #e74c3c;
-    color: white;
-}
-
-#btnCancel:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-}
-
-/* Hiệu ứng hiện bảng */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(-10px);}
-    to {opacity: 1; transform: translateY(0);}
+    word-wrap: break-word;
+    font-size: 30px ;
 }
 
 
 
+.tablehoadon th{
+    border: 2px solid #030b1b;
+}
+
+.tablesp th{
+    border: 2px solid #204797;
+}
+/*background của trang*/
+body::before {
+  content:"";
+  position:fixed;
+  inset: 0;
+  background-image:linear-gradient(rgba(158, 24, 43, 0.5),rgba(158, 24, 43, 0.5)),url(../images/peel.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform:scale(1.06);
+  z-index: -1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.modal-content input {
+  width: 100%;
+  margin: 5px 0 10px;
+  padding: 5px;
+}
+
+.buttons {
+  text-align: right;
+}
+
+.buttons button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+
+#saveBtn {
+  background-color: #2b9d35;
+  color: white;
+}
+
+.buttons #saveBtn:hover {
+  background-color: #186e1f;
+  transform: translateY(-2px);
+}
+
+
+#cancelBtn {
+  background-color: #d9534f;
+  color: white;
+}
+
+.buttons #cancelBtn:hover {
+  background-color: #ae3d39;
+  transform: translateY(-2px);
+}
+
+
+
+
+
+/* Khung phân trang tổng thể */
 .pagination {
   display: flex;
   align-items: center;
@@ -237,30 +225,87 @@ body {
   color: #fff;
 }
 
+/*nút xem*/
 
-/* Nút thêm sản phẩm */
-#btnAdd {
-    display: block;
-    margin: 30px auto;
-    padding: 12px 28px;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    background-color: #e67e22; /* Cam đất, hợp nền đỏ */
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+.see {
+  width: 80px;
+  padding: 6px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #d4a714;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-#btnAdd:hover {
-    background-color: #cf6e1c; /* Màu cam đậm hơn khi hover */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+.see:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-#btnAdd:active {
-    transform: translateY(1px);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+
+/*chi tiet ve san pham*/
+
+
+/* Modal nền mờ */
+.modal2 {
+  display: none; /* Ẩn ban đầu */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Khung nội dung */
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px 30px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Nút đóng */
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;  
+}
+
+.close:hover {
+  color: red;
+}
+
+  /* Hiệu ứng mờ lên */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+
+  .back-btn {
+  background-color: #884609;    
+  border: 2px solid #d9534f;    
+  border-radius: 50%;           
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 24px;
+
+}
+
+.back-btn:hover {
+  background-color: #ae3d39;    /* Đổi màu khi hover */
+  transform: scale(1.1);        /* Hiệu ứng phóng nhẹ */
 }
