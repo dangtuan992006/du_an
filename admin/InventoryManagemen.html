@@ -2,79 +2,94 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Quản lý hàng tồn kho</title>
-  <link rel="stylesheet" href="../css/inventoryManagement.css">
+  <title>Quản lý số lượng tồn</title>
+  <link rel="stylesheet" href="../css/InventoryManagement.css">
+  <script src="../js/InventoryManagement.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div class="heading">
-    <h1 class="tieude">Quản lý hàng tồn kho</h1>
-    <div class="manager">
-      <input type="text" placeholder="Tìm theo mã / tên sản phẩm">
+  <div class="header">
+    <div class="header-left">
+      <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="heading">Quản lý số lượng tồn</h1>
+      <a href="../pages/index.html" class="home-btn">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="search">
+      <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
       <select id="category">
-        <option value="">-- Tất cả loại --</option>
+        <option value="">Tất cả loại</option>
+        <option value="Trái cây">Trái cây</option>
+        <option value="Rau củ">Rau củ</option>
+        <option value="Nước ép">Nước ép</option>
       </select>
-      <button id="btnAdd">Thêm sản phẩm</button>
+      <button class="loc" onclick="filterProducts()">Lọc</button>
+      <button class="dl" onclick="resetFilter()">Đặt lại</button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Mã SP</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại</th>
+            <th>Số lượng tồn</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="productTable">
+          <tr>
+            <td>SP001</td>
+            <td>Táo đỏ Mỹ</td>
+            <td>Trái cây</td>
+            <td>5</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+          <tr>
+            <td>SP002</td>
+            <td>Cam sành</td>
+            <td>Trái cây</td>
+            <td>40</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+          <tr>
+            <td>SP003</td>
+            <td>Cà rốt Đà Lạt</td>
+            <td>Rau củ</td>
+            <td>5</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+          <tr>
+            <td>SP004</td>
+            <td>Nước ép nho</td>
+            <td>Nước ép</td>
+            <td>20</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+          <tr>
+            <td>SP005</td>
+            <td>Xoài cát Hòa Lộc</td>
+            <td>Trái cây</td>
+            <td>20</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+          <tr>
+            <td>SP006</td>
+            <td>Rau cải xanh</td>
+            <td>Rau củ</td>
+            <td>2</td>
+            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Mã SP</th>
-          <th>Tên sản phẩm</th>
-          <th>Loại</th>
-          <th>Số lượng tồn</th>
-          <th>Đơn vị</th>
-          <th>Hành động</th>
-        </tr>
-      </thead>
-      <tbody class="data">
-        <tr>
-          <th>SP001</th>
-          <th>Dưa hấu đỏ</th>
-          <th>Trái cây Việt Nam</th>
-          <th>25</th>
-          <th>trái</th>
-          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-        </tr>
-        <tr>
-          <th>SP002</th>
-          <th>Dâu tây Đà Lạt</th>
-          <th>Quà tặng trái cây</th>
-          <th>10</th>
-          <th>hộp</th>
-          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-        </tr>
-        <tr>
-          <th>SP003</th>
-          <th>Nho tím</th>
-          <th>Bán chạy nhất</th>
-          <th>18</th>
-          <th>chùm</th>
-          <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Form thêm sản phẩm -->
-  <div id="formAdd" class="modal">
-    <div class="modal-content">
-      <h2>Thêm sản phẩm tồn kho</h2>
-      <label>Mã SP:</label><input type="text" id="maSp"><br>
-      <label>Tên sản phẩm:</label><input type="text" id="tenSp"><br>
-      <label>Loại:</label><input type="text" id="loai"><br>
-      <label>Số lượng:</label><input type="number" id="soLuong"><br>
-      <label>Đơn vị:</label><input type="text" id="donVi"><br>
-
-      <div class="btn-group">
-        <button id="saveBtn">Lưu</button>
-        <button id="cancelBtn">Hủy</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="../js/inventoryManagement.js"></script>
 </body>
 </html>
