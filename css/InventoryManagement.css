@@ -1,111 +1,164 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-image: url('../images/bg_strawberry.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
+   background-image: linear-gradient(rgba(241, 237, 10, 0.5), rgba(30, 135, 4, 0.5)), url(../images/chuoi.jpg);
+  background-size: cover;
+  color: #333;
+}
+
+.header {
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .heading {
+  font-size: 26px;
+  font-weight: 600;
   text-align: center;
-  padding: 20px;
+  flex-grow: 1;
 }
 
-.tieude {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
-
-.manager {
+.back-btn, .home-btn {
+  background-color: white;
+  border: none;
+  color: #0078d7;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.manager input,
-.manager select {
-  padding: 8px;
+.back-btn:hover, .home-btn:hover {
+  background-color: #005fa3;
+  color: white;
+  transform: scale(1.1);
+}
+
+.main {
+  padding: 30px 50px;
+}
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.search input, .search select {
+  padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  outline: none;
 }
 
-#btnAdd {
-  padding: 8px 15px;
-  background-color: #4CAF50;
-  color: white;
+button.loc, button.dl {
   border: none;
   border-radius: 6px;
+  padding: 8px 16px;
+  color: white;
+  font-size: 15px;
   cursor: pointer;
 }
 
-#btnAdd:hover {
-  background-color: #45a049;
+button.loc { background-color: #0078d7; }
+button.dl { background-color: #ff4747; }
+
+.table-container {
+  margin-top: 25px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.table {
-  width: 90%;
-  margin: 20px auto;
+table {
+  width: 100%;
   border-collapse: collapse;
 }
 
-.table th {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+th, td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.table thead {
-  background-color: #f8bebe;
+th {
+  background-color: #f0f0f0;
 }
 
-button.sua {
-  background-color: #fbc02d;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-right: 5px;
+.warning {
+  color: #d93a3a;
+  font-weight: bold;
 }
 
-button.xoa {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
+/* ===== HEADER ===== */
+.header {
+     background-image: linear-gradient(rgba(92, 140, 15, 0.5), rgba(62, 148, 22, 0.5));
+    color: white;
+    padding: 20px 40px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
 }
 
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+/* Container bên trong header */
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.modal-content {
-  background: white;
-  border-radius: 10px;
-  width: 400px;
-  margin: 5% auto;
-  padding: 20px;
+/* Tiêu đề */
+.heading {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    flex-grow: 1;
 }
 
-.modal-content input {
-  width: 95%;
-  margin: 5px 0 10px;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Nút quay lại & Trang chủ */
+.back-btn,
+.home-btn {
+    background-color: white;
+    border: none;
+    color: #19a619;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-.btn-group {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
+.back-btn:hover,
+.home-btn:hover {
+    background-color: #0b5f24;
+    color: white;
+    transform: scale(1.1);
 }
