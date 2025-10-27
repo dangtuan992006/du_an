@@ -1,69 +1,42 @@
-const btnAdd = document.getElementById("btnAdd");
-const modal = document.getElementById("formAdd");
-const cancelBtn = document.getElementById("cancelBtn");
-const saveBtn = document.getElementById("saveBtn");
-const tbody = document.querySelector(".data");
+function filterProducts() {
+  const keyword = document.getElementById("searchName").value.toLowerCase();
+  const category = document.getElementById("category").value;
+  const rows = document.querySelectorAll("#productTable tr");
 
-let editingRow = null; // Hàng đang được sửa (nếu có)
-
-// Hiện form thêm sản phẩm
-btnAdd.addEventListener("click", () => {
-  modal.style.display = "block";
-  editingRow = null; // Đảm bảo là đang ở chế độ thêm
-  document.querySelector("h2").textContent = "Thêm sản phẩm tồn kho";
-  clearForm();
-});
-
-// Ẩn form
-cancelBtn.addEventListener("click", () => modal.style.display = "none");
-
-// Hàm xóa dữ liệu trên form
-function clearForm() {
-  document.getElementById("maSp").value = "";
-  document.getElementById("tenSp").value = "";
-  document.getElementById("loai").value = "";
-  document.getElementById("soLuong").value = "";
-  document.getElementById("donVi").value = "";
+  rows.forEach(row => {
+    const name = row.cells[1].textContent.toLowerCase();
+    const type = row.cells[2].textContent;
+    if (
+      (keyword === "" || name.includes(keyword)) &&
+      (category === "" || type === category)
+    ) {
+      row.style.display = "";
+    } else {
+      row.style.display = "none";
+    }
+  });
 }
 
-// Lưu (thêm mới hoặc cập nhật)
-saveBtn.addEventListener("click", () => {
-  const maSp = document.getElementById("maSp").value.trim();
-  const tenSp = document.getElementById("tenSp").value.trim();
-  const loai = document.getElementById("loai").value.trim();
-  const soLuong = document.getElementById("soLuong").value.trim();
-  const donVi = document.getElementById("donVi").value.trim();
+function resetFilter() {
+  document.getElementById("searchName").value = "";
+  document.getElementById("category").value = "";
+  document.querySelectorAll("#productTable tr").forEach(r => r.style.display = "");
+}
 
-  if (!maSp || !tenSp) {
-    alert("Vui lòng nhập mã và tên sản phẩm!");
-    return;
+// Chức năng sửa số lượng tồn
+function editRow(button) {
+  const row = button.closest("tr");
+  const cell = row.cells[3];
+  
+  // Nếu đang ở chế độ chỉnh sửa
+  if (button.textContent === "Lưu") {
+    const input = cell.querySelector("input");
+    const newValue = input.value;
+    cell.textContent = newValue;
+    button.textContent = "Sửa";
+  } else {
+    const currentValue = cell.textContent;
+    cell.innerHTML = `<input type="number" value="${currentValue}" min="0" style="width:80px; text-align:center;">`;
+    button.textContent = "Lưu";
   }
-
-  // Nếu đang sửa
- 
-  modal.style.display = "none";
-  clearForm();
-});
-
-// Xóa hoặc Sửa sản phẩm
-document.addEventListener("click", (e) => {
-  const target = e.target;
-
-  // Xóa
-  if (target.classList.contains("xoa")) {
-    const row = target.closest("tr");
-    const ten = row.children[1].textContent;
-    if (confirm(`Bạn có chắc muốn xóa sản phẩm "${ten}" không?`)) {
-      
-    }
-  }
-
-  // Sửa
-  if (target.classList.contains("sua")) {
-    editingRow = target.closest("tr");
-    document.querySelector("h2").textContent = "Chỉnh sửa sản phẩm tồn kho";
-    modal.style.display = "block";
-
-    
-  }
-});
+}
