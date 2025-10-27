@@ -1,151 +1,112 @@
-// Pricemanagement.js
+// ======== HIỂN THỊ / ẨN BẢNG THÊM SẢN PHẨM ========
 const btnAdd = document.getElementById("btnAdd");
-const add = document.getElementById("add");
 const btnCancel = document.getElementById("btnCancel");
 const tableAdd = document.getElementById("tableAdd");
-const tbody = document.querySelector(".data");
 
-// Hiện/ẩn bảng thêm sản phẩm
 btnAdd.addEventListener("click", () => {
   tableAdd.style.display = "table";
-  btnAdd.style.display = "none";
 });
 
 btnCancel.addEventListener("click", () => {
   tableAdd.style.display = "none";
-  btnAdd.style.display = "inline";
 });
 
-// Nút thêm trong bảng add
-const addButtonInTable = tableAdd.querySelector("button");
 
-// Thêm sản phẩm mới
-addButtonInTable.addEventListener("click", (e) => {
-  e.preventDefault();
+// ======== THÊM SẢN PHẨM MỚI ========
+// → Thêm id="add" vào nút "Thêm" trong HTML hoặc chọn bằng vị trí
+const addButton = tableAdd.querySelector("button:not(#btnCancel)");
+const dataTable = document.querySelector(".data");
 
-  const inputs = tableAdd.querySelectorAll("tbody tr th input, tbody tr th select");
-  const values = Array.from(inputs).map(i => i.value.trim());
+addButton.addEventListener("click", () => {
+  const inputs = tableAdd.querySelectorAll("input");
+  const select = tableAdd.querySelector("select");
 
-  if (!values[0]) {
-    alert("Vui lòng nhập tên sản phẩm.");
+  const tenSP = inputs[0].value.trim();
+  const loai = select.value;
+  const giaVon = parseFloat(inputs[1].value.replace(/,/g, ""));
+  const loiNhuan = parseFloat(inputs[2].value);
+
+  // Kiểm tra dữ liệu hợp lệ
+  if (!tenSP || !loai || isNaN(giaVon) || isNaN(loiNhuan)) {
+    alert("⚠️ Vui lòng nhập đầy đủ và đúng định dạng dữ liệu!");
     return;
   }
 
-  // Reset form
-  inputs.forEach(i => {
-    if (i.tagName.toLowerCase() === "select") i.selectedIndex = 0;
-    else i.value = "";
-  });
+  // Tính giá bán
+  const giaBan = Math.round(giaVon * (1 + loiNhuan / 100));
 
-tableAdd.style.display = "none";
-btnAdd.style.display = "inline";
+  // Tạo dòng mới
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+    <th>${tenSP}</th>
+    <th>${loai}</th>
+    <th>${giaVon.toLocaleString()}</th>
+    <th>${loiNhuan}%</th>
+    <th>${giaBan.toLocaleString()}</th>
+    <th>
+      <button class="sua">sửa</button>
+      <button class="xoa">xóa</button>
+    </th>
+  `;
 
-
-  // Cột thao tác
-  const actionTh = document.createElement("th");
-  const btnSua = document.createElement("button");
-  btnSua.className = "sua";
-  btnSua.textContent = "sửa";
-
-  const btnXoa = document.createElement("button");
-  btnXoa.className = "xoa";
-  btnXoa.textContent = "xóa";
-
-  actionTh.appendChild(btnSua);
-  actionTh.appendChild(btnXoa);
-  tr.appendChild(actionTh);
-
-  tbody.appendChild(tr);
+  dataTable.appendChild(newRow);
 
   // Reset form
-  inputs.forEach(i => {
-    if (i.tagName.toLowerCase() === "select") i.selectedIndex = 0;
-    else i.value = "";
-  });
+  inputs.forEach(input => input.value = "");
+  select.selectedIndex = 0;
 
+  // Ẩn bảng thêm
   tableAdd.style.display = "none";
-  btnAdd.style.display = "inline";
 });
 
-// Xử lý sự kiện xóa và sửa
-document.addEventListener("click", function (e) {
-  const target = e.target;
 
-  // Nút xóa
-  if (target.classList.contains("xoa")) {
-    const row = target.closest("tr");
-    if (!row) return;
-    const ten = row.children[0] ? row.children[0].textContent : "";
-    const confirmDel = confirm(`Bạn có chắc muốn xóa sản phẩm "${ten}" không?`);
-    return;
-  }
-
-  // Nút sửa
-  if (target.classList.contains("sua")) {
-    const row = target.closest("tr");
-    if (!row) return;
-    if (row.dataset.editing === "true") return;
-    row.dataset.editing = "true";
-
-    // Lưu giá trị cũ để phục hồi
-    const oldValues = Array.from(row.children).slice(0, 5).map(cell => cell.textContent);
-
-    // Biến 5 ô đầu thành input (vẫn hiển thị giá trị cũ)
-    for (let i = 0; i < 5; i++) {
-      const cell = row.children[i];
-      const input = document.createElement("input");
-      input.type = "text";
-      input.value = oldValues[i];
-      input.style.width = "95%";
-      cell.textContent = "";
-      cell.appendChild(input);
+// ======== XÓA SẢN PHẨM ========
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("xoa")) {
+    const row = e.target.closest("tr");
+    const tenSP = row.children[0].textContent;
+    if (confirm(`Bạn có chắc muốn xóa sản phẩm "${tenSP}" không?`)) {
+      row.remove();
     }
-
-    // Thay nút sửa/xóa bằng lưu/hủy
-    const actionCell = row.children[5];
-    actionCell.textContent = "";
-
-    const btnLuu = document.createElement("button");
-    btnLuu.className = "luu";
-    btnLuu.textContent = "lưu";
-
-    const btnHuy = document.createElement("button");
-    btnHuy.className = "huy";
-    btnHuy.textContent = "hủy";
-
-    actionCell.appendChild(btnLuu);
-    actionCell.appendChild(btnHuy);
-
-    // Nút LƯU (không thay đổi dữ liệu — phục hồi giá trị cũ)
-    btnLuu.addEventListener("click", function () {
-      for (let i = 0; i < 5; i++) {
-        const cell = row.children[i];
-        cell.textContent = oldValues[i]; // giữ nguyên dữ liệu cũ
-      }
-      restoreButtons(row, actionCell);
-    });
-
-    // Nút HỦY (cũng phục hồi dữ liệu cũ)
-    btnHuy.addEventListener("click", function () {
-      for (let i = 0; i < 5; i++) {
-        const cell = row.children[i];
-        cell.textContent = oldValues[i];
-      }
-      restoreButtons(row, actionCell);
-    });
-  }
-
-  // Hàm phục hồi nút sửa/xóa
-  function restoreButtons(row, actionCell) {
-    actionCell.textContent = "";
-    const btnSuaNew = document.createElement("button");
-    btnSuaNew.className = "sua";
-    btnSuaNew.textContent = "sửa";
-    const btnXoaNew = document.createElement("button");
-    btnXoaNew.className = "xoa";
-    btnXoaNew.textContent = "xóa";
-    actionCell.appendChild(btnSuaNew);
-    actionCell.appendChild(btnXoaNew);
-    delete row.dataset.editing;
   }
 });
+
+
+// ======== SỬA SẢN PHẨM ========
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("sua")) {
+    const row = e.target.closest("tr");
+    const cells = row.querySelectorAll("th");
+
+    const tenSP = cells[0].textContent;
+    const giaVonCu = parseFloat(cells[2].textContent.replace(/,/g, ""));
+    const loiNhuanCu = parseFloat(cells[3].textContent.replace("%", ""));
+
+    const giaVonMoi = prompt(`Nhập giá vốn mới cho "${tenSP}" (VND):`, giaVonCu);
+    const loiNhuanMoi = prompt(`Nhập lợi nhuận mới (%) cho "${tenSP}":`, loiNhuanCu);
+
+    if (giaVonMoi !== null && loiNhuanMoi !== null && !isNaN(giaVonMoi) && !isNaN(loiNhuanMoi)) {
+      const giaBanMoi = Math.round(parseFloat(giaVonMoi) * (1 + parseFloat(loiNhuanMoi) / 100));
+      cells[2].textContent = Number(giaVonMoi).toLocaleString();
+      cells[3].textContent = loiNhuanMoi + "%";
+      cells[4].textContent = giaBanMoi.toLocaleString();
+    } else {
+      alert("⚠️ Dữ liệu nhập không hợp lệ!");
+    }
+  }
+});
+
+
+// ======== TÌM KIẾM SẢN PHẨM ========
+const searchInput = document.querySelector(".manager input");
+searchInput.addEventListener("keyup", () => {
+  const keyword = searchInput.value.toLowerCase().trim();
+  const rows = dataTable.querySelectorAll("tr");
+
+  rows.forEach(row => {
+    const tenSP = row.children[0].textContent.toLowerCase();
+    const loaiSP = row.children[1].textContent.toLowerCase();
+    row.style.display = (tenSP.includes(keyword) || loaiSP.includes(keyword)) ? "" : "none";
+  });
+});
+
