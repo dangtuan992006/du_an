@@ -2,123 +2,131 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý giá bán</title>
+    <title>Quản lý giá bán trái cây</title>
     <link rel="stylesheet" href="../css/Pricemanagement.css">
 </head>
 <body>  
     <div class="heading">
-        <h1 class="tieude">Quản lý giá bán cửa hàng</h1>
+        <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+        <span class="arrow">←</span>
+        </button>
+        <h1 class="tieude">Quản lý giá bán trái cây</h1>
         <div class="manager">   
-            <input type="text" placeholder="Tìm theo tên sản phẩm hoặc mã sản phẩm">
+            <input type="text" placeholder="Tìm theo tên hoặc mã sản phẩm trái cây">
             <label for="category"></label>
-            <select id="category" name="category">
-                <option value="">-- Tất cả loại --</option>
-                <option value="">Trái cây Việt Nam</option>
-                <option value="">Quà tặng trái cây</option>
-                <option value="">bán chạy nhất</option>
-                <option value="">trái cây nhập khẩu</option>
-                <option value="">Trái cây Việt Nam</option>
+            <select class="category" name="category">
+                <option value="">-- Tất cả loại trái cây --</option>
+                <option value="Trái cây nhập khẩu">Trái cây nhập khẩu</option>
+                <option value="Trái cây nội địa">Trái cây nội địa</option>
             </select> 
         </div>
+         <a href="../pages/index.html" class="back-btn">
+        <i class="fa fa-home"></i>
+        </a>
+
+        <!-- Thêm Font Awesome nếu chưa có -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        </div>
+
     </div>
+
     <div>
         <table class="table">
             <thead class="element">
-                    <tr >
-                        <th>sản phẩm</th>
-                        <th>loại</th>
-                        <th>giá vốn</th>
-                        <th>lợi nhuận</th>
-                        <th>Giá bán</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Tên trái cây</th>
+                    <th>Loại</th>
+                    <th>Giá vốn (VNĐ)</th>
+                    <th>Lợi nhuận</th>
+                    <th>Giá bán (VNĐ)</th>
+                    <th>Thao tác</th>
+                </tr>
             </thead>
             <tbody class="data">
                 <tr>
-                    <th>Dưa hấu đỏ</th>
-                    <th>Trái cây Việt Nam</th>
-                    <th>25,000</th>
-                    <th>40%</th>
-                    <th>35,000</th>
-                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>Dâu tây Đà Lạt</th>
-                    <th>Quà tặng trái cây</th>
-                    <th>150,000</th>
-                    <th>30%</th>
-                    <th>195,000</th>
-                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>Nho tím</th>
-                    <th>Bán chạy nhất</th>
-                    <th>60,000</th>
-                    <th>35%</th>
-                    <th>81,000</th>
-                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>Táo Mỹ</th>
+                    <th>Táo Fuji 1kg</th>
                     <th>Trái cây nhập khẩu</th>
-                    <th>80,000</th>
+                    <th>35,000</th>
                     <th>25%</th>
-                    <th>100,000</th>
+                    <th>43,800</th>
                     <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
                 </tr>
                 <tr>
-                    <th>Chuối tiêu</th>
-                    <th>Trái cây Việt Nam</th>
-                    <th>15,000</th>
-                    <th>30%</th>
+                    <th>Chuối Laba 1kg</th>
+                    <th>Trái cây nội địa</th>
                     <th>20,000</th>
+                    <th>30%</th>
+                    <th>26,000</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>   
+                </tr>
+                <tr>
+                    <th>Cam sành 1kg</th>
+                    <th>Trái cây nội địa</th>
+                    <th>28,000</th>
+                    <th>35%</th>
+                    <th>37,800</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>Xoài cát Hòa Lộc 1kg</th>
+                    <th>Trái cây nội địa</th>
+                    <th>45,000</th>
+                    <th>40%</th>
+                    <th>63,000</th>
+                    <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
+                </tr>
+                <tr>
+                    <th>Nho Mỹ 1kg</th>
+                    <th>Trái cây nhập khẩu</th>
+                    <th>150,000</th>
+                    <th>20%</th>
+                    <th>180,000</th>
                     <th><button class="sua">sửa</button><button class="xoa">xóa</button></th>
                 </tr>
             </tbody>
-
         </table>
     </div>
 
     <div>
-       <div>
         <!-- Nút thêm sản phẩm -->
-        <button id="btnAdd">thêm sản phẩm</button>
+        <div class="button-container">
+        <button id="btnAdd">Thêm trái cây</button>
+        </div>
 
-     <!-- Bảng thêm sản phẩm (ban đầu ẩn đi) -->
-     <table id="tableAdd" class="tableadd" style="display: none;">
-        <thead class ="ele2">
-            <tr>
-                <th>tên sản phẩm mới </th>
-                <th>loại</th>
-                <th>giá vốn</th>
-                <th>lợi nhuận(%)</th>
-                <th>Giá bán</th>
-                <th></th>   
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th><input type="text"></th>
-                <th>
-                    <label for="loai"></label>
-                    <select id="loai" name ="loai">
-                        <option value="">-- Tất cả loại --</option>
-                        <option value="">Trái cây Việt Nam</option>
-                        <option value="">Quà tặng trái cây</option>
-                        <option value="">bán chạy nhất</option>
-                        <option value="">trái cây nhập khẩu</option>
-                        <option value="">Trái cây Việt Nam</option>
-                    </select>
-                </th>
-                <th><input type="text"></th>
-                <th><input type="text"></th>
-                <th><input type="text"></th>
-                <th>
-                    <button id="add" >thêm</button>
-                    <button id="btnCancel">hủy</button>
-                </th>
-            </tr>
-        </tbody>
+
+        <!-- Bảng thêm sản phẩm (ban đầu ẩn đi) -->
+        <table id="tableAdd" class="tableadd" style="display: none;">
+            <thead class="ele2">
+                <tr>
+                    <th>Tên trái cây mới</th>
+                    <th>Loại</th>
+                    <th>Giá vốn (VNĐ)</th>
+                    <th>Lợi nhuận (%)</th>
+                    <th>Giá bán (VNĐ)</th>
+                    <th>Thao tác</th>   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th><input type="text" placeholder="Nhập tên trái cây"></th>
+                    <th>
+                        <label for="loai"></label>
+                        <select id="loai" name="loai">
+                            <option value="">-- Chọn loại trái cây --</option>
+                            <option value="Trái cây nhập khẩu">Trái cây nhập khẩu</option>
+                            <option value="Trái cây nội địa">Trái cây nội địa</option>
+                        </select>
+                    </th>
+                    <th><input type="text" placeholder="VD: 30000"></th>
+                    <th><input type="text" placeholder="VD: 20"></th>
+                    <th><input type="text" placeholder="Tự động tính"></th>
+                    <th>
+                        <button>Thêm</button>
+                        <button id="btnCancel">Hủy</button>
+                    </th>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -132,7 +140,7 @@
                 <li>10</li>
             </ul>
             <button class="next">⟩</button>
-    </div>
+        </div>
 
 
 
