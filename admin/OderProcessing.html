@@ -3,107 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý đơn hàng</title>
-    <link rel="stylesheet" href="../css/OderProcessing.css">
+    <link rel="stylesheet" href="../css/OrderProcessing.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <div class="heading">
-        <h1 class="tieude">Quản lý đơn hàng</h1>
-        <div class="manager">
-            <input type="text" placeholder="Tìm theo mã đơn hoặc tên khách hàng">
-            <label for="status"></label>
-            <select id="status" name="status">
-                <option value="">-- Tất cả trạng thái --</option>
-                <option value="pending">Chờ xử lý</option>
-                <option value="shipping">Đang giao</option>
-                <option value="done">Hoàn tất</option>
-                <option value="cancel">Đã hủy</option>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        <h1 class="heading">Quản lý đơn hàng</h1>
+        <a href="../pages/index.html" class="home-btn">
+                <i class="fa-solid fa-house"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="search">
+            <h2 class="nd">Ngày đặt</h2>
+            <input class="dat" type="date">
+
+            <h2 class="nd">Trạng thái</h2>
+            <select id="state" name="state">
+                <option value="">Tất cả các hóa đơn</option>
             </select>
+
+            <input type="text" placeholder="Tìm hóa đơn theo mã hóa đơn, tên KH hoặc SĐT">
+            <button class="loc">Lọc</button>
+            <button class="dl">Đặt lại</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DH001</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>0901234567</td>
+                        <td>123 Lê Lợi, Hà Nội</td>
+                        <td>2025-10-10</td>
+                        <td>2.000.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH002</td>
+                        <td>Trần Thị B</td>
+                        <td>0919876543</td>
+                        <td>45 Nguyễn Huệ, TP.HCM</td>
+                        <td>2025-10-12</td>
+                        <td>1.500.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH003</td>
+                        <td>Lê Minh C</td>
+                        <td>0987654321</td>
+                        <td>89 Nguyễn Trãi, Đà Nẵng</td>
+                        <td>2025-10-14</td>
+                        <td>3.250.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý">Đang xử lý</option>
+                                <option value="Đã giao" selected>Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH004</td>
+                        <td>Phạm Thị D</td>
+                        <td>0945123456</td>
+                        <td>12 Hai Bà Trưng, Hải Phòng</td>
+                        <td>2025-10-15</td>
+                        <td>1.200.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH005</td>
+                        <td>Võ Quốc E</td>
+                        <td>0933344556</td>
+                        <td>56 Trần Phú, Nha Trang</td>
+                        <td>2025-10-16</td>
+                        <td>4.500.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý">Đang xử lý</option>
+                                <option value="Đã giao" selected>Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH006</td>
+                        <td>Đỗ Mỹ F</td>
+                        <td>0977665544</td>
+                        <td>34 Pasteur, TP.HCM</td>
+                        <td>2025-10-18</td>
+                        <td>2.700.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH007</td>
+                        <td>Bùi Văn G</td>
+                        <td>0922233344</td>
+                        <td>15 Hùng Vương, Cần Thơ</td>
+                        <td>2025-10-19</td>
+                        <td>3.800.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH008</td>
+                        <td>Ngô Thị H</td>
+                        <td>0911122233</td>
+                        <td>8 Hoàng Diệu, Huế</td>
+                        <td>2025-10-20</td>
+                        <td>950.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý">Đang xử lý</option>
+                                <option value="Đã giao" selected>Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH009</td>
+                        <td>Phan Anh I</td>
+                        <td>0909988776</td>
+                        <td>66 Phạm Văn Đồng, Hà Nội</td>
+                        <td>2025-10-22</td>
+                        <td>5.600.000₫</td>
+                        <td>
+                            <select>
+                                <option value="Đang xử lý" selected>Đang xử lý</option>
+                                <option value="Đã giao">Đã giao</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <div>
-        <table class="table">
-            <thead class="element">
-                <tr>
-                    <th>Mã đơn hàng</th>
-                    <th>Tên khách hàng</th>
-                    <th>Ngày đặt</th>
-                    <th>Tổng tiền</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody class="data">
-                <tr>
-                    <th>DH001</th>
-                    <th>Nguyễn Văn A</th>
-                    <th>20/10/2025</th>
-                    <th>850,000</th>
-                    <th><span class="status pending">Chờ xử lý</span></th>
-                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>DH002</th>
-                    <th>Trần Thị B</th>
-                    <th>19/10/2025</th>
-                    <th>1,200,000</th>
-                    <th><span class="status shipping">Đang giao</span></th>
-                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>DH003</th>
-                    <th>Lê Văn C</th>
-                    <th>15/10/2025</th>
-                    <th>650,000</th>
-                    <th><span class="status done">Hoàn tất</span></th>
-                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>DH004</th>
-                    <th>Phạm Thị D</th>
-                    <th>13/10/2025</th>
-                    <th>420,000</th>
-                    <th><span class="status cancel">Đã hủy</span></th>
-                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
-                </tr>
-                <tr>
-                    <th>DH005</th>
-                    <th>Võ Minh E</th>
-                    <th>10/10/2025</th>
-                    <th>1,050,000</th>
-                    <th><span class="status pending">Chờ xử lý</span></th>
-                    <th><button class="xem">xem</button><button class="xoa">xóa</button></th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Modal xem chi tiết -->
-    <div id="orderModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Chi tiết đơn hàng</h2>
-            <p><strong>Mã đơn:</strong> <span id="orderId"></span></p>
-            <p><strong>Tên khách hàng:</strong> <span id="customerName"></span></p>
-            <p><strong>Ngày đặt:</strong> <span id="orderDate"></span></p>
-            <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
-            <p><strong>Trạng thái:</strong> <span id="orderStatus"></span></p>
-        </div>
-    </div>
-
-    <!-- Phân trang -->
-    <div class="pagination">
-        <button class="prev">⟨</button>
-        <ul class="pages">
-            <li class="active">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>...</li>
-            <li>10</li>
-        </ul>
-        <button class="next">⟩</button>
-    </div>
-
-    <script src="../js/orderProcessing.js"></script>
+    <script src="../js/OrderProcessing.js"></script>
 </body>
 </html>
