@@ -1,0 +1,83 @@
+* {
+    border: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9cbd6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+}
+
+/* ===== Container ===== */
+.container {
+    background-color: #9e182b;
+    border-radius: 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 thẻ trên 1 hàng */
+    gap: 15px;
+}
+
+/* ===== Card ===== */
+.manager-card {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manager-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== Text ===== */
+.manager-card h3 {
+    color: #9e182b;
+    margin: 5px 0;
+}
+
+.manager-card .title {
+    font-weight: bold;
+    color: #700f1d;
+    margin-bottom: 8px;
+}
+
+.manager-card .contact {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 2px 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1000px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+img{
+    width: 300px;
+    border-radius: 20px;
+}
+
+.menu-btn{
+    color: #700f1d;
+    background-color: aliceblue;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+}
