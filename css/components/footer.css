@@ -88,6 +88,27 @@
   outline: none;
 }
 
+/* Ensure the contact column is on the right */
+  .footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Adjust as needed for desired column widths */
+    gap: 20px;
+  }
+
+  .footer-contact {
+    grid-column: 3 / 4; /* Place the contact column in the third grid column */
+  }
+
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr; /* Stack columns on small screens */
+    }
+    .footer-contact {
+      grid-column: auto; /* Reset grid column for stacking */
+    }
+  }
+
 .footer-column h4 {
   font-size: 1.15rem;
   margin-bottom: 18px;

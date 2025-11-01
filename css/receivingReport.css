@@ -290,3 +290,26 @@ body::before {
 
   
 
+.back-btn,
+.home-btn {
+    background-color: white;
+    border: none;
+    color: #d4a714;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.back-btn:hover,
+.home-btn:hover {
+    background-color: #cd9e05;
+    color: white;
+    transform: scale(1.1);
+}
