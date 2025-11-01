@@ -6,7 +6,7 @@ body {
   font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
-   background-image: linear-gradient(rgba(241, 237, 10, 0.5), rgba(30, 135, 4, 0.5)), url(../images/chuoi.jpg);
+  background-image: linear-gradient(rgba(148, 22, 41, 0.5), rgba(148, 22, 41, 0.5)), url(../images/chuoi.jpg);
   background-size: cover;
   color: #333;
 }
@@ -110,7 +110,7 @@ th {
 
 /* ===== HEADER ===== */
 .header {
-     background-image: linear-gradient(rgba(92, 140, 15, 0.5), rgba(62, 148, 22, 0.5));
+     background-image: linear-gradient(rgba(249, 203, 214, 1), rgba(249, 203, 214, 1));
     color: white;
     padding: 20px 40px;
     position: relative;

@@ -13,7 +13,7 @@ body {
 
 /* ======= HEADER ======= */
 .header {
-    background-color: #0078d7;
+    background-color: #f9cbd6;
     color: white;
     padding: 15px 40px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -40,7 +40,7 @@ body {
 .home-btn {
     background-color: white;
     border: none;
-    color: #0078d7;
+    color: #f9cbd6;
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -55,7 +55,7 @@ body {
 
 .back-btn:hover,
 .home-btn:hover {
-    background-color: #005fa3;
+    background-color: #f9cbd6;
     color: white;
     transform: scale(1.1);
 }
@@ -101,7 +101,7 @@ body {
 
 .search input:focus,
 .search select:focus {
-    border-color: #0078d7;
+    border-color: #f9cbd6;
 }
 
 /* ======= NÚT ======= */
@@ -202,7 +202,7 @@ body {
     font-family: "Segoe UI", sans-serif;
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(rgba(13, 11, 161, 0.5), rgba(148, 22, 41, 0.5)), url(../images/grape.jpg);
+    background-image: linear-gradient(rgba(148, 22, 41, 0.5), rgba(148, 22, 41, 0.5)), url(../images/grape.jpg);
     background-size: cover;
     background-attachment: fixed;
     color: #333;
