@@ -22,14 +22,26 @@ body {
   color: #9e182b;
   background-color: #f9cbd6;
   border-radius: 0 0 15px 15px;
+  /* Grid matches content area: sidebar | content */
   display: grid;
-  justify-content: center;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  padding: 0 16px;
+  position: relative; /* for absolutely positioned home icon */
   font-weight: bold;
   text-transform: uppercase;
-  grid-template-columns: 90% 1fr;
 }
 .item.header h1 {
+  margin: 0;
   text-align: center;
+  grid-column: 2; /* center within the content column */
+  justify-self: center;
+}
+.item.header .menu-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .item button {
   color: #9e182b;
@@ -87,7 +99,7 @@ body {
 /* Style cho content */
 .item.content {
   display: flex;
-  justify-content: left;
+  justify-content: center; /* center content to align with header title */
   padding: 5px;
   border-radius: 8px;
 }
