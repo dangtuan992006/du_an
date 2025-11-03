@@ -1,130 +1,63 @@
+/**
+ * search.js - Xử lý chức năng tìm kiếm và lọc sản phẩm
+ *
+ * Tệp này chỉ lắng nghe sự kiện của người dùng. Nó không phụ thuộc vào thời điểm
+ * main.js được tải xong, mà chỉ kiểm tra sự sẵn sàng của main.js KHI người dùng tương tác.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
-  const productsContainer = document.getElementById("productsContainer");
-  const loading = document.getElementById("loading");
-  const noResults = document.getElementById("noResults");
-  const searchInput = document.querySelector(".search-input");
+  // Lấy các phần tử DOM. Sử dụng cả ID và class để linh hoạt hơn.
+  const searchInput =
+    document.querySelector(".search-input") ||
+    document.getElementById("searchInput");
   const searchButton = document.querySelector(".search-button");
-  const categorySelect = document.querySelector(".category-select");
+  const categorySelect =
+    document.querySelector(".category-select") ||
+    document.getElementById("categoryFilter");
 
-  // Biến toàn cục để chia sẻ với cart.js
-  window.productsData = [];
-
-  // Hàm đọc file JSON
-  async function loadProducts() {
-    try {
-      loading.style.display = "block";
-      const response = await fetch("../data/products.json");
-      window.productsData = await response.json();
-      loading.style.display = "none";
-      displayProducts(window.productsData);
-
-      // Khởi tạo giỏ hàng sau khi tải sản phẩm
-      if (typeof App !== "undefined" && App.Cart) {
-        App.Cart.init();
-        App.Cart.updateCount();
-      }
-    } catch (error) {
-      loading.style.display = "none";
-      productsContainer.innerHTML = `<p style="color: red; text-align: center;">Lỗi khi tải dữ liệu: ${error.message}</p>`;
+  /**
+   * Hàm kích hoạt việc lọc sản phẩm.
+   * Hàm này sẽ kiểm tra xem main.js đã sẵn sàng MỖI KHI nó được gọi.
+   */
+  const triggerFilter = () => {
+    // Kiểm tra xem đối tượng App trong main.js đã tồn tại và hàm cần thiết có sẵn không
+    if (
+      window.App &&
+      window.App.Products &&
+      window.App.Products.handleFilterChange
+    ) {
+      // Nếu sẵn sàng, gọi hàm xử lý lọc trong main.js
+      window.App.Products.handleFilterChange();
+    } else {
+      // Nếu chưa sẵn sàng, chỉ cần thông báo và không làm gì cả.
+      // Người dùng có thể thử lại sau một giây lát.
+      console.warn("Chức năng tìm kiếm đang tải. Vui lòng thử lại.");
     }
-  }
+  };
 
-  // Hàm hiển thị sản phẩm
-  function displayProducts(filteredProducts) {
-    productsContainer.innerHTML = "";
-    noResults.style.display = "none";
+  // --- Gắn các sự kiện lắng nghe ---
 
-    if (filteredProducts.length === 0) {
-      noResults.style.display = "block";
-      return;
-    }
-
-    filteredProducts.forEach((product) => {
-      const productCard = document.createElement("div");
-      productCard.className = "product-card";
-      productCard.innerHTML = `
-        <div class="product-image">
-          <img src="${product.image}" alt="${product.name}">
-        </div>
-        <div class="product-info">
-          <h3 class="product-name">${product.name}</h3>
-          <span class="product-category">${product.category}</span>
-          <p class="product-description">${product.description}</p>
-          <div class="product-price">${parseFloat(product.price).toLocaleString(
-            "vi-VN"
-          )} VNĐ</div>
-          <div class="product-actions">
-            <button class="buy-now-btn" data-product-id="${
-              product.id
-            }">MUA NGAY</button>
-            <button class="add-to-cart-btn" data-product-id="${product.id}">
-              <i class="fas fa-shopping-cart"></i>
-              Thêm vào giỏ
-            </button>
-          </div>
-        </div>
-      `;
-      // Thêm sự kiện nhấp chuột để chuyển đến trang chi tiết
-      productCard.addEventListener("click", () => {
-        window.location.href = `../pages/product-detail.html?id=${product.id}`;
-      });
-      productsContainer.appendChild(productCard);
+  if (searchButton) {
+    searchButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      triggerFilter();
     });
-
-    // Cập nhật lại giỏ hàng sau khi hiển thị sản phẩm mới
-    if (typeof App !== "undefined" && App.Cart) {
-      App.Cart.updateCount();
-    }
   }
 
-  // Hàm tìm kiếm sản phẩm
-  function searchProducts(query, category) {
-    let filteredProducts = window.productsData;
+  if (searchInput) {
+    // Sự kiện khi người dùng gõ vào ô tìm kiếm (tìm kiếm tức thì)
+    searchInput.addEventListener("input", triggerFilter);
 
-    if (query) {
-      filteredProducts = filteredProducts.filter(
-        (product) =>
-          product.name.toLowerCase().includes(query.toLowerCase()) ||
-          product.description.toLowerCase().includes(query.toLowerCase())
-      );
-    }
-
-    if (category && category !== "ALL") {
-      filteredProducts = filteredProducts.filter(
-        (product) => product.category === category
-      );
-    }
-
-    displayProducts(filteredProducts);
+    // Sự kiện khi nhấn phím "Enter"
+    searchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        triggerFilter();
+      }
+    });
   }
 
-  // Sự kiện tìm kiếm
-  searchButton.addEventListener("click", () => {
-    const query = searchInput.value.trim();
-    const category = categorySelect.value;
-    searchProducts(query, category);
-  });
-
-  searchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      const query = searchInput.value.trim();
-      const category = categorySelect.value;
-      searchProducts(query, category);
-    }
-  });
-
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.trim();
-    const category = categorySelect.value;
-    searchProducts(query, category);
-  });
-
-  categorySelect.addEventListener("change", () => {
-    const query = searchInput.value.trim();
-    const category = categorySelect.value;
-    searchProducts(query, category);
-  });
-
-  // Tải sản phẩm khi trang được load
-  loadProducts();
+  if (categorySelect) {
+    categorySelect.addEventListener("change", triggerFilter);
+  }
 });

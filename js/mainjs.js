@@ -18,6 +18,208 @@
  */
 
 // ========================================
+// DỮ LIỆU TRỰC TIẾP (KHÔNG DÙNG FETCH)
+// ========================================
+const APP_DATA = {
+  categories: [
+    { id: "trai-cay", name: "trái cây" },
+    { id: "qua-tang", name: "quà tặng" },
+    { id: "dac-biet", name: "đặc biệt" },
+  ],
+  products: [
+    {
+      id: 1,
+      name: "Banana",
+      image: "../images/chuoi.webp",
+      price: 25000,
+      description:
+        "Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.",
+      category: "Đặc biệt",
+      stock: 58,
+    },
+    {
+      id: 2,
+      name: "Dâu Tây",
+      image: "../images/quatang2.jpeg",
+      price: 180000,
+      description:
+        "Dâu tây đỏ mọng, vị ngọt nhẹ, hương thơm dịu dàng khiến ai cũng muốn thưởng thức mãi.",
+      category: "Quà tặng trái cây",
+      stock: 112,
+    },
+    {
+      id: 3,
+      name: "Cam Ngọt",
+      image: "../images/cam.webp",
+      price: 40000,
+      description:
+        "Cam ngọt tươi mát, mọng nước và giàu vitamin giúp bạn khởi đầu ngày mới thật sảng khoái.",
+      category: "Trái cây Việt Nam",
+      stock: 75,
+    },
+    {
+      id: 4,
+      name: "Nho Tím",
+      image: "../images/nho.jpeg",
+      price: 120000,
+      description:
+        "Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.",
+      category: "Bán chạy nhất",
+      stock: 180,
+    },
+    {
+      id: 5,
+      name: "Bơ",
+      image: "../images/bo.jpeg",
+      price: 60000,
+      description:
+        "Bơ sáp thơm béo, mềm mịn, chứa nhiều dưỡng chất giúp làn da mịn màng và cơ thể khỏe mạnh.",
+      category: "Trái cây Việt Nam",
+      stock: 64,
+    },
+    {
+      id: 6,
+      name: "Vải Thiều",
+      image: "../images/vai.jpeg",
+      price: 50000,
+      description:
+        "Vải thiều ngọt thanh, hương thơm quyến rũ, là món quà tinh tế mang hương vị mùa hè Việt.",
+      category: "Trái cây Việt Nam",
+      stock: 138,
+    },
+    {
+      id: 7,
+      name: "Lựu Đỏ",
+      image: "../images/luu.jpeg",
+      price: 130000,
+      description:
+        "Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.",
+      category: "Bán chạy nhất",
+      stock: 91,
+    },
+    {
+      id: 8,
+      name: "Cherry Đỏ",
+      image: "../images/cherry.jpeg",
+      price: 250000,
+      description:
+        "Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ khiến bạn khó quên ngay lần đầu.",
+      category: "Quà tặng trái cây",
+      stock: 124,
+    },
+    {
+      id: 9,
+      name: "Dứa Vàng",
+      image: "../images/duavang.jpeg",
+      price: 30000,
+      description:
+        "Dứa vàng chín mọng, vị chua ngọt hài hòa mang lại cảm giác sảng khoái trong ngày oi bức.",
+      category: "Bán chạy nhất",
+      stock: 43,
+    },
+    {
+      id: 10,
+      name: "set trái cây quà tặng số 1",
+      image: "../images/quatang1.jpeg",
+      price: 350000,
+      description:
+        "Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.",
+      category: "Quà tặng trái cây",
+      stock: 98,
+    },
+    {
+      id: 11,
+      name: "Chanh",
+      image: "../images/chanh.jpeg",
+      price: 20000,
+      description:
+        "Chanh tươi mọng nước, vị chua dịu nhẹ giúp thanh lọc cơ thể và mang lại cảm giác sảng khoái.",
+      category: "Bán chạy nhất",
+      stock: 172,
+    },
+    {
+      id: 12,
+      name: "Kiwi Xanh",
+      image: "../images/kiwi.jpeg",
+      price: 140000,
+      description:
+        "Kiwi xanh chua ngọt hài hòa, chứa nhiều vitamin giúp làn da tươi sáng và cơ thể khỏe mạnh.",
+      category: "Bán chạy nhất",
+      stock: 67,
+    },
+    {
+      id: 13,
+      name: "Táo",
+      image: "../images/tao.jpeg",
+      price: 90000,
+      description:
+        "Táo giòn ngọt, hương thơm dễ chịu, biểu tượng cho sức khỏe dồi dào và sự may mắn lâu dài.",
+      category: "Bán chạy nhất",
+      stock: 154,
+    },
+    {
+      id: 14,
+      name: "Mận",
+      image: "../images/man.jpeg",
+      price: 40000,
+      description:
+        "Mận chín đỏ, vị chua ngọt giòn tan, là món ăn thanh mát giúp xua tan mệt mỏi ngày hè.",
+      category: "Bán chạy nhất",
+      stock: 117,
+    },
+    {
+      id: 15,
+      name: "Carrot",
+      image: "../images/carrot.jpg",
+      price: 30000,
+      description:
+        "Cà rốt tươi giòn, giàu vitamin A, giúp sáng mắt, đẹp da và tăng cường sức đề kháng tự nhiên.",
+      category: "Trái cây Việt Nam",
+      stock: 134,
+    },
+    {
+      id: 16,
+      name: "set trái cây quà tặng số 2",
+      image: "../images/quatang3.jpeg",
+      price: 500000,
+      description:
+        "Hộp quà trái cây cao cấp, lựa chọn hoàn hảo để gửi gắm yêu thương và tri ân người thân yêu.",
+      category: "Quà tặng trái cây",
+      stock: 188,
+    },
+    {
+      id: 17,
+      name: "Dưa Hấu Đỏ",
+      image: "../images/watermelon.jpg",
+      price: 25000,
+      description:
+        "Dưa hấu đỏ ngọt thanh, mọng nước, giúp giải nhiệt và mang lại cảm giác mát lành tuyệt vời.",
+      category: "Trái cây Việt Nam",
+      stock: 142,
+    },
+    {
+      id: 18,
+      name: "Xoài",
+      image: "../images/mango.jpg",
+      price: 50000,
+      description:
+        "Xoài cát vàng chín ngọt, thơm lừng đặc trưng, mang hương vị đậm đà khó quên của miền nhiệt đới.",
+      category: "Trái cây Việt Nam",
+      stock: 88,
+    },
+  ],
+  users: {
+    "admin2@gmail.com": {
+      name: "tai",
+      email: "admin2@gmail.com",
+      password: "123456",
+      phone: "0123456",
+      join_date: "2025-10-01",
+    },
+  },
+};
+
+// ========================================
 // ĐỐI TƯỢNG ỨNG DỤNG CHÍNH (APP)
 // ========================================
 const App = {
@@ -50,7 +252,7 @@ const App = {
     this.Products.loadInitialData().then(() => {
       // 3. Sau khi có dữ liệu, khởi tạo các module phụ thuộc
       this.Pagination.init();
-      this.Products.initProductsPage();
+      this.Products.initProductsPage(); // Hàm này bây giờ cũng setup search
       this.Cart.updateCount(); // Cập nhật số lượng giỏ hàng lần đầu
     });
 
@@ -111,28 +313,18 @@ const App = {
 // ========================================
 App.Auth = {
   init() {
-    // Nạp users.json vào localStorage
-    fetch("../data/users.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const existing =
-          JSON.parse(localStorage.getItem("registeredUsers")) || {};
-        const merged = { ...existing, ...data };
-        localStorage.setItem("registeredUsers", JSON.stringify(merged));
-        console.log("users.json đã được nạp.");
-      })
-      .catch((err) => console.error("Lỗi nạp users.json:", err));
+    const existing = JSON.parse(localStorage.getItem("registeredUsers")) || {};
+    const merged = { ...existing, ...APP_DATA.users };
+    localStorage.setItem("registeredUsers", JSON.stringify(merged));
+    console.log("Dữ liệu người dùng đã được nạp.");
 
-    // Admin login
     const adminForm = document.getElementById("adminLoginForm");
     if (adminForm)
       adminForm.addEventListener("submit", this.handleAdminLogin.bind(this));
 
-    // Customer login/register
     const emailForm = document.getElementById("emailForm");
     if (emailForm) this.setupCustomerAuth(emailForm);
 
-    // Logout button
     this.setupLogoutHandler();
   },
 
@@ -148,12 +340,20 @@ App.Auth = {
   },
 
   setupLogoutHandler() {
-    document.addEventListener("click", (e) => {
-      if (e.target.closest(".logout-btn")) {
+    // Cách 1: Thử cách gắn trực tiếp (không dùng delegation)
+    const logoutButton = document.querySelector(".logout-btn");
+    if (logoutButton) {
+      console.log("Đã tìm thấy nút đăng xuất. Gắn sự kiện trực tiếp."); // Thêm dòng này
+      logoutButton.addEventListener("click", (e) => {
+        console.log("Nút đăng xuất đã được nhấn (cách trực tiếp)!"); // Dòng gỡ lỗi
         e.preventDefault();
         this.logout();
-      }
-    });
+      });
+    } else {
+      console.error(
+        "KHÔNG tìm thấy nút có class '.logout-btn'! Vui lòng kiểm tra lại HTML."
+      );
+    }
   },
 
   handleAdminLogin(e) {
@@ -161,33 +361,29 @@ App.Auth = {
     const email = document.getElementById("adminEmail").value.trim();
     const password = document.getElementById("adminPassword").value;
 
-    fetch("../data/admin.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Không tải được admin.json");
-        return res.json();
-      })
-      .then((data) => {
-        const admins = Array.isArray(data) ? data : Object.values(data);
-        const admin = admins.find(
-          (a) => a.email === email && a.password === password
+    const admins = Object.values(APP_DATA.users).filter((user) =>
+      user.email.includes("admin")
+    );
+
+    const admin = admins.find(
+      (a) => a.email === email && a.password === password
+    );
+
+    if (admin) {
+      localStorage.setItem("currentUserRole", "admin");
+      localStorage.setItem("adminUser", admin.name);
+      localStorage.setItem("adminEmail", admin.email);
+      if (admin.permissions) {
+        localStorage.setItem(
+          "adminPermissions",
+          JSON.stringify(admin.permissions)
         );
-        if (admin) {
-          localStorage.setItem("currentUserRole", "admin");
-          localStorage.setItem("adminUser", admin.name);
-          localStorage.setItem("adminEmail", admin.email);
-          if (admin.permissions) {
-            localStorage.setItem(
-              "adminPermissions",
-              JSON.stringify(admin.permissions)
-            );
-          }
-          App.utils.showNotification(`Chào Admin ${admin.name}!`);
-          setTimeout(() => window.open("../admin/index.html", "_blank"), 1000);
-        } else {
-          App.utils.showNotification("Sai tài khoản hoặc mật khẩu!", "error");
-        }
-      })
-      .catch(() => App.utils.showNotification("Lỗi hệ thống!", "error"));
+      }
+      App.utils.showNotification(`Chào Admin ${admin.name}!`);
+      setTimeout(() => window.open("../admin/index.html", "_blank"), 1000);
+    } else {
+      App.utils.showNotification("Sai tài khoản hoặc mật khẩu!", "error");
+    }
   },
 
   setupCustomerAuth(form) {
@@ -523,39 +719,78 @@ App.Cart = {
 };
 
 // ========================================
-// MODULE SẢN PHẨM (PRODUCTS)
+// MODULE SẢN PHẨM (PRODUCTS) - ĐÃ GỘP SEARCH
 // ========================================
 App.Products = {
   init() {
-    const search = document.getElementById("searchInput");
-    const cat = document.getElementById("categoryFilter");
-    const sort = document.getElementById("sortSelect");
-    [search, cat, sort].forEach((el) =>
-      el?.addEventListener("input", () => this.handleFilterChange())
-    );
-    if (sort) sort.addEventListener("change", () => this.handleFilterChange());
+    // Logic khởi tạo ban đầu đã được chuyển vào initProductsPage
   },
 
   async loadInitialData() {
     try {
-      const [prods, cats] = await Promise.all([
-        fetch("../data/products.json").then((r) => r.json()),
-        fetch("../data/categories.json").then((r) => r.json()),
-      ]);
-      App.productsData = prods;
+      App.productsData = APP_DATA.products;
       App.categoriesData = new Set(
-        cats.map((c) => (typeof c === "object" ? c.name : c))
+        APP_DATA.categories.map((c) => (typeof c === "object" ? c.name : c))
       );
-      window.productsData = prods;
+      window.productsData = APP_DATA.products;
+      console.log("Dữ liệu sản phẩm và danh mục đã được nạp.");
     } catch (e) {
       App.utils.showNotification("Lỗi tải dữ liệu!", "error");
     }
   },
 
   initProductsPage() {
+    // Hàm này được gọi sau khi dữ liệu đã tải xong
     if (!document.getElementById("productsContainer")) return;
+
+    // 1. Hiển thị sản phẩm lần đầu
     this.applyFiltersAndSort();
     this.populateCategoryFilter();
+
+    // 2. GỘP LOGIC TỪ SEARCH.JS VÀO ĐÂY
+    this.setupSearchAndFilterListeners();
+  },
+
+  setupSearchAndFilterListeners() {
+    // Lấy các phần tử DOM. Sử dụng cả ID và class để linh hoạt hơn.
+    const searchInput =
+      document.querySelector(".search-input") ||
+      document.getElementById("searchInput");
+    const searchButton = document.querySelector(".search-button");
+    const categorySelect =
+      document.querySelector(".category-select") ||
+      document.getElementById("categoryFilter");
+    const sortSelect = document.getElementById("sortSelect");
+
+    const triggerFilter = () => {
+      // Hàm này giờ đã an toàn để gọi vì được gọi từ bên trong module Products
+      this.handleFilterChange();
+    };
+
+    if (searchButton) {
+      searchButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        triggerFilter();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", triggerFilter);
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          triggerFilter();
+        }
+      });
+    }
+
+    if (categorySelect) {
+      categorySelect.addEventListener("change", triggerFilter);
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", triggerFilter);
+    }
   },
 
   populateCategoryFilter() {
@@ -575,10 +810,24 @@ App.Products = {
   },
 
   applyFiltersAndSort() {
-    const search = (
-      document.getElementById("searchInput")?.value || ""
-    ).toLowerCase();
-    const cat = document.getElementById("categoryFilter")?.value || "";
+    // --- SỬA LỖI TÌM KIẾM ---
+    const searchInputElement =
+      document.querySelector(".search-input") ||
+      document.getElementById("searchInput");
+    const search = (searchInputElement?.value || "").toLowerCase();
+
+    // --- SỬA LỖI BỘ LỌC DANH MỤC ---
+    // Tìm kiếm select một cách linh hoạt (theo class hoặc id)
+    const categorySelectElement =
+      document.querySelector(".category-select") ||
+      document.getElementById("categoryFilter");
+    let cat = categorySelectElement?.value || "";
+
+    // Xử lý trường hợp giá trị là "ALL" (từ HTML của bạn) hoặc rỗng
+    if (cat === "ALL") {
+      cat = "";
+    }
+
     const sort = document.getElementById("sortSelect")?.value || "default";
 
     App.Pagination.filteredProducts = App.productsData.filter((p) => {
@@ -605,7 +854,6 @@ App.Products = {
     App.Pagination.renderProducts();
     App.Pagination.renderPagination();
   },
-
   getById(id) {
     return App.productsData.find((p) => p.id === parseInt(id));
   },

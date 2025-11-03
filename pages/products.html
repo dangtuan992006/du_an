@@ -1,34 +1,148 @@
-<!-- /*Danh sách sản phẩm*/ -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dach sách sản phẩm</title>
+    <title>Danh sách sản phẩm - Trái Cây Tươi VN</title>
+
+    <!-- Link đến các tệp CSS của bạn -->
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components/product.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
-    <h1>Banana</h1>
-    <div class="product-list" id="productList"></div>
+    <!-- Header (Bạn có thể include header ở đây hoặc dán trực tiếp) -->
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">
+          <a href="../pages/index.html">Trái Cây Tươi</a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="../pages/index.html">Trang Chủ</a></li>
+            <li>
+              <a href="../pages/products.html" class="active">Sản Phẩm</a>
+            </li>
+            <li><a href="#">Giới Thiệu</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <div class="search-bar">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm sản phẩm..."
+            />
+            <button type="submit"><i class="fas fa-search"></i></button>
+          </div>
+          <div class="user-toggle">
+            <i class="fas fa-user"></i>
+            <span class="user-text">Đăng nhập</span>
+            <div class="dropdown-menu">
+              <a href="../pages/login.html">Đăng nhập</a>
+              <a href="../pages/register.html">Đăng ký</a>
+              <a href="#" class="logout-btn">Đăng xuất</a>
+            </div>
+          </div>
+          <div class="cart-toggle" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <script>
-      fetch("products.json")
-        .then((res) => res.json())
-        .then((products) => {
-          const list = document.getElementById("productList");
-          products.forEach((product) => {
-            const item = document.createElement("div");
-            item.className = "product";
-            item.innerHTML = `
-            <a href="product.html?id=${product.id}">
-              <img src="${product.image}" alt="${product.name}">
-              <h3>${product.name}</h3>
-              <p>${product.price}</p>
-            </a>
-          `;
-            list.appendChild(item);
-          });
-        });
-    </script>
+    <!-- Nội dung chính của trang sản phẩm -->
+    <main class="main-content products-page">
+      <div class="container">
+        <h1>Danh Sách Sản Phẩm</h1>
+
+        <!-- Bộ lọc và sắp xếp -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label for="categoryFilter">Danh mục:</label>
+            <select id="categoryFilter">
+              <option value="">Tất cả danh mục</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="sortSelect">Sắp xếp:</label>
+            <select id="sortSelect">
+              <option value="default">Mặc định</option>
+              <option value="price-asc">Giá: Thấp đến Cao</option>
+              <option value="price-desc">Giá: Cao đến Thấp</option>
+              <option value="name-asc">Tên: A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Nơi hiển thị danh sách sản phẩm -->
+        <div id="productsContainer" class="products-grid">
+          <!-- Các thẻ sản phẩm sẽ được JavaScript chèn vào đây -->
+        </div>
+
+        <!-- Phân trang -->
+        <div id="paginationContainer" class="pagination">
+          <button id="prev-page" class="pagination-btn">Trước</button>
+          <span class="pagination-info"
+            >Trang <span id="current-page">1</span> /
+            <span id="total-pages">1</span></span
+          >
+          <button id="next-page" class="pagination-btn">Sau</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Giỏ hàng dạng drawer -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-header">
+        <h3>Giỏ hàng của bạn</h3>
+        <button id="closeCartDrawer" class="close-btn">&times;</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-content">
+        <!-- Nội dung giỏ hàng sẽ được chèn vào đây -->
+      </div>
+      <div id="cartDrawerFooter" class="cart-footer">
+        <!-- Tổng tiền và nút thanh toán sẽ được chèn vào đây -->
+      </div>
+    </div>
+
+    <!-- Footer (Bạn có thể include footer ở đây hoặc dán trực tiếp) -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Về Chúng Tôi</h4>
+            <p>
+              Chúng tôi cung cấp các sản phẩm trái cây tươi ngon, chất lượng
+              cao.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h4>Liên Kết Nhanh</h4>
+            <ul>
+              <li><a href="../pages/index.html">Trang Chủ</a></li>
+              <li><a href="../pages/products.html">Sản Phẩm</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Liên Hệ</h4>
+            <p>Địa chỉ: 123 Đường Trái Cây, Q.1, TP.HCM</p>
+            <p>Email: support@traicaytuoivn.com</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Trái Cây Tươi VN. Tất cả quyền được bảo lưu.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- THẺ SCRIPT DUY NHẤT -->
+    <script src="../js/main.js"></script>
   </body>
 </html>
