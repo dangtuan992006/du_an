@@ -1430,39 +1430,107 @@ App.Checkout = {
 // ========================================
 // MODULE LỊCH SỬ ĐƠN HÀNG
 // ========================================
+
 App.OrderHistory = {
   init() {
+    // Chỉ chạy trên trang lịch sử đơn hàng
     if (!location.pathname.includes("order-history.html")) return;
-    if (!localStorage.getItem("currentUserEmail"))
-      return (location.href = "../pages/login.html");
 
-    const email = localStorage.getItem("currentUserEmail");
-    const orders = this.getOrders(email);
+    // Kiểm tra đăng nhập
+    if (!localStorage.getItem("currentUserEmail")) {
+      App.utils.showNotification(
+        "Vui lòng đăng nhập để xem lịch sử đơn hàng!",
+        "error"
+      );
+      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      return;
+    }
+
+    const userEmail = localStorage.getItem("currentUserEmail");
+    const orders = this.getOrders(userEmail);
     this.displayOrders(orders);
 
+    // Xử lý đóng drawer
     document
       .getElementById("closeOrderDrawer")
       ?.addEventListener("click", this.closeDrawer.bind(this));
     document
       .getElementById("orderDetailOverlay")
       ?.addEventListener("click", this.closeDrawer.bind(this));
+
+    // Event delegation cho các nút hành động trong danh sách đơn hàng
+    const orderListEl = document.getElementById("orderList");
+    if (orderListEl) {
+      orderListEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-action]");
+        if (!btn) return;
+        const orderId = btn.getAttribute("data-order-id");
+        const action = btn.getAttribute("data-action");
+        if (!orderId || !action) return;
+        if (action === "view") return this.viewOrderDetail(orderId);
+        if (action === "cancel") return this.cancelOrder(orderId);
+        if (action === "reorder") return this.reorderItems(orderId);
+      });
+    }
   },
 
   getOrders(email) {
     const key = `orders_${email}`;
     let orders = JSON.parse(localStorage.getItem(key)) || [];
     if (!orders.length) {
-      const sample = [
+      // Nếu không có đơn hàng nào, tạo dữ liệu mẫu để người dùng thấy giao diện
+      const sampleOrders = [
         {
-          id: 1,
-          date: "2025-10-01T10:00:00",
-          total: 1500000,
-          status: "completed",
-          items: [{ name: "Sample Product", qty: 1, price: 1500000 }],
+          id: "ORD001",
+          date: "2023-11-20",
+          status: "delivered",
+          items: [
+            {
+              id: 1,
+              name: "Banana",
+              price: 25000,
+              quantity: 2,
+              image: "../images/chuoi.webp",
+            },
+            {
+              id: 3,
+              name: "Cam Ngọt",
+              price: 40000,
+              quantity: 1,
+              image: "../images/cam.webp",
+            },
+          ],
+          total: 90000,
+          shippingAddress: "123 Đường ABC, Quận 1, TP.HCM",
+          paymentMethod: "Thanh toán khi nhận hàng",
+        },
+        {
+          id: "ORD002",
+          date: "2023-11-25",
+          status: "processing",
+          items: [
+            {
+              id: 2,
+              name: "Dâu Tây",
+              price: 180000,
+              quantity: 1,
+              image: "../images/quatang2.jpeg",
+            },
+            {
+              id: 8,
+              name: "Cherry Đỏ",
+              price: 250000,
+              quantity: 1,
+              image: "../images/cherry.jpeg",
+            },
+          ],
+          total: 430000,
+          shippingAddress: "456 Đường XYZ, Quận 3, TP.HCM",
+          paymentMethod: "Thẻ tín dụng",
         },
       ];
-      localStorage.setItem(key, JSON.stringify(sample));
-      orders = sample;
+      localStorage.setItem(key, JSON.stringify(sampleOrders));
+      orders = sampleOrders;
     }
     return orders.sort((a, b) => new Date(b.date) - new Date(a.date));
   },
@@ -1477,24 +1545,68 @@ App.OrderHistory = {
       empty.style.display = "block";
       return;
     }
-    list.style.display = "grid";
-    empty.style.display = "none";
-    list.innerHTML = orders.map((o) => this.createOrderCard(o)).join("");
+
+    // SỬA LỖI: Lưu trữ 'this' vào một biến tạm
+    const self = this;
+
+    list.innerHTML = orders.map((o) => self.createOrderCard(o)).join("");
   },
 
   createOrderCard(order) {
     const date = new Date(order.date).toLocaleString("vi-VN");
+    // Xác định văn bản và class cho trạng thái
+    let statusText = "Chờ xử lý";
+    let statusClass = "status-pending";
+    switch (order.status) {
+      case "processing":
+        statusText = "Đang xử lý";
+        statusClass = "status-processing";
+        break;
+      case "shipped":
+        statusText = "Đang vận chuyển";
+        statusClass = "status-shipped";
+        break;
+      case "delivered":
+        statusText = "Đã giao";
+        statusClass = "status-delivered";
+        break;
+      case "cancelled":
+        statusText = "Đã hủy";
+        statusClass = "status-cancelled";
+        break;
+    }
+
     return `
-      <div class="order-card" onclick="App.OrderHistory.viewDetail(${
-        order.id
-      })">
-        <div class="order-id">#${order.id}</div>
-        <div class="order-date">${date}</div>
-        <div class="order-total">${App.utils.formatPrice(order.total)} VNĐ</div>
-        <div class="order-status status-${order.status}">${
-      order.status === "pending" ? "Chờ xử lý" : "Hoàn thành"
-    }</div>
-      </div>`;
+      <div class="order-card">
+        <div class="order-header">
+          <div>
+            <div class="order-id">Mã đơn: ${order.id}</div>
+            <div class="order-date">Ngày đặt: ${date}</div>
+          </div>
+          <div class="order-status ${statusClass}">${statusText}</div>
+        </div>
+        <div class="order-footer">
+          <div class="order-total">${App.utils.formatPrice(
+            order.total
+          )} VNĐ</div>
+          <div class="order-actions">
+            <button class="btn btn-secondary" data-action="view" data-order-id="${
+              order.id
+            }">Xem chi tiết</button>
+            ${
+              order.status === "delivered"
+                ? `<button class="btn btn-primary" data-action="reorder" data-order-id="${order.id}">Đặt lại</button>`
+                : ""
+            }
+            ${
+              order.status === "pending" || order.status === "processing"
+                ? `<button class="btn btn-secondary" data-action="cancel" data-order-id="${order.id}">Hủy đơn</button>`
+                : ""
+            }
+          </div>
+        </div>
+      </div>
+    `;
   },
 
   viewDetail(id) {
@@ -1553,6 +1665,33 @@ App.OrderHistory = {
     document.getElementById("orderDetailOverlay").style.display = "none";
     document.getElementById("orderDetailDrawer").classList.remove("active");
   },
+
+  cancelOrder(orderId) {
+    if (!confirm("Bạn có chắc chắn muốn hủy đơn hàng này?")) return;
+    const email = localStorage.getItem("currentUserEmail");
+    const key = `orders_${email}`;
+    let orders = JSON.parse(localStorage.getItem(key)) || [];
+    const orderIndex = orders.findIndex((o) => o.id === orderId);
+    if (orderIndex !== -1) {
+      orders[orderIndex].status = "cancelled";
+      localStorage.setItem(key, JSON.stringify(orders));
+      this.displayOrders(orders);
+      App.utils.showNotification("Đơn hàng đã được hủy.", "success");
+    }
+  },
+
+  // reorderItems(orderId) {
+  //   const email = localStorage.getItem("currentUserEmail");
+  //   const orders = this.getOrders(email);
+  //   const order = orders.find((o) => o.id === orderId);
+  //   if (!order) return;
+
+  //   order.items.forEach((item) => {
+  //     App.Cart.add(item.id, false, item.quantity || item.qty);
+  //   });
+  //   App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
+  //   setTimeout(() => (window.location.href = "../pages/products.html"), 1000);
+  // },
 };
 
 // ========================================

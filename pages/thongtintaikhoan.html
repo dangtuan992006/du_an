@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -247,576 +246,700 @@
       }
     </style>
     <style>
-/* Giữ nguyên layout header */
-main, .account-info, .order-list, .my-account {
-  margin: 0 auto;
-  padding: 40px 60px;
-  max-width: 1200px;
-}
+      /* Giữ nguyên layout header */
+      main,
+      .account-info,
+      .order-list,
+      .my-account {
+        margin: 0 auto;
+        padding: 40px 60px;
+        max-width: 1200px;
+      }
 
-/* Giả lập container của Bootstrap (safe) */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
+      /* Giả lập container của Bootstrap (safe) */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
 
-/* Kẻ lại bảng: Thông tin tài khoản (bảng key-value) */
-.account-card .table.table-bordered {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 10px;
-  background-color: #ffffff;
-  border: 1px solid #ffd1d1;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  table-layout: fixed;
-}
-.account-card .table.table-bordered th,
-.account-card .table.table-bordered td {
-  padding: 16px 18px;
-  text-align: left;
-  border-right: 1px solid #ffd1d1;
-  border-bottom: 1px solid #ffd1d1;
-  vertical-align: middle;
-  word-break: break-word;
-  font-size: 16px;
-}
-.account-card .table.table-bordered tr:last-child td {
-  border-bottom: none;
-}
-.account-card .table.table-bordered tr > th:last-child,
-.account-card .table.table-bordered tr > td:last-child {
-  border-right: none;
-}
-.account-card .table.table-bordered th {
-  background: #fff0f0;
-  color: #333;
-  font-weight: 600;
-  width: 35%;
-}
-.account-card .table.table-bordered tr:hover td {
-  background-color: #fff7f7;
-}
+      /* Kẻ lại bảng: Thông tin tài khoản (bảng key-value) */
+      .account-card .table.table-bordered {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+        background-color: #ffffff;
+        border: 1px solid #ffd1d1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        table-layout: fixed;
+      }
+      .account-card .table.table-bordered th,
+      .account-card .table.table-bordered td {
+        padding: 16px 18px;
+        text-align: left;
+        border-right: 1px solid #ffd1d1;
+        border-bottom: 1px solid #ffd1d1;
+        vertical-align: middle;
+        word-break: break-word;
+        font-size: 16px;
+      }
+      .account-card .table.table-bordered tr:last-child td {
+        border-bottom: none;
+      }
+      .account-card .table.table-bordered tr > th:last-child,
+      .account-card .table.table-bordered tr > td:last-child {
+        border-right: none;
+      }
+      .account-card .table.table-bordered th {
+        background: #fff0f0;
+        color: #333;
+        font-weight: 600;
+        width: 35%;
+      }
+      .account-card .table.table-bordered tr:hover td {
+        background-color: #fff7f7;
+      }
 
-/* Header hồ sơ trong thẻ tài khoản */
-.account-header{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:1px solid #ffd1d1;margin-bottom:12px}
-.account-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary-color),#ff7a7a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;box-shadow:0 6px 14px rgba(211,47,47,.25)}
-.account-meta{line-height:1.2}
-.account-name{margin:0;font-size:20px;color:var(--primary-dark)}
-.account-email{margin:2px 0 0;font-size:14px;color:#666}
-.account-actions{margin-left:auto}
-.btn-account{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;background:var(--primary-color);color:#fff;border:none;font-weight:600;cursor:pointer;box-shadow:0 6px 12px rgba(211,47,47,.18)}
-.btn-account:hover{background:var(--primary-dark)}
+      /* Header hồ sơ trong thẻ tài khoản */
+      .account-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ffd1d1;
+        margin-bottom: 12px;
+      }
+      .account-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #ff7a7a);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        box-shadow: 0 6px 14px rgba(211, 47, 47, 0.25);
+      }
+      .account-meta {
+        line-height: 1.2;
+      }
+      .account-name {
+        margin: 0;
+        font-size: 20px;
+        color: var(--primary-dark);
+      }
+      .account-email {
+        margin: 2px 0 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .account-actions {
+        margin-left: auto;
+      }
+      .btn-account {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 20px;
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(211, 47, 47, 0.18);
+      }
+      .btn-account:hover {
+        background: var(--primary-dark);
+      }
 
-/* Nhãn có icon cho bảng key-value */
-.account-card .table.table-bordered th i{color:var(--primary-color);margin-right:8px;width:16px;text-align:center}
+      /* Nhãn có icon cho bảng key-value */
+      .account-card .table.table-bordered th i {
+        color: var(--primary-color);
+        margin-right: 8px;
+        width: 16px;
+        text-align: center;
+      }
 
-/* Orders summary card (only shown if user has orders) */
-.orders-summary{margin-top:20px;background:#fff;border:1px solid #ffd1d1;border-radius:12px;box-shadow:var(--shadow-sm);padding:20px}
-.orders-summary-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.orders-summary-header i{color:var(--primary-color)}
-.orders-summary-title{font-size:18px;font-weight:700;margin:0;color:var(--primary-dark)}
-.orders-summary-desc{margin:6px 0 14px;color:#555}
-.orders-summary-actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1.5px solid var(--primary-color);border-radius:20px;background:#fff;color:var(--primary-color);font-weight:700;cursor:pointer}
-.btn-outline:hover{background:rgba(211,47,47,.06)}
+      /* Orders summary card (only shown if user has orders) */
+      .orders-summary {
+        margin-top: 20px;
+        background: #fff;
+        border: 1px solid #ffd1d1;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        padding: 20px;
+      }
+      .orders-summary-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .orders-summary-header i {
+        color: var(--primary-color);
+      }
+      .orders-summary-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--primary-dark);
+      }
+      .orders-summary-desc {
+        margin: 6px 0 14px;
+        color: #555;
+      }
+      .orders-summary-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1.5px solid var(--primary-color);
+        border-radius: 20px;
+        background: #fff;
+        color: var(--primary-color);
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-outline:hover {
+        background: rgba(211, 47, 47, 0.06);
+      }
 
-/* Nút “Xem” */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  border-radius: 6px;
-  background-color: var(--brand);
-  color: #fff;
-  border: none;
-  transition: 0.2s;
-}
+      /* Nút “Xem” */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: var(--brand);
+        color: #fff;
+        border: none;
+        transition: 0.2s;
+      }
 
-.btn:hover {
-  background-color: var(--brand-2);
-}
+      .btn:hover {
+        background-color: var(--brand-2);
+      }
 
-/* Tiêu đề */
-h1, h2, h3 {
-  font-family: "Alkatra", sans-serif;
-  color: var(--brand);
-  text-align: center;
-  margin: 20px 0;
-}
+      /* Tiêu đề */
+      h1,
+      h2,
+      h3 {
+        font-family: "Alkatra", sans-serif;
+        color: var(--brand);
+        text-align: center;
+        margin: 20px 0;
+      }
 
-/* Căn thông tin tài khoản */
-.account-info {
-  margin-bottom: 30px;
-  line-height: 1.6;
-  color: #333;
-}
-</style>
-
-    
-
+      /* Căn thông tin tài khoản */
+      .account-info {
+        margin-bottom: 30px;
+        line-height: 1.6;
+        color: #333;
+      }
+    </style>
   </head>
 
-<body>
-  <!-- Header Start (synced with index.html) -->
-  <!-- Header Start (đồng bộ với index.html, chỉ format lại) -->
-  <nav>
-    <ul class="nav-grid">
-      <!-- Logo -->
-      <li>
-  <a href="index.html" class="logo-link">
-          <img
-            src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
-            alt="Logo"
+  <body>
+    <!-- Header Start (synced with index.html) -->
+    <!-- Header Start (đồng bộ với index.html, chỉ format lại) -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Thanh tìm kiếm -->
+        <li class="search-container">
+          <div class="search-category">
+            <select class="category-select">
+              <option>ALL</option>
+              <option>Bán chạy nhất</option>
+              <option>Quà tặng trái cây</option>
+              <option>Trái cây Việt Nam</option>
+              <option>Đặc biệt</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Tìm kiếm sản phẩm..."
           />
-          <p class="pacifico-regular">Pomegranate</p>
-        </a>
-      </li>
-
-      <!-- Thanh tìm kiếm -->
-      <li class="search-container">
-        <div class="search-category">
-          <select class="category-select">
-            <option>ALL</option>
-            <option>Bán chạy nhất</option>
-            <option>Quà tặng trái cây</option>
-            <option>Trái cây Việt Nam</option>
-            <option>Đặc biệt</option>
-          </select>
-        </div>
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Tìm kiếm sản phẩm..."
-        />
-        <button class="search-button">
-          <i class="fas fa-search"></i>
-        </button>
-      </li>
-
-      <!-- Nút đăng nhập & giỏ hàng -->
-      <li class="nav-buttons">
-        <!-- Dropdown người dùng -->
-        <div class="user-dropdown">
-          <button class="nav-button user-toggle">
-            <i class="fas fa-user"></i>
-            <span class="user-text">Đăng nhập</span>
-            >
+          <button class="search-button">
+            <i class="fas fa-search"></i>
           </button>
-          <div class="dropdown-menu">
-            <a href="../pages/thongtintaikhoan.html" class="dropdown-item">
-              Thông tin tài khoản
-            </a>
-            <a href="../pages/order-history.html" class="dropdown-item">
-              Lịch sử mua hàng
-            </a>
-            <button class="dropdown-item logout-btn">Đăng xuất</button>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Dropdown người dùng -->
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">Đăng nhập</span>
+              >
+            </button>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">
+                Thông tin tài khoản
+              </a>
+              <a href="../pages/order-history.html" class="dropdown-item">
+                Lịch sử mua hàng
+              </a>
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
           </div>
+
+          <button class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </button>
+
+          <button id="checkoutCartBtn" class="checkout-cart-btn nav-button">
+            Thanh toán giỏ hàng
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header End -->
+    <!-- Topbar (copied from index.html) -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
         </div>
-
-        <button class="nav-button" id="openCartPopup">
-          <i class="fas fa-shopping-cart"></i>
-          Giỏ hàng
-          <span class="cart-count">0</span>
-        </button>
-
-        <button id="checkoutCartBtn" class="checkout-cart-btn nav-button">
-          Thanh toán giỏ hàng
-        </button>
-      </li>
-    </ul>
-  </nav>
-
-
-  <!-- Header End -->
-  <!-- Topbar (copied from index.html) -->
-  <div class="topbar">
-    <div class="topbar-container">
-      <!-- Thanh cam kết -->
-      <div class="commitment-bar">
-        <a href="#products" class="commitment-link">
-          <div class="commitment-items">
-            <div class="commitment-title">Cam kết</div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
-                alt="100% hàng chất lượng"
-                width="20"
-                height="20"
-              />
-              <span>100% hàng chất lượng</span>
-            </div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
-                alt="Freeship mọi đơn"
-                width="20"
-                height="20"
-              />
-              <span>Freeship mọi đơn</span>
-            </div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
-                alt="Hoàn 200% nếu hàng giả"
-                width="20"
-                height="20"
-              />
-              <span>Hoàn 200% nếu hàng hư</span>
-            </div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
-                alt="30 ngày đổi trả"
-                width="20"
-                height="20"
-              />
-              <span>30 ngày đổi trả</span>
-            </div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
-                alt="Giao nhanh 2h"
-                width="20"
-                height="20"
-              />
-              <span>Giao nhanh 2h</span>
-            </div>
-            <div class="divider"></div>
-            <div class="commitment-item">
-              <img
-                src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
-                alt="Giá siêu rẻ"
-                width="20"
-                height="20"
-              />
-              <span>Giá siêu rẻ</span>
-            </div>
-          </div>
-        </a>
       </div>
     </div>
-  </div>
 
-
-  <!-- My Account Start -->
-  <div class="my-account">
-    <div class="container-fluid">
-      <div class="row">
-  <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
-          <div class="tab-content">
-            <!-- Tab Thông tin tài khoản -->
-            <div class="tab-pane fade show active" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
-              <h2 class="section-title">Thông Tin Tài Khoản</h2>
-              <div class="account-card">
-                <div class="account-header">
-                  <div class="account-avatar" id="accountAvatar">PN</div>
-                  <div class="account-meta">
-                    <h3 class="account-name" id="accountName">Pomegranate User</h3>
-                    <p class="account-email" id="accountEmail">user@example.com</p>
+    <!-- My Account Start -->
+    <div class="my-account">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+            <div class="tab-content">
+              <!-- Tab Thông tin tài khoản -->
+              <div
+                class="tab-pane fade show active"
+                id="account-tab"
+                role="tabpanel"
+                aria-labelledby="account-nav"
+              >
+                <h2 class="section-title">Thông Tin Tài Khoản</h2>
+                <div class="account-card">
+                  <div class="account-header">
+                    <div class="account-avatar" id="accountAvatar">PN</div>
+                    <div class="account-meta">
+                      <h3 class="account-name" id="accountName">
+                        Pomegranate User
+                      </h3>
+                      <p class="account-email" id="accountEmail">
+                        user@example.com
+                      </p>
+                    </div>
+                    <div class="account-actions">
+                      <a href="../pages/settings.html" class="btn-account"
+                        ><i class="fas fa-user-cog"></i> Cập nhật hồ sơ</a
+                      >
+                    </div>
                   </div>
-                  <div class="account-actions">
-                    <a href="../pages/settings.html" class="btn-account"><i class="fas fa-user-cog"></i> Cập nhật hồ sơ</a>
+                  <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                      <tr>
+                        <th><i class="fas fa-id-card"></i>Họ và tên</th>
+                        <td id="infoFullName">Đặng Ngọc Tuấn</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-envelope"></i>Email</th>
+                        <td id="infoEmail">tuandangngoc5@gmail.com</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-phone"></i>Số điện thoại</th>
+                        <td id="infoPhone">0939662790</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-map-marker-alt"></i>Địa chỉ</th>
+                        <td id="infoAddress">
+                          123 Đường ABC, Phường XYZ, Quận 1, TP.HCM
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <i class="fas fa-clock"></i>Thời điểm tạo tài khoản
+                        </th>
+                        <td id="infoCreated">
+                          <span class="text-accent">7:30 2023-10-01</span>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-bordered mb-0">
-                    <tr>
-                      <th><i class="fas fa-id-card"></i>Họ và tên</th>
-                      <td id="infoFullName">Đặng Ngọc Tuấn</td>
-                    </tr>
-                    <tr>
-                      <th><i class="fas fa-envelope"></i>Email</th>
-                      <td id="infoEmail">tuandangngoc5@gmail.com</td>
-                    </tr>
-                    <tr>
-                      <th><i class="fas fa-phone"></i>Số điện thoại</th>
-                      <td id="infoPhone">0939662790</td>
-                    </tr>
-                    <tr>
-                      <th><i class="fas fa-map-marker-alt"></i>Địa chỉ</th>
-                      <td id="infoAddress">123 Đường ABC, Phường XYZ, Quận 1, TP.HCM</td>
-                    </tr>
-                    <tr>
-                      <th><i class="fas fa-clock"></i>Thời điểm tạo tài khoản</th>
-                      <td id="infoCreated"><span class="text-accent">7:30 2023-10-01</span></td>
-                    </tr>
-                  </table>
-                </div>
-                <div id="ordersSummary" class="orders-summary" style="display:none;">
-                  <div class="orders-summary-header">
-                    <i class="fas fa-receipt"></i>
-                    <h3 class="orders-summary-title">Đơn hàng của tôi</h3>
-                  </div>
-                  <p class="orders-summary-desc" id="ordersSummaryDesc">Bạn đã có 0 đơn hàng đã mua.</p>
-                  <div class="orders-summary-actions">
-                    <a href="../pages/order-history.html" class="btn-outline"><i class="fas fa-eye"></i> Xem lại đơn hàng đã mua</a>
+                  <div
+                    id="ordersSummary"
+                    class="orders-summary"
+                    style="display: none"
+                  >
+                    <div class="orders-summary-header">
+                      <i class="fas fa-receipt"></i>
+                      <h3 class="orders-summary-title">Đơn hàng của tôi</h3>
+                    </div>
+                    <p class="orders-summary-desc" id="ordersSummaryDesc">
+                      Bạn đã có 0 đơn hàng đã mua.
+                    </p>
+                    <div class="orders-summary-actions">
+                      <a href="../pages/order-history.html" class="btn-outline"
+                        ><i class="fas fa-eye"></i> Xem lại đơn hàng đã mua</a
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Tab Đơn hàng của tôi: đã chuyển thành orders summary trong account-card, hiển thị có điều kiện bằng JS -->
             </div>
-
-            <!-- Tab Đơn hàng của tôi: đã chuyển thành orders summary trong account-card, hiển thị có điều kiện bằng JS -->
           </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- My Account End -->
-
-  <!-- Footer (matched to index.html) -->
-  <footer class="main-footer">
-    <div class="footer-container">
-      <!-- Brand Column -->
-      <div class="footer-column footer-brand">
-        <a href="../pages/index.html" class="footer-logo">
-          <img
-            src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
-            alt="Pomegranate Logo"
-            class="footer-logo-img"
-          />
-          <span class="footer-logo-text">Pomegranate</span>
-        </a>
-        <p class="footer-tagline">
-          Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
-          nhiên, không chất bảo quản, giao hàng tận nơi.
-        </p>
-        <div class="newsletter-form">
-          <input
-            type="email"
-            class="newsletter-input"
-            placeholder="Nhập email để nhận ưu đãi"
-          />
-          <button class="newsletter-btn">Đăng ký</button>
-        </div>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="footer-column">
-        <h4>Liên kết nhanh</h4>
-        <ul class="footer-links">
-          <li>
-            <a href="../pages/index.html"
-              ><i class="fas fa-home"></i> Trang chủ</a
-            >
-          </li>
-          <li>
-            <a href="../pages/products.html"
-              ><i class="fas fa-shopping-bag"></i> Sản phẩm</a
-            >
-          </li>
-          <li>
-            <a href="../pages/about.html"
-              ><i class="fas fa-info-circle"></i> Về chúng tôi</a
-            >
-          </li>
-          <li>
-            <a href="../pages/contact.html"
-              ><i class="fas fa-phone"></i> Liên hệ</a
-            >
-          </li>
-          <li>
-            <a href="../pages/promotions.html"
-              ><i class="fas fa-tag"></i> Khuyến mãi</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <!-- Categories -->
-      <div class="footer-column">
-        <h4>Danh mục</h4>
-        <ul class="footer-links">
-          <li>
-            <a href="#"><i class="fas fa-apple-alt"></i> Trái cây Việt Nam</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-gift"></i> Quà tặng trái cây</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-globe"></i> Trái cây nhập khẩu</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-star"></i> Đặc biệt</a>
-          </li>
-          <li>
-            <a href="#"><i class="fas fa-leaf"></i> Hữu cơ</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Contact & Social -->
-      <div class="footer-column">
-        <h4>Liên hệ</h4>
-        <div class="contact-info">
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>123 Đường ABC, Quận 1, TP.HCM</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <span>0900 123 456</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <span>info@pomegranate.com</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-clock"></i>
-            <span>8:00 - 22:00 (T2 - CN)</span>
-          </div>
-        </div>
-
-        <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
-        <div class="social-grid">
-          <a href="#" class="social-card"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
-          <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
-          <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
-          <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
         </div>
       </div>
     </div>
+    <!-- My Account End -->
 
-    <div class="footer-bottom">
-      <div class="footer-bottom-content">
-        <div class="copyright">
-          &copy; 2024 Pomegranate. All rights reserved.
+    <!-- Footer (matched to index.html) -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Nhập email để nhận ưu đãi"
+            />
+            <button class="newsletter-btn">Đăng ký</button>
+          </div>
         </div>
-        <div class="footer-legal">
-          <a href="../pages/privacy.html">Chính sách bảo mật</a>
-          <a href="../pages/terms.html">Điều khoản sử dụng</a>
-          <a href="../pages/return.html">Chính sách đổi trả</a>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/products.html"
+                ><i class="fas fa-shopping-bag"></i> Sản phẩm</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/promotions.html"
+                ><i class="fas fa-tag"></i> Khuyến mãi</a
+              >
+            </li>
+          </ul>
         </div>
-        <div class="payment-methods">
-          <span class="payment-text">Chấp nhận thanh toán:</span>
-          <div class="payment-icon">VISA</div>
-          <div class="payment-icon">MC</div>
-          <div class="payment-icon">COD</div>
+
+        <!-- Categories -->
+        <div class="footer-column">
+          <h4>Danh mục</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#"><i class="fas fa-apple-alt"></i> Trái cây Việt Nam</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-gift"></i> Quà tặng trái cây</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-globe"></i> Trái cây nhập khẩu</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-star"></i> Đặc biệt</a>
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-leaf"></i> Hữu cơ</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
+          <div class="social-grid">
+            <a href="#" class="social-card"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
+          </div>
         </div>
       </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/slick/slick.min.js"></script>
+
+    <!-- Cart Drawer (same structure as index.html) -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <button id="closeCartDrawer" class="close-drawer">×</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-drawer-content"></div>
+      <div id="cartDrawerFooter" class="cart-drawer-footer"></div>
     </div>
-  </footer>
-  <!-- Footer End -->
+    <!-- Shared header behavior (same as index) -->
+    <script src="../js/footer-include.js" defer></script>
+    <script src="../js/search.js" defer></script>
+    <script src="../js/mainjs.js" defer></script>
+    <script>
+      // Populate account header and toggle orders summary visibility
+      document.addEventListener("DOMContentLoaded", function () {
+        const nameEl = document.getElementById("accountName");
+        const emailEl = document.getElementById("accountEmail");
+        const avatarEl = document.getElementById("accountAvatar");
+        const infoFullNameEl = document.getElementById("infoFullName");
+        const infoEmailEl = document.getElementById("infoEmail");
+        const infoPhoneEl = document.getElementById("infoPhone");
+        const infoAddressEl = document.getElementById("infoAddress");
+        const infoCreatedEl = document.getElementById("infoCreated");
+        const ordersSummary = document.getElementById("ordersSummary");
+        const ordersSummaryDesc = document.getElementById("ordersSummaryDesc");
 
-  <!-- Back to Top -->
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        const lsName = localStorage.getItem("currentUser");
+        const lsEmail = localStorage.getItem("currentUserEmail");
+        const usersMapRaw = localStorage.getItem("registeredUsers");
+        const usersMap = usersMapRaw ? JSON.parse(usersMapRaw) : {};
+        const currentUserObj = lsEmail ? usersMap[lsEmail] || {} : {};
 
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script src="../lib/easing/easing.min.js"></script>
-  <script src="../lib/slick/slick.min.js"></script>
-  
-  <!-- Cart Drawer (same structure as index.html) -->
-  <div id="cartOverlay" class="cart-overlay"></div>
-  <div id="cartDrawer" class="cart-drawer">
-    <div class="cart-drawer-header">
-      <h2>🛒 Giỏ hàng</h2>
-      <button id="closeCartDrawer" class="close-drawer">×</button>
-    </div>
-    <div id="cartDrawerContent" class="cart-drawer-content"></div>
-    <div id="cartDrawerFooter" class="cart-drawer-footer"></div>
-  </div>
-  <!-- Shared header behavior (same as index) -->
-  <script src="../js/footer-include.js" defer></script>
-  <script src="../js/search.js" defer></script>
-  <script src="../js/mainjs.js" defer></script>
-  <script>
-    // Populate account header and toggle orders summary visibility
-    document.addEventListener('DOMContentLoaded', function() {
-      const nameEl = document.getElementById('accountName');
-      const emailEl = document.getElementById('accountEmail');
-      const avatarEl = document.getElementById('accountAvatar');
-      const infoFullNameEl = document.getElementById('infoFullName');
-      const infoEmailEl = document.getElementById('infoEmail');
-      const infoPhoneEl = document.getElementById('infoPhone');
-      const infoAddressEl = document.getElementById('infoAddress');
-      const infoCreatedEl = document.getElementById('infoCreated');
-      const ordersSummary = document.getElementById('ordersSummary');
-      const ordersSummaryDesc = document.getElementById('ordersSummaryDesc');
+        // Fallbacks to table content if LS empty
+        const fullName =
+          currentUserObj.name ||
+          lsName ||
+          (infoFullNameEl ? infoFullNameEl.textContent.trim() : "Người dùng");
+        const email =
+          currentUserObj.email ||
+          lsEmail ||
+          (infoEmailEl ? infoEmailEl.textContent.trim() : "user@example.com");
+        const phone =
+          currentUserObj.phone ||
+          (infoPhoneEl ? infoPhoneEl.textContent.trim() : "");
+        const address =
+          currentUserObj.address ||
+          (infoAddressEl ? infoAddressEl.textContent.trim() : "");
+        const createdIso = currentUserObj.created;
 
-      const lsName = localStorage.getItem('currentUser');
-      const lsEmail = localStorage.getItem('currentUserEmail');
-      const usersMapRaw = localStorage.getItem('registeredUsers');
-      const usersMap = usersMapRaw ? JSON.parse(usersMapRaw) : {};
-      const currentUserObj = lsEmail ? (usersMap[lsEmail] || {}) : {};
+        if (nameEl) nameEl.textContent = fullName;
+        if (emailEl) emailEl.textContent = email;
+        if (infoFullNameEl) infoFullNameEl.textContent = fullName;
+        if (infoEmailEl) infoEmailEl.textContent = email;
+        if (infoPhoneEl) infoPhoneEl.textContent = phone || "—";
+        if (infoAddressEl) infoAddressEl.textContent = address || "—";
+        if (infoCreatedEl) {
+          const formatted = formatDate(createdIso);
+          infoCreatedEl.innerHTML = `<span class="text-accent">${formatted}</span>`;
+        }
 
-      // Fallbacks to table content if LS empty
-      const fullName = currentUserObj.name || lsName || (infoFullNameEl ? infoFullNameEl.textContent.trim() : 'Người dùng');
-      const email = currentUserObj.email || lsEmail || (infoEmailEl ? infoEmailEl.textContent.trim() : 'user@example.com');
-      const phone = currentUserObj.phone || (infoPhoneEl ? infoPhoneEl.textContent.trim() : '');
-      const address = currentUserObj.address || (infoAddressEl ? infoAddressEl.textContent.trim() : '');
-      const createdIso = currentUserObj.created;
+        // Avatar initials
+        function initialsFromName(n) {
+          if (!n) return "U";
+          const parts = n.trim().split(/\s+/);
+          const first = parts[0] ? parts[0][0] : "";
+          const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+          return (first + last).toUpperCase();
+        }
+        if (avatarEl) avatarEl.textContent = initialsFromName(fullName);
 
-      if (nameEl) nameEl.textContent = fullName;
-      if (emailEl) emailEl.textContent = email;
-      if (infoFullNameEl) infoFullNameEl.textContent = fullName;
-      if (infoEmailEl) infoEmailEl.textContent = email;
-      if (infoPhoneEl) infoPhoneEl.textContent = phone || '—';
-      if (infoAddressEl) infoAddressEl.textContent = address || '—';
-      if (infoCreatedEl) {
-        const formatted = formatDate(createdIso);
-        infoCreatedEl.innerHTML = `<span class="text-accent">${formatted}</span>`;
-      }
+        function formatDate(iso) {
+          if (!iso) return "—";
+          try {
+            const d = new Date(iso);
+            const hh = String(d.getHours()).padStart(2, "0");
+            const mm = String(d.getMinutes()).padStart(2, "0");
+            const yyyy = d.getFullYear();
+            const mo = String(d.getMonth() + 1).padStart(2, "0");
+            const dd = String(d.getDate()).padStart(2, "0");
+            // Format: ngày/tháng/năm giờ:phút
+            return `${dd}/${mo}/${yyyy} ${hh}:${mm}`;
+          } catch {
+            return "—";
+          }
+        }
 
-      // Avatar initials
-      function initialsFromName(n){
-        if(!n) return 'U';
-        const parts = n.trim().split(/\s+/);
-        const first = parts[0] ? parts[0][0] : '';
-        const last = parts.length > 1 ? parts[parts.length-1][0] : '';
-        return (first + last).toUpperCase();
-      }
-      if (avatarEl) avatarEl.textContent = initialsFromName(fullName);
-
-      function formatDate(iso){
-        if(!iso) return '—';
-        try {
-          const d = new Date(iso);
-          const hh = String(d.getHours()).padStart(2, '0');
-          const mm = String(d.getMinutes()).padStart(2, '0');
-          const yyyy = d.getFullYear();
-          const mo = String(d.getMonth()+1).padStart(2, '0');
-          const dd = String(d.getDate()).padStart(2, '0');
-          // Format: ngày/tháng/năm giờ:phút
-          return `${dd}/${mo}/${yyyy} ${hh}:${mm}`;
-        } catch { return '—'; }
-      }
-
-      // Show orders summary only if has orders
-      if (lsEmail) {
-        try {
-          const raw = localStorage.getItem(`orders_${lsEmail}`);
-          const orders = raw ? JSON.parse(raw) : [];
-          if (Array.isArray(orders) && orders.length > 0) {
-            if (ordersSummary) {
-              ordersSummary.style.display = 'block';
-              if (ordersSummaryDesc) {
-                ordersSummaryDesc.textContent = `Bạn đã có ${orders.length} đơn hàng đã mua.`;
+        // Show orders summary only if has orders
+        if (lsEmail) {
+          try {
+            const raw = localStorage.getItem(`orders_${lsEmail}`);
+            const orders = raw ? JSON.parse(raw) : [];
+            if (Array.isArray(orders) && orders.length > 0) {
+              if (ordersSummary) {
+                ordersSummary.style.display = "block";
+                if (ordersSummaryDesc) {
+                  ordersSummaryDesc.textContent = `Bạn đã có ${orders.length} đơn hàng đã mua.`;
+                }
               }
             }
+          } catch (e) {
+            // ignore parse errors
           }
-        } catch (e) {
-          // ignore parse errors
         }
-      }
-    });
-  </script>
-</body>
-
+      });
+    </script>
+  </body>
 </html>
