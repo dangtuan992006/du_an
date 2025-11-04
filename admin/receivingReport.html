@@ -1,204 +1,297 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="../css/receivingReport.css">
-        <title>Quản lý nhập sản phẩm</title>
-    </head>
-    <body>
-        
-        <div class="header">
-           <!-- Nút quay lại -->
-        <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-        <span class="arrow">←</span>
-        </button>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý nhập sản phẩm</title>
+  <link rel="stylesheet" href="../css/receivingReport.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="header">
+    <!-- Nút quay lại -->
+    <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+      <span class="arrow">←</span>
+    </button>
 
-        
-            <h1>Quản lý Phiếu Nhập</h1>
-            <div class="search">
-                <input type="text" placeholder="Tìm theo phiếu theo mã / ngày / tên sản phẩm">
-                <button id="addBtn">Thêm phiếu nhập</button>
+    <h1>Quản lý Phiếu Nhập</h1>
+
+    <div class="search">
+        <form  method="get">
+            <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
+            <button type="submit">Tìm</button>
+        </form> 
+    </div>
+    <div class="search">
+        <input type="checkbox" id="add" hidden>
+        <label for="add" class="add1">Thêm Phiếu nhập</label>
+
+       <div class="modal-add">
+          <div class="modal-content">
+            <label for="add" class="close">&times;</label>
+            <h2>Thêm Phiếu Nhập</h2>
+
+            <label>Mã phiếu:</label>
+            <input type="text" placeholder="Nhập mã phiếu"><br>
+
+            <label>Ngày nhập:</label>
+            <input type="date"><br>
+
+            <label>Tổng giá trị:</label>
+            <input class="price" type="text" inputmode="numeric" placeholder="Nhập tổng giá trị"><br><br>
+
+
+            <h3>Chi tiết sản phẩm</h3>
+
+            <!-- Dòng chi tiết 1 -->
+            <p>Số thứ tự:1</p>
+            <div class="detail-row">
+              <p><input type="text" placeholder="Mã SP"></p>
+              <p><input type="text" placeholder="TÊN SP"></p>
+              <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+              <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+              <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
             </div>
-            <!-- Nút về trang chủ -->
-        <a href="../pages/index.html" class="back-btn">
-        <i class="fa fa-home"></i>
-        </a>
 
-        <!-- Thêm Font Awesome nếu chưa có -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+            <input type="checkbox" id="row2" hidden>
+            <label for="row2" class="add-row">+ Thêm dòng chi tiết</label>
 
-        </div>
-
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <h2>Thêm Phiếu Nhập</h2>
-                <label>Mã phiếu:</label>
-                <input type="text" id="maPhieu"><br>
-                <label>Ngày nhập:</label>
-                <input type="date" id="ngayNhap"><br>
-                <label>Tên sản phẩm:</label>
-                <input type="text" id="tenSp"><br>
-                <label>Tổng SL:</label>
-                <input type="text" id="tongSl"><br>
-                <label>Tổng giá trị:</label>
-                <input type="text" id="tongGt"><br>
-
-                <div class="buttons">
-                    <button id="saveBtn">Lưu</button>
-                    <button id="cancelBtn">Hủy</button>
-                </div>
+            <p class="s2">Số thứ tự:2</p>
+            <div class="detail-row" id="dentail-row2">
+                  <p><input type="text" placeholder="Mã SP"></p>
+                  <p><input type="text" placeholder="TÊN SP"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
+                  <input type="checkbox" id="delete2" hidden>
+                  <label for="row2" class ="de2">- Xóa dòng chi tiết</label>
             </div>
+
+            <input type="checkbox" id="row3" hidden>
+            <label for="row3" class="add-row">+ Thêm dòng chi tiết</label>
+
+            <p class="s3">Số thứ tự:3</p>
+            <div class="detail-row" id="dentail-row3">
+                  <p><input type="text" placeholder="Mã SP"></p>
+                  <p><input type="text" placeholder="TÊN SP"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+                  <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
+                  <input type="checkbox" id="delete3" hidden>
+                  <label for="row3" class ="de3">- Xóa dòng chi tiết</label>
+            </div>
+
+            <button class="save">Lưu</button>
+            <label for="add" class="cancel">Hủy</label>
+          </div>
         </div>
 
-        <div class="list">
-            <table>
-                <thead>
-                    <tr class="tablehoadon">
-                        <th>Mã phiếu</th>
-                        <th>Ngày nhập</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Tổng SL</th>
-                        <th>Tổng Giá trị</th>
-                        <th>Chi tiết</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="tablesp">
-                        <th>MH001</th>
-                        <th>30/09/2025</th>
-                        <th>Dưa hấu</th>
-                        <th>2 (trái)</th>
-                        <th>200.000</th>
-                        <th><button class="see" id="1">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH002</th>
-                        <th>15/09/2025</th>
-                        <th>Dâu</th>
-                        <th>9 (hộp)</th>
-                        <th>1.800.000</th>
-                        <th><button class="see" id="2">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH003</th>
-                        <th>17/09/2025</th>
-                        <th>Cam sành</th>
-                        <th>10 (trái)</th>
-                        <th>100.000</th>
-                        <th><button class="see" id="3">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH004</th>
-                        <th>10/09/2025</th>
-                        <th>Xoài cát Hòa Lộc</th>
-                        <th>5 (kg)</th>
-                        <th>450.000</th>
-                        <th><button class="see" id="4">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH005</th>
-                        <th>05/09/2025</th>
-                        <th>Táo Mỹ</th>
-                        <th>12 (trái)</th>
-                        <th>720.000</th>
-                        <th><button class="see" id="5">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH006</th>
-                        <th>01/09/2025</th>
-                        <th>Nho tím</th>
-                        <th>8 (chùm)</th>
-                        <th>640.000</th>
-                        <th><button class="see" id="6">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH007</th>
-                        <th>25/08/2025</th>
-                        <th>Mít Thái</th>
-                        <th>3 (trái)</th>
-                        <th>360.000</th>
-                        <th><button class="see" id="7">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH008</th>
-                        <th>20/08/2025</th>
-                        <th>Chuối tiêu</th>
-                        <th>10 (nải)</th>
-                        <th>500.000</th>
-                        <th><button class="see" id="8">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH009</th>
-                        <th>18/08/2025</th>
-                        <th>Lê Hàn Quốc</th>
-                        <th>6 (kg)</th>
-                        <th>720.000</th>
-                        <th><button class="see" id="9">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH010</th>
-                        <th>12/08/2025</th>
-                        <th>Thanh long ruột đỏ</th>
-                        <th>10 (trái)</th>
-                        <th>300.000</th>
-                        <th><button class="see" id="10">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH011</th>
-                        <th>05/08/2025</th>
-                        <th>Bưởi da xanh</th>
-                        <th>4 (trái)</th>
-                        <th>440.000</th>
-                        <th><button class="see" id="11">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH012</th>
-                        <th>01/08/2025</th>
-                        <th>Ổi ruột hồng</th>
-                        <th>8 (trái)</th>
-                        <th>160.000</th>
-                        <th><button class="see" id="12">xem</button></th>
-                    </tr>
-                    <tr class="tablesp">
-                        <th>MH013</th>
-                        <th>28/07/2025</th>
-                        <th>Dưa lưới</th>
-                        <th>5 (trái)</th>
-                        <th>500.000</th>
-                        <th><button class="see" id="13">xem</button></th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
-    
+    </div>
 
-        <!-- Modal xem chi tiết -->
-                    <div id="viewModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Thông tin sản phẩm</h2>
-                        <p><strong>Mã phiếu:</strong> <span id="maPhieuInfo"></span></p>
-                        <p><strong>Tên sản phẩm:</strong> <span id="tenSpInfo"></span></p>
-                        <p><strong>Ngày nhập:</strong> <span id="ngayNhapInfo"></span></p>
-                        <p><strong>Tổng SL:</strong> <span id="tongSlInfo"></span></p>
-                        <p><strong>Tổng giá trị:</strong> <span id="tongGtInfo"></span></p>
-                    </div>
-                    </div>
+    <!-- Nút về trang chủ -->
+    <a href="../pages/index.html" class="back-btn">
+      <i class="fa fa-home"></i>
+    </a>
+  </div>
 
-        <div class="pagination">
-            <button class="prev">⟨</button>
-            <ul class="pages">
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>...</li>
-                <li>10</li>
-            </ul>
-            <button class="next">⟩</button>
-        </div>
+  <!-- Bảng danh sách -->
+  <div class="list">
+    <table>
+      <thead>
+        <tr class="tablehoadon">
+          <th>Mã phiếu</th>
+          <th>Ngày nhập</th>
+          <th>Tổng Giá trị</th>
+          <th>Chi tiết</th>
+        </tr>
+      </thead>
 
-        <script src="../js/receivingReport.js" defer></script>
-    </body>
-    </html>
-        
+      <tbody>
+        <!-- ====== Mỗi dòng có checkbox + label + modal ====== -->
+        <tr class="tablesp">
+          <th>MH001</th>
+          <th>30/09/2025</th>
+          <th>2.000.000</th>
+          <th>
+            <input type="checkbox" id="view1" hidden>
+            <label for="view1" class="see">Xem</label>
+            <div class="modal2">
+              <div class="modal-content">
+                <label for="view1" class="close">&times;</label>
+                <h2>Thông tin chi tiết </h2>
+                <p><strong>Mã phiếu:</strong> MH001</p>
+                <p><strong>Ngày nhập:</strong>30/9/2025</p>
+                <table >
+                    <thead >
+                        <th>Số thứ tự</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá nhập</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Tiền</th>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <th>1</th>
+                            <th>SP0001</th>
+                            <th>Cam</th>
+                            <th>20.000 VNĐ/kg</th>
+                            <th>50kg </th>
+                            <th>1.000.000 VNĐ</th>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <th>SP0002</th>
+                            <th>Chuối</th>
+                            <th>40.000 VNĐ/kg</th>
+                            <th>25kg </th>
+                            <th>1.000.000 VNĐ</th>
+                        </tr>
+                    </tbody>
+                
+
+
+                </table>
+              </div>
+            </div>
+          </th>
+        </tr>
+
+        <tr class="tablesp">
+          <th>MH002</th>
+          <th>15/09/2025</th>
+          <th>1.800.000</th>
+          <th>
+            <input type="checkbox" id="view2" hidden>
+            <label for="view2" class="see">Xem</label>
+            <div class="modal2">
+              <div class="modal-content">
+                <label for="view2" class="close">&times;</label>
+                <h2>Thông tin chi tiết </h2>
+                <p><strong>Mã phiếu:</strong> MH002</p>
+                <p><strong>Ngày nhập:</strong>15/9/2025</p>
+                <table >
+                    <thead >
+                        <th>Số thứ tự</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá nhập</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Tiền</th>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <th>1</th>
+                            <th>SP001</th>
+                            <th>Cam</th>
+                            <th>45.000 VNĐ/kg</th>
+                            <th>20Kg </th>
+                            <th>900.000 VNĐ</th>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <th>SP0005</th>
+                            <th>Quýt</th>
+                            <th>70.000 VNĐ/kg</th>
+                            <th>10kg </th>
+                            <th>700.000 VNĐ</th>
+                        </tr>
+
+                        <tr>
+                            <th>3</th>
+                            <th>SP0010</th>
+                            <th>Thanh Long</th>
+                            <th>20.000 VNĐ/kg</th>
+                            <th>10kg </th>
+                            <th>200.000 VNĐ</th>
+                        </tr>
+
+
+                    </tbody>
+                
+
+
+                </table>
+              </div>
+            </div>
+          </th>
+        </tr>
+
+        <tr class="tablesp">
+          <th>MH003</th>
+          <th>17/09/2025</th>
+          <th>5.000.000</th>
+          <th>
+            <input type="checkbox" id="view3" hidden>
+            <label for="view3" class="see">Xem</label>
+            <div class="modal2">
+              <div class="modal-content">
+                <label for="view3" class="close">&times;</label>
+                <h2>Thông tin chi tiết </h2>
+                <p><strong>Mã phiếu:</strong> MH003</p>
+                <p><strong>Ngày nhập:</strong>17/9/2025</p>
+                <table >
+                    <thead >
+                        <th>Số thứ tự</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá nhập</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Tiền</th>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <th>1</th>
+                            <th>SP0011</th>
+                            <th>Cam Sành</th>
+                            <th>2.000 VNĐ/kg</th>
+                            <th>100kg </th>
+                            <th>2.000.000 VNĐ</th>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <th>SP0009</th>
+                            <th>Chôm Chôm</th>
+                            <th>25.000 VNĐ/kg</th>
+                            <th>40kg </th>
+                            <th>1.000.000 VNĐ</th>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <th>SP0019</th>
+                            <th>Lựu</th>
+                            <th>40.000 VNĐ/kg</th>
+                            <th>50kg </th>
+                            <th>2.000.000 VNĐ</th>
+                        </tr>
+                    </tbody>
+                
+
+
+                </table>
+              </div>
+            </div>
+          </th>
+        </tr>
+
+        <!-- ... Các dòng còn lại MH004 → MH013, bạn chỉ cần copy mẫu trên và đổi id + nội dung ... -->
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Phân trang --> 
+  <div class="pagination">
+    <button class="prev">⟨</button>
+    <ul class="pages">
+      <li class="active">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>...</li>
+      <li>10</li>
+    </ul>
+    <button class="next">⟩</button>
+  </div>
+  <script src="../js/receivingReport.js" defer></script>
+</body>
+</html>
