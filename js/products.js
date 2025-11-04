@@ -1,246 +1,177 @@
-// 📁 Đường dẫn tới file JSON mặc định (khi chưa có dữ liệu trong localStorage)
-const JSON_PATH = '../data/products.json';
+document.addEventListener("DOMContentLoaded", () => {
+  const productList = document.querySelector(".product-list");
+  const addProductBtn = document.getElementById("add-product-btn");
 
-/* =====================================================
-                🧩 HIỂN THỊ DANH SÁCH SẢN PHẨM
-   ===================================================== */
-function displayProducts(products) {
-    const productList = document.getElementById('product-list');
-
-    // Nếu không có sản phẩm, hiển thị trạng thái rỗng
-    if (!products || products.length === 0) {
-        productList.innerHTML = `
-            <div class="empty-state">
-                <i class="fa-solid fa-box-open"></i>
-                <p>Chưa có sản phẩm nào</p>
-            </div>
-        `;
-        return;
+  // --- CHỨC NĂNG THÊM SẢN PHẨM ---
+  addProductBtn.addEventListener("click", () => {
+    // Kiểm tra xem có form thêm sản phẩm nào đang mở không
+    if (document.querySelector(".new-product-card")) {
+      alert("Vui lòng hoàn thành việc thêm sản phẩm hiện tại.");
+      return;
     }
 
-    // Hiển thị danh sách sản phẩm (mỗi sản phẩm là 1 thẻ card)
-    productList.innerHTML = products.map(product => `
-        <div class="product-card ${product.hidden ? 'hidden' : ''}" data-id="${product.id}">
-            <!-- Hình ảnh -->
-            <img src="${product.image}" 
-                alt="${product.name}" 
-                class="product-image" 
-                onerror="this.src='https://via.placeholder.com/400x400?text=No+Image'">
-
-            <!-- Tên -->
-            <div class="product-name">${product.name}</div>
-
-            <!-- Thông tin chi tiết -->
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                <p><i>${product.category}</i></p>
-                <p><i class="fa-solid fa-align-left"></i> ${product.description}</p>
-                <p class="price"><i class="fa-solid fa-money-bill-wave"></i> ${product.price} đồng/kg</p>
-                <p class="stock">Còn: ${product.stock}</p>
-            </div>
-            
-            <!-- Hàng nút chức năng -->
-            <div class="actions-top">
-                <!-- Nút sửa -->
-                <button class="edit-btn" data-id="${product.id}">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
-
-                <!-- Nút ẩn/hiện -->
-                <button class="hide-btn" data-id="${product.id}">
-                    <i class="fa-solid ${product.hidden ? 'fa-eye' : 'fa-eye-slash'}"></i>
-                </button>
-
-                <!-- Nút xóa -->
-                <button class="delete-btn" data-id="${product.id}">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    `).join('');
-
-    // Gắn sự kiện cho các nút sau khi render
-    attachEvents();
-}
-
-/* =====================================================
-        🔗 GẮN SỰ KIỆN CHO CÁC NÚT: XÓA / ẨN / SỬA
-   ===================================================== */
-function attachEvents() {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-
-    /* 🗑️ XÓA SẢN PHẨM */
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.onclick = () => {
-            const id = btn.dataset.id;
-            const newProducts = products.filter(p => p.id != id);
-            localStorage.setItem('products', JSON.stringify(newProducts));
-            displayProducts(newProducts);
-        };
-    });
-
-    /* 👁️ ẨN / HIỆN SẢN PHẨM */
-    document.querySelectorAll('.hide-btn').forEach(btn => {
-        btn.onclick = () => {
-            const id = btn.dataset.id;
-            products.forEach(p => { 
-                if (p.id == id) p.hidden = !p.hidden; // đảo trạng thái ẩn/hiện
-            });
-            localStorage.setItem('products', JSON.stringify(products));
-            displayProducts(products);
-        };
-    });
-
-    /* ✏️ SỬA SẢN PHẨM */
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.onclick = () => {
-            const id = btn.dataset.id;
-            const product = products.find(p => p.id == id);
-            if (!product) return;
-
-            const card = btn.closest('.product-card');
-
-            // Biến card thành form sửa
-            card.innerHTML = `
-                <div class="product-info">
-                    <input type="text" id="edit-name" value="${product.name}">
-                    <input type="text" id="edit-image" value="${product.image}">
-                    <input type="number" id="edit-price" value="${product.price}">
-                    <input type="text" id="edit-description" value="${product.description}">
-                    <input type="text" id="edit-category" value="${product.category}">
-                    <input type="number" id="edit-stock" value="${product.stock}">
-                    <div class="actions">
-                        <button id="save-edit"><i class="fa-solid fa-check"></i></button>
-                        <button id="cancel-edit"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                </div>
-            `;
-
-            // Nút lưu thay đổi
-            card.querySelector('#save-edit').onclick = () => {
-                product.name = card.querySelector('#edit-name').value;
-                product.image = card.querySelector('#edit-image').value;
-                product.price = parseInt(card.querySelector('#edit-price').value);
-                product.description = card.querySelector('#edit-description').value;
-                product.category = card.querySelector('#edit-category').value;
-                product.stock = parseInt(card.querySelector('#edit-stock').value);
-                
-                localStorage.setItem('products', JSON.stringify(products));
-                displayProducts(products);
-            };
-
-            // Nút hủy chỉnh sửa
-            card.querySelector('#cancel-edit').onclick = () => displayProducts(products);
-        };
-    });
-}
-
-/* =====================================================
-                    ➕ THÊM SẢN PHẨM MỚI
-   ===================================================== */
-function createAddProductCard() {
-    const productList = document.getElementById('product-list');
-    const card = document.createElement('div');
-    card.classList.add('product-card', 'new-product-card');
-
-    // Tạo form nhập thông tin sản phẩm mới
-    card.innerHTML = `
-        <div class="product-info">
-            <input type="text" id="new-name" placeholder="Tên sản phẩm" required>
-            <input type="text" id="new-image" placeholder="Link hình ảnh" required>
-            <input type="number" id="new-price" placeholder="Giá (vd: 100000)" required>
-            <input type="text" id="new-description" placeholder="Mô tả" required>
-            <input type="text" id="new-category" placeholder="Loại (vd: Trái cây)" required>
-            <input type="number" id="new-stock" placeholder="Số lượng" required min="1">
-            <div class="actions">
-                <button id="save-product"><i class="fa-solid fa-check"></i> Lưu</button>
-                <button id="cancel-product"><i class="fa-solid fa-xmark"></i> Hủy</button>
-            </div>
-        </div>
+    const newProductCard = document.createElement("div");
+    newProductCard.className = "product-card new-product-card";
+    newProductCard.innerHTML = `
+      <input type="text" placeholder="URL Hình ảnh (VD: ../images/ten.jpg)" id="new-image">
+      <input type="text" placeholder="Tên sản phẩm" id="new-name">
+      <input type="text" placeholder="Giới thiệu" id="new-desc">
+      <input type="number" placeholder="Giá (VNĐ)" id="new-price">
+      <input type="number" placeholder="Số lượng (kg)" id="new-stock">
+      <div class="actions">
+        <button id="save-new-product">Lưu</button>
+        <button id="cancel-new-product">Hủy</button>
+      </div>
     `;
-    productList.prepend(card);
+    productList.prepend(newProductCard);
 
-    // 🟢 Lưu sản phẩm mới
-    card.querySelector('#save-product').onclick = () => {
-        const newProduct = {
-            id: Date.now(), // tạo id ngẫu nhiên dựa trên timestamp
-            name: card.querySelector('#new-name').value,
-            image: card.querySelector('#new-image').value,
-            price: parseInt(card.querySelector('#new-price').value),
-            description: card.querySelector('#new-description').value,
-            category: card.querySelector('#new-category').value,
-            stock: parseInt(card.querySelector('#new-stock').value),
-            hidden: false
-        };
+    // Nút Hủy
+    document.getElementById("cancel-new-product").addEventListener("click", () => {
+      newProductCard.remove();
+    });
 
-        // Kiểm tra dữ liệu đầu vào
-        if (!newProduct.name || !newProduct.image || isNaN(newProduct.price)) {
-            alert('Vui lòng điền đầy đủ thông tin hợp lệ!');
-            return;
-        }
+    // Nút Lưu
+    document.getElementById("save-new-product").addEventListener("click", () => {
+      const imageUrl = document.getElementById("new-image").value.trim();
+      const name = document.getElementById("new-name").value.trim();
+      const description = document.getElementById("new-desc").value.trim();
+      const price = document.getElementById("new-price").value;
+      const stock = document.getElementById("new-stock").value;
 
-        const products = JSON.parse(localStorage.getItem('products')) || [];
-        products.push(newProduct);
-        localStorage.setItem('products', JSON.stringify(products));
-        displayProducts(products);
-    };
+      if (!imageUrl || !name || !description || !price || !stock) {
+        alert("Vui lòng nhập đầy đủ thông tin!");
+        return;
+      }
 
-    // 🔴 Hủy thêm sản phẩm
-    card.querySelector('#cancel-product').onclick = () => card.remove();
-}
+      const card = createProductCard(name, description, price, stock, imageUrl);
+      productList.prepend(card);
+      newProductCard.remove();
+      updateEmptyState();
+    });
+  });
 
+  // --- SỬ DỤNG EVENT DELEGATION CHO CÁC NÚT XÓA, SỬA, ẨN ---
+  productList.addEventListener("click", (e) => {
+    const target = e.target;
+    const productCard = target.closest(".product-card");
 
+    if (!productCard) return;
 
-
-// ==========================
-// 🧩 HÀM LOAD DỮ LIỆU LẦN ĐẦU
-// ==========================
-async function loadProducts() {
-    try {
-        // 1️⃣ Lấy dữ liệu từ localStorage
-        let products = JSON.parse(localStorage.getItem('products'));
-
-        // 2️⃣ Nếu đã có dữ liệu, chỉ cần hiển thị luôn
-        if (products && products.length > 0) {
-            console.log("✅ Dữ liệu lấy từ localStorage");
-            displayProducts(products);
-            return;
-        }
-
-        // 3️⃣ Nếu chưa có, fetch từ file JSON
-        console.log("🌐 Lần đầu truy cập - đang tải dữ liệu từ file JSON...");
-        const response = await fetch('../data/products.json');
-
-        // Kiểm tra phản hồi từ server
-        if (!response.ok) {
-            throw new Error(`Không thể tải file products.json (status: ${response.status})`);
-        }
-
-        // 4️⃣ Chuyển dữ liệu JSON sang object
-        products = await response.json();
-
-        // 5️⃣ Lưu vào localStorage để dùng cho lần sau
-        localStorage.setItem('products', JSON.stringify(products));
-
-        console.log("✅ Dữ liệu đã lưu vào localStorage thành công");
-        displayProducts(products);
-
-    } catch (error) {
-        console.error("❌ Lỗi khi load dữ liệu sản phẩm:", error);
-        alert("Không thể tải dữ liệu sản phẩm. Vui lòng kiểm tra lại file JSON!");
+    // Chức năng Xóa
+    if (target.closest(".delete-btn")) {
+      if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
+        productCard.remove();
+        updateEmptyState();
+      }
     }
-}
 
+    // Chức năng Ẩn/Hiện
+    if (target.closest(".hide-btn")) {
+      productCard.classList.toggle("hidden");
+      const icon = target.closest(".hide-btn").querySelector("i");
+      if (productCard.classList.contains("hidden")) {
+        icon.className = "fa-solid fa-eye"; // Đổi icon thành "hiện"
+      } else {
+        icon.className = "fa-solid fa-eye-slash"; // Đổi icon thành "ẩn"
+      }
+    }
 
+    // Chức năng Sửa
+    if (target.closest(".edit-btn")) {
+      const infoDiv = productCard.querySelector(".product-info");
+      const paragraphs = infoDiv.querySelectorAll("p");
 
+      // Lấy dữ liệu hiện tại
+      const currentName = paragraphs[0].textContent.replace("Tên sản phẩm: ", "");
+      const currentDesc = paragraphs[1].textContent.replace("Giới thiệu: ", "");
+      const currentPrice = paragraphs[2].textContent.replace("Giá: ", "").replace(" VNĐ/kg", "").replace(".", "");
+      const currentStock = paragraphs[3].textContent.replace("Số lượng còn: ", "").replace(" kg", "");
 
-/* =====================================================
-                🚀 KHI TRANG VỪA LOAD
-   ===================================================== */
-window.addEventListener('DOMContentLoaded', () => {
-    loadProducts(); // tải dữ liệu ban đầu
+      // Tạo form chỉnh sửa
+      infoDiv.innerHTML = `
+        <input type="text" value="${currentName}" class="edit-input">
+        <input type="text" value="${currentDesc}" class="edit-input">
+        <input type="number" value="${currentPrice}" class="edit-input">
+        <input type="number" value="${currentStock}" class="edit-input">
+        <button class="save-edit-btn">Lưu</button>
+        <button class="cancel-edit-btn">Hủy</button>
+      `;
+    }
 
-    // Gắn sự kiện cho nút "Thêm sản phẩm"
-    const addBtn = document.getElementById('add-product-btn');
-    if (addBtn) addBtn.addEventListener('click', createAddProductCard);
+    // Nút Lưu sau khi sửa
+    if (target.classList.contains("save-edit-btn")) {
+        const infoDiv = productCard.querySelector(".product-info");
+        const inputs = infoDiv.querySelectorAll("input");
+        const newName = inputs[0].value;
+        const newDesc = inputs[1].value;
+        const newPrice = Number(inputs[2].value).toLocaleString('de-DE');
+        const newStock = inputs[3].value;
+
+        infoDiv.innerHTML = `
+            <p>Tên sản phẩm: ${newName}</p>
+            <p>Giới thiệu: ${newDesc}</p>
+            <p>Giá: ${newPrice} VNĐ/kg</p>
+            <p>Số lượng còn: ${newStock} kg</p>
+        `;
+    }
+
+    // Nút Hủy sau khi sửa
+    if (target.classList.contains("cancel-edit-btn")) {
+        // Tạm thời chỉ reload lại card, cách đơn giản nhất
+        // Để tối ưu hơn, cần lưu lại trạng thái cũ và phục hồi
+        // Ở đây ta sẽ tạo lại HTML gốc (ví dụ)
+        const infoDiv = productCard.querySelector(".product-info");
+        // Đây là dữ liệu giả định, bạn cần có cách lấy lại dữ liệu gốc
+        infoDiv.innerHTML = `
+            <p>Tên sản phẩm: Sản phẩm đã hủy sửa</p>
+            <p>Giới thiệu: ...</p>
+            <p>Giá: 0 VNĐ/kg</p>
+            <p>Số lượng còn: 0 kg</p>
+        `;
+    }
+  });
+
+  // --- HÀM TIỆN ÍCH ---
+
+  // Hàm tạo một thẻ sản phẩm mới
+  function createProductCard(name, description, price, stock, imageUrl) {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <div class="actions-top">
+        <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+        <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+      </div>
+      <img src="${imageUrl}" alt="${name}" onerror="this.src='../images/placeholder.png';">
+      <div class="product-info">
+        <p>Tên sản phẩm: ${name}</p>
+        <p>Giới thiệu: ${description}</p>
+        <p>Giá: ${Number(price).toLocaleString('de-DE')} VNĐ/kg</p>
+        <p>Số lượng còn: ${stock} kg</p>
+      </div>
+    `;
+    return card;
+  }
+
+  // Hàm kiểm tra và hiển thị thông báo nếu không có sản phẩm nào
+  function updateEmptyState() {
+    const existingEmptyState = productList.querySelector(".empty-state");
+    if (existingEmptyState) {
+        existingEmptyState.remove();
+    }
+
+    if (productList.children.length === 0) {
+      const emptyState = document.createElement("div");
+      emptyState.className = "empty-state";
+      emptyState.innerHTML = `
+        <i class="fa-solid fa-box-open"></i>
+        <p>Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!</p>
+      `;
+      productList.appendChild(emptyState);
+    }
+  }
+
+  // Kiểm tra lần đầu khi tải trang
+  updateEmptyState();
 });

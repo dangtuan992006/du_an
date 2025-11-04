@@ -182,3 +182,46 @@ body {
   padding: 10px;
   border: none;
 }
+
+#editBtn{
+  margin-bottom: 20px;
+}
+
+.edit-form{
+  border: #9e182b 5px solid;
+  border-radius: 10px;
+  margin-left: 5px;
+  padding: 15px;
+  background-color: #fef2f4;
+  width: 100%;
+  max-width: 400px;
+}
+
+.edit-form button{
+  background-color: #9e182b;
+  color: #f9cbd6;
+  border: none;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.edit-form h3{
+  background-color: #9e182b;
+  color: #f9cbd6;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.edit-form label{
+  color: #9e182b;
+  margin-top: 10px;
+  display: block;
+}
+
+.edit-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+}
