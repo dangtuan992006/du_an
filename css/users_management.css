@@ -64,85 +64,110 @@ body {
     box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
 }
 
-.user-table{
-    width: 100%;
-    margin-top: 20px;
-    font-size: 16px;
-
-}
-.user-list{
-    align-items: center;
-    text-align: center;
-    height: 50px;
-}
-.user-table th,td{
-    background-color: #fff;
-    border: #9e182b solid;
-}
-
-.delete-btn{
-    color: #9e182b;
-    border: none;
-    text-align: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: #fff;
-}
-
-.edit-btn{
-    color: #9e182b;
-    border: none;
-    text-align: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: #fff;
-}
-
 .actions {
     display: flex;
     justify-content: space-between; /* chia đều hai bên */
     align-items: center; /* căn giữa theo chiều dọc */
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     gap: 20px;
-}
-
-.actions button {
-    cursor: pointer;
 }
 
 .search-box {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .search-box input {
-    padding: 6px 10px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 220px;
+    border-radius: 8px;
+    width: 250px;
+    font-size: 15px;
 }
 
 .search-box button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #9e182b;
+    color: #fff;
     border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .search-box button:hover {
-    background-color: #45a049;
+    background-color: #7d1322;
 }
+
 #add-user-btn{
     background-color: #9e182b;
     color: white;
     border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
+
 #add-user-btn:hover {
     background-color: #7e1424;
 }
+
+/* --- Bố cục bảng --- */
+.user-table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse; /* Gộp đường viền */
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden; /* Đảm bảo bo góc được áp dụng cho bảng */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-table thead tr {
+    background-color: #9e182b;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.user-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.user-table tbody tr:nth-of-type(even) {
+    background-color: #fdeef2; /* Màu hồng nhạt cho hàng chẵn */
+}
+
+.user-table tbody tr:last-of-type {
+    border-bottom: 2px solid #9e182b;
+}
+
+.user-table tbody tr:hover {
+    background-color: #f9cbd6; /* Hiệu ứng khi di chuột qua */
+}
+
+/* --- Các nút trong bảng --- */
+.user-table button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px 8px;
+    font-size: 16px;
+    color: #555;
+    transition: color 0.2s ease;
+}
+
+.user-table .edit-btn:hover { color: #3498db; } /* Xanh dương */
+.user-table .delete-btn:hover { color: #e74c3c; } /* Đỏ */
+.user-table .save-btn:hover { color: #2ecc71; } /* Xanh lá */
+.user-table .cancel-btn:hover { color: #95a5a6; } /* Xám */
