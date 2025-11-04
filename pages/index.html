@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Login System - Trái Lựu Theme</title>
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- feather icons -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font chu banana -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Playfair Display font for banner -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- file -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <!-- CSS riêng cho banner -->
+    <link rel="stylesheet" href="../css/components/banner.css" />
+    <!-- mo hinh 3D -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <style>
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+      }
+    </style>
+    <style>
+      /* --- Chat Support --- */
+      .chat-support {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+      }
+      .chat-support button {
+        background: #ff4b5c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .chat-support button i {
+        margin-right: 5px;
+      }
+    </style>
+
+    <style>
+      /* Topbar Styles */
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Commitment Bar - TẤT CẢ CÙNG 1 HÀNG */
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+
+      .commitment-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .commitment-items::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Cam kết title */
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .commitment-items {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0 1rem;
+        }
+
+        .commitment-bar {
+          padding: 8px 0;
+        }
+
+        .commitment-title {
+          font-size: 13px;
+          padding: 0 6px;
+        }
+
+        .commitment-item span {
+          font-size: 11px;
+        }
+
+        .commitment-item {
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .commitment-title {
+          font-size: 12px;
+          padding: 0 4px;
+        }
+
+        .commitment-item span {
+          font-size: 10px;
+        }
+
+        .commitment-item img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .divider {
+          height: 16px;
+        }
+      }
+
+      /* Animation */
+      .commitment-link:hover {
+        opacity: 0.9;
+      }
+
+      .commitment-item:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+      }
+      /* Đổi màu icon bằng filter */
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8); /* Màu cam */
+      }
+
+      /* Hoặc từng icon riêng biệt */
+      .commitment-item:nth-child(3) img {
+        /* 100% hàng thật */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(5) img {
+        /* Freeship */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(7) img {
+        /* Hoàn 200% */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(9) img {
+        /* 30 ngày đổi trả */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(11) img {
+        /* Giao nhanh 2h */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(13) img {
+        /* Giá siêu rẻ */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Thanh điều hướng -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Thanh tìm kiếm -->
+        <li class="search-container">
+          <div class="search-category">
+            <select class="category-select">
+              <option>ALL</option>
+              <option>Bán chạy nhất</option>
+              <option>Quà tặng trái cây</option>
+              <option>Trái cây Việt Nam</option>
+              <option>Đặc biệt</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Tìm kiếm sản phẩm..."
+          />
+          <button class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Dropdown người dùng (sẽ được bật/tắt bằng JS) -->
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">Đăng nhập</span>
+            </button>
+            <div class="dropdown-menu">
+              <a
+                href="../pages/thongtintaikhoan.html"
+                target="_blank"
+                class="dropdown-item"
+                >Thông tin cá nhân</a
+              >
+              <a href="../pages/order-history.html" class="dropdown-item"
+                >Xem lại đơn hàng</a
+              >
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+          <button class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </button>
+          <!-- Trong .box3, dưới 2 nút hiện tại -->
+          <!-- Trong navbar, thay nút thanh toán giỏ hàng -->
+          <button id="checkoutCartBtn" class="checkout-cart-btn nav-button">
+            Thanh toán giỏ hàng
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Banner Carousel -->
+    <section id="hero-carousel" class="hero-carousel">
+      <div id="carousel-track" class="carousel-track">
+        <!-- Slide 1 - ĐÃ THÊM ẢNH MỚI -->
+        <!-- Slide 1 với multiple resolutions -->
+        <div class="slide">
+          <picture>
+            <source
+              media="(min-width: 1200px)"
+              srcset="
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1920w,
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w
+              "
+            />
+            <source
+              media="(min-width: 768px)"
+              srcset="
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w,
+                ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png  768w
+              "
+            />
+            <img
+              src="../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png"
+              alt="Benefits of Pomegranate"
+              class="slide-image"
+              loading="eager"
+            />
+          </picture>
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Lợi Ích Từ Trái Lựu</h2>
+              <p class="slide-description">
+                Khám phá những giá trị dinh dưỡng tuyệt vời
+              </p>
+              <a href="#" class="btn-primary">Khám Phá Ngay</a>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide">
+          <img src="../images/cam.png" alt="Banner 2" class="slide-image" />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Flash Sale</h2>
+              <p class="slide-description">
+                Giảm giá đến 50% chỉ trong tuần này
+              </p>
+              <a href="#" class="btn-primary">Mua Sắm Ngay</a>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide">
+          <img
+            src="https://placehold.co/1920x1080/1a1a1a/ffffff?text=Premium+Quality"
+            alt="Banner 3"
+            class="slide-image"
+          />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Chất Lượng Premium</h2>
+              <p class="slide-description">Trải nghiệm sự khác biệt</p>
+              <a href="#" class="btn-primary">Xem Thêm</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button id="prev-slide" class="carousel-nav carousel-nav-prev">
+        <i data-feather="chevron-left" class="nav-icon"></i>
+      </button>
+      <button id="next-slide" class="carousel-nav carousel-nav-next">
+        <i data-feather="chevron-right" class="nav-icon"></i>
+      </button>
+
+      <!-- Indicators -->
+      <div id="carousel-indicators" class="carousel-indicators">
+        <button class="indicator" data-slide="0"></button>
+        <button class="indicator" data-slide="1"></button>
+        <button class="indicator" data-slide="2"></button>
+      </div>
+    </section>
+
+    <!-- Favorites Modal -->
+    <div id="favorites-modal-overlay" class="modal-overlay"></div>
+    <div id="favorites-modal" class="product-modal">
+      <button id="close-favorites-modal-button" class="modal-close-btn">
+        <i data-feather="x" class="modal-close-icon"></i>
+      </button>
+      <h2 class="modal-title">Danh sách yêu thích</h2>
+
+      <div id="favorites-grid" class="favorites-grid">
+        <!-- Các sản phẩm yêu thích sẽ được render vào đây -->
+      </div>
+
+      <div id="favorites-empty" class="favorites-empty">
+        <p>Bạn chưa có sản phẩm yêu thích nào.</p>
+      </div>
+
+      <!-- PHẦN THÊM VÀO: Footer của modal với nút thanh toán -->
+      <div id="favorites-footer" class="favorites-footer">
+        <button id="add-favorites-to-cart-btn" class="btn-primary">
+          Thêm tất cả vào giỏ hàng
+        </button>
+      </div>
+    </div>
+    <!-- End Favorites Modal -->
+
+    <!-- Main Content -->
+    <main>
+      <!-- Phần sản phẩm mới -->
+      <section class="products-section" id="products">
+        <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+
+        <!-- <div id="loading" class="loading">Đang tải sản phẩm...</div> -->
+
+        <!-- <p id="noResults" class="no-results">Không tìm thấy sản phẩm nào.</p> -->
+
+        <div class="products-container" id="productsContainer">
+          <!-- Sản phẩm sẽ được render động bằng JavaScript -->
+        </div>
+
+        <!-- Phân trang đơn giản -->
+        <div class="pagination-container" id="paginationContainer">
+          <div class="pagination">
+            <button
+              id="prev-page"
+              class="pagination-btn pagination-prev"
+              disabled
+            >
+              <i class="fas fa-chevron-left"></i>
+              Trước
+            </button>
+
+            <div class="pagination-info">
+              Trang <span id="current-page">1</span> /
+              <span id="total-pages">1</span>
+            </div>
+
+            <button id="next-page" class="pagination-btn pagination-next">
+              Sau
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Giỏ hàng drawer -->
+      <div id="cartOverlay" class="cart-overlay"></div>
+      <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-drawer-header">
+          <h2>🛒 Giỏ hàng</h2>
+          <button id="closeCartDrawer" class="close-drawer">×</button>
+        </div>
+        <div id="cartDrawerContent" class="cart-drawer-content">
+          <!-- Nội dung giỏ hàng sẽ được render ở đây -->
+        </div>
+        <div id="cartDrawerFooter" class="cart-drawer-footer">
+          <!-- Footer giỏ hàng sẽ được render ở đây -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer HTML -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Nhập email để nhận ưu đãi"
+            />
+            <button class="newsletter-btn">Đăng ký</button>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/profile.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/profile.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
+          <div class="social-grid">
+            <a href="#" class="social-card"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
+            <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- <script src="../js/search.js" defer></script> -->
+    <script src="../js/mainjs.js" defer></script>
+    <script>
+      // Khởi tạo Feather Icons
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof feather !== "undefined") {
+          feather.replace();
+        }
+      });
+    </script>
+  </body>
+</html>

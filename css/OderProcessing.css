@@ -1,0 +1,212 @@
+/* ======= CÀI ĐẶT CƠ BẢN ======= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f6fa;
+    color: #333;
+}
+
+/* ======= HEADER ======= */
+.header {
+    background-color: #f9cbd6;
+    color: white;
+    padding: 15px 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heading {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* ======= NÚT QUAY LẠI & TRANG CHỦ ======= */
+.back-btn,
+.home-btn {
+    background-color: white;
+    border: none;
+    color: #f9cbd6;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.back-btn:hover,
+.home-btn:hover {
+    background-color: #f9cbd6;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ======= MAIN ======= */
+.main {
+    padding: 25px 50px;
+}
+
+/* ======= KHUNG TÌM KIẾM / LỌC ======= */
+.search {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    background-color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.search .nd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #444;
+}
+
+.search input[type="date"],
+.search select,
+.search input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.search input[type="text"] {
+    width: 260px;
+}
+
+.search input:focus,
+.search select:focus {
+    border-color: #f9cbd6;
+}
+
+/* ======= NÚT ======= */
+button.loc,
+button.dl {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.loc {
+    background-color: #0078d7;
+}
+
+button.dl {
+    background-color: #ff4747;
+}
+
+button.loc:hover {
+    background-color: #005fa3;
+}
+
+button.dl:hover {
+    background-color: #d93a3a;
+}
+
+/* ======= BẢNG DỮ LIỆU ======= */
+.table-container {
+    margin-top: 30px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+th, td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+    font-size: 15px;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+    color: #333;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+td select {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+td select:focus {
+    border-color: #0078d7;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .main {
+        padding: 15px 20px;
+    }
+
+    .search {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search input[type="text"] {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 13px;
+    }
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(rgba(148, 22, 41, 0.5), rgba(148, 22, 41, 0.5)), url(../images/grape.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #333;
+}
+
+
+

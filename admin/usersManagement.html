@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="../css/users_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button onclick="location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản Lý người dùng</h1>
+            <button onclick="location.href='../pages/index.html'">
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+        
+        <div class="content">
+            <div class="actions">
+                <button id="add-user-btn">
+                    <i class="fa-solid fa-user-plus"></i> Thêm người dùng
+                </button>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Nhập tên hoặc email...">
+                    <button id="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                    </button>
+                </div>
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Tên người dùng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>mật khẩu</th>
+                        <th>Ngày tham gia</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list" class = "user-list">
+                    <!-- JS sẽ render dữ liệu user vào đây -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script src="../js/users.js"></script>
+</body>
+</html>
