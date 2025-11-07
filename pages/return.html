@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chính sách đổi trả - Pomegranate</title>
+    <!-- Icons and Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+
+    <!-- Custom Styles for this page (similar to privacy.html) -->
+    <style>
+      body {
+        background-color: #fff7f7;
+      }
+      .return-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 40px;
+        background-color: #fff;
+        border: 1px solid #ffd1d1;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        font-family: "Roboto", sans-serif;
+        line-height: 1.7;
+        color: #333;
+      }
+      .return-container h1,
+      .return-container h2,
+      .return-container h3 {
+        font-family: "Alkatra", sans-serif;
+        color: var(--primary-dark);
+        border-bottom: 2px solid #ffd1d1;
+        padding-bottom: 10px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+      .return-container h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-top: 0;
+        border-bottom: none;
+      }
+      .return-container p {
+        margin-bottom: 15px;
+      }
+      .return-container ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-bottom: 15px;
+      }
+      .return-container ol {
+        list-style-type: decimal;
+        padding-left: 20px;
+        margin-bottom: 15px;
+      }
+      .return-container a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .return-container a:hover {
+        text-decoration: underline;
+      }
+      .last-updated {
+        text-align: center;
+        color: #777;
+        font-style: italic;
+        margin-bottom: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header (Consistent with other pages) -->
+    <nav>
+      <ul class="nav-grid">
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+        <li class="search-container">
+          <div class="search-category">
+            <select class="category-select">
+              <option>ALL</option>
+              <option>Bán chạy nhất</option>
+              <option>Quà tặng trái cây</option>
+              <option>Trái cây Việt Nam</option>
+              <option>Đặc biệt</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Tìm kiếm sản phẩm..."
+          />
+          <button class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </li>
+        <li class="nav-buttons">
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i><span class="user-text">Đăng nhập</span>
+            </button>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item"
+                >Thông tin tài khoản</a
+              >
+              <a href="../pages/order-history.html" class="dropdown-item"
+                >Lịch sử mua hàng</a
+              >
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+          <button class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i> Giỏ hàng
+            <span class="cart-count">0</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Topbar (Consistent with other pages) -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <div class="return-container">
+        <h1>Chính Sách Đổi Trả</h1>
+        <p class="last-updated">Cập nhật lần cuối: 08/11/2025</p>
+
+        <p>
+          Tại <strong>Pomegranate</strong>, chúng tôi luôn mong muốn mang đến
+          cho quý khách hàng những sản phẩm trái cây tươi ngon và trải nghiệm
+          mua sắm tốt nhất. Nếu bạn không hài lòng với sản phẩm đã mua, chúng
+          tôi sẵn sàng hỗ trợ đổi trả theo các điều khoản dưới đây.
+        </p>
+
+        <h2>1. Điều Kiện Đổi Trả Sản Phẩm</h2>
+        <p>Sản phẩm được đổi trả khi đáp ứng đủ các điều kiện sau:</p>
+        <ul>
+          <li>
+            Sản phẩm bị hư hỏng, dập nát, không đạt chất lượng như mô tả hoặc
+            không đúng với đơn hàng đã đặt.
+          </li>
+          <li>
+            Thời gian yêu cầu đổi trả trong vòng <strong>24 giờ</strong> kể từ
+            thời điểm nhận hàng.
+          </li>
+          <li>
+            Sản phẩm còn nguyên vẹn, chưa qua sử dụng hoặc chế biến (trừ trường
+            hợp sản phẩm bị hư hỏng ngay khi nhận).
+          </li>
+          <li>
+            Có hóa đơn mua hàng hoặc thông tin xác nhận đơn hàng (mã đơn hàng,
+            số điện thoại đặt hàng).
+          </li>
+        </ul>
+
+        <h2>2. Các Trường Hợp Không Hỗ Trợ Đổi Trả</h2>
+        <p>Chúng tôi xin lỗi không thể hỗ trợ đổi trả trong các trường hợp sau:</p>
+        <ul>
+          <li>
+            Quá thời hạn 24 giờ kể từ khi nhận hàng.
+          </li>
+          <li>
+            Sản phẩm bị hư hỏng do lỗi của người sử dụng sau khi đã nhận hàng
+            (ví dụ: bảo quản không đúng cách, làm rơi vỡ).
+          </li>
+          <li>
+            Không có hóa đơn hoặc thông tin xác nhận đơn hàng.
+          </li>
+          <li>
+            Sản phẩm đã được sử dụng, chế biến hoặc tiêu thụ một phần.
+          </li>
+        </ul>
+
+        <h2>3. Quy Trình Đổi Trả</h2>
+        <ol>
+          <li>
+            <strong>Bước 1: Liên hệ Pomegranate</strong>
+            <p>
+              Ngay khi phát hiện vấn đề, vui lòng liên hệ với chúng tôi qua số
+              điện thoại <strong>0900 123 456</strong> hoặc email
+              <a href="mailto:info@pomegranate.com">info@pomegranate.com</a>.
+              Vui lòng cung cấp mã đơn hàng, tên sản phẩm và mô tả chi tiết về
+              lỗi/vấn đề của sản phẩm, kèm theo hình ảnh hoặc video (nếu có).
+            </p>
+          </li>
+          <li>
+            <strong>Bước 2: Xác nhận yêu cầu</strong>
+            <p>
+              Đội ngũ chăm sóc khách hàng của chúng tôi sẽ tiếp nhận thông tin
+              và phản hồi trong thời gian sớm nhất để xác nhận yêu cầu đổi trả
+              của bạn.
+            </p>
+          </li>
+          <li>
+            <strong>Bước 3: Đổi trả sản phẩm</strong>
+            <p>
+              Sau khi yêu cầu được xác nhận, chúng tôi sẽ sắp xếp việc đổi sản
+              phẩm mới hoặc hoàn tiền cho bạn tùy theo thỏa thuận.
+            </p>
+          </li>
+        </ol>
+
+        <h2>4. Chính Sách Hoàn Tiền</h2>
+        <ul>
+          <li>
+            Nếu sản phẩm được đổi trả và bạn chọn hoàn tiền, chúng tôi sẽ hoàn
+            tiền vào tài khoản ngân hàng của bạn trong vòng 3-5 ngày làm việc
+            kể từ khi nhận lại sản phẩm lỗi.
+          </li>
+          <li>
+            Phí vận chuyển phát sinh trong quá trình đổi trả sản phẩm lỗi sẽ
+            do Pomegranate chi trả.
+          </li>
+        </ul>
+
+        <h2>5. Liên Hệ</h2>
+        <p>
+          Nếu bạn có bất kỳ câu hỏi nào về Chính sách đổi trả này, vui lòng liên
+          hệ với chúng tôi qua:
+        </p>
+        <ul>
+          <li>Điện thoại: <strong>0900 123 456</strong></li>
+          <li>Email: <a href="mailto:info@pomegranate.com">info@pomegranate.com</a></li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- Footer (Consistent with other pages) -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form"></div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about_us.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/mainjs.js" defer></script>
+  </body>
+</html>

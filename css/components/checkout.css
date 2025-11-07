@@ -1,5 +1,10 @@
 /* CSS chung cho các trang thanh toán */
+*{
+  color: #9e182b;
+}
+
 .checkout-container {
+  
   max-width: 600px;
   margin: 0 auto;
   background: white;
@@ -9,7 +14,7 @@
 }
 
 .checkout-header {
-  background-color: #f8f9fa;
+  background-color: #f9cbd6;
   padding: 20px;
   text-align: center;
   border-bottom: 1px solid #eee;
@@ -21,6 +26,7 @@
 }
 
 .checkout-body {
+  background-color: #f9cbd6;
   padding: 20px;
 }
 

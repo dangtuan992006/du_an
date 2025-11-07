@@ -1353,7 +1353,7 @@ App.Checkout = {
       .join("");
 
     document.body.innerHTML = `
-      <div class="checkout-container">
+      <div class="checkout-container" style="background-color: #f9cbd6;">
         <div class="checkout-header"><h2>Thanh Toán Giỏ Hàng</h2><p>Xin chào: <strong>${
           user.name
         }</strong></p></div>
