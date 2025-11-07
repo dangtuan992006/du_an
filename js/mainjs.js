@@ -374,7 +374,12 @@ App.Auth = {
         );
       }
       App.utils.showNotification(`Chào Admin ${admin.name}!`);
-      setTimeout(() => window.open("../admin/index.html", "_blank"), 1000);
+      // Thay đổi để chạy trực tiếp trên file
+      setTimeout(() => {
+        if (confirm("Chuyển đến trang quản trị?")) {
+          window.location.href = "./admin/index.html";
+        }
+      }, 1000);
     } else {
       App.utils.showNotification("Sai tài khoản hoặc mật khẩu!", "error");
     }
@@ -437,7 +442,7 @@ App.Auth = {
         localStorage.setItem("currentUserRole", "customer");
         App.Cart.transferTempCartToUser(email);
         App.utils.showNotification("Tạo tài khoản thành công!");
-        setTimeout(() => (window.location.href = "../pages/index.html"), 1000);
+        setTimeout(() => (window.location.href = "./index.html"), 1000);
       } else {
         if (users[email]?.password === password) {
           localStorage.setItem("currentUser", users[email].name);
@@ -445,10 +450,7 @@ App.Auth = {
           localStorage.setItem("currentUserRole", "customer");
           App.Cart.transferTempCartToUser(email);
           App.utils.showNotification(`Chào ${users[email].name}!`);
-          setTimeout(
-            () => (window.location.href = "../pages/index.html"),
-            1000
-          );
+          setTimeout(() => (window.location.href = "./index.html"), 1000);
         } else {
           alert("Sai mật khẩu!");
         }
@@ -463,7 +465,7 @@ App.Auth = {
     localStorage.removeItem("adminUser");
     localStorage.removeItem("adminEmail");
     App.utils.showNotification("Đã đăng xuất!");
-    setTimeout(() => (window.location.href = "../pages/index.html"), 600);
+    setTimeout(() => (window.location.href = "./index.html"), 600);
   },
 
   handleSocialLogin(provider) {
@@ -485,10 +487,10 @@ App.Auth = {
     localStorage.setItem("currentUserEmail", email);
     App.Cart.transferTempCartToUser(email);
     if (window.opener) {
-      window.opener.location.href = "../pages/index.html";
+      window.opener.location.href = "./index.html";
       window.close();
     } else {
-      window.location.href = "../pages/index.html";
+      window.location.href = "./index.html";
     }
   },
 };
@@ -550,7 +552,7 @@ App.Cart = {
 
     if (buyNow && !localStorage.getItem("currentUser")) {
       App.utils.showNotification("Vui lòng đăng nhập để mua ngay!");
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
 
@@ -653,7 +655,7 @@ App.Cart = {
       <button class="checkout-btn ${!loggedIn ? "login-required" : ""}" 
               onclick="${
                 !loggedIn
-                  ? 'window.location.href="../pages/login.html"'
+                  ? 'window.location.href="./login.html"'
                   : "App.Cart.checkout()"
               }">
         ${loggedIn ? "Thanh toán" : "Đăng nhập để thanh toán"}
@@ -680,7 +682,7 @@ App.Cart = {
       return App.utils.showNotification("Giỏ hàng trống!");
     if (!localStorage.getItem("currentUser")) {
       App.utils.showNotification("Vui lòng đăng nhập!");
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
     localStorage.removeItem("singleProductForPayment");
@@ -688,10 +690,15 @@ App.Cart = {
   },
 
   openPaymentPopup() {
+    // Thay đổi để chạy trực tiếp trên file
+    const width = 850;
+    const height = 700;
+    const left = (screen.width - width) / 2;
+    const top = (screen.height - height) / 2;
     const win = window.open(
-      "../pages/payment-popup.html",
+      "./payment-popup.html",
       "payment",
-      "width=850,height=700,scrollbars=yes"
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`
     );
     if (!win) alert("Vui lòng cho phép popup!");
   },
@@ -855,7 +862,7 @@ App.Products = {
   createProductCardHTML(p) {
     return `
       <div class="product-card" data-product-id="${p.id}">
-        <a href="../pages/product-detail.html?id=${p.id}" class="product-link">
+        <a href="./product-detail.html?id=${p.id}" class="product-link">
           <div class="product-image">${this.getProductImageHTML(p)}</div>
         </a>
         <div class="product-info">
@@ -1001,7 +1008,7 @@ App.UI = {
     toggle.addEventListener("click", (e) => {
       e.stopPropagation();
       if (localStorage.getItem("currentUser")) menu.classList.toggle("show");
-      else window.location.href = "../pages/login.html";
+      else window.location.href = "./login.html";
     });
 
     document.addEventListener("click", () => menu.classList.remove("show"));
@@ -1016,7 +1023,7 @@ App.Profile = {
   init() {
     if (!location.pathname.includes("settings.html")) return;
     if (!localStorage.getItem("currentUserEmail"))
-      return (location.href = "../pages/login.html");
+      return (location.href = "./login.html");
 
     this.cacheDom();
     this.bindEvents();
@@ -1041,7 +1048,7 @@ App.Profile = {
     });
     this.cancelBtn?.addEventListener(
       "click",
-      () => (location.href = "../pages/thongtintaikhoan.html")
+      () => (location.href = "./thongtintaikhoan.html")
     );
   },
 
@@ -1109,7 +1116,7 @@ App.Profile = {
     App.utils.showNotification("Cập nhật hồ sơ thành công!", "success", 1200);
     setTimeout(() => {
       sessionStorage.removeItem("needsProfileUpdate");
-      location.href = "../pages/index.html";
+      location.href = "./index.html";
     }, 1300);
   },
 
@@ -1560,7 +1567,6 @@ App.Checkout = {
     document.body.innerHTML = `<div class="error-container">${msg}</div>`;
   },
 };
-// ... (phần code dưới không thay đổi) ...};
 
 // ========================================
 // MODULE LỊCH SỬ ĐƠN HÀNG
@@ -1577,7 +1583,7 @@ App.OrderHistory = {
         "Vui lòng đăng nhập để xem lịch sử đơn hàng!",
         "error"
       );
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
 
@@ -1625,14 +1631,14 @@ App.OrderHistory = {
               name: "Banana",
               price: 25000,
               quantity: 2,
-              image: "../images/chuoi.webp",
+              image: "./images/chuoi.webp",
             },
             {
               id: 3,
               name: "Cam Ngọt",
               price: 40000,
               quantity: 1,
-              image: "../images/cam.webp",
+              image: "./images/cam.webp",
             },
           ],
           total: 90000,
@@ -1649,14 +1655,14 @@ App.OrderHistory = {
               name: "Dâu Tây",
               price: 180000,
               quantity: 1,
-              image: "../images/quatang2.jpeg",
+              image: "./images/quatang2.jpeg",
             },
             {
               id: 8,
               name: "Cherry Đỏ",
               price: 250000,
               quantity: 1,
-              image: "../images/cherry.jpeg",
+              image: "./images/cherry.jpeg",
             },
           ],
           total: 430000,
@@ -1825,7 +1831,7 @@ App.OrderHistory = {
       App.Cart.add(item.id, false, item.quantity || item.qty);
     });
     App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
-    setTimeout(() => (window.location.href = "../pages/products.html"), 1000);
+    setTimeout(() => (window.location.href = "./products.html"), 1000);
   },
 };
 
