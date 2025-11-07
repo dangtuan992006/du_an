@@ -1,11 +1,6 @@
 /* 1. Base Styles */
-@import url("base.css");
+@import url("../css/base.css");
 
 /* 2. Components */
-@import url("components/header.css");
-@import url("components/cart-drawer.css");
-@import url("components/action-buttons.css");
-
-/* 3. Page-specific Styles */
-@import url("pages/product-detail.css");
-@import url("pages/home-page.css");
+@import url("../css/components/header.css");
+@import url("../css/components/action-buttons.css");

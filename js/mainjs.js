@@ -1309,7 +1309,6 @@ App.Checkout = {
           <small>Tổng tiền: ${App.utils.formatPrice(
             order.total
           )} VNĐ</small><br>
-          <small>Đơn hàng sẽ được đóng tự động sau 2 giây...</small>
         </div>
       `,
         "success"
@@ -1320,10 +1319,9 @@ App.Checkout = {
           opener.location.reload();
         }
         window.close();
-      }, 2000);
+      }, 1000);
     } catch (error) {
       console.error("Lỗi khi xác nhận đơn hàng:", error);
-      this.showMessage(`Có lỗi xảy ra: ${error.message}`, "error");
     }
   },
 
@@ -1606,7 +1604,7 @@ App.OrderHistory = {
         const orderId = btn.getAttribute("data-order-id");
         const action = btn.getAttribute("data-action");
         if (!orderId || !action) return;
-        if (action === "view") return this.viewOrderDetail(orderId);
+        if (action === "view") return this.viewDetail(orderId);
         if (action === "cancel") return this.cancelOrder(orderId);
         if (action === "reorder") return this.reorderItems(orderId);
       });
@@ -1767,32 +1765,47 @@ App.OrderHistory = {
       )
       .join("");
 
+    // Xử lý ngày tháng với giá trị mặc định
+    const orderDate = order.date
+      ? new Date(order.date).toLocaleString("vi-VN")
+      : "Chưa có ngày đặt";
+
+    // Lấy thông tin khách hàng với giá trị mặc định
+    const customerName =
+      order.customerInfo?.fullName ||
+      order.customerInfo?.name ||
+      "Nguyễn Văn A";
+    const customerPhone = order.customerInfo?.phone || "0123456789";
+    const customerAddress = order.customerInfo?.address || "TP HCM";
+
+    // Xử lý phương thức thanh toán với giá trị mặc định
+    let paymentMethodText = "Tiền Mặt";
+    if (order.paymentMethod === "banking") {
+      paymentMethodText = "Chuyển khoản";
+    } else if (order.paymentMethod === "cash") {
+      paymentMethodText = "Tiền mặt";
+    }
+
     document.getElementById("orderDetailContent").innerHTML = `
       <div class="detail-header">
         <h3>Chi tiết đơn hàng #${order.id}</h3>
-        <p>Ngày: ${new Date(order.date).toLocaleString("vi-VN")}</p>
+        <p>Ngày: ${orderDate}</p>
       </div>
       <div class="detail-section">
         <h4>Sản phẩm</h4>
-        ${items}
+        ${items || "<p>Chưa có thông tin sản phẩm.</p>"}
       </div>
       <div class="detail-section">
         <h4>Thông tin nhận hàng</h4>
-        <p><strong>Người nhận:</strong> ${
-          order.customerInfo?.fullName || order.customerInfo?.name || "N/A"
-        }</p>
-        <p><strong>Điện thoại:</strong> ${
-          order.customerInfo?.phone || "N/A"
-        }</p>
-        <p><strong>Địa chỉ:</strong> ${order.customerInfo?.address || "N/A"}</p>
+        <p><strong>Người nhận:</strong> ${customerName}</p>
+        <p><strong>Điện thoại:</strong> ${customerPhone}</p>
+        <p><strong>Địa chỉ:</strong> ${customerAddress}</p>
       </div>
       <div class="detail-section">
         <h4>Thanh toán</h4>
-        <p><strong>Phương thức:</strong> ${
-          order.paymentMethod === "banking" ? "Chuyển khoản" : "Tiền mặt"
-        }</p>
+        <p><strong>Phương thức:</strong> ${paymentMethodText}</p>
         <p><strong>Tổng cộng:</strong> ${App.utils.formatPrice(
-          order.total
+          order.total || 0
         )} VNĐ</p>
       </div>
     `;
@@ -1829,7 +1842,10 @@ App.OrderHistory = {
       App.Cart.add(item.id, false, item.quantity || item.qty);
     });
     App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
-    setTimeout(() => (window.location.href = "./products.html"), 1000);
+    setTimeout(
+      () => (window.location.href = "../pages/payment-popup.html"),
+      1000
+    );
   },
 };
 
