@@ -5,14 +5,19 @@
   list-style: none;
 }
 
+/* Admin layout custom property for easy sidebar width tuning */
+:root {
+  --admin-sidebar-width: 260px; /* widened from 200px for better balance */
+}
+
 body {
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif; /* match contact page */
   background-color: #f9cbd6;
 }
 
 .container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: var(--admin-sidebar-width) 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
 }
@@ -24,7 +29,7 @@ body {
   border-radius: 0 0 15px 15px;
   /* Grid matches content area: sidebar | content */
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: var(--admin-sidebar-width) 1fr;
   align-items: center;
   padding: 0 16px;
   position: relative; /* for absolutely positioned home icon */
@@ -36,6 +41,7 @@ body {
   text-align: center;
   grid-column: 2; /* center within the content column */
   justify-self: center;
+  font-family: "Alkatra", sans-serif; /* match contact section title style */
 }
 .item.header .menu-btn {
   position: absolute;
@@ -69,6 +75,9 @@ body {
   border: none;
   border-radius: 15px;
   margin: 4px;
+  /* Fill the full height of its grid row while keeping outer pink margin */
+  align-self: stretch;
+  min-height: calc(100% - 8px); /* account for top+bottom margins (4px each) */
 }
 
 .item.selection ul {
@@ -100,7 +109,7 @@ body {
 .item.content {
   display: flex;
   justify-content: center; /* center content to align with header title */
-  padding: 5px;
+  padding: 0 10px; /* half step over the original 8px */
   border-radius: 8px;
 }
 
@@ -115,20 +124,33 @@ body {
 
   box-sizing: border-box;
   background-color: #f9cbd6;
-  padding: 20px;
-  border-radius: 15px;
-  width: 100%;
-  text-align: center;
+  /* bigger card padding for a larger visual frame */
+  padding: 24px; /* reduce side padding to minimize pink margins inside card */
+  border-radius: 18px;
+  /* make the card wider but limit maximum width for readability */
+  width: 97%; /* half of the previous 2% reduction from original 98% */
+  max-width: 1400px; /* cap for very wide screens */
+  margin: 0 auto; /* keep centered within content area */
+  /* Use flex column to center avatar and admin controls in the same axis */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
 .admin-info {
   box-sizing: border-box;
   width: 95%;
-  height: 65%;
-  border-radius: 10px;
-  background-color: #f9cbd6;
-  padding: 10px;
+  /* remove fixed height so content flows naturally and buttons sit closer to avatar */
+  border-radius: 12px;
+  background-color: rgba(249,203,214,0.9);
+  padding: 18px;
   transition: all 0.4s ease;
+  /* stack info lines but center the action buttons - keep text left-aligned */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 980px;
 }
 .admin-info:hover {
   transform: scale(1.02);
@@ -137,11 +159,11 @@ body {
 
 /* Avatar admin - Glow effect */
 .admin-profile .avatar {
-  width: 200px;
-  height: 200px;
+  width: 240px; /* larger avatar to match bigger card */
+  height: 240px;
   border-radius: 50%;
-  margin-bottom: 20px;
-  border: 4px solid #f9cbd6;
+  margin-bottom: 12px; /* reduced but consistent gap */
+  border: 6px solid #f9cbd6;
   /* Glow effect */
   box-shadow: #9e182b;
   transition: all 0.4s ease;
@@ -157,17 +179,20 @@ body {
 /* Tên admin */
 .admin-profile h2 {
   margin-bottom: 15px;
-  font-size: 1.5rem;
+  font-size: 1.75rem; /* slightly larger name/title */
   color: #9e182b;
+  /* keep text left inside the info block */
   text-align: left;
+  align-self: flex-start;
 }
 
 /* Các dòng thông tin */
 .admin-profile p {
   text-align: left;
   margin: 8px 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #9e182b;
+  align-self: flex-start;
 }
 
 /* Chữ nhấn mạnh */
@@ -178,13 +203,29 @@ body {
 .admin-info button {
   color: #f9cbd6;
   background-color: #9e182b;
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 18px;
+  padding: 12px 22px; /* bigger buttons for larger card */
   border: none;
+  /* center action buttons inside the info block */
+  align-self: center;
+  font-size: 1.1rem;
 }
 
 #editBtn {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+/* Ensure action buttons are grouped with small gap and centered */
+.admin-info .action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Slight spacing for admin-profile overall */
+.admin-profile {
+  gap: 12px;
 }
 
 .edit-form {
