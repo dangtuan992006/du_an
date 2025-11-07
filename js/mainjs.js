@@ -325,7 +325,7 @@ App.Auth = {
     const emailForm = document.getElementById("emailForm");
     if (emailForm) this.setupCustomerAuth(emailForm);
 
-    this.setupLogoutHandler();
+    // setupLogoutHandler() đã được di chuyển vào UI module và không còn được gọi ở đây
   },
 
   isProfileEmpty(email) {
@@ -337,17 +337,6 @@ App.Auth = {
     } catch {
       return true;
     }
-  },
-
-  setupLogoutHandler() {
-    // Sử dụng event delegation để xử lý nút đăng xuất
-    document.addEventListener("click", (e) => {
-      if (e.target.closest(".logout-btn")) {
-        console.log("Nút đăng xuất đã được nhấn!");
-        e.preventDefault();
-        this.logout();
-      }
-    });
   },
 
   handleAdminLogin(e) {
@@ -374,10 +363,9 @@ App.Auth = {
         );
       }
       App.utils.showNotification(`Chào Admin ${admin.name}!`);
-      // Thay đổi để chạy trực tiếp trên file
       setTimeout(() => {
         if (confirm("Chuyển đến trang quản trị?")) {
-          window.location.href = "./admin/index.html";
+          window.location.href = "../admin/index.html";
         }
       }, 1000);
     } else {
@@ -690,7 +678,6 @@ App.Cart = {
   },
 
   openPaymentPopup() {
-    // Thay đổi để chạy trực tiếp trên file
     const width = 850;
     const height = 700;
     const left = (screen.width - width) / 2;
@@ -1012,7 +999,18 @@ App.UI = {
     });
 
     document.addEventListener("click", () => menu.classList.remove("show"));
-    menu.addEventListener("click", (e) => e.stopPropagation());
+
+    // SỬA LỖI ĐĂNG XUẤT: Xử lý logic đăng xuất ngay trong menu
+    menu.addEventListener("click", (e) => {
+      e.stopPropagation(); // Giữ menu mở khi click vào các mục bên trong
+
+      // Kiểm tra xem nút đăng xuất có được nhấn không
+      if (e.target.closest(".logout-btn")) {
+        console.log("Nút đăng xuất đã được nhấn từ trong menu!");
+        e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        App.Auth.logout(); // Gọi hàm đăng xuất
+      }
+    });
   },
 };
 
