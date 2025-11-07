@@ -1,3 +1,9 @@
+// --- CHỨC NĂNG THÊM SẢN PHẨM ---
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const productList = document.querySelector(".product-list");
   const addProductBtn = document.getElementById("add-product-btn");
@@ -82,17 +88,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const paragraphs = infoDiv.querySelectorAll("p");
 
       // Lấy dữ liệu hiện tại
-      const currentName = paragraphs[0].textContent.replace("Tên sản phẩm: ", "");
-      const currentDesc = paragraphs[1].textContent.replace("Giới thiệu: ", "");
-      const currentPrice = paragraphs[2].textContent.replace("Giá: ", "").replace(" VNĐ/kg", "").replace(".", "");
-      const currentStock = paragraphs[3].textContent.replace("Số lượng còn: ", "").replace(" kg", "");
+      const originalName = paragraphs[0].textContent.replace("Tên sản phẩm: ", "");
+      const originalDesc = paragraphs[1].textContent.replace("Giới thiệu: ", "");
+      const originalPriceText = paragraphs[2].textContent.replace("Giá: ", "").replace(" VNĐ/kg", "");
+      const originalStock = paragraphs[3].textContent.replace("Số lượng còn: ", "").replace(" kg", "");
+
+      // Lưu lại nội dung HTML gốc để khôi phục khi hủy
+      productCard.dataset.originalHtml = infoDiv.innerHTML;
 
       // Tạo form chỉnh sửa
+      // Chuyển đổi giá từ '12.000' thành '12000' để input number có thể hiển thị
+      const priceForInput = originalPriceText.replace(/\./g, "");
+
       infoDiv.innerHTML = `
-        <input type="text" value="${currentName}" class="edit-input">
-        <input type="text" value="${currentDesc}" class="edit-input">
-        <input type="number" value="${currentPrice}" class="edit-input">
-        <input type="number" value="${currentStock}" class="edit-input">
+        <input type="text" value="${originalName}" class="edit-input">
+        <input type="text" value="${originalDesc}" class="edit-input">
+        <input type="number" value="${priceForInput}" class="edit-input">
+        <input type="number" value="${originalStock}" class="edit-input">
         <button class="save-edit-btn">Lưu</button>
         <button class="cancel-edit-btn">Hủy</button>
       `;
@@ -117,17 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Nút Hủy sau khi sửa
     if (target.classList.contains("cancel-edit-btn")) {
-        // Tạm thời chỉ reload lại card, cách đơn giản nhất
-        // Để tối ưu hơn, cần lưu lại trạng thái cũ và phục hồi
-        // Ở đây ta sẽ tạo lại HTML gốc (ví dụ)
         const infoDiv = productCard.querySelector(".product-info");
-        // Đây là dữ liệu giả định, bạn cần có cách lấy lại dữ liệu gốc
-        infoDiv.innerHTML = `
-            <p>Tên sản phẩm: Sản phẩm đã hủy sửa</p>
-            <p>Giới thiệu: ...</p>
-            <p>Giá: 0 VNĐ/kg</p>
-            <p>Số lượng còn: 0 kg</p>
-        `;
+        // Khôi phục lại nội dung HTML từ dataset đã lưu
+        if (productCard.dataset.originalHtml) {
+            infoDiv.innerHTML = productCard.dataset.originalHtml;
+            delete productCard.dataset.originalHtml; // Xóa đi để dọn dẹp
+        }
     }
   });
 
