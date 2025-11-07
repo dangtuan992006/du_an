@@ -10,7 +10,7 @@
 
 .header h1 {
     font-size: 40px;
-    color: white;
+    color: #9e182b; /* deep pink to match ADMIN PAGE */
 }
 
 .search input {
@@ -29,6 +29,24 @@
     border-radius: 8px;
     cursor: pointer;
 }
+/* Toolbar beneath unified header */
+.toolbar {
+    display: flex;
+    justify-content: flex-end; /* align search/add controls to the right */
+    gap: 32px;
+    padding: 16px 40px;
+}
+
+.toolbar .search form,
+.toolbar .search {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar .search form input[type="text"] {
+    margin-right: 10px;
+}
+
 
 .search button:hover {
     background-color: #ec4f0c;

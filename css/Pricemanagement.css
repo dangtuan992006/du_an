@@ -25,6 +25,7 @@
     display: flex;
     gap: 10px;
     padding: 20px;
+  justify-content: flex-end; /* align search tools to the right */
 }
 
 .manager input {

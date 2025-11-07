@@ -4,94 +4,81 @@
   <meta charset="UTF-8">
   <title>Quản lý nhập sản phẩm</title>
   <link rel="stylesheet" href="../css/receivingReport.css">
+  <link rel="stylesheet" href="../css/components/admin-header.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="header">
-    <!-- Nút quay lại -->
-    <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-      <span class="arrow">←</span>
-    </button>
+    <div class="header-inner">
+      <button class="back-btn" onclick="window.location.href='../admin/index.html'" aria-label="Quay lại trang quản trị">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <h1 class="heading">Quản lý Phiếu Nhập</h1>
+      <a href="../pages/index.html" class="home-btn" aria-label="Về trang chủ">
+        <i class="fa-solid fa-house"></i>
+      </a>
+    </div>
+  </div>
 
-    <h1>Quản lý Phiếu Nhập</h1>
-
+  <!-- Thanh công cụ bên dưới header -->
+  <div class="toolbar">
     <div class="search">
-        <form  method="get">
-            <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
-            <button type="submit">Tìm</button>
-        </form> 
+      <form method="get">
+        <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
+        <button type="submit">Tìm</button>
+      </form>
     </div>
     <div class="search">
-        <input type="checkbox" id="add" hidden>
-        <label for="add" class="add1">Thêm Phiếu nhập</label>
-
-       <div class="modal-add">
-          <div class="modal-content">
-            <label for="add" class="close">&times;</label>
-            <h2>Thêm Phiếu Nhập</h2>
-
-            <label>Mã phiếu:</label>
-            <input type="text" placeholder="Nhập mã phiếu"><br>
-
-            <label>Ngày nhập:</label>
-            <input type="date"><br>
-
-            <label>Tổng giá trị:</label>
-            <input class="price" type="text" inputmode="numeric" placeholder="Nhập tổng giá trị"><br><br>
-
-
-            <h3>Chi tiết sản phẩm</h3>
-
-            <!-- Dòng chi tiết 1 -->
-            <p>Số thứ tự:1</p>
-            <div class="detail-row">
-              <p><input type="text" placeholder="Mã SP"></p>
-              <p><input type="text" placeholder="TÊN SP"></p>
-              <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-              <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-              <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
-            </div>
-
-            <input type="checkbox" id="row2" hidden>
-            <label for="row2" class="add-row">+ Thêm dòng chi tiết</label>
-
-            <p class="s2">Số thứ tự:2</p>
-            <div class="detail-row" id="dentail-row2">
-                  <p><input type="text" placeholder="Mã SP"></p>
-                  <p><input type="text" placeholder="TÊN SP"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
-                  <input type="checkbox" id="delete2" hidden>
-                  <label for="row2" class ="de2">- Xóa dòng chi tiết</label>
-            </div>
-
-            <input type="checkbox" id="row3" hidden>
-            <label for="row3" class="add-row">+ Thêm dòng chi tiết</label>
-
-            <p class="s3">Số thứ tự:3</p>
-            <div class="detail-row" id="dentail-row3">
-                  <p><input type="text" placeholder="Mã SP"></p>
-                  <p><input type="text" placeholder="TÊN SP"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-                  <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
-                  <input type="checkbox" id="delete3" hidden>
-                  <label for="row3" class ="de3">- Xóa dòng chi tiết</label>
-            </div>
-
-            <button class="save">Lưu</button>
-            <label for="add" class="cancel">Hủy</label>
+      <input type="checkbox" id="add" hidden>
+      <label for="add" class="add1">Thêm Phiếu nhập</label>
+      <div class="modal-add">
+        <div class="modal-content">
+          <label for="add" class="close">&times;</label>
+          <h2>Thêm Phiếu Nhập</h2>
+          <label>Mã phiếu:</label>
+          <input type="text" placeholder="Nhập mã phiếu"><br>
+          <label>Ngày nhập:</label>
+          <input type="date"><br>
+          <label>Tổng giá trị:</label>
+          <input class="price" type="text" inputmode="numeric" placeholder="Nhập tổng giá trị"><br><br>
+          <h3>Chi tiết sản phẩm</h3>
+          <p>Số thứ tự:1</p>
+          <div class="detail-row">
+            <p><input type="text" placeholder="Mã SP"></p>
+            <p><input type="text" placeholder="TÊN SP"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
           </div>
+          <input type="checkbox" id="row2" hidden>
+          <label for="row2" class="add-row">+ Thêm dòng chi tiết</label>
+          <p class="s2">Số thứ tự:2</p>
+          <div class="detail-row" id="dentail-row2">
+            <p><input type="text" placeholder="Mã SP"></p>
+            <p><input type="text" placeholder="TÊN SP"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
+            <input type="checkbox" id="delete2" hidden>
+            <label for="row2" class="de2">- Xóa dòng chi tiết</label>
+          </div>
+          <input type="checkbox" id="row3" hidden>
+          <label for="row3" class="add-row">+ Thêm dòng chi tiết</label>
+          <p class="s3">Số thứ tự:3</p>
+          <div class="detail-row" id="dentail-row3">
+            <p><input type="text" placeholder="Mã SP"></p>
+            <p><input type="text" placeholder="TÊN SP"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
+            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
+            <input type="checkbox" id="delete3" hidden>
+            <label for="row3" class="de3">- Xóa dòng chi tiết</label>
+          </div>
+          <button class="save">Lưu</button>
+          <label for="add" class="cancel">Hủy</label>
         </div>
-
-
+      </div>
     </div>
-
-    <!-- Nút về trang chủ -->
-    <a href="../pages/index.html" class="back-btn">
-      <i class="fa fa-home"></i>
-    </a>
   </div>
 
   <!-- Bảng danh sách -->

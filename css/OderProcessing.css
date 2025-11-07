@@ -75,6 +75,7 @@ body {
     padding: 15px 25px;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    justify-content: flex-end; /* align search tools to the right */
 }
 
 .search .nd {

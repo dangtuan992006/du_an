@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <title>Quản lý giá bán trái cây</title>
     <link rel="stylesheet" href="../css/Pricemanagement.css">
+    <link rel="stylesheet" href="../css/components/admin-header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>  
-    <div class="heading">
-        <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-        <span class="arrow">←</span>
-        </button>
-        <h1 class="tieude">Quản lý giá bán trái cây</h1>
-        <div class="manager">   
-            <input type="text" placeholder="Tìm theo tên hoặc mã sản phẩm trái cây">
-            <label for="category"></label>
-            <select class="category" name="category">
-                <option value="">-- Tất cả loại trái cây --</option>
-                <option value="Trái cây nhập khẩu">Trái cây nhập khẩu</option>
-                <option value="Trái cây nội địa">Trái cây nội địa</option>
-            </select> 
-        </div>
-        <a href="../pages/index.html" class="back-btn">
-        <i class="fa fa-home"></i>
-        </a>
-
-        <!-- Thêm Font Awesome nếu chưa có -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+        <div class="header">
+            <div class="header-inner">
+                <button class="back-btn" onclick="window.location.href='../admin/index.html'" aria-label="Quay lại trang quản trị">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            <h1 class="page-title">Quản lý giá bán trái cây</h1>
+                <a href="../pages/index.html" class="home-btn" aria-label="Về trang chủ">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+            </div>
         </div>
 
-    </div>
+        <div class="manager">
+                <input type="text" placeholder="Tìm theo tên hoặc mã sản phẩm trái cây">
+                <label for="category" class="sr-only">Chọn loại trái cây</label>
+                <select class="category" name="category" id="category">
+                        <option value="">-- Tất cả loại trái cây --</option>
+                        <option value="Trái cây nhập khẩu">Trái cây nhập khẩu</option>
+                        <option value="Trái cây nội địa">Trái cây nội địa</option>
+                </select> 
+        </div>
 
     <div>
         <table class="table">
