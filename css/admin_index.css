@@ -183,11 +183,11 @@ body {
   border: none;
 }
 
-#editBtn{
+#editBtn {
   margin-bottom: 20px;
 }
 
-.edit-form{
+.edit-form {
   border: #9e182b 5px solid;
   border-radius: 10px;
   margin-left: 5px;
@@ -197,7 +197,7 @@ body {
   max-width: 400px;
 }
 
-.edit-form button{
+.edit-form button {
   background-color: #9e182b;
   color: #f9cbd6;
   border: none;
@@ -206,7 +206,7 @@ body {
   padding: 5px;
 }
 
-.edit-form h3{
+.edit-form h3 {
   background-color: #9e182b;
   color: #f9cbd6;
   border-radius: 15px;
@@ -214,14 +214,14 @@ body {
   padding: 5px;
 }
 
-.edit-form label{
+.edit-form label {
   color: #9e182b;
   margin-top: 10px;
   display: block;
 }
 
 .edit-form input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 4px;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
 }

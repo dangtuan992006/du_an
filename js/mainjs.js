@@ -340,20 +340,14 @@ App.Auth = {
   },
 
   setupLogoutHandler() {
-    // Cách 1: Thử cách gắn trực tiếp (không dùng delegation)
-    const logoutButton = document.querySelector(".logout-btn");
-    if (logoutButton) {
-      console.log("Đã tìm thấy nút đăng xuất. Gắn sự kiện trực tiếp."); // Thêm dòng này
-      logoutButton.addEventListener("click", (e) => {
-        console.log("Nút đăng xuất đã được nhấn (cách trực tiếp)!"); // Dòng gỡ lỗi
+    // Sử dụng event delegation để xử lý nút đăng xuất
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".logout-btn")) {
+        console.log("Nút đăng xuất đã được nhấn!");
         e.preventDefault();
         this.logout();
-      });
-    } else {
-      console.error(
-        "KHÔNG tìm thấy nút có class '.logout-btn'! Vui lòng kiểm tra lại HTML."
-      );
-    }
+      }
+    });
   },
 
   handleAdminLogin(e) {
@@ -1364,31 +1358,135 @@ App.Checkout = {
   },
 
   confirmCart() {
-    const pm = document.querySelector('input[name="pm"]:checked')?.value;
-    const addrType = document.querySelector(
-      'input[name="addr"]:checked'
-    )?.value;
-    if (!pm || !addrType) return this.showMessage("Chọn đầy đủ!", "error");
-    const addr =
-      addrType === "new"
-        ? document.getElementById("newAddr").value.trim()
-        : this.getUserInfo().address;
-    if (!addr) return this.showMessage("Nhập địa chỉ!", "error");
+    try {
+      // Kiểm tra phương thức thanh toán
+      const pm = document.querySelector('input[name="pm"]:checked')?.value;
+      const addrType = document.querySelector(
+        'input[name="addr"]:checked'
+      )?.value;
 
-    const cart = App.Cart.get();
-    const order = {
-      items: cart,
-      total: cart.reduce((s, i) => s + i.price * i.qty, 0),
-      customerInfo: { ...this.getUserInfo(), address: addr },
-      paymentMethod: pm,
+      if (!pm)
+        return this.showMessage(
+          "Vui lòng chọn phương thức thanh toán!",
+          "error"
+        );
+      if (!addrType)
+        return this.showMessage("Vui lòng chọn loại địa chỉ!", "error");
+
+      // Lấy địa chỉ
+      let addr = "";
+      if (addrType === "new") {
+        addr = document.getElementById("newAddr").value.trim();
+        if (!addr)
+          return this.showMessage("Vui lòng nhập địa chỉ giao hàng!", "error");
+      } else {
+        addr = this.getUserInfo().address;
+        if (!addr)
+          return this.showMessage(
+            "Địa chỉ mặc định không tồn tại. Vui lòng chọn địa chỉ mới!",
+            "error"
+          );
+      }
+
+      // Lấy giỏ hàng và kiểm tra
+      const cart = App.Cart.get();
+      if (!cart || cart.length === 0) {
+        return this.showMessage("Giỏ hàng trống!", "error");
+      }
+
+      // Tạo đơn hàng
+      const order = {
+        id: Date.now().toString(),
+        items: [...cart],
+        total: cart.reduce((s, i) => s + i.price * i.qty, 0),
+        customerInfo: {
+          ...this.getUserInfo(),
+          address: addr,
+        },
+        paymentMethod: pm,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Lưu đơn hàng và xóa giỏ hàng
+      this.saveOrder(order);
+      App.Cart.save([]);
+
+      // Hiển thị thông báo thành công
+      this.showMessage(
+        `
+      <div>
+        <strong>Thanh toán thành công!</strong><br>
+        <small>Mã đơn hàng: ${order.id}</small><br>
+        <small>Tổng tiền: ${App.utils.formatPrice(order.total)} VNĐ</small><br>
+        <small>Đơn hàng sẽ được đóng tự động sau 2 giây...</small>
+      </div>
+    `,
+        "success"
+      );
+
+      // Tự động đóng sau 2 giây
+      setTimeout(() => {
+        if (opener && !opener.closed) {
+          opener.location.reload();
+        }
+        window.close();
+      }, 2000);
+    } catch (error) {
+      console.error("Lỗi khi xác nhận giỏ hàng:", error);
+      this.showMessage(`Có lỗi xảy ra: ${error.message}`, "error");
+    }
+  },
+
+  // Hàm hiển thị thông báo có thể đóng
+  showMessage(message, type = "info") {
+    const msgEl = document.getElementById("msg");
+    if (!msgEl) return;
+
+    const colors = {
+      success: "#d4edda",
+      error: "#f8d7da",
+      info: "#d1ecf1",
+      warning: "#fff3cd",
     };
-    this.saveOrder(order);
-    App.Cart.save([]);
-    this.showMessage("Thanh toán thành công!", "success");
-    setTimeout(() => {
-      window.close();
-      opener?.location.reload();
-    }, 2000);
+
+    const textColors = {
+      success: "#155724",
+      error: "#721c24",
+      info: "#0c5460",
+      warning: "#856404",
+    };
+
+    msgEl.innerHTML = `
+    <div style="
+      padding: 15px 40px 15px 20px; 
+      margin: 10px 0; 
+      border-radius: 6px; 
+      background: ${colors[type] || colors.info}; 
+      color: ${textColors[type] || textColors.info};
+      border: 1px solid ${textColors[type] || textColors.info}30;
+      position: relative;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">
+      <button onclick="this.parentElement.style.display='none'" 
+        style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 18px; cursor: pointer; color: #666; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+        ×
+      </button>
+      ${message}
+    </div>
+  `;
+    msgEl.style.display = "block";
+
+    // Tự động ẩn thông báo lỗi sau 5 giây
+    if (type === "error") {
+      setTimeout(() => {
+        const messageDiv = msgEl.querySelector("div");
+        if (messageDiv) {
+          messageDiv.style.display = "none";
+        }
+      }, 5000);
+    }
   },
 
   getUserInfo() {
@@ -1417,13 +1515,8 @@ App.Checkout = {
     localStorage.setItem(key, JSON.stringify(orders));
   },
 
-  showMessage(msg, type) {
-    const overlay = document.createElement("div");
-    overlay.id = "paymentOverlay";
-    overlay.className = "payment-overlay";
-    overlay.innerHTML = `<div class="payment-message ${type}">${msg}</div>`;
-    document.body.appendChild(overlay);
-    if (type !== "error") setTimeout(() => overlay.remove(), 2000);
+  showError(msg) {
+    document.body.innerHTML = `<div class="error-container">${msg}</div>`;
   },
 };
 
@@ -1680,18 +1773,18 @@ App.OrderHistory = {
     }
   },
 
-  // reorderItems(orderId) {
-  //   const email = localStorage.getItem("currentUserEmail");
-  //   const orders = this.getOrders(email);
-  //   const order = orders.find((o) => o.id === orderId);
-  //   if (!order) return;
+  reorderItems(orderId) {
+    const email = localStorage.getItem("currentUserEmail");
+    const orders = this.getOrders(email);
+    const order = orders.find((o) => o.id === orderId);
+    if (!order) return;
 
-  //   order.items.forEach((item) => {
-  //     App.Cart.add(item.id, false, item.quantity || item.qty);
-  //   });
-  //   App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
-  //   setTimeout(() => (window.location.href = "../pages/products.html"), 1000);
-  // },
+    order.items.forEach((item) => {
+      App.Cart.add(item.id, false, item.quantity || item.qty);
+    });
+    App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
+    setTimeout(() => (window.location.href = "../pages/products.html"), 1000);
+  },
 };
 
 // ========================================
