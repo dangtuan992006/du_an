@@ -1188,7 +1188,7 @@ App.Checkout = {
           <div class="checkout-section"><h3>Phương thức</h3>
             <div class="payment-methods">
               <div class="payment-option"><input type="radio" name="pm" value="banking" id="bank"><label for="bank">Chuyển khoản</label></div>
-              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash"><label for="cash">Tiền mặt</label></div>
+              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash" checked><label for="cash">Tiền mặt</label></div>
             </div>
           </div>
           <div class="checkout-section"><h3>Địa chỉ</h3>
@@ -1253,32 +1253,73 @@ App.Checkout = {
   },
 
   confirmSingle() {
-    const p = JSON.parse(localStorage.getItem("singleProductForPayment"));
-    const qty = parseInt(document.getElementById("qty").value);
-    const pm = document.querySelector('input[name="pm"]:checked')?.value;
-    const addrType = document.querySelector(
-      'input[name="addr"]:checked'
-    )?.value;
-    if (!pm || !addrType) return this.showMessage("Chọn đầy đủ!", "error");
-    const addr =
-      addrType === "new"
-        ? document.getElementById("newAddr").value.trim()
-        : this.getUserInfo().address;
-    if (!addr) return this.showMessage("Nhập địa chỉ!", "error");
+    try {
+      const p = JSON.parse(localStorage.getItem("singleProductForPayment"));
+      const qty = parseInt(document.getElementById("qty").value) || 1;
+      const pm = document.querySelector('input[name="pm"]:checked')?.value;
+      const addrType = document.querySelector(
+        'input[name="addr"]:checked'
+      )?.value;
 
-    const order = {
-      items: [{ ...p, quantity: qty }],
-      total: p.price * qty,
-      customerInfo: { ...this.getUserInfo(), address: addr },
-      paymentMethod: pm,
-    };
-    this.saveOrder(order);
-    localStorage.removeItem("singleProductForPayment");
-    this.showMessage("Thanh toán thành công!", "success");
-    setTimeout(() => {
-      window.close();
-      opener?.location.reload();
-    }, 2000);
+      if (!pm)
+        return this.showMessage(
+          "Vui lòng chọn phương thức thanh toán!",
+          "error"
+        );
+      if (!addrType)
+        return this.showMessage("Vui lòng chọn loại địa chỉ!", "error");
+
+      let addr = "";
+      if (addrType === "new") {
+        addr = document.getElementById("newAddr").value.trim();
+        if (!addr)
+          return this.showMessage("Vui lòng nhập địa chỉ giao hàng!", "error");
+      } else {
+        addr = this.getUserInfo().address;
+        if (!addr)
+          return this.showMessage(
+            "Địa chỉ mặc định không tồn tại. Vui lòng chọn địa chỉ mới!",
+            "error"
+          );
+      }
+
+      const order = {
+        id: Date.now().toString(),
+        items: [{ ...p, qty: qty }],
+        total: p.price * qty,
+        customerInfo: { ...this.getUserInfo(), address: addr },
+        paymentMethod: pm,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      this.saveOrder(order);
+      localStorage.removeItem("singleProductForPayment");
+
+      this.showMessage(
+        `
+        <div>
+          <strong>Thanh toán thành công!</strong><br>
+          <small>Mã đơn hàng: ${order.id}</small><br>
+          <small>Tổng tiền: ${App.utils.formatPrice(
+            order.total
+          )} VNĐ</small><br>
+          <small>Đơn hàng sẽ được đóng tự động sau 2 giây...</small>
+        </div>
+      `,
+        "success"
+      );
+
+      setTimeout(() => {
+        if (opener && !opener.closed) {
+          opener.location.reload();
+        }
+        window.close();
+      }, 2000);
+    } catch (error) {
+      console.error("Lỗi khi xác nhận đơn hàng:", error);
+      this.showMessage(`Có lỗi xảy ra: ${error.message}`, "error");
+    }
   },
 
   loadCart() {
@@ -1318,7 +1359,7 @@ App.Checkout = {
           <div class="checkout-section"><h3>Phương thức</h3>
             <div class="payment-methods">
               <div class="payment-option"><input type="radio" name="pm" value="banking" id="bank"><label for="bank">Chuyển khoản</label></div>
-              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash"><label for="cash">Tiền mặt</label></div>
+              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash" checked><label for="cash">Tiền mặt</label></div>
             </div>
           </div>
           <div class="checkout-section"><h3>Địa chỉ</h3>
@@ -1519,6 +1560,7 @@ App.Checkout = {
     document.body.innerHTML = `<div class="error-container">${msg}</div>`;
   },
 };
+// ... (phần code dưới không thay đổi) ...};
 
 // ========================================
 // MODULE LỊCH SỬ ĐƠN HÀNG
