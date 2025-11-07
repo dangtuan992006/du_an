@@ -325,7 +325,7 @@ App.Auth = {
     const emailForm = document.getElementById("emailForm");
     if (emailForm) this.setupCustomerAuth(emailForm);
 
-    this.setupLogoutHandler();
+    // setupLogoutHandler() đã được di chuyển vào UI module và không còn được gọi ở đây
   },
 
   isProfileEmpty(email) {
@@ -336,23 +336,6 @@ App.Auth = {
       return !(u.phone?.trim() || u.address?.trim());
     } catch {
       return true;
-    }
-  },
-
-  setupLogoutHandler() {
-    // Cách 1: Thử cách gắn trực tiếp (không dùng delegation)
-    const logoutButton = document.querySelector(".logout-btn");
-    if (logoutButton) {
-      console.log("Đã tìm thấy nút đăng xuất. Gắn sự kiện trực tiếp."); // Thêm dòng này
-      logoutButton.addEventListener("click", (e) => {
-        console.log("Nút đăng xuất đã được nhấn (cách trực tiếp)!"); // Dòng gỡ lỗi
-        e.preventDefault();
-        this.logout();
-      });
-    } else {
-      console.error(
-        "KHÔNG tìm thấy nút có class '.logout-btn'! Vui lòng kiểm tra lại HTML."
-      );
     }
   },
 
@@ -380,7 +363,11 @@ App.Auth = {
         );
       }
       App.utils.showNotification(`Chào Admin ${admin.name}!`);
-      setTimeout(() => window.open("../admin/index.html", "_blank"), 1000);
+      setTimeout(() => {
+        if (confirm("Chuyển đến trang quản trị?")) {
+          window.location.href = "../admin/index.html";
+        }
+      }, 1000);
     } else {
       App.utils.showNotification("Sai tài khoản hoặc mật khẩu!", "error");
     }
@@ -443,7 +430,7 @@ App.Auth = {
         localStorage.setItem("currentUserRole", "customer");
         App.Cart.transferTempCartToUser(email);
         App.utils.showNotification("Tạo tài khoản thành công!");
-        setTimeout(() => (window.location.href = "../pages/index.html"), 1000);
+        setTimeout(() => (window.location.href = "./index.html"), 1000);
       } else {
         if (users[email]?.password === password) {
           localStorage.setItem("currentUser", users[email].name);
@@ -451,10 +438,7 @@ App.Auth = {
           localStorage.setItem("currentUserRole", "customer");
           App.Cart.transferTempCartToUser(email);
           App.utils.showNotification(`Chào ${users[email].name}!`);
-          setTimeout(
-            () => (window.location.href = "../pages/index.html"),
-            1000
-          );
+          setTimeout(() => (window.location.href = "./index.html"), 1000);
         } else {
           alert("Sai mật khẩu!");
         }
@@ -469,7 +453,7 @@ App.Auth = {
     localStorage.removeItem("adminUser");
     localStorage.removeItem("adminEmail");
     App.utils.showNotification("Đã đăng xuất!");
-    setTimeout(() => (window.location.href = "../pages/index.html"), 600);
+    setTimeout(() => (window.location.href = "./index.html"), 600);
   },
 
   handleSocialLogin(provider) {
@@ -491,10 +475,10 @@ App.Auth = {
     localStorage.setItem("currentUserEmail", email);
     App.Cart.transferTempCartToUser(email);
     if (window.opener) {
-      window.opener.location.href = "../pages/index.html";
+      window.opener.location.href = "./index.html";
       window.close();
     } else {
-      window.location.href = "../pages/index.html";
+      window.location.href = "./index.html";
     }
   },
 };
@@ -556,7 +540,7 @@ App.Cart = {
 
     if (buyNow && !localStorage.getItem("currentUser")) {
       App.utils.showNotification("Vui lòng đăng nhập để mua ngay!");
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
 
@@ -659,7 +643,7 @@ App.Cart = {
       <button class="checkout-btn ${!loggedIn ? "login-required" : ""}" 
               onclick="${
                 !loggedIn
-                  ? 'window.location.href="../pages/login.html"'
+                  ? 'window.location.href="./login.html"'
                   : "App.Cart.checkout()"
               }">
         ${loggedIn ? "Thanh toán" : "Đăng nhập để thanh toán"}
@@ -686,7 +670,7 @@ App.Cart = {
       return App.utils.showNotification("Giỏ hàng trống!");
     if (!localStorage.getItem("currentUser")) {
       App.utils.showNotification("Vui lòng đăng nhập!");
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
     localStorage.removeItem("singleProductForPayment");
@@ -694,10 +678,14 @@ App.Cart = {
   },
 
   openPaymentPopup() {
+    const width = 850;
+    const height = 700;
+    const left = (screen.width - width) / 2;
+    const top = (screen.height - height) / 2;
     const win = window.open(
-      "../pages/payment-popup.html",
+      "./payment-popup.html",
       "payment",
-      "width=850,height=700,scrollbars=yes"
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`
     );
     if (!win) alert("Vui lòng cho phép popup!");
   },
@@ -861,7 +849,7 @@ App.Products = {
   createProductCardHTML(p) {
     return `
       <div class="product-card" data-product-id="${p.id}">
-        <a href="../pages/product-detail.html?id=${p.id}" class="product-link">
+        <a href="./product-detail.html?id=${p.id}" class="product-link">
           <div class="product-image">${this.getProductImageHTML(p)}</div>
         </a>
         <div class="product-info">
@@ -1007,11 +995,22 @@ App.UI = {
     toggle.addEventListener("click", (e) => {
       e.stopPropagation();
       if (localStorage.getItem("currentUser")) menu.classList.toggle("show");
-      else window.location.href = "../pages/login.html";
+      else window.location.href = "./login.html";
     });
 
     document.addEventListener("click", () => menu.classList.remove("show"));
-    menu.addEventListener("click", (e) => e.stopPropagation());
+
+    // SỬA LỖI ĐĂNG XUẤT: Xử lý logic đăng xuất ngay trong menu
+    menu.addEventListener("click", (e) => {
+      e.stopPropagation(); // Giữ menu mở khi click vào các mục bên trong
+
+      // Kiểm tra xem nút đăng xuất có được nhấn không
+      if (e.target.closest(".logout-btn")) {
+        console.log("Nút đăng xuất đã được nhấn từ trong menu!");
+        e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        App.Auth.logout(); // Gọi hàm đăng xuất
+      }
+    });
   },
 };
 
@@ -1022,7 +1021,7 @@ App.Profile = {
   init() {
     if (!location.pathname.includes("settings.html")) return;
     if (!localStorage.getItem("currentUserEmail"))
-      return (location.href = "../pages/login.html");
+      return (location.href = "./login.html");
 
     this.cacheDom();
     this.bindEvents();
@@ -1047,7 +1046,7 @@ App.Profile = {
     });
     this.cancelBtn?.addEventListener(
       "click",
-      () => (location.href = "../pages/thongtintaikhoan.html")
+      () => (location.href = "./thongtintaikhoan.html")
     );
   },
 
@@ -1115,7 +1114,7 @@ App.Profile = {
     App.utils.showNotification("Cập nhật hồ sơ thành công!", "success", 1200);
     setTimeout(() => {
       sessionStorage.removeItem("needsProfileUpdate");
-      location.href = "../pages/index.html";
+      location.href = "./index.html";
     }, 1300);
   },
 
@@ -1194,7 +1193,7 @@ App.Checkout = {
           <div class="checkout-section"><h3>Phương thức</h3>
             <div class="payment-methods">
               <div class="payment-option"><input type="radio" name="pm" value="banking" id="bank"><label for="bank">Chuyển khoản</label></div>
-              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash"><label for="cash">Tiền mặt</label></div>
+              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash" checked><label for="cash">Tiền mặt</label></div>
             </div>
           </div>
           <div class="checkout-section"><h3>Địa chỉ</h3>
@@ -1259,32 +1258,71 @@ App.Checkout = {
   },
 
   confirmSingle() {
-    const p = JSON.parse(localStorage.getItem("singleProductForPayment"));
-    const qty = parseInt(document.getElementById("qty").value);
-    const pm = document.querySelector('input[name="pm"]:checked')?.value;
-    const addrType = document.querySelector(
-      'input[name="addr"]:checked'
-    )?.value;
-    if (!pm || !addrType) return this.showMessage("Chọn đầy đủ!", "error");
-    const addr =
-      addrType === "new"
-        ? document.getElementById("newAddr").value.trim()
-        : this.getUserInfo().address;
-    if (!addr) return this.showMessage("Nhập địa chỉ!", "error");
+    try {
+      const p = JSON.parse(localStorage.getItem("singleProductForPayment"));
+      const qty = parseInt(document.getElementById("qty").value) || 1;
+      const pm = document.querySelector('input[name="pm"]:checked')?.value;
+      const addrType = document.querySelector(
+        'input[name="addr"]:checked'
+      )?.value;
 
-    const order = {
-      items: [{ ...p, quantity: qty }],
-      total: p.price * qty,
-      customerInfo: { ...this.getUserInfo(), address: addr },
-      paymentMethod: pm,
-    };
-    this.saveOrder(order);
-    localStorage.removeItem("singleProductForPayment");
-    this.showMessage("Thanh toán thành công!", "success");
-    setTimeout(() => {
-      window.close();
-      opener?.location.reload();
-    }, 2000);
+      if (!pm)
+        return this.showMessage(
+          "Vui lòng chọn phương thức thanh toán!",
+          "error"
+        );
+      if (!addrType)
+        return this.showMessage("Vui lòng chọn loại địa chỉ!", "error");
+
+      let addr = "";
+      if (addrType === "new") {
+        addr = document.getElementById("newAddr").value.trim();
+        if (!addr)
+          return this.showMessage("Vui lòng nhập địa chỉ giao hàng!", "error");
+      } else {
+        addr = this.getUserInfo().address;
+        if (!addr)
+          return this.showMessage(
+            "Địa chỉ mặc định không tồn tại. Vui lòng chọn địa chỉ mới!",
+            "error"
+          );
+      }
+
+      const order = {
+        id: Date.now().toString(),
+        items: [{ ...p, qty: qty }],
+        total: p.price * qty,
+        customerInfo: { ...this.getUserInfo(), address: addr },
+        paymentMethod: pm,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      this.saveOrder(order);
+      localStorage.removeItem("singleProductForPayment");
+
+      this.showMessage(
+        `
+        <div>
+          <strong>Thanh toán thành công!</strong><br>
+          <small>Mã đơn hàng: ${order.id}</small><br>
+          <small>Tổng tiền: ${App.utils.formatPrice(
+            order.total
+          )} VNĐ</small><br>
+        </div>
+      `,
+        "success"
+      );
+
+      setTimeout(() => {
+        if (opener && !opener.closed) {
+          opener.location.reload();
+        }
+        window.close();
+      }, 1000);
+    } catch (error) {
+      console.error("Lỗi khi xác nhận đơn hàng:", error);
+    }
   },
 
   loadCart() {
@@ -1315,7 +1353,7 @@ App.Checkout = {
       .join("");
 
     document.body.innerHTML = `
-      <div class="checkout-container">
+      <div class="checkout-container" style="background-color: #f9cbd6;">
         <div class="checkout-header"><h2>Thanh Toán Giỏ Hàng</h2><p>Xin chào: <strong>${
           user.name
         }</strong></p></div>
@@ -1324,7 +1362,7 @@ App.Checkout = {
           <div class="checkout-section"><h3>Phương thức</h3>
             <div class="payment-methods">
               <div class="payment-option"><input type="radio" name="pm" value="banking" id="bank"><label for="bank">Chuyển khoản</label></div>
-              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash"><label for="cash">Tiền mặt</label></div>
+              <div class="payment-option"><input type="radio" name="pm" value="cash" id="cash" checked><label for="cash">Tiền mặt</label></div>
             </div>
           </div>
           <div class="checkout-section"><h3>Địa chỉ</h3>
@@ -1364,31 +1402,135 @@ App.Checkout = {
   },
 
   confirmCart() {
-    const pm = document.querySelector('input[name="pm"]:checked')?.value;
-    const addrType = document.querySelector(
-      'input[name="addr"]:checked'
-    )?.value;
-    if (!pm || !addrType) return this.showMessage("Chọn đầy đủ!", "error");
-    const addr =
-      addrType === "new"
-        ? document.getElementById("newAddr").value.trim()
-        : this.getUserInfo().address;
-    if (!addr) return this.showMessage("Nhập địa chỉ!", "error");
+    try {
+      // Kiểm tra phương thức thanh toán
+      const pm = document.querySelector('input[name="pm"]:checked')?.value;
+      const addrType = document.querySelector(
+        'input[name="addr"]:checked'
+      )?.value;
 
-    const cart = App.Cart.get();
-    const order = {
-      items: cart,
-      total: cart.reduce((s, i) => s + i.price * i.qty, 0),
-      customerInfo: { ...this.getUserInfo(), address: addr },
-      paymentMethod: pm,
+      if (!pm)
+        return this.showMessage(
+          "Vui lòng chọn phương thức thanh toán!",
+          "error"
+        );
+      if (!addrType)
+        return this.showMessage("Vui lòng chọn loại địa chỉ!", "error");
+
+      // Lấy địa chỉ
+      let addr = "";
+      if (addrType === "new") {
+        addr = document.getElementById("newAddr").value.trim();
+        if (!addr)
+          return this.showMessage("Vui lòng nhập địa chỉ giao hàng!", "error");
+      } else {
+        addr = this.getUserInfo().address;
+        if (!addr)
+          return this.showMessage(
+            "Địa chỉ mặc định không tồn tại. Vui lòng chọn địa chỉ mới!",
+            "error"
+          );
+      }
+
+      // Lấy giỏ hàng và kiểm tra
+      const cart = App.Cart.get();
+      if (!cart || cart.length === 0) {
+        return this.showMessage("Giỏ hàng trống!", "error");
+      }
+
+      // Tạo đơn hàng
+      const order = {
+        id: Date.now().toString(),
+        items: [...cart],
+        total: cart.reduce((s, i) => s + i.price * i.qty, 0),
+        customerInfo: {
+          ...this.getUserInfo(),
+          address: addr,
+        },
+        paymentMethod: pm,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Lưu đơn hàng và xóa giỏ hàng
+      this.saveOrder(order);
+      App.Cart.save([]);
+
+      // Hiển thị thông báo thành công
+      this.showMessage(
+        `
+      <div>
+        <strong>Thanh toán thành công!</strong><br>
+        <small>Mã đơn hàng: ${order.id}</small><br>
+        <small>Tổng tiền: ${App.utils.formatPrice(order.total)} VNĐ</small><br>
+        <small>Đơn hàng sẽ được đóng tự động sau 2 giây...</small>
+      </div>
+    `,
+        "success"
+      );
+
+      // Tự động đóng sau 2 giây
+      setTimeout(() => {
+        if (opener && !opener.closed) {
+          opener.location.reload();
+        }
+        window.close();
+      }, 2000);
+    } catch (error) {
+      console.error("Lỗi khi xác nhận giỏ hàng:", error);
+      this.showMessage(`Có lỗi xảy ra: ${error.message}`, "error");
+    }
+  },
+
+  // Hàm hiển thị thông báo có thể đóng
+  showMessage(message, type = "info") {
+    const msgEl = document.getElementById("msg");
+    if (!msgEl) return;
+
+    const colors = {
+      success: "#d4edda",
+      error: "#f8d7da",
+      info: "#d1ecf1",
+      warning: "#fff3cd",
     };
-    this.saveOrder(order);
-    App.Cart.save([]);
-    this.showMessage("Thanh toán thành công!", "success");
-    setTimeout(() => {
-      window.close();
-      opener?.location.reload();
-    }, 2000);
+
+    const textColors = {
+      success: "#155724",
+      error: "#721c24",
+      info: "#0c5460",
+      warning: "#856404",
+    };
+
+    msgEl.innerHTML = `
+    <div style="
+      padding: 15px 40px 15px 20px; 
+      margin: 10px 0; 
+      border-radius: 6px; 
+      background: ${colors[type] || colors.info}; 
+      color: ${textColors[type] || textColors.info};
+      border: 1px solid ${textColors[type] || textColors.info}30;
+      position: relative;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">
+      <button onclick="this.parentElement.style.display='none'" 
+        style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 18px; cursor: pointer; color: #666; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+        ×
+      </button>
+      ${message}
+    </div>
+  `;
+    msgEl.style.display = "block";
+
+    // Tự động ẩn thông báo lỗi sau 5 giây
+    if (type === "error") {
+      setTimeout(() => {
+        const messageDiv = msgEl.querySelector("div");
+        if (messageDiv) {
+          messageDiv.style.display = "none";
+        }
+      }, 5000);
+    }
   },
 
   getUserInfo() {
@@ -1417,13 +1559,8 @@ App.Checkout = {
     localStorage.setItem(key, JSON.stringify(orders));
   },
 
-  showMessage(msg, type) {
-    const overlay = document.createElement("div");
-    overlay.id = "paymentOverlay";
-    overlay.className = "payment-overlay";
-    overlay.innerHTML = `<div class="payment-message ${type}">${msg}</div>`;
-    document.body.appendChild(overlay);
-    if (type !== "error") setTimeout(() => overlay.remove(), 2000);
+  showError(msg) {
+    document.body.innerHTML = `<div class="error-container">${msg}</div>`;
   },
 };
 
@@ -1442,7 +1579,7 @@ App.OrderHistory = {
         "Vui lòng đăng nhập để xem lịch sử đơn hàng!",
         "error"
       );
-      setTimeout(() => (window.location.href = "../pages/login.html"), 1500);
+      setTimeout(() => (window.location.href = "./login.html"), 1500);
       return;
     }
 
@@ -1467,7 +1604,7 @@ App.OrderHistory = {
         const orderId = btn.getAttribute("data-order-id");
         const action = btn.getAttribute("data-action");
         if (!orderId || !action) return;
-        if (action === "view") return this.viewOrderDetail(orderId);
+        if (action === "view") return this.viewDetail(orderId);
         if (action === "cancel") return this.cancelOrder(orderId);
         if (action === "reorder") return this.reorderItems(orderId);
       });
@@ -1490,14 +1627,14 @@ App.OrderHistory = {
               name: "Banana",
               price: 25000,
               quantity: 2,
-              image: "../images/chuoi.webp",
+              image: "./images/chuoi.webp",
             },
             {
               id: 3,
               name: "Cam Ngọt",
               price: 40000,
               quantity: 1,
-              image: "../images/cam.webp",
+              image: "./images/cam.webp",
             },
           ],
           total: 90000,
@@ -1514,14 +1651,14 @@ App.OrderHistory = {
               name: "Dâu Tây",
               price: 180000,
               quantity: 1,
-              image: "../images/quatang2.jpeg",
+              image: "./images/quatang2.jpeg",
             },
             {
               id: 8,
               name: "Cherry Đỏ",
               price: 250000,
               quantity: 1,
-              image: "../images/cherry.jpeg",
+              image: "./images/cherry.jpeg",
             },
           ],
           total: 430000,
@@ -1628,32 +1765,47 @@ App.OrderHistory = {
       )
       .join("");
 
+    // Xử lý ngày tháng với giá trị mặc định
+    const orderDate = order.date
+      ? new Date(order.date).toLocaleString("vi-VN")
+      : "Chưa có ngày đặt";
+
+    // Lấy thông tin khách hàng với giá trị mặc định
+    const customerName =
+      order.customerInfo?.fullName ||
+      order.customerInfo?.name ||
+      "Nguyễn Văn A";
+    const customerPhone = order.customerInfo?.phone || "0123456789";
+    const customerAddress = order.customerInfo?.address || "TP HCM";
+
+    // Xử lý phương thức thanh toán với giá trị mặc định
+    let paymentMethodText = "Tiền Mặt";
+    if (order.paymentMethod === "banking") {
+      paymentMethodText = "Chuyển khoản";
+    } else if (order.paymentMethod === "cash") {
+      paymentMethodText = "Tiền mặt";
+    }
+
     document.getElementById("orderDetailContent").innerHTML = `
       <div class="detail-header">
         <h3>Chi tiết đơn hàng #${order.id}</h3>
-        <p>Ngày: ${new Date(order.date).toLocaleString("vi-VN")}</p>
+        <p>Ngày: ${orderDate}</p>
       </div>
       <div class="detail-section">
         <h4>Sản phẩm</h4>
-        ${items}
+        ${items || "<p>Chưa có thông tin sản phẩm.</p>"}
       </div>
       <div class="detail-section">
         <h4>Thông tin nhận hàng</h4>
-        <p><strong>Người nhận:</strong> ${
-          order.customerInfo?.fullName || order.customerInfo?.name || "N/A"
-        }</p>
-        <p><strong>Điện thoại:</strong> ${
-          order.customerInfo?.phone || "N/A"
-        }</p>
-        <p><strong>Địa chỉ:</strong> ${order.customerInfo?.address || "N/A"}</p>
+        <p><strong>Người nhận:</strong> ${customerName}</p>
+        <p><strong>Điện thoại:</strong> ${customerPhone}</p>
+        <p><strong>Địa chỉ:</strong> ${customerAddress}</p>
       </div>
       <div class="detail-section">
         <h4>Thanh toán</h4>
-        <p><strong>Phương thức:</strong> ${
-          order.paymentMethod === "banking" ? "Chuyển khoản" : "Tiền mặt"
-        }</p>
+        <p><strong>Phương thức:</strong> ${paymentMethodText}</p>
         <p><strong>Tổng cộng:</strong> ${App.utils.formatPrice(
-          order.total
+          order.total || 0
         )} VNĐ</p>
       </div>
     `;
@@ -1680,18 +1832,21 @@ App.OrderHistory = {
     }
   },
 
-  // reorderItems(orderId) {
-  //   const email = localStorage.getItem("currentUserEmail");
-  //   const orders = this.getOrders(email);
-  //   const order = orders.find((o) => o.id === orderId);
-  //   if (!order) return;
+  reorderItems(orderId) {
+    const email = localStorage.getItem("currentUserEmail");
+    const orders = this.getOrders(email);
+    const order = orders.find((o) => o.id === orderId);
+    if (!order) return;
 
-  //   order.items.forEach((item) => {
-  //     App.Cart.add(item.id, false, item.quantity || item.qty);
-  //   });
-  //   App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
-  //   setTimeout(() => (window.location.href = "../pages/products.html"), 1000);
-  // },
+    order.items.forEach((item) => {
+      App.Cart.add(item.id, false, item.quantity || item.qty);
+    });
+    App.utils.showNotification("Đã thêm sản phẩm vào giỏ hàng!", "success");
+    setTimeout(
+      () => (window.location.href = "../pages/payment-popup.html"),
+      1000
+    );
+  },
 };
 
 // ========================================

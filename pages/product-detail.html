@@ -15,6 +15,11 @@
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
+    <!-- Fonts to match contact page -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- file -->
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/components/cart.css" />
@@ -24,32 +29,89 @@
         border: none;
       }
     </style>
+    <!-- Topbar styles (consistent across pages) -->
     <style>
-      /* --- Chat Support --- */
-      .chat-support {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9998;
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
-      .chat-support button {
-        background: #ff4b5c;
-        color: #fff;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 50px;
-        font-size: 14px;
-        cursor: pointer;
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+      .commitment-items {
         display: flex;
         align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
       }
-      .chat-support button i {
-        margin-right: 5px;
+      .commitment-items::-webkit-scrollbar {
+        display: none;
       }
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+      }
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+      /* Extra color tweaks for some icons */
+      .commitment-item:nth-child(3) img,
+      .commitment-item:nth-child(5) img,
+      .commitment-item:nth-child(7) img,
+      .commitment-item:nth-child(9) img,
+      .commitment-item:nth-child(11) img,
+        .commitment-item:nth-child(13) img {
+        filter: hue-rotate(120deg) saturate(1.5);
+      }
+      @media (max-width: 1200px) {
+        .commitment-items { justify-content: flex-start; }
+      }
+      .commitment-link:hover { opacity: 0.9; }
+      .commitment-item:hover { transform: translateY(-1px); transition: transform 0.2s ease; }
     </style>
     <style>
       body {
-        font-family: var(--font-body);
+        /* Align with contact page font */
+        font-family: "Roboto", sans-serif;
         font-size: var(--font-body-size-regular);
         color: var(--color-black);
         background-color: #f9cbd6;
@@ -156,7 +218,8 @@
       }
 
       .product-title {
-        font-family: var(--font-heading);
+        /* Use Alkatra like contact page headings */
+        font-family: "Alkatra", sans-serif;
         font-weight: var(--font-heading-h1-weight);
         font-size: var(--font-heading-h1-size);
         line-height: var(--font-heading-h1-line-height);
@@ -257,6 +320,7 @@
         border-left: 1px solid var(--primary-color);
         border-right: 1px solid var(--primary-color);
         font-size: 1rem;
+        appearance: textfield;
         -moz-appearance: textfield;
       }
 
@@ -339,7 +403,7 @@
       }
 
       .section-title {
-        font-family: var(--font-heading);
+        font-family: "Alkatra", sans-serif;
         font-size: 2.5rem;
         text-align: center;
         margin-bottom: 50px;
@@ -581,7 +645,6 @@
             <button class="nav-button user-toggle">
               <i class="fas fa-user"></i>
               <span class="user-text">Đăng nhập</span>
-              >
             </button>
             <div class="dropdown-menu">
               <a
@@ -609,6 +672,48 @@
         </li>
       </ul>
     </nav>
+    <!-- Topbar (commitment bar) -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png" alt="100% hàng chất lượng" width="20" height="20" />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png" alt="Freeship mọi đơn" width="20" height="20" />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png" alt="Hoàn 200% nếu hàng hư" width="20" height="20" />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png" alt="30 ngày đổi trả" width="20" height="20" />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png" alt="Giao nhanh 2h" width="20" height="20" />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png" alt="Giá siêu rẻ" width="20" height="20" />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <!-- Product Detail Content -->
       <div id="productDetail">
@@ -665,12 +770,12 @@
               >
             </li>
             <li>
-              <a href="../pages/profile.html"
+              <a href="../pages/about_us.html"
                 ><i class="fas fa-info-circle"></i> Về chúng tôi</a
               >
             </li>
             <li>
-              <a href="../pages/profile.html"
+              <a href="../pages/contact.html"
                 ><i class="fas fa-phone"></i> Liên hệ</a
               >
             </li>
@@ -699,17 +804,6 @@
             </div>
           </div>
 
-          <h4 style="margin-top: 25px">Theo dõi chúng tôi</h4>
-          <div class="social-grid">
-            <a href="#" class="social-card"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a href="#" class="social-card"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-shopify"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-threads"></i></a>
-            <a href="#" class="social-card"><i class="fab fa-amazon"></i></a>
-          </div>
         </div>
       </div>
 
@@ -746,9 +840,7 @@
         <!-- Footer giỏ hàng sẽ được render ở đây -->
       </div>
     </div>
-    <div class="chat-support">
-      <button id="chatButton"><i class="fas fa-comments"></i> Hỗ trợ</button>
-    </div>
+
     <script src="../js/mainjs.js" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {

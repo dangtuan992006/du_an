@@ -2,7 +2,8 @@
 .main-footer {
   background: #1a1a1aef;
   color: #fff;
-  margin-top: 20px;
+  /* margin-top replaced by auto for sticky placement at bottom */
+  margin-top: auto;
   padding: 60px 0 0;
   border-top: 4px solid #e74c3c;
   font-family: "Segoe UI", Arial, sans-serif;

@@ -95,7 +95,7 @@ body {
     border: 2px dashed #9e182b; 
 }
 
-.product-image {
+.product-card img {
     width: 100%;
     height: 200px; /* Giảm chiều cao ảnh để có không gian cho thông tin */
     object-fit: cover;
@@ -248,4 +248,50 @@ p:first-child {
     background: #7d1322;
     color: #f9cbd6;
     transform: scale(1.1);
+}
+
+/* --- Styling cho form chỉnh sửa sản phẩm --- */
+
+/* Style cho các ô input khi chỉnh sửa */
+.product-info .edit-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi chiều rộng */
+    transition: border-color 0.2s;
+}
+
+.product-info .edit-input:focus {
+    border-color: #9e182b;
+    outline: none;
+}
+
+/* Style cho các nút Lưu và Hủy trong form chỉnh sửa */
+.product-info .save-edit-btn,
+.product-info .cancel-edit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.product-info .save-edit-btn {
+    background-color: #28a745; /* Màu xanh lá */
+}
+
+.product-info .cancel-edit-btn {
+    background-color: #dc3545; /* Màu đỏ */
+}
+
+.product-info .save-edit-btn:hover,
+.product-info .cancel-edit-btn:hover {
+    opacity: 0.9;
 }
