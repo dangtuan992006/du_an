@@ -742,8 +742,8 @@ App.Products = {
   setupSearchAndFilterListeners() {
     // Lấy các phần tử DOM. Sử dụng cả ID và class để linh hoạt hơn.
     const searchInput =
-      document.querySelector(".search-input") ||
-      document.getElementById("searchInput");
+      document.querySelector(".search-inpu") ||
+      document.getElementById("searchInpu");
     const searchButton = document.querySelector(".search-button");
     const categorySelect =
       document.querySelector(".category-select") ||
