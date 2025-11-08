@@ -1,29 +1,101 @@
-// --- CHỨC NĂNG THÊM SẢN PHẨM ---
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const productList = document.querySelector(".product-list");
   const addProductBtn = document.getElementById("add-product-btn");
+  const searchInput = document.getElementById("search-input");
+  const searchBtn = document.getElementById("search-btn");
+  const pageNumbersContainer = document.getElementById("page-numbers");
+  const prevPageBtn = document.querySelector(".pagination-arrow:first-of-type");
+  const nextPageBtn = document.querySelector(".pagination-arrow:last-of-type");
+
+  // --- CHỨC NĂNG TÌM KIẾM ---
+  const filterProducts = () => {
+    const keyword = searchInput.value.toLowerCase().trim();
+    const allProducts = productList.querySelectorAll(".product-card:not(.new-product-card)");
+    let found = false;
+
+    allProducts.forEach(card => {
+      const nameElement = card.querySelector(".product-info p:first-child");
+      if (nameElement) {
+        const name = nameElement.textContent.toLowerCase();
+        if (name.includes(keyword)) {
+          card.style.display = "flex";
+          found = true;
+        } else {
+          card.style.display = "none";
+        }
+      }
+    });
+
+    // Cập nhật lại thông báo nếu không tìm thấy sản phẩm
+    updateEmptyState(found ? productList.children.length : 0);
+  };
+
+  searchBtn.addEventListener("click", filterProducts);
+
+  // --- CHỨC NĂNG PHÂN TRANG ẢO ---
+  let currentPage = 1;
+  const totalPages = 5; // Giả sử có 10 trang
+
+  const renderPagination = () => {
+    pageNumbersContainer.innerHTML = ""; // Xóa các số trang cũ
+    for (let i = 1; i <= totalPages; i++) {
+      const pageNumber = document.createElement("span");
+      pageNumber.className = "page-number";
+      pageNumber.textContent = i;
+      pageNumber.dataset.page = i;
+      if (i === currentPage) {
+        pageNumber.classList.add("active");
+      }
+      pageNumbersContainer.appendChild(pageNumber);
+    }
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages;
+  };
+
+  const goToPage = (page) => {
+    currentPage = page;
+    renderPagination();
+  };
+
+  prevPageBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      goToPage(currentPage - 1);
+    }
+  });
+
+  nextPageBtn.addEventListener("click", () => {
+    if (currentPage < totalPages) {
+      goToPage(currentPage + 1);
+    }
+  });
+
+  pageNumbersContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("page-number")) {
+      const page = parseInt(e.target.dataset.page);
+      if (page !== currentPage) {
+        goToPage(page);
+      }
+    }
+  });
 
   // --- CHỨC NĂNG THÊM SẢN PHẨM ---
   addProductBtn.addEventListener("click", () => {
     // Kiểm tra xem có form thêm sản phẩm nào đang mở không
-    if (document.querySelector(".new-product-card")) {
-      alert("Vui lòng hoàn thành việc thêm sản phẩm hiện tại.");
-      return;
-    }
+    
 
     const newProductCard = document.createElement("div");
     newProductCard.className = "product-card new-product-card";
     newProductCard.innerHTML = `
       <input type="text" placeholder="URL Hình ảnh (VD: ../images/ten.jpg)" id="new-image">
       <input type="text" placeholder="Tên sản phẩm" id="new-name">
-      <input type="text" placeholder="Giới thiệu" id="new-desc">
-      <input type="number" placeholder="Giá (VNĐ)" id="new-price">
-      <input type="number" placeholder="Số lượng (kg)" id="new-stock">
+      <select id="new-type">
+        <option>Bán chạy nhất</option>
+        <option>Quà tặng trái cây</option>
+        <option>Trái cây Việt Nam</option>
+        <option>Đặc biệt</option>
+      </select>
+      
+      <textarea id="new-desc" placeholder="Giới thiệu"></textarea>
       <div class="actions">
         <button id="save-new-product">Lưu</button>
         <button id="cancel-new-product">Hủy</button>
@@ -38,21 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Nút Lưu
     document.getElementById("save-new-product").addEventListener("click", () => {
-      const imageUrl = document.getElementById("new-image").value.trim();
-      const name = document.getElementById("new-name").value.trim();
+      const imageUrl = document.getElementById("new-image").value.trim(); 
+      const name = document.getElementById("new-name").value.trim(); // Vẫn lấy tên từ input có id="new-name"
       const description = document.getElementById("new-desc").value.trim();
-      const price = document.getElementById("new-price").value;
-      const stock = document.getElementById("new-stock").value;
 
-      if (!imageUrl || !name || !description || !price || !stock) {
-        alert("Vui lòng nhập đầy đủ thông tin!");
-        return;
-      }
+      
 
-      const card = createProductCard(name, description, price, stock, imageUrl);
-      productList.prepend(card);
+      // Thay vì tạo sản phẩm mới, chỉ ẩn form và thông báo
       newProductCard.remove();
-      updateEmptyState();
+      alert("Sản phẩm đã được thêm.");
     });
   });
 
@@ -66,8 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Chức năng Xóa
     if (target.closest(".delete-btn")) {
       if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
-        productCard.remove();
-        updateEmptyState();
+        alert("Sản phẩm đã được xóa.");
       }
     }
 
@@ -85,55 +150,64 @@ document.addEventListener("DOMContentLoaded", () => {
     // Chức năng Sửa
     if (target.closest(".edit-btn")) {
       const infoDiv = productCard.querySelector(".product-info");
+      const imageElement = productCard.querySelector("img");
       const paragraphs = infoDiv.querySelectorAll("p");
 
       // Lấy dữ liệu hiện tại
+      const originalImageUrl = imageElement.src;
       const originalName = paragraphs[0].textContent.replace("Tên sản phẩm: ", "");
-      const originalDesc = paragraphs[1].textContent.replace("Giới thiệu: ", "");
-      const originalPriceText = paragraphs[2].textContent.replace("Giá: ", "").replace(" VNĐ/kg", "");
-      const originalStock = paragraphs[3].textContent.replace("Số lượng còn: ", "").replace(" kg", "");
+      const originalcategory = paragraphs[1].textContent.replace("Loại sản phẩm: ", "");
+      const originalDesc = paragraphs[2].textContent.replace("Giới thiệu: ", "");
 
       // Lưu lại nội dung HTML gốc để khôi phục khi hủy
       productCard.dataset.originalHtml = infoDiv.innerHTML;
+      productCard.dataset.originalImage = originalImageUrl;
+
+      // Tạo danh sách các tùy chọn cho thẻ select
+      const categories = ["Bán chạy nhất", "Quà tặng trái cây", "Trái cây Việt Nam", "Đặc biệt"];
+      const optionsHtml = categories.map(category => 
+        `<option value="${category}" ${category === originalcategory ? 'selected' : ''}>${category}</option>`
+      ).join('');
 
       // Tạo form chỉnh sửa
-      // Chuyển đổi giá từ '12.000' thành '12000' để input number có thể hiển thị
-      const priceForInput = originalPriceText.replace(/\./g, "");
-
       infoDiv.innerHTML = `
+        <input type="text" value="${originalImageUrl}" class="edit-input" placeholder="URL Hình ảnh">
         <input type="text" value="${originalName}" class="edit-input">
-        <input type="text" value="${originalDesc}" class="edit-input">
-        <input type="number" value="${priceForInput}" class="edit-input">
-        <input type="number" value="${originalStock}" class="edit-input">
+        <select class="edit-input">
+          ${optionsHtml}
+        </select>
+        <textarea class="edit-input">${originalDesc}</textarea>
         <button class="save-edit-btn">Lưu</button>
         <button class="cancel-edit-btn">Hủy</button>
       `;
     }
 
     // Nút Lưu sau khi sửa
-    if (target.classList.contains("save-edit-btn")) {
+    if (target.closest(".save-edit-btn")) {
         const infoDiv = productCard.querySelector(".product-info");
+        const imageElement = productCard.querySelector("img");
         const inputs = infoDiv.querySelectorAll("input");
-        const newName = inputs[0].value;
-        const newDesc = inputs[1].value;
-        const newPrice = Number(inputs[2].value).toLocaleString('de-DE');
-        const newStock = inputs[3].value;
 
-        infoDiv.innerHTML = `
-            <p>Tên sản phẩm: ${newName}</p>
-            <p>Giới thiệu: ${newDesc}</p>
-            <p>Giá: ${newPrice} VNĐ/kg</p>
-            <p>Số lượng còn: ${newStock} kg</p>
-        `;
+        // Thay vì cập nhật, khôi phục lại trạng thái ban đầu và thông báo
+        if (productCard.dataset.originalHtml) { 
+            infoDiv.innerHTML = productCard.dataset.originalHtml; 
+            imageElement.src = productCard.dataset.originalImage;
+            delete productCard.dataset.originalHtml;
+            delete productCard.dataset.originalImage;
+        }
+        alert("Sản phẩm đã được cập nhật.");
     }
 
     // Nút Hủy sau khi sửa
-    if (target.classList.contains("cancel-edit-btn")) {
+    if (target.closest(".cancel-edit-btn")) {
         const infoDiv = productCard.querySelector(".product-info");
+        const imageElement = productCard.querySelector("img");
         // Khôi phục lại nội dung HTML từ dataset đã lưu
         if (productCard.dataset.originalHtml) {
             infoDiv.innerHTML = productCard.dataset.originalHtml;
+            imageElement.src = productCard.dataset.originalImage;
             delete productCard.dataset.originalHtml; // Xóa đi để dọn dẹp
+            delete productCard.dataset.originalImage;
         }
     }
   });
@@ -141,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- HÀM TIỆN ÍCH ---
 
   // Hàm tạo một thẻ sản phẩm mới
-  function createProductCard(name, description, price, stock, imageUrl) {
+  function createProductCard(name, description, imageUrl, category) {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
@@ -153,32 +227,32 @@ document.addEventListener("DOMContentLoaded", () => {
       <img src="${imageUrl}" alt="${name}" onerror="this.src='../images/placeholder.png';">
       <div class="product-info">
         <p>Tên sản phẩm: ${name}</p>
+        <p>Loại sản phẩm: ${category}</p>
         <p>Giới thiệu: ${description}</p>
-        <p>Giá: ${Number(price).toLocaleString('de-DE')} VNĐ/kg</p>
-        <p>Số lượng còn: ${stock} kg</p>
       </div>
     `;
     return card;
   }
 
   // Hàm kiểm tra và hiển thị thông báo nếu không có sản phẩm nào
-  function updateEmptyState() {
+  function updateEmptyState(productCount) {
     const existingEmptyState = productList.querySelector(".empty-state");
     if (existingEmptyState) {
         existingEmptyState.remove();
     }
 
-    if (productList.children.length === 0) {
+    if (productCount === 0) {
       const emptyState = document.createElement("div");
       emptyState.className = "empty-state";
       emptyState.innerHTML = `
         <i class="fa-solid fa-box-open"></i>
-        <p>Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!</p>
+        <p>${searchInput.value ? 'Không tìm thấy sản phẩm nào.' : 'Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!'}</p>
       `;
       productList.appendChild(emptyState);
     }
   }
 
   // Kiểm tra lần đầu khi tải trang
-  updateEmptyState();
+  updateEmptyState(productList.querySelectorAll(".product-card:not(.new-product-card)").length);
+  updatePaginationUI(); // Cập nhật giao diện phân trang lần đầu
 });

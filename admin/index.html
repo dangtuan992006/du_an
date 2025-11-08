@@ -43,56 +43,82 @@
                 <ul>
                     <li class="selection" onclick="location.href='../admin/productManagement.html'"><button>Quản lý sản phẩm</button></li>
                     <li class="selection" onclick="location.href = '../admin/usersManagement.html'"><button>Quản lý người dùng</button></li>
-                    <li class="selection" onclick="location.href = '../admin/receivingReport.html'"><button>Quản lý nhập xuất</button></li>
+                    <li class="selection" onclick="location.href = '../admin/receivingReport.html'"><button>Quản lý nhập </button></li>
                     <li class="selection" onclick="location.href = '../admin/Pricemanagement.html'"><button>Quản lý giá bán trái cây</button></li>
-                    <li class="selection" onclick="location.href = '../admin/OderProcessing.html'"><button>Quản lý hoa hàng</button></li>
+                    <li class="selection" onclick="location.href = '../admin/OderProcessing.html'"><button>Quản lý hàng hóa</button></li>
                     <li class="selection" onclick="location.href = '../admin/InventoryManagemen.html'"><button>Quản lý số hàng tồn</button></li>
                     
                     <li></li>
                 </ul>
             </div>
             <div class="item content">
-                <div class="admin-profile">
-                    <img src="../images/admin.png" alt="Admin Avatar" class="avatar">
-                    <div class="admin-info">
-                        <h2 id="adminName">Tên admin: Nguyen Tri Tai</h2>
-                        <p><strong>Email:</strong> <span id="adminEmail">admin2@gmail.com</span></p>
-                        <p><strong>Số điện thoại:</strong> <span id="adminPhone">0123456789</span></p>
-                        <p><strong>Ngày tham gia:</strong> <span id="adminJoinDate">20/11/2023</span></p>
-
-                        <button id="editBtn">Sửa thông tin</button>
-                        <br>
-                        <button id="logoutBtn" onclick="location.href= '../pages/index.html'">Đăng Xuất</button>
+                <!-- Phần thống kê -->
+                <div class="dashboard-stats">
+                    <div class="stat-box customers">
+                        <i class="fa-solid fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-title">Khách hàng</span>
+                            <span class="stat-value" id="customer-count">1.000</span>
+                        </div>
                     </div>
-
+                    <div class="stat-box orders">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <div class="stat-info">
+                            <span class="stat-title">Tổng đơn hàng</span>
+                            <span class="stat-value" id="order-count">4.000</span>
+                        </div>
                     </div>
-                    <!-- Form sửa (ẩn lúc đầu) -->
-                    <div class="edit-form" id="editForm" style="display: none;">
-                    <h3>Sửa thông tin admin</h3>
-                    <label>Tên admin:</label>
-                    <br>
-                    <input type="text" id="editName" />
-                    <br>
-                    <label>Email:</label>
-                    <br>
-                    <input type="email" id="editEmail" />
-                    <br>
-                    <label>Số điện thoại:</label>
-                    <br>
-                    <input type="text" id="editPhone" />
-                    <br>
-                    <label>Ngày tham gia:</label>
-                    <br>
-                    <input type="date" id="editJoinDate" />
-                    <br>
-                    <div class="btn-group">
-                        <button id="saveBtn">Lưu</button>
-                        <button id="cancelBtn">Hủy</button>
+                    <div class="stat-box revenue">  
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <div class="stat-info">
+                            <span class="stat-title">Doanh thu</span>
+                            <span class="stat-value" id="revenue-total">5.200.000 VNĐ</span>
+                        </div>
                     </div>
+                </div>
+                <!-- Phần thông tin admin và bảng doanh thu -->
+                <div class="admin-section">
+                    <!-- Thông tin admin -->
+                    <div class="admin-profile">
+                        <img src="../images/admin.png" alt="Admin Avatar" class="avatar">
+                        <div class="admin-info">
+                            <h2 id="adminName">Tên admin: Nguyen Tri Tai</h2>
+                            <p><strong>Email:</strong> <span id="adminEmail">admin2@gmail.com</span></p>
+                            <p><strong>Số điện thoại:</strong> <span id="adminPhone">0123456789</span></p>
+                            <p><strong>Ngày tham gia:</strong> <span id="adminJoinDate">20/11/2023</span></p>
+    
+                            <div class="action-group">
+                                <button id="editBtn">Sửa thông tin</button>
+                            <button id="logoutBtn" onclick="location.href= '../pages/index.html'">Đăng Xuất</button>
+                            </div>
+                        </div>
                     </div>
-
+                </div>
             </div>
 
+        </div>
+
+        <!-- Modal Popup cho việc sửa thông tin -->
+        <div class="modal-overlay" id="editModalOverlay" style="display: none;">
+            <div class="edit-form-popup" id="editForm">
+                <h3>Sửa thông tin admin</h3>
+                <label for="editName">Tên admin:</label>
+                <input type="text" id="editName" />
+
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" />
+
+                <label for="editPhone">Số điện thoại:</label>
+                <input type="text" id="editPhone" />
+
+                <label for="editJoinDate">Ngày tham gia:</label>
+                <input type="date" id="editJoinDate" />
+
+                <div class="btn-group">
+                    <button id="saveBtn">Lưu</button>
+                    <button id="cancelBtn">Hủy</button>
+                </div>
+            </div>
         </div>
     </body>
 

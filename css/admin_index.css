@@ -128,14 +128,14 @@ body {
   padding: 24px; /* reduce side padding to minimize pink margins inside card */
   border-radius: 18px;
   /* make the card wider but limit maximum width for readability */
-  width: 97%; /* half of the previous 2% reduction from original 98% */
+  width: 100%; /* Ban đầu chiếm toàn bộ chiều rộng */
   max-width: 1400px; /* cap for very wide screens */
-  margin: 0 auto; /* keep centered within content area */
-  /* Use flex column to center avatar and admin controls in the same axis */
+  /* Use flex to center avatar and admin controls in the same axis */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  flex-shrink: 0; /* Không cho phép co lại khi không gian hẹp */
+  transition: width 0.5s ease-in-out; /* Hiệu ứng co dãn mượt mà */
 }
 
 .admin-info {
@@ -211,58 +211,155 @@ body {
   font-size: 1.1rem;
 }
 
-#editBtn {
-  margin-bottom: 10px;
-}
-
-/* Ensure action buttons are grouped with small gap and centered */
-.admin-info .action-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-
 /* Slight spacing for admin-profile overall */
 .admin-profile {
   gap: 12px;
 }
 
-.edit-form {
-  border: #9e182b 5px solid;
-  border-radius: 10px;
-  margin-left: 5px;
-  padding: 15px;
+/* --- Bố cục cho phần admin và form --- */
+.admin-section {
+  display: inline-flex;
+  justify-content: center; /* Căn giữa nội dung khi chỉ có profile */
+  width: 100%;
+  gap: 20px; /* Khoảng cách giữa profile và form */
+  flex-wrap: wrap; /* Cho phép xuống dòng nếu không đủ không gian */
+}
+
+/* --- Thống kê Dashboard --- */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.stat-box {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box i {
+    font-size: 3rem;
+    margin-right: 20px;
+    opacity: 0.8;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Màu sắc cho từng ô */
+.stat-box.customers {
+    background: linear-gradient(135deg, #56ab2f, #a8e063);
+}
+
+.stat-box.orders {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+}
+
+.stat-box.revenue {
+    background: linear-gradient(135deg, #ff512f, #f09819);
+}
+
+.content {
+    display: flex;
+    flex-direction: column; /* Giữ các khối con xếp theo chiều dọc */
+    align-items: stretch; /* Cho phép các khối con kéo dài theo chiều rộng */
+    gap: 5px; /* Thêm khoảng cách giữa khối thống kê và khối admin */
+}
+
+/* --- Modal Popup cho Form chỉnh sửa --- */
+.modal-overlay {
+  position: fixed; /* Nằm cố định trên màn hình */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Lớp nền mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Hiển thị trên cùng */
+  animation: fadeIn 0.3s ease; /* Hiệu ứng xuất hiện */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.edit-form-popup {
+  border: #9e182b 3px solid;
+  border-radius: 15px;
+  padding: 25px;
   background-color: #fef2f4;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+  animation: scaleUp 0.3s ease; /* Hiệu ứng phóng to */
 }
 
-.edit-form button {
-  background-color: #9e182b;
-  color: #f9cbd6;
-  border: none;
-  border-radius: 15px;
-  margin: 5px;
-  padding: 5px;
+@keyframes scaleUp {
+  from { transform: scale(0.8); }
+  to { transform: scale(1); }
 }
 
-.edit-form h3 {
-  background-color: #9e182b;
-  color: #f9cbd6;
-  border-radius: 15px;
-  margin: 5px;
-  padding: 5px;
-}
-
-.edit-form label {
+.edit-form-popup h3 {
   color: #9e182b;
-  margin-top: 10px;
-  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: "Alkatra", sans-serif;
 }
 
-.edit-form input {
+.edit-form-popup label {
+  color: #9e182b;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.edit-form-popup input {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
+  padding: 10px;
+  border: 1px solid #f9cbd6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.edit-form-popup .btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.edit-form-popup button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
 }

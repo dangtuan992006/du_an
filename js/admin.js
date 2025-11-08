@@ -1,101 +1,50 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Lấy các phần tử DOM
-  const adminNameEl = document.getElementById("adminName");
-  const adminEmailEl = document.getElementById("adminEmail");
-  const adminPhoneEl = document.getElementById("adminPhone");
-  const adminJoinDateEl = document.getElementById("adminJoinDate");
-
+document.addEventListener("DOMContentLoaded", () => {
+  // Lấy các phần tử DOM cần thiết
   const editBtn = document.getElementById("editBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
   const editForm = document.getElementById("editForm");
+  const editModalOverlay = document.getElementById("editModalOverlay");
   const saveBtn = document.getElementById("saveBtn");
   const cancelBtn = document.getElementById("cancelBtn");
 
+  // Các phần tử hiển thị thông tin admin
+  const adminNameDisplay = document.getElementById("adminName");
+  const adminEmailDisplay = document.getElementById("adminEmail");
+  const adminPhoneDisplay = document.getElementById("adminPhone");
+  const adminJoinDateDisplay = document.getElementById("adminJoinDate");
+
+  // Các trường input trong form sửa
   const editNameInput = document.getElementById("editName");
   const editEmailInput = document.getElementById("editEmail");
   const editPhoneInput = document.getElementById("editPhone");
   const editJoinDateInput = document.getElementById("editJoinDate");
 
-  // Hàm để lấy tất cả người dùng từ localStorage
-  function getUsers() {
-    return JSON.parse(localStorage.getItem('registeredUsers')) || {};
-  }
-
-  // Hàm để lưu lại danh sách người dùng
-  function setUsers(users) {
-    localStorage.setItem('registeredUsers', JSON.stringify(users));
-  };
-
-  // Hàm để tải và hiển thị thông tin admin
-  function loadAdminInfo() {
-    const adminEmail = localStorage.getItem("adminEmail");
-    if (!adminEmail) {
-      alert("Vui lòng đăng nhập với tư cách admin!");
-      window.location.href = "../pages/login.html";
-      return;
-    }
-
-    const users = getUsers();
-    const admin = users[adminEmail];
-
-    if (admin) {
-      adminNameEl.textContent = `Tên admin: ${admin.name || ''}`;
-      adminEmailEl.textContent = admin.email || "";
-      adminPhoneEl.textContent = admin.phone || "Chưa cập nhật";
-      adminJoinDateEl.textContent = admin.join_date || 'Chưa cập nhật';
-    }
-  }
-
-  // Xử lý sự kiện click nút "Sửa thông tin"
-  editBtn.addEventListener("click", () => {
-    const adminEmail = localStorage.getItem("adminEmail");
-    const users = getUsers();
-    const admin = users[adminEmail];
-
-    if (admin) {
-       // Điền thông tin hiện tại vào form
-      editNameInput.value = admin.name || '';
-      editEmailInput.value = admin.email || '';
-      editPhoneInput.value = admin.phone || '';
-      editJoinDateInput.value = admin.join_date || "";
+  // Xử lý khi nhấn nút "Sửa thông tin"
+  if (editBtn) {
+    editBtn.addEventListener("click", () => {
+      // Lấy dữ liệu hiện tại và điền vào form
+      editNameInput.value = adminNameDisplay.textContent.replace("Tên admin: ", "").trim();
+      editEmailInput.value = adminEmailDisplay.textContent.trim();
+      editPhoneInput.value = adminPhoneDisplay.textContent.trim();
+      
+      const dateParts = adminJoinDateDisplay.textContent.trim().split('/');
+      if (dateParts.length === 3) {
+        const [day, month, year] = dateParts;
+        editJoinDateInput.value = `${year}-${month}-${day}`;
+      }
 
       // Hiển thị form
-      editForm.style.display = "block";
-    }
+      if (editModalOverlay) editModalOverlay.style.display = "flex";
+    });
+  }
+
+  // Xử lý khi nhấn nút "Lưu"
+  saveBtn?.addEventListener("click", () => {
+    alert("Đã cập nhật thông tin thành công!"); // Hiển thị thông báo
+    if (editModalOverlay) editModalOverlay.style.display = "none"; // Ẩn modal đi
   });
 
-  // Xử lý sự kiện click nút "Hủy"
-  cancelBtn.addEventListener("click", () => {
-    editForm.style.display = "none";
+  // Xử lý khi nhấn nút "Hủy"
+  cancelBtn?.addEventListener("click", () => {
+    if (editModalOverlay) editModalOverlay.style.display = "none"; // Chỉ cần ẩn modal đi
   });
-
-  // Xử lý sự kiện click nút "Lưu"
-  saveBtn.addEventListener("click", () => {
-     // Lấy giá trị mới từ các ô input
-    const newName = editNameInput.value;
-    const newEmail = editEmailInput.value;
-    const newPhone = editPhoneInput.value;
-    const newJoinDate = editJoinDateInput.value;
-
-     // Cập nhật trực tiếp giao diện người dùng, không lưu vào localStorage
-    adminNameEl.textContent = `Tên admin: ${newName || ''}`;
-    adminEmailEl.textContent = newEmail || '';
-    adminPhoneEl.textContent = newPhone || 'Chưa cập nhật';
-    adminJoinDateEl.textContent = newJoinDate || 'Chưa cập nhật';
-
-     // Ẩn form chỉnh sửa
-    editForm.style.display = "none";
-    alert("Cập nhật thông tin thành công!");
-  });
-
-  // Xử lý đăng xuất
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("adminUser");
-    localStorage.removeItem("adminEmail");
-    localStorage.removeItem("currentUserRole");
-    // Chuyển hướng về trang chủ sau khi đăng xuất
-  });
-
-  // Tải thông tin admin khi trang được load
-  loadAdminInfo();
 });
