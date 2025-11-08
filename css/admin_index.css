@@ -328,6 +328,38 @@ body {
   to { transform: scale(1); }
 }
 
+/* --- Avatar editing in modal --- */
+.avatar-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.avatar-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f9cbd6;
+}
+
+.avatar-upload-label {
+  background-color: #f9cbd6;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.avatar-upload-label:hover {
+  background-color: #9e182b;
+  color:#f9cbd6;
+}
+
 .edit-form-popup h3 {
   color: #9e182b;
   text-align: center;
@@ -362,4 +394,6 @@ body {
   font-size: 1rem;
   cursor: pointer;
   border: none;
+  background-color: #9e182b;
+  color: #f9cbd6;
 }
