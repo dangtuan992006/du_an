@@ -1,0 +1,296 @@
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Management</title>
+        <link rel="stylesheet" href="../css/product_management.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <button onclick="location.href='../admin/index.html'">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h1>Quản Lý Sản Phẩm</h1>
+                <button onclick="location.href='../pages/index.html'">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+            </div>
+            
+            <div class="content">
+                <!-- nút thêm sản phẩm -->
+                <div class="actions">
+                    <button id="add-product-btn">
+                        <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+                    </button>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
+                        <button id="search-btn" onclick="location.href = '../admin/productManagement.html'">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- danh sách sản phẩm -->
+                <div class="product-list">
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/chuoi.webp" alt="Banana">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Banana</p>
+                            <p>Loại sản phẩm: Đặc biệt</p>
+                            <p>Giới thiệu: Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/quatang2.jpeg" alt="Dâu Tây">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Dâu Tây</p>
+                            <p>Loại sản phẩm: Quà tặng trái cây</p>
+                            <p>Giới thiệu: Dâu tây đỏ mọng, vị ngọt nhẹ, hương thơm dịu dàng khiến ai cũng muốn thưởng thức mãi.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/cam.webp" alt="Cam Ngọt">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Cam Ngọt</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Cam ngọt tươi mát, mọng nước và giàu vitamin giúp bạn khởi đầu ngày mới thật sảng khoái.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/nho.jpeg" alt="Nho Tím">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Nho Tím</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/bo.jpeg" alt="Bơ">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Bơ</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Bơ sáp thơm béo, mềm mịn, chứa nhiều dưỡng chất giúp làn da mịn màng và cơ thể khỏe mạnh.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/vai.jpeg" alt="Vải Thiều">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Vải Thiều</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Vải thiều ngọt thanh, hương thơm quyến rũ, là món quà tinh tế mang hương vị mùa hè Việt.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/luu.jpeg" alt="Lựu Đỏ">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Lựu Đỏ</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/cherry.jpeg" alt="Cherry Đỏ">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Cherry Đỏ</p>
+                            <p>Loại sản phẩm: Quà tặng trái cây</p>
+                            <p>Giới thiệu: Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ khiến bạn khó quên ngay lần đầu.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/duavang.jpeg" alt="Dứa Vàng">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Dứa Vàng</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Dứa vàng chín mọng, vị chua ngọt hài hòa mang lại cảm giác sảng khoái trong ngày oi bức.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/quatang1.jpeg" alt="set trái cây quà tặng số 1">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: set trái cây quà tặng số 1</p>
+                            <p>Loại sản phẩm: Quà tặng trái cây</p>
+                            <p>Giới thiệu: Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/chanh.jpeg" alt="Chanh">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Chanh</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Chanh tươi mọng nước, vị chua dịu nhẹ giúp thanh lọc cơ thể và mang lại cảm giác sảng khoái.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/kiwi.jpeg" alt="Kiwi Xanh">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Kiwi Xanh</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Kiwi xanh chua ngọt hài hòa, chứa nhiều vitamin giúp làn da tươi sáng và cơ thể khỏe mạnh.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/tao.jpeg" alt="Táo">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Táo</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Táo giòn ngọt, hương thơm dễ chịu, biểu tượng cho sức khỏe dồi dào và sự may mắn lâu dài.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/man.jpeg" alt="Mận">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Mận</p>
+                            <p>Loại sản phẩm: Bán chạy nhất</p>
+                            <p>Giới thiệu: Mận chín đỏ, vị chua ngọt giòn tan, là món ăn thanh mát giúp xua tan mệt mỏi ngày hè.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/carrot.jpg" alt="Carrot">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Carrot</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Cà rốt tươi giòn, giàu vitamin A, giúp sáng mắt, đẹp da và tăng cường sức đề kháng tự nhiên.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/quatang3.jpeg" alt="set trái cây quà tặng số 2">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: set trái cây quà tặng số 2</p>
+                            <p>Loại sản phẩm: Quà tặng trái cây</p>
+                            <p>Giới thiệu: Hộp quà trái cây cao cấp, lựa chọn hoàn hảo để gửi gắm yêu thương và tri ân người thân yêu.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Dưa Hấu Đỏ</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Dưa hấu đỏ ngọt thanh, mọng nước, giúp giải nhiệt và mang lại cảm giác mát lành tuyệt vời.</p>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="actions-top">
+                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        <img src="../images/mango.jpg" alt="Xoài">
+                        <div class="product-info">
+                            <p>Tên sản phẩm: Xoài</p>
+                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                            <p>Giới thiệu: Xoài cát vàng chín ngọt, thơm lừng đặc trưng, mang hương vị đậm đà khó quên của miền nhiệt đới.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phân trang (chỉ hiển thị, không có chức năng) -->
+                <div class="pagination">
+                    <button class="pagination-arrow" disabled>&laquo;</button>
+                    <div id="page-numbers">
+                        <span class="page-number active">1</span>
+                        <span class="page-number">2</span>
+                        <span class="page-number">3</span>
+                        <span class="page-number">4</span>
+                        <span class="page-number">...</span>
+                    </div>
+                    <button class="pagination-arrow">&raquo;</button>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="../js/products.js"></script> <!-- Đảm bảo đã có dòng này -->
+    </body>
+    </html>
+
+
+    

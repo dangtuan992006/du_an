@@ -1,0 +1,433 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffeef3 0%, #ffe0e8 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+.header h1 {
+    color: #9e182b;
+    font-size: 2rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header button {
+    color: #9e182b;
+    border: none;
+    background-color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover {
+    background-color: #9e182b;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Content */
+.content {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 30px;
+    min-height: 500px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px;
+}
+
+/* Product Card */
+.product-card {
+    position: relative;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(158, 24, 43, 0.2);
+}
+
+.product-card.hidden {
+    opacity: 0.5;
+    /* Dễ nhận biết sản phẩm bị ẩn */
+    border: 2px dashed #9e182b; 
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px; /* Giảm chiều cao ảnh để có không gian cho thông tin */
+    object-fit: cover;
+    background: #f5f5f5;
+}
+
+.product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Giúp phần info chiếm hết không gian còn lại */
+}
+
+.product-info p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+p:first-child {
+    font-weight: bold;
+    color: #9e182b;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+/* Actions - Nút Thêm sản phẩm */
+.actions {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+#add-product-btn {
+    background-color: #9e182b;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+#add-product-btn:hover {
+    opacity: 0.9;
+}
+
+/* Search Box */
+.search-box {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    font-size: 1em;
+}
+
+.search-box button {
+    padding: 12px 20px;
+    border: none;
+    background: #9e182b;
+    color: white;
+    border-radius: 0 15px 15px 0;
+    cursor: pointer;
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #9e182b;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+}
+
+.new-product-card {
+    border: 2px dashed #9e182b;
+    padding: 15px;
+    background: #fff5f7; /* Một màu hồng rất nhạt */
+    transition: all 0.3s ease;
+}
+
+.new-product-card input,select {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.new-product-card textarea { 
+    min-height: 100px;
+    resize: vertical;
+}
+
+.new-product-card .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.new-product-card .actions button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.new-product-card .actions button:hover {
+    opacity: 0.9;
+}
+
+#save-new-product {
+    background-color: #28a745; /* Màu xanh lá cho nút Lưu */
+}
+
+#cancel-new-product {
+    background-color: #dc3545; /* Màu đỏ cho nút Hủy */
+}
+
+
+/* chức năng xóa, ẩn/hiện, sữa */
+.product-card .actions-top {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex; 
+    gap: 8px; 
+    z-index: 10; 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .actions-top {
+    opacity: 1;
+}
+
+.edit-btn, .hide-btn, .delete-btn {
+    position: static; 
+    opacity: 1 !important; 
+    transform: none !important;
+    background: #f9cbd6;
+    color: #9e182b;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn:hover, .hide-btn:hover, .edit-btn:hover {
+    background: #7d1322;
+    color: #f9cbd6;
+    transform: scale(1.1);
+}
+
+/* --- Styling cho form chỉnh sửa sản phẩm --- */
+
+/* Style cho các ô input khi chỉnh sửa */
+.product-info .edit-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi chiều rộng */
+    transition: border-color 0.2s;
+}
+
+/* Style riêng cho textarea khi chỉnh sửa */
+.product-info textarea.edit-input {
+    min-height: 100px; /* Chiều cao tối thiểu */
+    resize: vertical; /* Cho phép người dùng thay đổi chiều cao */
+}
+
+.product-info .edit-input:focus {
+    border-color: #9e182b;
+    outline: none;
+}
+
+/* Style cho các nút Lưu và Hủy trong form chỉnh sửa */
+.product-info .save-edit-btn,
+.product-info .cancel-edit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.product-info .save-edit-btn {
+    background-color: #28a745; /* Màu xanh lá */
+}
+
+.product-info .cancel-edit-btn {
+    background-color: #dc3545; /* Màu đỏ */
+}
+
+.product-info .save-edit-btn:hover,
+.product-info .cancel-edit-btn:hover {
+    opacity: 0.9;
+}
+
+/* --- Styling cho phân trang --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 10px;
+    gap: 15px;
+}
+
+.pagination button {
+    background-color: #9e182b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #7d1322;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination #page-info {
+    font-size: 1em;
+    font-weight: 600;
+    color: #333;
+}
+
+/* CSS cho các ô số trang */
+#page-numbers {
+    display: flex;
+    gap: 8px;
+}
+
+.page-number {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+}
+
+.page-number:hover {
+    background-color: #fdeef2;
+    border-color: #9e182b;
+}
+
+.page-number.active {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
+    font-weight: bold;
+}
+
+/* CSS cho các ô số trang */
+#page-numbers {
+    display: flex;
+    gap: 8px;
+}
+
+.page-number {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+}
+
+.page-number:hover {
+    background-color: #fdeef2;
+    border-color: #9e182b;
+}
+
+.page-number.active {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
+    font-weight: bold;
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên hệ - Pomegranate</title>
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  <!-- feather icons removed (no-JS build) -->
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+  <!-- file -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/components/form.css" />
+  <!-- Fonts to match index.html -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      /* Custom styles for contact page */
+      .contact-section {
+        max-width: 900px;
+        padding: 40px;
+        background-color: #fff;
+        border: 1px solid #ffd1d1;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        line-height: 1.7;
+        color: #333;
+      }
+      .contact-section .section-title {
+        color: var(--primary-dark);
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        position: relative;
+      }
+      .contact-section .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: var(--primary-color);
+      }
+      .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+      .contact-info, .contact-form {
+        flex: 1;
+        min-width: 300px;
+      }
+      .contact-info h3, .contact-form h3 {
+        color: var(--primary-dark);
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+      .contact-info p {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .contact-info i {
+        color: var(--primary-color);
+        font-size: 1.1rem;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+      }
+      .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+      }
+      .form-group input:focus, .form-group textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+      }
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+      @media (max-width: 768px) {
+        .contact-section {
+          padding: 20px;
+          margin: 20px auto;
+        }
+        .contact-container {
+          flex-direction: column;
+        }
+        .contact-section .section-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    
+
+    <!-- Main Content -->
+    <main><!-- Nút quay về trang chủ với style giống trang admin -->
+        <div style=" text-align: left;">
+            <a href="index.html" 
+              class="admin-style-btn"
+              style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 10px 18px;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    background-color: #9e182b;
+                    color: #f9cbd6;
+                    font-weight: bold;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: background-color 0.2s, box-shadow 0.2s;
+              "
+            >
+                <i class="fas fa-arrow-left"></i> Về trang chủ
+            </a>
+        </div>
+        <section class="contact-section">
+            <h2 class="section-title">Liên hệ với chúng tôi</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Thông tin liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</p>
+                    <p><i class="fas fa-phone"></i> 0900 123 456</p>
+                    <p><i class="fas fa-envelope"></i> info@pomegranate.com</p>
+                    <p><i class="fas fa-clock"></i> 8:00 - 22:00 (T2 - CN)</p>
+                </div>
+                <div class="contact-form">
+                    <h3>Gửi tin nhắn cho chúng tôi</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Họ và tên</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Tin nhắn</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Gửi</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+  <!-- No JavaScript in this build -->
+  </body>
+</html>

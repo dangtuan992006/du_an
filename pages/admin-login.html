@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đăng nhập Admin</title>
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/components/admin-login.css" />
+    <style>
+      /* Align with site-wide typography */
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+      .pacifico-regular { font-family: 'Pacifico', cursive; }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <img
+        src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+        alt="Pomegranate Logo"
+      />
+      <h2>Đăng nhập Admin</h2>
+
+      <form id="adminLoginForm">
+        <div class="input-group">
+          <label for="adminEmail">Email</label>
+          <input
+            type="email"
+            id="adminEmail"
+            placeholder="admin@gmail.com"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="adminPassword">Mật khẩu</label>
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="Nhập mật khẩu..."
+            required
+          />
+        </div>
+
+        <button type="submit" class="login-button">Đăng nhập</button>
+      </form>
+      <a href="../pages/index.html">Thoat</a>
+    </div>
+
+    <!-- No JavaScript in this build -->
+  </body>
+</html>
