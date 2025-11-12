@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh Toán</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/components/checkout.css" />
+    <!-- Bổ sung style riêng cho popup (nếu có) -->
+    <link rel="stylesheet" href="../css/components/payment-popup.css" />
+    <!-- Header styles to support search bar -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Typography: sync with index.html -->
+    <style>
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
+  </head>
+  <body>
+    <!-- Header (tối giản với thanh tìm kiếm mới) -->
+    <nav>
+      <ul class="nav-grid">
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+        <li class="search-container">
+          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input
+              type="text"
+              class="search-input"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
+            />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+        <li class="nav-buttons">
+          <a class="nav-button" href="./index.html">
+            <i class="fas fa-home" aria-hidden="true"></i>
+            Trang chủ
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- No-JS static checkout placeholder -->
+  <div class="checkout-container" style="max-width:800px;margin:24px auto;padding:24px;border:1px solid #ffd1d1;border-radius:12px;background:#fff7f7;font-family:'Poppins',sans-serif;color:#333;">
+      <h2 style="margin-top:0;color:#9e182b;">Thanh Toán</h2>
+      <p>Vui lòng đăng nhập và chọn sản phẩm trước khi thanh toán.</p>
+      <p>Trong phiên bản không dùng JavaScript, chức năng thanh toán trực tiếp bị lược giản. Bạn có thể:</p>
+      <ul>
+        <li>Xem chi tiết sản phẩm và liên hệ cửa hàng để đặt mua</li>
+        <li>Hoặc quay lại giỏ hàng để xem các sản phẩm đã chọn</li>
+      </ul>
+      <div style="display:flex;gap:12px;margin-top:16px;">
+        <a href="./index.html" class="btn-primary" style="text-decoration:none;padding:10px 16px;border-radius:8px;background:#d32f2f;color:#fff;font-weight:600;">Về trang chủ</a>
+        <a href="./product-detail.html" class="btn-primary" style="text-decoration:none;padding:10px 16px;border-radius:8px;background:#9e182b;color:#fff;font-weight:600;">Xem sản phẩm</a>
+      </div>
+    </div>
+  </body>
+  <style>
+    
+  </style>
+</html>

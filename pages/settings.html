@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cập nhật hồ sơ - Pomegranate</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap" rel="stylesheet" />
+    <!-- Removed extra toast-only font to match site base font -->
+		<link rel="stylesheet" href="../css/base.css" />
+		<link rel="stylesheet" href="../css/components/header.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/components/footer.css" />
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Typography: sync with index.html -->
+    <style>
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
+    <style>
+  /* Ensure sticky footer without bottom gap */
+      html, body { height: 100%; }
+      body { min-height: 100vh; display: flex; flex-direction: column; }
+      main { flex: 1 0 auto; }
+      footer.main-footer { flex-shrink: 0; margin-bottom: 0; }
+  /* Match order-history width exactly */
+  main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+			.settings-card { width: 100%; background: #fff; border: 1px solid #ffd1d1; border-radius: 12px; box-shadow: var(--shadow-sm); overflow: hidden; }
+    /* Exact same sizing helper as order-history */
+    .order-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .settings-header { display: flex; align-items: center; gap: 12px; padding: 20px; border-bottom: 1px solid #ffd1d1; }
+    .settings-header h1 { margin: 0; font-family: 'Playfair Display', serif; color: var(--brand); font-size: 22px; }
+  .settings-body { padding: 20px; }
+  /* Make grid tracks truly expand like order-history cards */
+  .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: 100%; }
+			.form-row { display: flex; flex-direction: column; gap: 6px; }
+			.form-row label { font-weight: 600; color: #444; }
+  .form-row input, .form-row textarea { width: 100%; border: 1px solid #ffd1d1; border-radius: 8px; padding: 10px 12px; outline: none; font-size: 15px; }
+			.form-row input:focus, .form-row textarea:focus { box-shadow: 0 0 0 3px rgba(211,47,47,0.15); border-color: var(--primary-color); }
+			.form-row textarea { resize: vertical; min-height: 90px; }
+			.help-txt { font-size: 12px; color: #777; }
+			.settings-footer { display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; border-top: 1px solid #ffd1d1; background: #fff7f7; }
+			.btn-primary { background: var(--primary-color); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+			.btn-primary:hover { background: var(--primary-dark); }
+			.btn-secondary { background: #fff; color: var(--primary-color); border: 1.5px solid var(--primary-color); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+			.meta-row { margin-top: 8px; color: #666; font-size: 13px; }
+			@media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
+
+			/* Topbar (reused) */
+			.topbar { background: #ffd3d3; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+			.topbar-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+			.commitment-bar { background: #ffd3d3; padding: 12px 0; }
+			.commitment-items { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+			.commitment-items::-webkit-scrollbar { display: none; }
+			.commitment-title { color: #a52a2a; font-size: 14px; font-weight: 600; white-space: nowrap; padding: 0 8px; flex-shrink: 0; }
+			.commitment-item { display: flex; align-items: center; gap: 4px; padding: 0 8px; white-space: nowrap; flex-shrink: 0; }
+			.divider { width: 1px; height: 20px; background: #ebebf0; flex-shrink: 0; }
+			/* Animation */
+			.commitment-link:hover { opacity: 0.9; }
+			.commitment-item:hover { transform: translateY(-1px); transition: transform 0.2s ease; }
+			/* Đổi màu icon bằng filter */
+			.commitment-item img { flex-shrink: 0; filter: hue-rotate(45deg) saturate(2) brightness(0.8); }
+			.commitment-item:nth-child(3) img { filter: hue-rotate(120deg) saturate(1.5); }
+			.commitment-item:nth-child(5) img { filter: hue-rotate(120deg) saturate(1.5); }
+			.commitment-item:nth-child(7) img { filter: hue-rotate(120deg) saturate(1.5); }
+			.commitment-item:nth-child(9) img { filter: hue-rotate(120deg) saturate(1.5); }
+			.commitment-item:nth-child(11) img { filter: hue-rotate(120deg) saturate(1.5); }
+			.commitment-item:nth-child(13) img { filter: hue-rotate(120deg) saturate(1.5); }
+		</style>
+
+
+        
+<style>
+  /* ...existing styles... */
+
+  /* Topbar (match thongtintaikhoan.html) */
+  .topbar {
+    background: #ffd3d3;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .topbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .commitment-bar {
+    background: #ffd3d3;
+    padding: 12px 0;
+  }
+  .commitment-link {
+    text-decoration: none;
+    display: block;
+  }
+  .commitment-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .commitment-items::-webkit-scrollbar {
+    display: none;
+  }
+  .commitment-title {
+    color: #a52a2a;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 8px;
+    flex-shrink: 0;
+  }
+  .commitment-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .commitment-item span {
+    color: #27272a;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .commitment-item img {
+    flex-shrink: 0;
+  }
+  .divider {
+    width: 1px;
+    height: 20px;
+    background: #ebebf0;
+    flex-shrink: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .commitment-items {
+      justify-content: flex-start;
+    }
+  }
+    </style>
+
+    <!-- Prominent top-center toast for profile updates -->
+    <style>
+      .profile-toast {
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #d32f2f;
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-family: inherit;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        z-index: 10000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+      .profile-toast.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+      @media (max-width: 480px) {
+        .profile-toast {
+          width: calc(100% - 24px);
+          text-align: center;
+          font-size: 18px;
+          padding: 12px 16px;
+        }
+      }
+    </style>
+	</head>
+	<body>
+		<!-- Header (same structure as other pages) -->
+		<nav>
+			<ul class="nav-grid">
+				<li>
+					<a href="index.html" class="logo-link">
+						<img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Logo" />
+						<p class="pacifico-regular">Pomegranate</p>
+					</a>
+				</li>
+        <li class="search-container">
+          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input type="text" class="search-input" name="q" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+				<li class="nav-buttons">
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle"><i class="fas fa-user"></i><span class="user-text">KhachHang001@gmail.com</span></button>
+						<div class="dropdown-menu">
+							<a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin tài khoản</a>
+							<a href="../pages/order-history.html" class="dropdown-item">Lịch sử mua hàng</a>
+							<button class="dropdown-item logout-btn">Đăng xuất</button>
+						</div>
+					</div>
+					<button class="nav-button" id="openCartPopup"><i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-count">0</span></button>
+          <!-- Nút thanh toán giỏ hàng đã được gỡ bỏ theo yêu cầu -->
+				</li>
+			</ul>
+		</nav>
+
+		<!-- Topbar -->
+		
+<div class="topbar">
+  <div class="topbar-container">
+    <div class="commitment-bar">
+      <a href="#products" class="commitment-link">
+        <div class="commitment-items">
+          <div class="commitment-title">Cam kết</div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png" alt="100% hàng chất lượng" width="20" height="20" />
+            <span>100% hàng chất lượng</span>
+          </div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png" alt="Freeship mọi đơn" width="20" height="20" />
+            <span>Freeship mọi đơn</span>
+          </div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png" alt="Hoàn 200% nếu hàng giả" width="20" height="20" />
+            <span>Hoàn 200% nếu hàng hư</span>
+          </div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png" alt="30 ngày đổi trả" width="20" height="20" />
+            <span>30 ngày đổi trả</span>
+          </div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png" alt="Giao nhanh 2h" width="20" height="20" />
+            <span>Giao nhanh 2h</span>
+          </div>
+          <div class="divider"></div>
+          <div class="commitment-item">
+            <img src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png" alt="Giá siêu rẻ" width="20" height="20" />
+            <span>Giá siêu rẻ</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <main>
+      <!-- Use same container width as order-history -->
+      <div class="order-container">
+      <div class="settings-card">
+				<div class="settings-header">
+					<i class="fas fa-user-cog" style="color: var(--primary-color);"></i>
+					<h1>Cập nhật hồ sơ</h1>
+				</div>
+				<form id="profileForm">
+					<div class="settings-body">
+						<div class="form-grid">
+							<div class="form-row">
+								<label for="fullName">Họ và tên</label>
+								<input type="text" id="fullName" placeholder="Nguyễn Văn A" />
+							</div>
+							<div class="form-row">
+								<label for="email">Email</label>
+								<input type="email" id="email" placeholder="example@gmail.com" />
+							</div>
+							<div class="form-row">
+								<label for="phone">Số điện thoại</label>
+								<input type="tel" id="phone" placeholder="VD: 0901234567" />
+							</div>
+							<div class="form-row">
+								<label for="address">Địa chỉ</label>
+								<textarea id="address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="settings-footer">
+						<button id="cancelProfileBtn" class="btn-secondary" type="button">Hủy</button>
+						<button id="saveProfileBtn" class="btn-primary" type="submit">
+							<i class="fas fa-save"></i> Lưu thay đổi
+						</button>
+					</div>
+				</form>
+      </div>
+      </div>
+		</main>
+
+    <!-- Cart Drawer (same structure as other pages) placed BEFORE footer to avoid extra space after footer -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <button id="closeCartDrawer" class="close-drawer">×</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-drawer-content"></div>
+      <div id="cartDrawerFooter" class="cart-drawer-footer"></div>
+    </div>
+
+    <!-- Footer (shared, will be replaced by partial via footer-include.js) -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            <input
+              type="email"
+              class="newsletter-input"
+              placeholder="Nhập email để nhận ưu đãi"
+            />
+            <button class="newsletter-btn">Đăng ký</button>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"><i class="fas fa-home"></i> Trang chủ</a>
+            </li>
+            <li>
+              <a href="../pages/about_us.html"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+            </li>
+            <li>
+              <a href="../pages/contact.html"><i class="fas fa-phone"></i> Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top removed on this page to avoid extra bottom spacing -->
+
+    <!-- No JavaScript in this build -->
+	</body>
+	</html>

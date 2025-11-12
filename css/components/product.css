@@ -1,0 +1,222 @@
+/* CSS */
+.products-section {
+  padding: 40px 20px;
+  max-width: 1550px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 sản phẩm mỗi hàng */
+  gap: 30px;
+  justify-content: center;
+}
+
+/* Card sản phẩm */
+.product-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.35); /* thủy tinh nhạt */
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 600px;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* Hình ảnh */
+.product-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Thông tin sản phẩm (nền mờ) */
+.product-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Gradient chữ */
+.product-name {
+  background: rgba(255, 0, 0, 0.9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.product-category {
+  color: #a52a2a;
+}
+.product-description {
+  color: azure;
+}
+.product-price {
+  color: gold;
+}
+
+/* Thông tin chi tiết */
+.product-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.product-category {
+  font-size: 0.9rem;
+  font-style: italic;
+  text-transform: capitalize;
+}
+
+.product-description {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* Buttons */
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 1px;
+}
+
+.buy-now-btn,
+.add-to-cart-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.buy-now-btn {
+  background-color: var(--primary-color);
+  color: black;
+}
+
+.buy-now-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.add-to-cart-btn {
+  background-color: var(--accent-dark);
+  color: black;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #e69500;
+}
+
+/* Pagination */
+/* Pagination Styles - Đơn giản */
+.pagination-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pagination-btn {
+  padding: 12px 24px;
+  border: 2px solid #e9ecef;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+  justify-content: center;
+}
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pagination-info {
+  font-size: 1rem;
+  color: #6c757d;
+  font-weight: 500;
+  padding: 0 20px;
+} /* Responsive */
+@media (max-width: 768px) {
+  .products-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .pagination {
+    gap: 15px;
+  }
+  .pagination-btn {
+    padding: 10px 20px;
+    min-width: 80px;
+    font-size: 0.9rem;
+  }
+  .pagination-info {
+    font-size: 0.9rem;
+    padding: 0 15px;
+  }
+}
+@media (max-width: 480px) {
+  .products-container {
+    grid-template-columns: 1fr;
+  }
+  .pagination {
+    gap: 10px;
+  }
+  .pagination-btn {
+    padding: 8px 16px;
+    min-width: 70px;
+    font-size: 0.85rem;
+  }
+  .pagination-info {
+    font-size: 0.85rem;
+    padding: 0 10px;
+  }
+}

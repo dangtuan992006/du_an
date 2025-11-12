@@ -1,0 +1,82 @@
+/* Shared admin header styles for consistent look across admin pages */
+
+/* Header container */
+.header {
+  background-image: linear-gradient(rgba(249, 203, 214, 1), rgba(249, 203, 214, 1));
+  color: #fff;
+  padding: 20px 40px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Inner layout wrapper (support both .header-left and .header-inner) */
+.header-left, .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Title */
+.heading, .page-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  flex-grow: 1;
+  margin: 0;
+  color: #9e182b; /* match ADMIN PAGE title color */
+}
+
+/* Back & Home buttons */
+.back-btn,
+.home-btn {
+  background-color: #ffffff;
+  border: none;
+  color: #19a619; /* icon color */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.back-btn:hover,
+.home-btn:hover {
+  background-color: #0b5f24;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Ensure icons are centered properly */
+.back-btn i,
+.home-btn i {
+  line-height: 1;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+    height: 120px;
+  }
+  .heading, .page-title {
+    font-size: 22px;
+  }
+  .back-btn, .home-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+}

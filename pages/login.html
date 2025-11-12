@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in or create account – Pomegranate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/components/form.css" />
+    <style>
+      /* Align with site-wide typography */
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+      .pacifico-regular { font-family: 'Pacifico', cursive; }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo">
+        <img
+          src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+          alt="Pomegranate Logo"
+        />
+        <h1 class="pacifico-regular">Pomegranate</h1>
+      </div>
+
+      <h2 class="login-title">Sign in or create account</h2>
+
+      <form>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="input-group" id="passwordGroup">
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" placeholder="Nhập mật khẩu..." required />
+        </div>
+        <button type="submit" class="login-button" id="submitBtn">
+          Continue
+        </button>
+      </form>
+
+      <div class="divider"><span>or continue with</span></div>
+
+      <div class="social-login">
+        <span class="social-btn" aria-disabled="true" title="Không hỗ trợ trong bản không JS">
+          <i class="fab fa-google"></i>
+        </span>
+        <span class="social-btn" aria-disabled="true" title="Không hỗ trợ trong bản không JS">
+          <i class="fab fa-facebook-f"></i>
+        </span>
+      </div>
+
+      <a href="../pages/index.html" class="back-home">
+        <i class="fas fa-arrow-left"></i> Back to home </a
+      ><br />
+      <a href="../pages/admin-login.html" class="admin-link"
+        >Đăng nhập dành cho Admin</a
+      >
+  </div>
+  </body>
+</html>

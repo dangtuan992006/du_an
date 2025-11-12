@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch sử đơn hàng - Pomegranate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+  <!-- feather icons removed (no-JS build) -->
+    <!-- file (match index.html) -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/components/cart.css" />
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Typography: sync with index.html -->
+    <style>
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
+    <style>
+      .order-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .page-title-history {
+        text-align: center;
+        margin: 30px 0;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        color: #333;
+      }
+
+      .order-list {
+        display: grid;
+        gap: 20px;
+      }
+
+      .order-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order-id {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .order-date {
+        color: #666;
+      }
+
+      .order-status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .status-pending {
+        background-color: #f8f9fa;
+        color: #6c757d;
+      }
+
+      .status-processing {
+        background-color: #cce5ff;
+        color: #004085;
+      }
+
+      .status-shipped {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .status-delivered {
+        background-color: #d1ecf1;
+        color: #0c5460;
+      }
+
+      .status-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .order-items {
+        margin-bottom: 15px;
+      }
+
+      .order-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .order-item-details {
+        flex: 1;
+      }
+
+      .order-item-name {
+        font-weight: bold;
+      }
+
+      .order-item-price {
+        color: #666;
+      }
+
+      .order-item-quantity {
+        color: #666;
+      }
+
+      .order-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .order-total {
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .order-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: #e74c3c;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #c0392b;
+      }
+
+      .btn-secondary {
+        background-color: #f8f9fa;
+        color: #333;
+        border: 1px solid #ddd;
+      }
+
+      .btn-secondary:hover {
+        background-color: #e9ecef;
+      }
+
+      .empty-orders {
+        text-align: center;
+        padding: 50px 20px;
+        color: #666;
+      }
+
+      .empty-orders i {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #ddd;
+      }
+
+      /* CSS cho Order Detail Drawer */
+      .order-detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+      }
+
+      .order-detail-drawer {
+        position: fixed;
+        top: 0;
+        right: -500px;
+        width: 500px;
+        height: 100%;
+        background-color: white;
+        z-index: 1000;
+        transition: right 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .order-detail-drawer.active {
+        right: 0;
+      }
+
+      .order-detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        background-color: #f8f9fa;
+      }
+
+      .order-detail-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .order-detail-content {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .order-detail-section {
+        margin-bottom: 25px;
+      }
+
+      .order-detail-section h3 {
+        margin-bottom: 15px;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      .order-detail-info p {
+        margin-bottom: 10px;
+      }
+
+      .order-detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order-detail-item:last-child {
+        border-bottom: none;
+      }
+
+      .order-detail-item-info {
+        flex: 1;
+      }
+
+      .order-detail-item-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .order-detail-item-price {
+        color: #666;
+      }
+
+      .order-detail-item-quantity {
+        color: #666;
+      }
+
+      .order-detail-item-total {
+        font-weight: bold;
+        margin-left: 10px;
+      }
+
+      .order-detail-summary {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .order-detail-summary.total {
+        font-weight: bold;
+        font-size: 1.1rem;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+      }
+
+      .tracking-step {
+        display: flex;
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .step-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+        z-index: 1;
+      }
+
+      .step-icon.completed {
+        background-color: #28a745;
+        color: white;
+      }
+
+      .step-icon.active {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .step-date {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .tracking-container {
+        position: relative;
+        padding-left: 30px;
+      }
+
+      .tracking-line {
+        position: absolute;
+        left: 15px;
+        top: 30px;
+        bottom: 0;
+        width: 2px;
+        background-color: #f8f9fa;
+        z-index: 0;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .order-detail-drawer {
+          width: 100%;
+          right: -100%;
+        }
+      }
+    </style>
+    <!-- Topbar Styles (synced with index.html) -->
+    <style>
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+
+      .commitment-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .commitment-items::-webkit-scrollbar {
+        display: none;
+      }
+
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 1200px) {
+        .commitment-items {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0 1rem;
+        }
+
+        .commitment-bar {
+          padding: 8px 0;
+        }
+
+        .commitment-title {
+          font-size: 13px;
+          padding: 0 6px;
+        }
+
+        .commitment-item span {
+          font-size: 11px;
+        }
+
+        .commitment-item {
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .commitment-title {
+          font-size: 12px;
+          padding: 0 4px;
+        }
+
+        .commitment-item span {
+          font-size: 10px;
+        }
+
+        .commitment-item img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .divider {
+          height: 16px;
+        }
+      }
+
+      .commitment-link:hover {
+        opacity: 0.9;
+      }
+
+      .commitment-item:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+      }
+
+      .commitment-item:nth-child(3) img,
+      .commitment-item:nth-child(5) img,
+      .commitment-item:nth-child(7) img,
+      .commitment-item:nth-child(9) img,
+      .commitment-item:nth-child(11) img,
+      .commitment-item:nth-child(13) img {
+        filter: hue-rotate(120deg) saturate(1.5);
+      }
+    </style>
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Thanh điều hướng -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="../pages/index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Thanh tìm kiếm (đồng bộ với index.html) -->
+        <li class="search-container">
+          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input
+              type="text"
+              class="search-input"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
+            />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Dropdown người dùng (sẽ được bật/tắt bằng JS) -->
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">Đăng nhập</span>
+            </button>
+            <div class="dropdown-menu">
+              <a
+                href="../pages/thongtintaikhoan.html"
+                target="_blank"
+                class="dropdown-item"
+                >Thông tin cá nhân</a
+              >
+              <a href="../pages/order-history.html" class="dropdown-item"
+                >Xem lại đơn hàng</a
+              >
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+          <button class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </button>
+          <!-- Nút thanh toán giỏ hàng đã được gỡ bỏ theo yêu cầu -->
+        </li>
+      </ul>
+    </nav>
+
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <div class="order-container">
+        <h1 class="page-title-history">Lịch sử đơn hàng</h1>
+
+        <div class="order-list" id="orderList">
+          <!-- Các đơn hàng sẽ được hiển thị ở đây -->
+        </div>
+
+        <div class="empty-orders" id="emptyOrders" style="display: none">
+          <i class="fas fa-shopping-bag"></i>
+          <h2>Bạn chưa có đơn hàng nào</h2>
+          <p>Hãy mua sắm ngay để trải nghiệm dịch vụ của chúng tôi!</p>
+          <a href="../pages/index.html" class="btn btn-primary">Mua sắm ngay</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Order Detail Drawer -->
+    <div class="order-detail-overlay" id="orderDetailOverlay"></div>
+    <div class="order-detail-drawer" id="orderDetailDrawer">
+      <div class="order-detail-header">
+        <h2>Chi tiết đơn hàng</h2>
+        <button class="order-detail-close" id="closeOrderDrawer">
+          &times;
+        </button>
+      </div>
+      <div class="order-detail-content" id="orderDetailContent">
+        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+      </div>
+    </div>
+    <!-- giỏ hàng trên thanh header -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <button id="closeCartDrawer" class="close-drawer">×</button>
+      </div>
+      <div id="cartDrawerContent" class="cart-drawer-content">
+        <!-- Nội dung giỏ hàng sẽ được render ở đây -->
+      </div>
+      <div id="cartDrawerFooter" class="cart-drawer-footer">
+        <!-- Footer giỏ hàng sẽ được render ở đây -->
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form"></div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about_us.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- No JavaScript in this build -->
+  </body>
+</html>

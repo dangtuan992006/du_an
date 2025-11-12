@@ -1,0 +1,247 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffeef3 0%, #ffe0e8 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+.header h1 {
+    color: #9e182b;
+    font-size: 2rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header button {
+    color: #9e182b;
+    border: none;
+    background-color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover {
+    background-color: #9e182b;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Content */
+.content {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 30px;
+    min-height: 500px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between; /* chia đều hai bên */
+    align-items: center; /* căn giữa theo chiều dọc */
+    margin-bottom: 25px;
+    gap: 20px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 250px;
+    font-size: 15px;
+}
+
+.search-box button {
+    background-color: #9e182b;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-box button:hover {
+    background-color: #7d1322;
+}
+
+#add-user-btn{
+    background-color: #9e182b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+#add-user-btn:hover {
+    background-color: #7e1424;
+}
+
+/* --- Bố cục bảng --- */
+.user-table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse; /* Gộp đường viền */
+    font-size: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden; /* Đảm bảo bo góc được áp dụng cho bảng */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-table thead tr {
+    background-color: #9e182b;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.user-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.user-table tbody tr:nth-of-type(even) {
+    background-color: #fdeef2; /* Màu hồng nhạt cho hàng chẵn */
+}
+
+.user-table tbody tr:last-of-type {
+    border-bottom: 2px solid #9e182b;
+}
+
+.user-table tbody tr:hover {
+    background-color: #f9cbd6; /* Hiệu ứng khi di chuột qua */
+}
+
+/* --- Các nút trong bảng --- */
+.user-table button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px 8px;
+    font-size: 16px;
+    color: #555;
+    transition: color 0.2s ease;
+}
+
+.user-table .edit-btn:hover { color: #3498db; } /* Xanh dương */
+.user-table .reset-password-btn:hover { color: #e74c3c; } /* Đỏ */
+.user-table .save-btn:hover { color: #2ecc71; } /* Xanh lá */
+.user-table .cancel-edit-btn:hover { color: #95a5a6; } /* Xám */
+.user-table .toggle-lock-btn:hover { color: #333; }
+
+/* --- Trạng thái hàng bị khóa (màu nâu) --- */
+.user-table tbody tr.locked {
+    background-color: #a52a2a; /* Màu nâu đỏ từ theme */
+    color: #fdeef2; /* Màu chữ hồng nhạt để dễ đọc */
+}
+
+.user-table tbody tr.locked:hover {
+    background-color: #8c2424; /* Màu đậm hơn một chút khi di chuột */
+}
+
+.user-table tbody tr.locked button {
+    color: #fdeef2; /* Đổi màu icon của nút để dễ nhìn hơn */
+}
+
+/* --- Styling cho phân trang --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 10px;
+    gap: 15px;
+}
+
+.pagination button.pagination-arrow {
+    background-color: #9e182b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.pagination button.pagination-arrow:hover:not(:disabled) {
+    background-color: #7d1322;
+}
+
+.pagination button.pagination-arrow:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#page-numbers {
+    display: flex;
+    gap: 8px;
+}
+
+.page-number {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
+}
+
+.page-number:hover {
+    background-color: #fdeef2;
+    border-color: #9e182b;
+}
+
+.page-number.active {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
+    font-weight: bold;
+}

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Account Information</title>
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font chu banana -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Playfair Display font for banner -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Poppins for body to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Typography: sync with index.html -->
+    <style>
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
+    <!-- file -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <!-- CSS riêng cho banner -->
+    <link rel="stylesheet" href="../css/components/banner.css" />
+    <!-- No JavaScript in this build: removed feather icons and model-viewer -->
+    <style>
+      /* --- Chat Support --- */
+      .chat-support {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+      }
+      .chat-support button {
+        background: #ff4b5c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .chat-support button i {
+        margin-right: 5px;
+      }
+    </style>
+    <style>
+      /* Topbar Styles */
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Commitment Bar - TẤT CẢ CÙNG 1 HÀNG */
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+
+      .commitment-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .commitment-items::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Cam kết title */
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .commitment-items {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0 1rem;
+        }
+
+        .commitment-bar {
+          padding: 8px 0;
+        }
+
+        .commitment-title {
+          font-size: 13px;
+          padding: 0 6px;
+        }
+
+        .commitment-item span {
+          font-size: 11px;
+        }
+
+        .commitment-item {
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .commitment-title {
+          font-size: 12px;
+          padding: 0 4px;
+        }
+
+        .commitment-item span {
+          font-size: 10px;
+        }
+
+        .commitment-item img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .divider {
+          height: 16px;
+        }
+      }
+
+      /* Animation */
+      .commitment-link:hover {
+        opacity: 0.9;
+      }
+
+      .commitment-item:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+      }
+      /* Đổi màu icon bằng filter */
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8); /* Màu cam */
+      }
+
+      /* Hoặc từng icon riêng biệt */
+      .commitment-item:nth-child(3) img {
+        /* 100% hàng thật */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(5) img {
+        /* Freeship */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(7) img {
+        /* Hoàn 200% */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(9) img {
+        /* 30 ngày đổi trả */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(11) img {
+        /* Giao nhanh 2h */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(13) img {
+        /* Giá siêu rẻ */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+    </style>
+    <style>
+      /* Giữ nguyên layout header */
+      main,
+      .account-info,
+      .order-list,
+      .my-account {
+        margin: 0 auto;
+        padding: 40px 60px;
+        max-width: 1200px;
+      }
+
+      /* Giả lập container của Bootstrap (safe) */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* Kẻ lại bảng: Thông tin tài khoản (bảng key-value) */
+      .account-card .table.table-bordered {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-top: 10px;
+        background-color: #ffffff;
+        border: 1px solid #ffd1d1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        table-layout: fixed;
+      }
+      .account-card .table.table-bordered th,
+      .account-card .table.table-bordered td {
+        padding: 16px 18px;
+        text-align: left;
+        border-right: 1px solid #ffd1d1;
+        border-bottom: 1px solid #ffd1d1;
+        vertical-align: middle;
+        word-break: break-word;
+        font-size: 16px;
+      }
+      .account-card .table.table-bordered tr:last-child td {
+        border-bottom: none;
+      }
+      .account-card .table.table-bordered tr > th:last-child,
+      .account-card .table.table-bordered tr > td:last-child {
+        border-right: none;
+      }
+      .account-card .table.table-bordered th {
+        background: #fff0f0;
+        color: #333;
+        font-weight: 600;
+        width: 35%;
+      }
+      .account-card .table.table-bordered tr:hover td {
+        background-color: #fff7f7;
+      }
+
+      /* Header hồ sơ trong thẻ tài khoản */
+      .account-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #ffd1d1;
+        margin-bottom: 12px;
+      }
+      .account-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #ff7a7a);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        box-shadow: 0 6px 14px rgba(211, 47, 47, 0.25);
+      }
+      .account-meta {
+        line-height: 1.2;
+      }
+      .account-name {
+        margin: 0;
+        font-size: 20px;
+        color: var(--primary-dark);
+      }
+      .account-email {
+        margin: 2px 0 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .account-actions {
+        margin-left: auto;
+      }
+      .btn-account {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 20px;
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(211, 47, 47, 0.18);
+      }
+      .btn-account:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Nhãn có icon cho bảng key-value */
+      .account-card .table.table-bordered th i {
+        color: var(--primary-color);
+        margin-right: 8px;
+        width: 16px;
+        text-align: center;
+      }
+
+      /* Orders summary card (only shown if user has orders) */
+      .orders-summary {
+        margin-top: 20px;
+        background: #fff;
+        border: 1px solid #ffd1d1;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        padding: 20px;
+      }
+      .orders-summary-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .orders-summary-header i {
+        color: var(--primary-color);
+      }
+      .orders-summary-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0;
+        color: var(--primary-dark);
+      }
+      .orders-summary-desc {
+        margin: 6px 0 14px;
+        color: #555;
+      }
+      .orders-summary-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1.5px solid var(--primary-color);
+        border-radius: 20px;
+        background: #fff;
+        color: var(--primary-color);
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-outline:hover {
+        background: rgba(211, 47, 47, 0.06);
+      }
+
+      /* Nút “Xem” */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 6px;
+        background-color: var(--brand);
+        color: #fff;
+        border: none;
+        transition: 0.2s;
+      }
+
+      .btn:hover {
+        background-color: var(--brand-2);
+      }
+
+      /* Tiêu đề */
+      h1,
+      h2,
+      h3 {
+        font-family: 'Playfair Display', serif;
+        color: var(--brand);
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      /* Căn thông tin tài khoản */
+      .account-info {
+        margin-bottom: 30px;
+        line-height: 1.6;
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Global cart toggle for CSS-only drawer -->
+    <input type="checkbox" id="cartToggle" hidden />
+    <!-- Header Start (synced with index.html) -->
+    <!-- Header Start (đồng bộ với index.html, chỉ format lại) -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Thanh tìm kiếm (đồng bộ với index.html) -->
+        <li class="search-container">
+          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input
+              type="text"
+              class="search-input"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
+            />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Dropdown người dùng -->
+          <details class="user-dropdown">
+            <summary class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">KhachHang001@gmail.com</span>
+            </summary>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">
+                Thông tin tài khoản
+              </a>
+              <a href="../pages/order-history.html" class="dropdown-item">
+                Lịch sử mua hàng
+              </a>
+              <span class="dropdown-item" aria-disabled="true">Đăng xuất</span>
+            </div>
+          </details>
+
+          <label class="nav-button" for="cartToggle">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </label>
+
+          <!-- Nút thanh toán giỏ hàng đã được gỡ bỏ theo yêu cầu -->
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header End -->
+    <!-- Topbar (copied from index.html) -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Account Start -->
+    <div class="my-account">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+            <div class="tab-content">
+              <!-- Tab Thông tin tài khoản -->
+              <div
+                class="tab-pane fade show active"
+                id="account-tab"
+                role="tabpanel"
+                aria-labelledby="account-nav"
+              >
+                <h2 class="section-title">Thông Tin Tài Khoản</h2>
+                <div class="account-card">
+                  <div class="account-header">
+                    <div class="account-avatar" id="accountAvatar">PN</div>
+                    <div class="account-meta">
+                      <h3 class="account-name" id="accountName">
+                        Pomegranate User
+                      </h3>
+                      <p class="account-email" id="accountEmail">
+                        user@example.com
+                      </p>
+                    </div>
+                    <div class="account-actions">
+                      <a href="../pages/settings.html" class="btn-account"
+                        ><i class="fas fa-user-cog"></i> Cập nhật hồ sơ</a
+                      >
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                      <tr>
+                        <th><i class="fas fa-id-card"></i>Họ và tên</th>
+                        <td id="infoFullName">Đặng Ngọc Tuấn</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-envelope"></i>Email</th>
+                        <td id="infoEmail">tuandangngoc5@gmail.com</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-phone"></i>Số điện thoại</th>
+                        <td id="infoPhone">0939662790</td>
+                      </tr>
+                      <tr>
+                        <th><i class="fas fa-map-marker-alt"></i>Địa chỉ</th>
+                        <td id="infoAddress">
+                          123 Đường ABC, Phường XYZ, Quận 1, TP.HCM
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <i class="fas fa-clock"></i>Thời điểm tạo tài khoản
+                        </th>
+                        <td id="infoCreated">
+                          <span class="text-accent">7:30 2023-10-01</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div id="ordersSummary" class="orders-summary">
+                    <div class="orders-summary-header">
+                      <i class="fas fa-receipt"></i>
+                      <h3 class="orders-summary-title">Đơn hàng của tôi</h3>
+                    </div>
+                    <p class="orders-summary-desc" id="ordersSummaryDesc">
+                      Bạn đã có 0 đơn hàng đã mua.
+                    </p>
+                    <div class="orders-summary-actions">
+                      <a href="../pages/order-history.html" class="btn-outline"
+                        ><i class="fas fa-eye"></i> Xem lại đơn hàng đã mua</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab Đơn hàng của tôi: đã chuyển thành orders summary trong account-card, hiển thị có điều kiện bằng JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- My Account End -->
+
+    <!-- Footer (matched to index.html) -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            
+            <li>
+              <a href="../pages/about_us.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Cart Drawer (CSS-only, synced with index.html) -->
+    <label for="cartToggle" class="cart-overlay"></label>
+    <div class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h2>🛒 Giỏ hàng</h2>
+        <label for="cartToggle" class="close-drawer">×</label>
+      </div>
+      <div class="cart-drawer-content">
+        <p>Giỏ hàng trống trong phiên bản không dùng JavaScript.</p>
+      </div>
+      <div class="cart-drawer-footer"></div>
+    </div>
+  </body>
+</html>
