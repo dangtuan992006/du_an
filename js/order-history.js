@@ -189,13 +189,7 @@ function createOrderCard(order) {
                   item.price
                 )} VNĐ</div>
             </div>
-<<<<<<< HEAD
             <div class="order-item-quantity">x${item.quantity}</div>
-=======
-            <div class="order-item-quantity">x${
-              item.quantity ?? item.qty ?? 1
-            }</div>
->>>>>>> 1d1ac12 (Them thong tin tai khoan, setting, bo sung dieu huong, topbar, footer con thieu o cac trang)
         </div>
     `
     )
