@@ -4,397 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lịch sử đơn hàng - Pomegranate</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <!-- font chu logo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-  <!-- feather icons removed (no-JS build) -->
-    <!-- file (match index.html) -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/components/header.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/components/product.css" />
     <link rel="stylesheet" href="../css/components/footer.css" />
     <link rel="stylesheet" href="../css/components/cart.css" />
-    <!-- Fonts to match index.html -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Typography: sync with index.html -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
     <style>
-      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
-      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
-      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
-    </style>
-    <style>
-      .order-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      .page-title-history {
-        text-align: center;
-        margin: 30px 0;
-        font-family: 'Playfair Display', serif;
-        font-size: 2.5rem;
-        color: #333;
-      }
-
-      .order-list {
-        display: grid;
-        gap: 20px;
-      }
-
-      .order-card {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s ease;
-      }
-
-      .order-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-      }
-
-      .order-id {
-        font-weight: bold;
-        color: #333;
-      }
-
-      .order-date {
-        color: #666;
-      }
-
-      .order-status {
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: bold;
-      }
-
-      .status-pending {
-        background-color: #f8f9fa;
-        color: #6c757d;
-      }
-
-      .status-processing {
-        background-color: #cce5ff;
-        color: #004085;
-      }
-
-      .status-shipped {
-        background-color: #d4edda;
-        color: #155724;
-      }
-
-      .status-delivered {
-        background-color: #d1ecf1;
-        color: #0c5460;
-      }
-
-      .status-cancelled {
-        background-color: #f8d7da;
-        color: #721c24;
-      }
-
-      .order-items {
-        margin-bottom: 15px;
-      }
-
-      .order-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-
-      .order-item-details {
-        flex: 1;
-      }
-
-      .order-item-name {
-        font-weight: bold;
-      }
-
-      .order-item-price {
-        color: #666;
-      }
-
-      .order-item-quantity {
-        color: #666;
-      }
-
-      .order-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .order-total {
-        font-weight: bold;
-        font-size: 1.1rem;
-      }
-
-      .order-actions {
-        display: flex;
-        gap: 10px;
-      }
-
-      .btn {
-        padding: 8px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-      }
-
-      .btn-primary {
-        background-color: #e74c3c;
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background-color: #c0392b;
-      }
-
-      .btn-secondary {
-        background-color: #f8f9fa;
-        color: #333;
-        border: 1px solid #ddd;
-      }
-
-      .btn-secondary:hover {
-        background-color: #e9ecef;
-      }
-
-      .empty-orders {
-        text-align: center;
-        padding: 50px 20px;
-        color: #666;
-      }
-
-      .empty-orders i {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        color: #ddd;
-      }
-
-      /* CSS cho Order Detail Drawer */
-      .order-detail-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        display: none;
-      }
-
-      .order-detail-drawer {
-        position: fixed;
-        top: 0;
-        right: -500px;
-        width: 500px;
-        height: 100%;
-        background-color: white;
-        z-index: 1000;
-        transition: right 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-      }
-
-      .order-detail-drawer.active {
-        right: 0;
-      }
-
-      .order-detail-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        border-bottom: 1px solid #eee;
-        background-color: #f8f9fa;
-      }
-
-      .order-detail-close {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-      }
-
-      .order-detail-content {
-        flex: 1;
-        padding: 20px;
-      }
-
-      .order-detail-section {
-        margin-bottom: 25px;
-      }
-
-      .order-detail-section h3 {
-        margin-bottom: 15px;
-        color: #333;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
-      }
-
-      .order-detail-info p {
-        margin-bottom: 10px;
-      }
-
-      .order-detail-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
-      }
-
-      .order-detail-item:last-child {
-        border-bottom: none;
-      }
-
-      .order-detail-item-info {
-        flex: 1;
-      }
-
-      .order-detail-item-name {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .order-detail-item-price {
-        color: #666;
-      }
-
-      .order-detail-item-quantity {
-        color: #666;
-      }
-
-      .order-detail-item-total {
-        font-weight: bold;
-        margin-left: 10px;
-      }
-
-      .order-detail-summary {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
-
-      .order-detail-summary.total {
-        font-weight: bold;
-        font-size: 1.1rem;
-        padding-top: 10px;
-        border-top: 1px solid #eee;
-      }
-
-      .tracking-step {
-        display: flex;
-        margin-bottom: 15px;
-        position: relative;
-      }
-
-      .step-icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-        flex-shrink: 0;
-        z-index: 1;
-      }
-
-      .step-icon.completed {
-        background-color: #28a745;
-        color: white;
-      }
-
-      .step-icon.active {
-        background-color: #007bff;
-        color: white;
-      }
-
-      .step-content {
-        flex: 1;
-      }
-
-      .step-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .step-date {
-        color: #666;
-        font-size: 0.9rem;
-      }
-
-      .tracking-container {
-        position: relative;
-        padding-left: 30px;
-      }
-
-      .tracking-line {
-        position: absolute;
-        left: 15px;
-        top: 30px;
-        bottom: 0;
-        width: 2px;
-        background-color: #f8f9fa;
-        z-index: 0;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .order-detail-drawer {
-          width: 100%;
-          right: -100%;
-        }
-      }
-    </style>
-    <!-- Topbar Styles (synced with index.html) -->
-    <style>
+      /* Topbar Styles (match index.html) */
       .topbar {
         background: #ffd3d3;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
-
       .topbar-container {
         max-width: 1400px;
         margin: 0 auto;
         padding: 0 2rem;
       }
-
       .commitment-bar {
         background: #ffd3d3;
         padding: 12px 0;
       }
-
       .commitment-link {
         text-decoration: none;
         display: block;
       }
-
       .commitment-items {
         display: flex;
         align-items: center;
@@ -405,11 +44,9 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-
       .commitment-items::-webkit-scrollbar {
         display: none;
       }
-
       .commitment-title {
         color: #a52a2a;
         font-size: 14px;
@@ -418,7 +55,6 @@
         padding: 0 8px;
         flex-shrink: 0;
       }
-
       .commitment-item {
         display: flex;
         align-items: center;
@@ -427,88 +63,71 @@
         white-space: nowrap;
         flex-shrink: 0;
       }
-
       .commitment-item span {
         color: #27272a;
         font-size: 12px;
         font-weight: 500;
         white-space: nowrap;
       }
-
       .commitment-item img {
         flex-shrink: 0;
       }
-
       .divider {
         width: 1px;
         height: 20px;
         background: #ebebf0;
         flex-shrink: 0;
       }
-
       @media (max-width: 1200px) {
         .commitment-items {
           justify-content: flex-start;
         }
       }
-
       @media (max-width: 768px) {
         .topbar-container {
           padding: 0 1rem;
         }
-
         .commitment-bar {
           padding: 8px 0;
         }
-
         .commitment-title {
           font-size: 13px;
           padding: 0 6px;
         }
-
         .commitment-item span {
           font-size: 11px;
         }
-
         .commitment-item {
           padding: 0 6px;
         }
       }
-
       @media (max-width: 480px) {
         .commitment-title {
           font-size: 12px;
           padding: 0 4px;
         }
-
         .commitment-item span {
           font-size: 10px;
         }
-
         .commitment-item img {
           width: 16px;
           height: 16px;
         }
-
         .divider {
           height: 16px;
         }
       }
-
       .commitment-link:hover {
         opacity: 0.9;
       }
-
       .commitment-item:hover {
         transform: translateY(-1px);
         transition: transform 0.2s ease;
       }
-
       .commitment-item img {
         flex-shrink: 0;
         filter: hue-rotate(45deg) saturate(2) brightness(0.8);
       }
-
       .commitment-item:nth-child(3) img,
       .commitment-item:nth-child(5) img,
       .commitment-item:nth-child(7) img,
@@ -517,20 +136,205 @@
       .commitment-item:nth-child(13) img {
         filter: hue-rotate(120deg) saturate(1.5);
       }
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+      .order-history-title {
+        text-align: center;
+        margin: 40px 0 30px 0;
+        font-size: 2.5rem;
+        color: #2b2b2b;
+        font-family: 'Playfair Display', serif;
+        letter-spacing: 1px;
+      }
+      .order-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .order-list {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .order-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+        padding: 32px 32px 28px 32px;
+        transition: box-shadow 0.3s, transform 0.3s;
+        border: 1px solid #f3f3f3;
+      }
+      .order-card:hover {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
+      }
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 18px;
+        margin-bottom: 24px;
+      }
+      .order-id {
+        font-weight: 600;
+        color: #2b2b2b;
+        font-size: 1.35rem;
+      }
+      .order-date {
+        color: #888;
+        font-size: 1.08rem;
+        margin-top: 6px;
+      }
+      .order-status {
+        padding: 7px 18px;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        background: #e3fcef;
+        color: #2b8a3e;
+        border: none;
+      }
+      .order-images {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+      .order-images img {
+        width: 84px;
+        height: 84px;
+        border-radius: 12px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .order-total {
+        font-weight: 700;
+        font-size: 1.45rem;
+        color: #222;
+        margin-bottom: 22px;
+      }
+      .order-buttons {
+        display: flex;
+        gap: 16px;
+      }
+      .btn-detail, .btn-reorder {
+        flex: 1;
+        padding: 16px 0;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1.15rem;
+        border: none;
+        transition: background 0.2s, color 0.2s;
+      }
+      .btn-detail {
+        background: #ffe4ec;
+        color: #c2185b;
+        border: 1px solid #f8bbd0;
+        box-shadow: 0 2px 8px rgba(194,24,91,0.06);
+      }
+      .btn-detail:hover {
+        background: #f8bbd0;
+        color: #ad1457;
+        border: 1px solid #c2185b;
+      }
+      .btn-reorder {
+        background: #fff;
+        color: #444;
+        border: 1px solid #ccc;
+      }
+      .btn-reorder:hover {
+        background: #e6f9ec;
+        color: #388e3c;
+        border: 1px solid #81c784;
+      }
+      /* Order Detail Drawer */
+      .order-detail-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.45);
+        z-index: 999;
+        display: none;
+      }
+      .order-detail-drawer {
+        position: fixed;
+        top: 0;
+        right: -500px;
+        width: 500px;
+        height: 100%;
+        background: #fff;
+        z-index: 1000;
+        transition: right 0.3s;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        box-shadow: -2px 0 16px rgba(0,0,0,0.08);
+      }
+      .order-detail-drawer.active {
+        right: 0;
+      }
+      .order-detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px;
+        border-bottom: 1px solid #eee;
+        background: #f8f9fa;
+      }
+      .order-detail-close {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s;
+      }
+      .order-detail-close:hover {
+        color: #e74c3c;
+      }
+      .order-detail-content {
+        flex: 1;
+        padding: 22px;
+      }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .order-container {
+          padding: 8px;
+        }
+        .order-detail-drawer {
+          width: 100%;
+          right: -100%;
+        }
+        .order-images img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+      @media (max-width: 480px) {
+        .order-history-title {
+          font-size: 1.5rem;
+        }
+        .order-card {
+          padding: 12px;
+        }
+      }
     </style>
-    <!-- Fonts to match index.html -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
+    <!-- Global checkbox for CSS-only cart drawer -->
+    <input type="checkbox" id="cartToggle" hidden />
     <!-- Thanh điều hướng -->
     <nav>
       <ul class="nav-grid">
         <!-- Logo -->
         <li>
-          <a href="../pages/index.html" class="logo-link">
+          <a href="index.html" class="logo-link">
             <img
               src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
               alt="Logo"
@@ -539,7 +343,7 @@
           </a>
         </li>
 
-        <!-- Thanh tìm kiếm (đồng bộ với index.html) -->
+        <!-- Thanh tìm kiếm (khôi phục) -->
         <li class="search-container">
           <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
             <input
@@ -557,31 +361,25 @@
 
         <!-- Nút đăng nhập & giỏ hàng -->
         <li class="nav-buttons">
-          <!-- Dropdown người dùng (sẽ được bật/tắt bằng JS) -->
-          <div class="user-dropdown">
-            <button class="nav-button user-toggle">
-              <i class="fas fa-user"></i>
-              <span class="user-text">Đăng nhập</span>
-            </button>
+          <!-- Dropdown người dùng CSS-only -->
+          <details class="user-dropdown">
+            <summary class="nav-button user-toggle">
+              <i class="fas fa-user" aria-hidden="true"></i>
+              <span class="user-text">KhachHang001@gmail.com</span>
+            </summary>
             <div class="dropdown-menu">
-              <a
-                href="../pages/thongtintaikhoan.html"
-                target="_blank"
-                class="dropdown-item"
-                >Thông tin cá nhân</a
-              >
-              <a href="../pages/order-history.html" class="dropdown-item"
-                >Xem lại đơn hàng</a
-              >
-              <button class="dropdown-item logout-btn">Đăng xuất</button>
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin cá nhân</a>
+              <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+              <a href="../pages/login.html" class="dropdown-item">Đăng xuất</a>
             </div>
-          </div>
-          <button class="nav-button" id="openCartPopup">
-            <i class="fas fa-shopping-cart"></i>
+          </details>
+
+          <!-- Giỏ hàng CSS-only (checkbox toggle) -->
+          <a href="./Giohang.html" class="nav-button" role="button">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             Giỏ hàng
-            <span class="cart-count">0</span>
-          </button>
-          <!-- Nút thanh toán giỏ hàng đã được gỡ bỏ theo yêu cầu -->
+            <span class="cart-count">3</span>
+          </a>
         </li>
       </ul>
     </nav>
@@ -662,19 +460,231 @@
     <!-- Main Content -->
     <main>
       <div class="order-container">
-        <h1 class="page-title-history">Lịch sử đơn hàng</h1>
-
-        <div class="order-list" id="orderList">
-          <!-- Các đơn hàng sẽ được hiển thị ở đây -->
+        <h1 class="order-history-title">Lịch sử đơn hàng</h1>
+        <!-- Phân trang CSS-only -->
+        <input type="radio" name="orderPage" id="order-page-1" checked hidden>
+        <input type="radio" name="orderPage" id="order-page-2" hidden>
+        <input type="radio" name="orderPage" id="order-page-3" hidden>
+        <div class="order-list-wrapper">
+          <!-- Chỉ trang 1 hiển thị tất cả đơn hàng -->
+          <div class="order-list order-list-page-1">
+            <!-- Đơn hàng 1 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400123</p>
+                  <p class="order-date">Đặt ngày: 15/12/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/cherry.jpeg" alt="Sản phẩm 1" loading="lazy">
+                <img src="../images/quatang1.jpeg" alt="Sản phẩm 2" loading="lazy">
+                <img src="../images/quatang3.jpeg" alt="Sản phẩm 3" loading="lazy">
+              </div>
+              <div class="order-total">2.600.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400123">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400123">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+            <!-- Đơn hàng 2 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400122</p>
+                  <p class="order-date">Đặt ngày: 10/12/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/duavang.jpeg" alt="Sản phẩm 1" loading="lazy">
+                <img src="../images/nho.jpeg" alt="Sản phẩm 2" loading="lazy">
+              </div>
+              <div class="order-total">900.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400122">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400122">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+            <!-- Đơn hàng 3 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400121</p>
+                  <p class="order-date">Đặt ngày: 05/12/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/apple.jpg" alt="Táo" loading="lazy">
+                <img src="../images/bo.jpeg" alt="Bơ" loading="lazy">
+              </div>
+              <div class="order-total">1.200.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400121">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400121">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+            <!-- Đơn hàng 4 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400120</p>
+                  <p class="order-date">Đặt ngày: 01/12/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/kiwi.jpeg" alt="Kiwi" loading="lazy">
+                <img src="../images/vai.jpeg" alt="Vải" loading="lazy">
+              </div>
+              <div class="order-total">750.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400120">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400120">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+            <!-- Đơn hàng 5 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400119</p>
+                  <p class="order-date">Đặt ngày: 28/11/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/luu.jpeg" alt="Lựu" loading="lazy">
+                <img src="../images/dautay.jpeg" alt="Dâu Tây" loading="lazy">
+              </div>
+              <div class="order-total">1.050.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400119">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400119">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+            <!-- Đơn hàng 6 -->
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <p class="order-id">Đơn hàng #BL202400118</p>
+                  <p class="order-date">Đặt ngày: 25/11/2024</p>
+                </div>
+                <span class="order-status">Đã giao hàng</span>
+              </div>
+              <div class="order-images">
+                <img src="../images/bananas.jpg" alt="Chuối" loading="lazy">
+                <img src="../images/cam.webp" alt="Cam" loading="lazy">
+              </div>
+              <div class="order-total">600.000₫</div>
+              <div class="order-buttons">
+                <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400118">Xem chi tiết</button>
+                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400118">Đặt lại đơn hàng</button>
+              </div>
+            </div>
+          </div>
+          <!-- Trang 2 và 3 đều hiển thị lại trang 1 -->
+          <div class="order-list order-list-page-2"></div>
+          <div class="order-list order-list-page-3"></div>
         </div>
-
-        <div class="empty-orders" id="emptyOrders" style="display: none">
-          <i class="fas fa-shopping-bag"></i>
-          <h2>Bạn chưa có đơn hàng nào</h2>
-          <p>Hãy mua sắm ngay để trải nghiệm dịch vụ của chúng tôi!</p>
-          <a href="../pages/index.html" class="btn btn-primary">Mua sắm ngay</a>
+        <!-- Phân trang với mũi tên -->
+        <div class="order-pagination">
+          <!-- Mũi tên trái: ở trang 1 thì trỏ về trang 3, ở trang 2 thì về trang 1, ở trang 3 thì về trang 2 -->
+          <label for="order-page-3" class="order-arrow-btn" id="arrow-left-1"><i class="fas fa-chevron-left"></i></label>
+          <label for="order-page-1" class="order-arrow-btn" id="arrow-left-2"><i class="fas fa-chevron-left"></i></label>
+          <label for="order-page-2" class="order-arrow-btn" id="arrow-left-3"><i class="fas fa-chevron-left"></i></label>
+          <!-- Số trang -->
+          <label for="order-page-1" class="order-page-btn">1</label>
+          <label for="order-page-2" class="order-page-btn">2</label>
+          <label for="order-page-3" class="order-page-btn">3</label>
+          <!-- Mũi tên phải: ở trang 1 thì trỏ về trang 2, ở trang 2 thì về trang 3, ở trang 3 thì về trang 1 -->
+          <label for="order-page-2" class="order-arrow-btn" id="arrow-right-1"><i class="fas fa-chevron-right"></i></label>
+          <label for="order-page-3" class="order-arrow-btn" id="arrow-right-2"><i class="fas fa-chevron-right"></i></label>
+          <label for="order-page-1" class="order-arrow-btn" id="arrow-right-3"><i class="fas fa-chevron-right"></i></label>
         </div>
-      </div>
+    <style>
+      .order-list-wrapper .order-list { display: none; }
+      #order-page-1:checked ~ .order-list-wrapper .order-list-page-1 {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      #order-page-2:checked ~ .order-list-wrapper .order-list-page-1 {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      #order-page-3:checked ~ .order-list-wrapper .order-list-page-1 {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .order-pagination {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 32px 0 0 0;
+        align-items: center;
+        position: relative;
+      }
+            /* Mặc định ẩn tất cả mũi tên, chỉ hiện đúng theo radio checked */
+            #arrow-left-1, #arrow-left-2, #arrow-left-3,
+            #arrow-right-1, #arrow-right-2, #arrow-right-3 {
+              display: none;
+            }
+            #order-page-1:checked ~ .order-pagination #arrow-left-1,
+            #order-page-1:checked ~ .order-pagination #arrow-right-1 {
+              display: flex;
+            }
+            #order-page-2:checked ~ .order-pagination #arrow-left-2,
+            #order-page-2:checked ~ .order-pagination #arrow-right-2 {
+              display: flex;
+            }
+            #order-page-3:checked ~ .order-pagination #arrow-left-3,
+            #order-page-3:checked ~ .order-pagination #arrow-right-3 {
+              display: flex;
+            }
+      .order-page-btn {
+        background: #fff7f7;
+        color: #d32f2f;
+        border: 1px solid #ffd1d1;
+        border-radius: 999px;
+        padding: 8px 18px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .order-page-btn:hover,
+      #order-page-1:checked ~ .order-pagination label[for="order-page-1"],
+      #order-page-2:checked ~ .order-pagination label[for="order-page-2"],
+      #order-page-3:checked ~ .order-pagination label[for="order-page-3"] {
+        background: #d32f2f;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(211,47,47,.15);
+      }
+      .order-arrow-btn {
+        background: #fff7f7;
+        color: #d32f2f;
+        border: 1px solid #ffd1d1;
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+      }
+      .order-arrow-btn:hover {
+        background: #d32f2f;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(211,47,47,.15);
+      }
+    </style>
+    </main>
+
     </main>
 
     <!-- Order Detail Drawer -->
@@ -690,20 +700,7 @@
         <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
       </div>
     </div>
-    <!-- giỏ hàng trên thanh header -->
-    <div id="cartOverlay" class="cart-overlay"></div>
-    <div id="cartDrawer" class="cart-drawer">
-      <div class="cart-drawer-header">
-        <h2>🛒 Giỏ hàng</h2>
-        <button id="closeCartDrawer" class="close-drawer">×</button>
-      </div>
-      <div id="cartDrawerContent" class="cart-drawer-content">
-        <!-- Nội dung giỏ hàng sẽ được render ở đây -->
-      </div>
-      <div id="cartDrawerFooter" class="cart-drawer-footer">
-        <!-- Footer giỏ hàng sẽ được render ở đây -->
-      </div>
-    </div>
+    <!-- Đã loại bỏ giỏ hàng drawer trên header để dùng trang Giohang.html -->
 
     <footer class="main-footer">
       <div class="footer-container">

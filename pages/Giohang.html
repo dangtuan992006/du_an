@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng Pomegranate</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Site styles to match index.html -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <link rel="stylesheet" href="../css/components/cart.css" />
+    <style>
+      :root {
+        --bg: #fafafa;
+        --card: #ffffff;
+        --text: #333;
+        --muted: #666;
+        --primary: #d32f2f;
+        --primary-dark: #b71c1c;
+        --border: #eee;
+        --radius: 16px;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        /* Đồng bộ màu nền với trang index (base.css -> --bg-light) */
+        background: var(--bg-light);
+        color: var(--text);
+      }
+      h1, h2, h3 { font-family: 'Playfair Display', serif; margin: 0; }
+      .pacifico-regular { font-family: 'Pacifico', cursive; }
+
+      /* Header: sử dụng header.css của dự án nên không override thêm ở đây */
+  .page-container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+      .brand { display: flex; align-items: center; gap: 12px; }
+      .brand img { height: 40px; width: 40px; object-fit: cover; border-radius: 8px; }
+      .brand .name { font-size: 22px; color: var(--primary); }
+
+      /* Page */
+      .cart-hero { padding: 24px 0; }
+      .cart-hero h1 { font-size: 28px; }
+      .cart-hero p { margin-top: 6px; color: var(--muted); }
+
+      .cart-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
+
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+
+      /* Cart items */
+      .cart-items { padding: 12px; }
+  .cart-item { display: grid; grid-template-columns: 120px 1fr 160px 24px; gap: 16px; align-items: center; padding: 16px; border-bottom: 1px dashed var(--border); }
+  .cart-item:last-child { border-bottom: 0; }
+  .cart-item img { width: 120px; height: 120px; border-radius: 14px; object-fit: cover; border: 1px solid #f0f0f0; }
+  .item-info h3 { font-size: 20px; margin-bottom: 6px; }
+  .item-info .price { font-weight: 700; color: var(--primary-dark); font-size: 18px; }
+
+  .qty { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
+  .qty label { font-size: 14px; color: var(--muted); }
+  .qty input[type="number"] { width: 84px; padding: 10px 10px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; }
+
+      .remove { background: transparent; border: none; color: #999; cursor: not-allowed; }
+
+      /* Summary */
+      .summary { padding: 18px; position: sticky; top: 16px; }
+      .summary h3 { font-size: 20px; margin-bottom: 12px; }
+      .row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+      .row:last-child { border-bottom: none; }
+      .row.total { font-weight: 700; font-size: 18px; }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; }
+      .btn-primary { background: var(--primary); color: #fff; }
+      .btn-primary:hover { background: var(--primary-dark); }
+      .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+      .btn-outline:hover { background: #fff5f5; }
+
+      /* Footer */
+      .footer { margin-top: 40px; padding: 18px 0; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); text-align: center; }
+
+      @media (max-width: 980px) {
+        .cart-grid { grid-template-columns: 1fr; }
+        .summary { position: static; }
+        .cart-item { grid-template-columns: 80px 1fr; grid-auto-rows: auto; grid-row-gap: 8px; }
+        .qty { justify-content: flex-start; }
+        .remove { justify-self: start; }
+      }
+    </style>
+    <!-- Topbar styles (đồng bộ từ index.html) -->
+    <style>
+      .topbar { background: #ffd3d3; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+      .topbar-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+      .commitment-bar { background: #ffd3d3; padding: 12px 0; }
+      .commitment-link { text-decoration: none; display: block; }
+      .commitment-items { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+      .commitment-items::-webkit-scrollbar { display: none; }
+      .commitment-title { color: #a52a2a; font-size: 14px; font-weight: 600; white-space: nowrap; padding: 0 8px; flex-shrink: 0; }
+      .commitment-item { display: flex; align-items: center; gap: 4px; padding: 0 8px; white-space: nowrap; flex-shrink: 0; }
+      .commitment-item span { color: #27272a; font-size: 12px; font-weight: 500; white-space: nowrap; }
+      .commitment-item img { flex-shrink: 0; }
+      .divider { width: 1px; height: 20px; background: #ebebf0; flex-shrink: 0; }
+      @media (max-width: 1200px) { .commitment-items { justify-content: flex-start; } }
+      @media (max-width: 768px) {
+        .topbar-container { padding: 0 1rem; }
+        .commitment-bar { padding: 8px 0; }
+        .commitment-title { font-size: 13px; padding: 0 6px; }
+        .commitment-item span { font-size: 11px; }
+        .commitment-item { padding: 0 6px; }
+      }
+      @media (max-width: 480px) {
+        .commitment-title { font-size: 12px; padding: 0 4px; }
+        .commitment-item span { font-size: 10px; }
+        .commitment-item img { width: 16px; height: 16px; }
+        .divider { height: 16px; }
+      }
+      .commitment-link:hover { opacity: 0.9; }
+      .commitment-item:hover { transform: translateY(-1px); transition: transform 0.2s ease; }
+      .commitment-item img { filter: hue-rotate(45deg) saturate(2) brightness(0.8); }
+      .commitment-item:nth-child(3) img,
+      .commitment-item:nth-child(5) img,
+      .commitment-item:nth-child(7) img,
+      .commitment-item:nth-child(9) img,
+      .commitment-item:nth-child(11) img,
+      .commitment-item:nth-child(13) img { filter: hue-rotate(120deg) saturate(1.5); }
+    </style>
+  </head>
+  <body>
+  <!-- Cart drawer checkbox removed -->
+    <!-- Header/Nav copied from index for consistency -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Search -->
+        <li class="search-container">
+          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input
+              type="text"
+              class="search-input"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
+            />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- User/Cart -->
+        <li class="nav-buttons">
+          <details class="user-dropdown">
+            <summary class="nav-button user-toggle">
+              <i class="fas fa-user" aria-hidden="true"></i>
+              <span class="user-text">KhachHang001@gmail.com</span>
+            </summary>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin cá nhân</a>
+              <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+              <a href="../pages/login.html" class="dropdown-item">Đăng xuất</a>
+            </div>
+          </details>
+
+          <!-- Link to Giohang (current page) -->
+          <a href="./Giohang.html" class="nav-button">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            Giỏ hàng
+            <span class="cart-count">3</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Topbar commitments copied from index -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <div class="commitment-bar">
+          <a href="./index.html#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png" alt="100% hàng chất lượng" width="20" height="20" />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png" alt="Freeship mọi đơn" width="20" height="20" />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png" alt="Hoàn 200% nếu hàng hư" width="20" height="20" />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png" alt="30 ngày đổi trả" width="20" height="20" />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png" alt="Giao nhanh 2h" width="20" height="20" />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png" alt="Giá siêu rẻ" width="20" height="20" />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  <main class="page-container">
+      <section class="cart-hero">
+        <h1>Giỏ hàng của bạn</h1>
+        <p>Kiểm tra các sản phẩm trước khi thanh toán</p>
+      </section>
+
+      <section class="cart-grid">
+        <!-- Left: items -->
+        <div class="card cart-items">
+          <!-- Item 1: Lựu Đỏ -->
+          <article class="cart-item">
+            <img src="../images/luu.jpeg" alt="Lựu Đỏ" />
+            <div class="item-info">
+              <h3>Lựu Đỏ</h3>
+              <div class="price">110.000₫</div>
+            </div>
+            <div class="qty">
+              <label for="qty-luu">SL</label>
+              <input id="qty-luu" type="number" min="1" value="1" />
+            </div>
+            <button class="remove" aria-disabled="true" title="Chỉ là demo, không xóa được">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </article>
+
+          <!-- Item 2: Dứa Vàng -->
+          <article class="cart-item">
+            <img src="../images/duavang.jpeg" alt="Dứa Vàng" />
+            <div class="item-info">
+              <h3>Dứa Vàng</h3>
+              <div class="price">35.000₫</div>
+            </div>
+            <div class="qty">
+              <label for="qty-duavang">SL</label>
+              <input id="qty-duavang" type="number" min="1" value="1" />
+            </div>
+            <button class="remove" aria-disabled="true" title="Chỉ là demo, không xóa được">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </article>
+
+          <!-- Item 3: Bơ -->
+          <article class="cart-item">
+            <img src="../images/bo.jpeg" alt="Bơ" />
+            <div class="item-info">
+              <h3>Bơ</h3>
+              <div class="price">55.000₫</div>
+            </div>
+            <div class="qty">
+              <label for="qty-bo">SL</label>
+              <input id="qty-bo" type="number" min="1" value="2" />
+            </div>
+            <button class="remove" aria-disabled="true" title="Chỉ là demo, không xóa được">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </article>
+        </div>
+
+        <!-- Right: summary -->
+        <aside class="card summary" aria-label="Tóm tắt đơn hàng">
+          <h3>Tóm tắt đơn hàng</h3>
+          <div class="row"><span>Tạm tính</span><span>255.000₫</span></div>
+          <div class="row"><span>Phí vận chuyển</span><span>30.000₫</span></div>
+          <div class="row"><span>Giảm giá</span><span>0₫</span></div>
+          <div class="row total"><span>Tổng cộng</span><span>285.000₫</span></div>
+          <div style="height: 10px"></div>
+          <a class="btn btn-primary" href="./payment-popup.html">
+            <i class="fa-solid fa-credit-card"></i>
+            Tiến hành thanh toán
+          </a>
+          <div style="height: 8px"></div>
+          <a class="btn btn-outline" href="./index.html">
+            <i class="fa-solid fa-arrow-left"></i>
+            Tiếp tục mua sắm
+          </a>
+        </aside>
+      </section>
+
+      <!-- Đã bỏ cart drawer để dùng trang này làm giỏ hàng chính -->
+    </main>
+
+    <!-- Footer copied from index for consistency -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Pomegranate Logo" class="footer-logo-img" />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự nhiên, không chất bảo quản, giao hàng tận nơi.</p>
+          <div class="newsletter-form"></div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li><a href="../pages/index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="../pages/about_us.html"><i class="fas fa-info-circle"></i> Về chúng tôi</a></li>
+            <li><a href="../pages/contact.html"><i class="fas fa-phone"></i> Liên hệ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>123 Đường ABC, Quận 1, TP.HCM</span></div>
+            <div class="contact-item"><i class="fas fa-phone"></i><span>0900 123 456</span></div>
+            <div class="contact-item"><i class="fas fa-envelope"></i><span>info@pomegranate.com</span></div>
+            <div class="contact-item"><i class="fas fa-clock"></i><span>8:00 - 22:00 (T2 - CN)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">&copy; 2024 Pomegranate. All rights reserved.</div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

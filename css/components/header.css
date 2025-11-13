@@ -138,12 +138,14 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
+  text-decoration: none; /* remove underline for anchor-style buttons */
 }
 
 .nav-button:hover {
   border-color: var(--primary-color);
   color: var(--primary-color);
   background: rgba(211, 47, 47, 0.04);
+  text-decoration: none; /* keep no underline on hover */
 }
 
 .nav-button i {

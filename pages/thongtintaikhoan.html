@@ -71,6 +71,50 @@
         margin-right: 5px;
       }
     </style>
+    <!-- Overrides: links underline removal + footer flush bottom -->
+    <style>
+      /* Remove underline only on the two action links */
+      a.btn-account,
+      .btn-account,
+      a.btn-outline,
+      .btn-outline {
+        text-decoration: none !important;
+      }
+      a.btn-account:hover,
+      .btn-account:hover,
+      a.btn-outline:hover,
+      .btn-outline:hover,
+      a.btn-account:focus,
+      .btn-account:focus,
+      a.btn-outline:focus,
+      .btn-outline:focus {
+        text-decoration: none !important;
+      }
+
+      /* Remove any outer gaps and ensure footer sits flush with the viewport bottom */
+      html,
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        /* Use the same site background as index (from base.css: --bg-light: #f9cbd6) */
+        background-color: var(--bg-light, #f9cbd6);
+      }
+      footer.main-footer,
+      .main-footer {
+        margin: 0 !important;
+      }
+      /* Make sure the footer is solid dark regardless of inherited styles */
+      footer.main-footer { background-color: #1f1f1f; }
+      .footer-bottom { background-color: #0f0f0f; padding-top: 24px; }
+
+      /* Ensure back-to-top does not create extra document height */
+      .back-to-top {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 1000;
+      }
+    </style>
     <style>
       /* Topbar Styles */
       .topbar {
@@ -451,10 +495,9 @@
   </head>
 
   <body>
-    <!-- Global cart toggle for CSS-only drawer -->
+    <!-- Global checkbox for CSS-only cart drawer -->
     <input type="checkbox" id="cartToggle" hidden />
-    <!-- Header Start (synced with index.html) -->
-    <!-- Header Start (đồng bộ với index.html, chỉ format lại) -->
+    <!-- Thanh điều hướng (header) đồng bộ với index.html -->
     <nav>
       <ul class="nav-grid">
         <!-- Logo -->
@@ -468,7 +511,7 @@
           </a>
         </li>
 
-        <!-- Thanh tìm kiếm (đồng bộ với index.html) -->
+        <!-- Thanh tìm kiếm -->
         <li class="search-container">
           <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
             <input
@@ -486,36 +529,29 @@
 
         <!-- Nút đăng nhập & giỏ hàng -->
         <li class="nav-buttons">
-          <!-- Dropdown người dùng -->
+          <!-- Dropdown người dùng CSS-only -->
           <details class="user-dropdown">
             <summary class="nav-button user-toggle">
-              <i class="fas fa-user"></i>
+              <i class="fas fa-user" aria-hidden="true"></i>
               <span class="user-text">KhachHang001@gmail.com</span>
             </summary>
             <div class="dropdown-menu">
-              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">
-                Thông tin tài khoản
-              </a>
-              <a href="../pages/order-history.html" class="dropdown-item">
-                Lịch sử mua hàng
-              </a>
-              <span class="dropdown-item" aria-disabled="true">Đăng xuất</span>
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin cá nhân</a>
+              <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+              <a href="../pages/login.html" class="dropdown-item">Đăng xuất</a>
             </div>
           </details>
 
-          <label class="nav-button" for="cartToggle">
-            <i class="fas fa-shopping-cart"></i>
+          <!-- Giỏ hàng CSS-only (checkbox toggle) -->
+          <a href="./Giohang.html" class="nav-button" role="button">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             Giỏ hàng
-            <span class="cart-count">0</span>
-          </label>
-
-          <!-- Nút thanh toán giỏ hàng đã được gỡ bỏ theo yêu cầu -->
+            <span class="cart-count">3</span>
+          </a>
         </li>
       </ul>
     </nav>
-
-    <!-- Header End -->
-    <!-- Topbar (copied from index.html) -->
+    <!-- Topbar -->
     <div class="topbar">
       <div class="topbar-container">
         <!-- Thanh cam kết -->
