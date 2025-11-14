@@ -173,11 +173,11 @@
             </div>
 
             <div class="action-buttons">
-              <a href="./login.html" class="btn-primary buy-now">
+              <a href="../pages/payment-popup.html" class="btn-primary buy-now">
                 <i class="fas fa-bolt" aria-hidden="true"></i>
-                Mua hàng
+                Mua ngay
               </a>
-              <a href="./Giohang.html" class="btn-outline add-to-cart">
+              <a  class="btn-outline add-to-cart">
                 <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                 Thêm vào giỏ hàng
               </a>
@@ -336,6 +336,16 @@
             qty.value = clamp((parseInt(qty.value, 10) || 1) + 1);
           };
         })();
+
+        // Thông báo khi nhấn nút "Thêm vào giỏ hàng"
+        document.addEventListener('DOMContentLoaded', function() {
+          const addToCartButton = document.querySelector('.add-to-cart');
+          if (addToCartButton) {
+            addToCartButton.addEventListener('click', function(event) {
+              alert('Đã thêm sản phẩm vào giỏ hàng thành công!');
+            });
+          }
+        });
       </script>
     </body>
 </html>
