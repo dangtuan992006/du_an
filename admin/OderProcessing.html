@@ -30,11 +30,13 @@
             <h2 class="nd">Trạng thái</h2>
             <select id="state" name="state">
                 <option value="">Tất cả các hóa đơn</option>
+                <option value="">Đã Giao</option>
+                <option value="">Đang xử lý</option>
             </select>
 
             <input type="text" placeholder="Tìm hóa đơn theo mã hóa đơn, tên KH hoặc SĐT">
-            <button class="loc">Lọc</button>
-            <button class="dl">Đặt lại</button>
+            <button class="loc" onclick="location.href='../admin/NOderProcessing.html'">Lọc</button>
+            <button class="dl" onclick="location.href='../admin/OderProcessing.html'">Đặt lại</button>
         </div>
 
         <div class="table-container">

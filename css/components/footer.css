@@ -160,7 +160,8 @@
 
 .footer-links a i {
   font-size: 0.85rem;
-  opacity: 0.7;
+  opacity: 1;
+  color: #e74c3c;
 }
 
 .contact-info {
@@ -173,14 +174,29 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  color: #bbb;
+  color: #bbb !important;
   font-size: 0.98rem;
+  transition: color 0.2s;
+}
+
+.contact-item span {
+  color: #bbb;
+  transition: color 0.2s;
+}
+
+.contact-item:hover span {
+  color: #e74c3c;
 }
 
 .contact-item i {
-  color: #e74c3c;
+  color: #e74c3c !important;
   font-size: 1.05rem;
   margin-top: 2px;
+  transition: color 0.2s;
+}
+
+.contact-item:hover i {
+  color: #e74c3c !important;
 }
 
 .social-grid {
@@ -188,6 +204,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-top: 15px;
+  color: #e74c3c;
 }
 
 .social-card {

@@ -209,9 +209,9 @@ const APP_DATA = {
     },
   ],
   users: {
-    "user@example.com": {
-      name: "user",
-      email: "user@example.com",
+    "admin2@gmail.com": {
+      name: "tai",
+      email: "admin2@gmail.com",
       password: "123456",
       phone: "0123456",
       join_date: "2025-10-01",
@@ -309,7 +309,7 @@ const App = {
 };
 
 // ========================================
-// MODULE XÁC THỰC (AUTH) - ĐÃ ĐƠN GIẢN HÓA
+// MODULE XÁC THỰC (AUTH)
 // ========================================
 App.Auth = {
   init() {
@@ -318,23 +318,14 @@ App.Auth = {
     localStorage.setItem("registeredUsers", JSON.stringify(merged));
     console.log("Dữ liệu người dùng đã được nạp.");
 
-    // Thêm sự kiện cho nút đăng nhập khách
-    const guestLoginBtn = document.getElementById("guestLoginBtn");
-    if (guestLoginBtn) {
-      guestLoginBtn.addEventListener("click", this.handleGuestLogin.bind(this));
-    }
-
-    // Thêm sự kiện cho nút đăng ký nhanh
-    const quickRegisterBtn = document.getElementById("quickRegisterBtn");
-    if (quickRegisterBtn) {
-      quickRegisterBtn.addEventListener(
-        "click",
-        this.handleQuickRegister.bind(this)
-      );
-    }
+    const adminForm = document.getElementById("adminLoginForm");
+    if (adminForm)
+      adminForm.addEventListener("submit", this.handleAdminLogin.bind(this));
 
     const emailForm = document.getElementById("emailForm");
     if (emailForm) this.setupCustomerAuth(emailForm);
+
+    // setupLogoutHandler() đã được di chuyển vào UI module và không còn được gọi ở đây
   },
 
   isProfileEmpty(email) {
@@ -348,75 +339,38 @@ App.Auth = {
     }
   },
 
-  // Hàm xử lý đăng nhập khách vãng lai
-  handleGuestLogin() {
-    // Tạo ID ngẫu nhiên cho khách
-    const guestId = `guest_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-    const guestEmail = `${guestId}@guest.com`;
-    const guestName = "Khách vãng lai";
+  handleAdminLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPassword").value;
 
-    // Lưu thông tin khách vào localStorage
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
-    users[guestEmail] = {
-      name: guestName,
-      email: guestEmail,
-      isGuest: true,
-      created: new Date().toISOString(),
-      profileCompleted: false,
-    };
-    localStorage.setItem("registeredUsers", JSON.stringify(users));
+    const admins = Object.values(APP_DATA.users).filter((user) =>
+      user.email.includes("admin")
+    );
 
-    // Đăng nhập ngay
-    localStorage.setItem("currentUser", guestName);
-    localStorage.setItem("currentUserEmail", guestEmail);
-    localStorage.setItem("currentUserRole", "customer");
+    const admin = admins.find(
+      (a) => a.email === email && a.password === password
+    );
 
-    // Chuyển giỏ hàng tạm thời cho người dùng
-    App.Cart.transferTempCartToUser(guestEmail);
-
-    // Thông báo và chuyển hướng
-    App.utils.showNotification("Đăng nhập thành công!");
-    setTimeout(() => (window.location.href = "./index.html"), 1000);
-  },
-
-  // Hàm xử lý đăng ký nhanh
-  // Trong đối tượng App.Auth
-  handleQuickRegister() {
-    const emailInput = document.getElementById("email");
-    const email = emailInput ? emailInput.value.trim() : "";
-
-    // Tạo email ngẫu nhiên nếu không có
-    const userEmail =
-      email && App.utils.isValidEmail(email)
-        ? email
-        : `user_${Date.now()}@pomegranate.com`;
-
-    // THAY ĐỔI: Luôn đặt tên mặc định là "Tuan Dang"
-    const defaultName = "Tuan Dang";
-
-    // Lưu thông tin người dùng mới
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
-    users[userEmail] = {
-      name: defaultName, // <-- DÙNG TÊN MẶC ĐỊNH
-      email: userEmail,
-      password: "", // Không cần mật khẩu
-      created: new Date().toISOString(),
-      profileCompleted: false,
-      isQuickRegister: true,
-    };
-    localStorage.setItem("registeredUsers", JSON.stringify(users));
-
-    // Đăng nhập ngay
-    localStorage.setItem("currentUser", defaultName); // <-- DÙNG TÊN MẶC ĐỊNH
-    localStorage.setItem("currentUserEmail", userEmail);
-    localStorage.setItem("currentUserRole", "customer");
-
-    // Chuyển giỏ hàng tạm thời cho người dùng
-    App.Cart.transferTempCartToUser(userEmail);
-
-    // Thông báo và chuyển hướng
-    App.utils.showNotification("Đăng ký và đăng nhập thành công!");
-    setTimeout(() => (window.location.href = "./index.html"), 1000);
+    if (admin) {
+      localStorage.setItem("currentUserRole", "admin");
+      localStorage.setItem("adminUser", admin.name);
+      localStorage.setItem("adminEmail", admin.email);
+      if (admin.permissions) {
+        localStorage.setItem(
+          "adminPermissions",
+          JSON.stringify(admin.permissions)
+        );
+      }
+      App.utils.showNotification(`Chào Admin ${admin.name}!`);
+      setTimeout(() => {
+        if (confirm("Chuyển đến trang quản trị?")) {
+          window.location.href = "../admin/index.html";
+        }
+      }, 1000);
+    } else {
+      App.utils.showNotification("Sai tài khoản hoặc mật khẩu!", "error");
+    }
   },
 
   setupCustomerAuth(form) {
@@ -435,13 +389,18 @@ App.Auth = {
         return;
       }
       const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
-      if (users[email]) {
+      const filtered = Object.fromEntries(
+        Object.entries(users).filter(([e]) => e !== "admin@gmail.com")
+      );
+      if (filtered[email]) {
         passwordGroup.style.display = "block";
         submitBtn.textContent = "Đăng nhập";
         isNewAccount = false;
       } else {
+        statusHint.textContent =
+          "Email chưa tồn tại. Nhập mật khẩu để tạo tài khoản.";
         passwordGroup.style.display = "block";
-        submitBtn.textContent = "Đăng nhập";
+        submitBtn.textContent = "Tạo tài khoản";
         isNewAccount = true;
       }
     });
@@ -466,11 +425,11 @@ App.Auth = {
           profileCompleted: false,
         };
         localStorage.setItem("registeredUsers", JSON.stringify(users));
-        localStorage.setItem("currentUser", "Tuan Dang");
+        localStorage.setItem("currentUser", username);
         localStorage.setItem("currentUserEmail", email);
         localStorage.setItem("currentUserRole", "customer");
         App.Cart.transferTempCartToUser(email);
-        // App.utils.showNotification("Tạo tài khoản thành công!");
+        App.utils.showNotification("Tạo tài khoản thành công!");
         setTimeout(() => (window.location.href = "./index.html"), 1000);
       } else {
         if (users[email]?.password === password) {
@@ -491,6 +450,8 @@ App.Auth = {
     localStorage.removeItem("currentUser");
     localStorage.removeItem("currentUserEmail");
     localStorage.removeItem("currentUserRole");
+    localStorage.removeItem("adminUser");
+    localStorage.removeItem("adminEmail");
     App.utils.showNotification("Đã đăng xuất!");
     setTimeout(() => (window.location.href = "./index.html"), 600);
   },
@@ -781,8 +742,8 @@ App.Products = {
   setupSearchAndFilterListeners() {
     // Lấy các phần tử DOM. Sử dụng cả ID và class để linh hoạt hơn.
     const searchInput =
-      document.querySelector(".search-input") ||
-      document.getElementById("searchInput");
+      document.querySelector(".search-inpu") ||
+      document.getElementById("searchInpu");
     const searchButton = document.querySelector(".search-button");
     const categorySelect =
       document.querySelector(".category-select") ||
@@ -857,7 +818,6 @@ App.Products = {
 
     const sort = document.getElementById("sortSelect")?.value || "default";
 
-    // Lọc sản phẩm dựa trên tìm kiếm và danh mục
     App.Pagination.filteredProducts = App.productsData.filter((p) => {
       const matchSearch =
         p.name.toLowerCase().includes(search) ||
@@ -866,7 +826,6 @@ App.Products = {
       return matchSearch && matchCat;
     });
 
-    // Sắp xếp sản phẩm
     App.Pagination.filteredProducts.sort((a, b) => {
       switch (sort) {
         case "price-asc":
@@ -880,7 +839,6 @@ App.Products = {
       }
     });
 
-    // Cập nhật phân trang
     App.Pagination.renderProducts();
     App.Pagination.renderPagination();
   },
@@ -940,7 +898,7 @@ App.Pagination = {
       .getElementById("prev-page")
       ?.addEventListener("click", () => this.goToPage(this.currentPage - 1));
     document
-      .getElementById("")
+      .getElementById("next-page")
       ?.addEventListener("click", () => this.goToPage(this.currentPage + 1));
   },
 
@@ -948,38 +906,23 @@ App.Pagination = {
     const container = document.getElementById("productsContainer");
     if (!container) return;
     const items = this.getPaginatedProducts();
-
-    // Đảm bảo container luôn hiển thị, ngay cả khi không có sản phẩm
-    container.style.display = "grid";
-
-    if (items.length === 0) {
-      container.innerHTML = `<div class="no-products"><i class="fas fa-search"></i><h3>Không tìm thấy sản phẩm</h3></div>`;
-      return;
-    }
-
-    container.innerHTML = items
-      .map((p) => App.Products.createProductCardHTML(p))
-      .join("");
+    container.innerHTML = items.length
+      ? items.map((p) => App.Products.createProductCardHTML(p)).join("")
+      : `<div class="no-products"><i class="fas fa-search"></i><h3>Không tìm thấy sản phẩm</h3></div>`;
   },
 
   renderPagination() {
     const container = document.getElementById("paginationContainer");
     if (!container) return;
-
     const total = Math.ceil(
       this.filteredProducts.length / this.productsPerPage
     );
-
-    // Luôn hiển thị phân trang, ngay cả khi chỉ có 1 trang
+    if (total <= 1) return (container.style.display = "none");
     container.style.display = "flex";
-
-    // Cập nhật thông tin trang
     document.getElementById("current-page").textContent = this.currentPage;
-    document.getElementById("total-pages").textContent = total || 1;
-
-    // Cập nhật trạng thái nút
+    document.getElementById("total-pages").textContent = total;
     document.getElementById("prev-page").disabled = this.currentPage === 1;
-    document.getElementById("next-page").disabled = this.currentPage >= total;
+    document.getElementById("next-page").disabled = this.currentPage === total;
   },
 
   getPaginatedProducts() {
@@ -1039,23 +982,11 @@ App.UI = {
 
   updateAuthUI() {
     const user = localStorage.getItem("currentUser");
-
-    let displayName = "Đăng nhập"; // Tên mặc định khi chưa đăng nhập
-
-    // Nếu có dữ liệu người dùng trong localStorage
-    if (user) {
-      // Nếu giá trị lưu là 'true' hoặc một giá trị không phải tên người dùng,
-      // thì đặt tên hiển thị mặc định là "Tuan".
-      // Nếu không, lấy chính giá trị đó làm tên hiển thị.
-      displayName = user === "true" || user === "null" ? "Tuan" : user;
-    }
-
     document
       .querySelectorAll(".user-text")
-      .forEach((el) => (el.textContent = displayName));
+      .forEach((el) => (el.textContent = user || "Đăng nhập"));
   },
 
-  // ... Phần setupUserDropdown giữ nguyên ...
   setupUserDropdown() {
     const toggle = document.querySelector(".user-toggle");
     const menu = document.querySelector(".dropdown-menu");
@@ -1069,12 +1000,15 @@ App.UI = {
 
     document.addEventListener("click", () => menu.classList.remove("show"));
 
+    // SỬA LỖI ĐĂNG XUẤT: Xử lý logic đăng xuất ngay trong menu
     menu.addEventListener("click", (e) => {
-      e.stopPropagation();
+      e.stopPropagation(); // Giữ menu mở khi click vào các mục bên trong
+
+      // Kiểm tra xem nút đăng xuất có được nhấn không
       if (e.target.closest(".logout-btn")) {
         console.log("Nút đăng xuất đã được nhấn từ trong menu!");
-        e.preventDefault();
-        App.Auth.logout();
+        e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        App.Auth.logout(); // Gọi hàm đăng xuất
       }
     });
   },
@@ -1281,7 +1215,7 @@ App.Checkout = {
             )} VNĐ</span></div>
           </div>
           <div class="checkout-actions">
-            <button  class="btn btn-primary">Xác nhận</button>
+            <button onclick="App.Checkout.confirmSingle()" class="btn btn-primary">Xác nhận</button>
             <button onclick="window.close()" class="btn btn-secondary">Hủy</button>
           </div>
           <div id="msg"></div>

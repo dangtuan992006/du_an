@@ -47,8 +47,8 @@
   --transition-slow: 0.5s;
 
   /* Font chữ */
-  --font-primary: "Helvetica Neue", Arial, sans-serif;
-  --font-secondary: "Georgia", serif;
+  --font-primary: "Poppins", sans-serif; /* đồng bộ với banner/body */
+  --font-secondary: "Playfair Display", serif; /* dùng cho tiêu đề */
   --font-special: "Pacifico", cursive;
 }
 
@@ -70,6 +70,13 @@ body {
   min-height: 100vh; /* Ensure full viewport height */
   display: flex; /* Enable flex column for sticky footer */
   flex-direction: column;
+}
+
+/* Headings use Playfair like banner */
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.product-name {
+  font-family: var(--font-secondary);
 }
 
 /* Font đặc biệt */

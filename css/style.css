@@ -292,6 +292,15 @@
   right: 0 !important;
 }
 
+/* CSS-only toggle for cart using checkbox at top of body */
+#cartToggle:checked ~ main .cart-overlay {
+  display: block !important;
+}
+
+#cartToggle:checked ~ main .cart-drawer {
+  right: 0 !important;
+}
+
 .cart-drawer-header {
   padding: var(--spacing-lg);
   display: flex;

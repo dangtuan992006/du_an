@@ -261,6 +261,9 @@ body {
 }
 
 
+.total{
+    margin-left:80%;
+}
 
 .close-btn{
     background-color: red;
@@ -279,7 +282,7 @@ body {
     inset: 0;
     background: rgba(0,0,0,0.5);
     display: none;
-    z-index: 1500;  
+    z-index: 1500;
 }
 
 .pagination {

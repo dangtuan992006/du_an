@@ -1,0 +1,174 @@
+/* Product Detail Page (HTML/CSS only) */
+
+/* Container */
+.product-detail-container {
+	max-width: 1200px;
+	margin: 24px auto 0;
+	padding: 0 16px 48px;
+	font-family: 'Poppins', sans-serif;
+}
+
+/* Layout */
+.product-detail {
+	display: grid;
+	grid-template-columns: 1.2fr 1fr;
+	gap: 48px;
+	align-items: start;
+}
+
+/* Gallery */
+.product-gallery .main-image {
+	background: #fff;
+	border: 2px solid var(--primary-color, #d32f2f);
+	border-radius: 16px;
+	height: 520px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	box-shadow: 0 12px 24px rgba(0,0,0,.06);
+}
+.product-gallery .main-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+/* Info */
+.product-info .product-title {
+	font-family: 'Playfair Display', serif;
+	font-size: 40px;
+	line-height: 1.2;
+	margin: 0 0 12px;
+	color: #222;
+}
+.product-price-section { display:flex; align-items:center; gap:14px; margin: 6px 0 18px; }
+.product-price {
+	font-size: 28px;
+	font-weight: 800;
+	color: var(--primary-color, #d32f2f);
+	margin: 0;
+}
+.stock-status { font-size: 14px; font-weight: 600; color: #2e7d68; display:flex; align-items:center; gap:6px; }
+.stock-status.in-stock i { color: #2e7d68; }
+
+.product-description { color:#333; line-height:1.8; margin: 4px 0 20px; }
+
+/* Actions */
+.product-actions { display:flex; flex-direction:column; gap:14px; margin: 16px 0 8px; }
+.action-buttons { display:flex; gap:10px; }
+.quantity-selector { display:flex; align-items:center; gap:12px; }
+.quantity-selector label { font-weight:600; }
+.quantity-controls { display:flex; align-items:center; border:1px solid #ffd1d1; border-radius:10px; overflow:hidden; }
+.quantity-btn { width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; color: var(--primary-color, #d32f2f); background:#fff6f6; border:none; }
+.quantity-btn[disabled] { opacity:.6; cursor:not-allowed; }
+.quantity-input { width:64px; height:40px; text-align:center; border:none; border-left:1px solid #ffd1d1; border-right:1px solid #ffd1d1; font-weight:600; }
+
+/* Primary button (fallback if not present globally) */
+.btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; border-radius:10px; text-decoration:none; background: var(--primary-color, #d32f2f); color:#fff; font-weight:700; box-shadow:0 8px 18px rgba(211,47,47,.2); flex:1; text-align:center; }
+.btn-primary:hover { filter: brightness(1.05); }
+
+/* Outline button to match product cards */
+.btn-outline { flex:1; display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:44px; padding:10px 20px; border-radius:10px; text-decoration:none; background:#fff; color: var(--primary-color, #2e7d68); border:1.5px solid var(--primary-color, #2e7d68); font-weight:700; }
+.btn-outline:hover { background:rgba(46,125,104,.08); box-shadow:0 2px 8px rgba(0,0,0,.06); }
+
+/* Meta */
+.product-meta { margin-top: 18px; padding-top: 16px; border-top: 1px solid #eee; display:grid; gap:10px; }
+.product-meta .meta-item { color:#444; display:flex; align-items:center; gap:10px; }
+.product-meta .meta-item i { color: var(--primary-color, #d32f2f); }
+
+/* Features */
+.product-features { margin-top: 32px; }
+.feature-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:18px; }
+.feature-card { background:#fff; border:1px solid #eee; border-radius:14px; padding:16px; text-align:center; box-shadow:0 6px 16px rgba(0,0,0,.05); }
+.feature-card .feature-icon { width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 10px; background:#ffe4e4; color: var(--primary-color, #d32f2f); font-size:18px; }
+.feature-card h3 { font-size:18px; margin:6px 0 6px; font-weight:700; }
+.feature-card p { font-size:14px; color:#555; margin:0; }
+
+/* Breadcrumb (simple) */
+.breadcrumb { font-size:14px; color:#666; display:flex; align-items:center; gap:8px; }
+.breadcrumb a { color:#444; text-decoration:none; }
+.breadcrumb a:hover { text-decoration:underline; }
+
+/* A11y */
+.visually-hidden{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Emphasize main description */
+.highlight-desc { background:#fff0f2; border-left:4px solid var(--primary-color, #d32f2f); padding:14px 16px; border-radius:10px; font-size:16px; font-weight:600; color:#2b2b2b; box-shadow:0 6px 16px rgba(211,47,47,.08); }
+
+/* Match search height with index header */
+.product-detail-page .search-container { height: 46px; }
+/* Use header.css sizing and center exactly like index */
+.product-detail-page .search-button { right: 8px; top: 50%; transform: translateY(-50%); }
+.product-detail-page .search-input { height: 34px; padding-top: 8px; padding-bottom: 8px; }
+/* Force placeholder font to match index (Poppins) */
+.product-detail-page .search-input,
+.product-detail-page .search-input::placeholder,
+.product-detail-page .search-input::-webkit-input-placeholder,
+.product-detail-page .search-input::-moz-placeholder,
+.product-detail-page .search-input:-ms-input-placeholder,
+.product-detail-page .search-input::-ms-input-placeholder {
+	font-family: 'Poppins', sans-serif !important;
+	font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+	.product-detail { grid-template-columns: 1fr; gap: 28px; }
+	.product-gallery .main-image { height: 420px; }
+}
+@media (max-width: 768px) {
+	.product-info .product-title { font-size: 32px; }
+	.feature-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+	.product-gallery .main-image { height: 340px; padding: 16px; }
+	.feature-grid { grid-template-columns: 1fr; }
+}
+
+/* Typography sync with index.html */
+html, body, button, input, select, textarea {
+	font-family: 'Poppins', sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.product-title {
+	font-family: 'Playfair Display', serif !important;
+}
+.pacifico-regular { font-family: 'Pacifico', cursive !important; }
+
+/* Related products */
+.related-products { margin-top: 40px; }
+.related-products .section-title {
+	text-align:center; margin: 8px 0 22px; color:#222;
+	text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-color: var(--primary-color, #d32f2f);
+	font-size: 2.2rem; font-weight: 800;
+}
+.related-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap:24px; }
+/* Match index.html product card sizing */
+.related-card {
+	display:flex; flex-direction:column; align-items:center; text-align:center;
+	background:#fff; border:1px solid #eee; border-radius:12px; padding:12px; overflow:hidden;
+	text-decoration:none; color:inherit; box-shadow:0 4px 12px rgba(0,0,0,.05); transition:.3s;
+	min-height:480px;
+}
+.related-card:hover { transform: translateY(-4px); box-shadow:0 8px 18px rgba(0,0,0,.1); border-color:#ffd1d1; }
+.related-image { width:100%; height:300px; overflow:hidden; border-radius:8px; }
+.related-image img { width:100%; height:100%; object-fit:cover; display:block; }
+.related-info { padding:12px 4px 8px; display:flex; flex-direction:column; gap:8px; width:100%; }
+.related-name { font-size:20px; font-weight:700; color:#333; font-family: 'Playfair Display', serif; min-height:48px; line-height:1.35; }
+.related-price { font-size:18px; font-weight:800; color: var(--primary-color, #d32f2f); }
+.related-actions { margin-top: 4px; }
+.related-detail-btn { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:8px 14px; border-radius:10px; border:1.5px solid var(--primary-color, #d32f2f); color: var(--primary-color, #d32f2f); background:#fff; font-weight:700; font-size:14px; }
+.related-card:hover .related-detail-btn { background:rgba(211,47,47,.06); }
+
+@media (max-width: 1024px) {
+		.related-grid { grid-template-columns: repeat(3, 1fr); gap:24px; }
+}
+@media (max-width: 768px) {
+		.related-grid { grid-template-columns: repeat(2, 1fr); gap:20px; }
+}
+@media (max-width: 480px) {
+	.related-grid { grid-template-columns: 1fr; }
+}
+

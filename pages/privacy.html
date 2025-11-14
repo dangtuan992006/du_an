@@ -20,9 +20,15 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Typography: sync with index.html -->
+    <style>
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif !important; }
+      h1, h2, h3, h4, h5, h6, .section-title, .product-name { font-family: 'Playfair Display', serif !important; }
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/base.css" />
@@ -43,14 +49,12 @@
         border: 1px solid #ffd1d1;
         border-radius: 12px;
         box-shadow: var(--shadow-md);
-        font-family: "Roboto", sans-serif;
         line-height: 1.7;
         color: #333;
       }
       .privacy-container h1,
       .privacy-container h2,
       .privacy-container h3 {
-        font-family: "Alkatra", sans-serif;
         color: var(--primary-dark);
         border-bottom: 2px solid #ffd1d1;
         padding-bottom: 10px;
@@ -99,45 +103,6 @@
             />
             <p class="pacifico-regular">Pomegranate</p>
           </a>
-        </li>
-        <li class="search-container">
-          <div class="search-category">
-            <select class="category-select">
-              <option>ALL</option>
-              <option>Bán chạy nhất</option>
-              <option>Quà tặng trái cây</option>
-              <option>Trái cây Việt Nam</option>
-              <option>Đặc biệt</option>
-            </select>
-          </div>
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Tìm kiếm sản phẩm..."
-          />
-          <button class="search-button">
-            <i class="fas fa-search"></i>
-          </button>
-        </li>
-        <li class="nav-buttons">
-          <div class="user-dropdown">
-            <button class="nav-button user-toggle">
-              <i class="fas fa-user"></i><span class="user-text">Đăng nhập</span>
-            </button>
-            <div class="dropdown-menu">
-              <a href="../pages/thongtintaikhoan.html" class="dropdown-item"
-                >Thông tin tài khoản</a
-              >
-              <a href="../pages/order-history.html" class="dropdown-item"
-                >Lịch sử mua hàng</a
-              >
-              <button class="dropdown-item logout-btn">Đăng xuất</button>
-            </div>
-          </div>
-          <button class="nav-button" id="openCartPopup">
-            <i class="fas fa-shopping-cart"></i> Giỏ hàng
-            <span class="cart-count">0</span>
-          </button>
         </li>
       </ul>
     </nav>
@@ -330,7 +295,6 @@
       </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="../js/mainjs.js" defer></script>
+    <!-- No JavaScript in this build -->
   </body>
 </html>

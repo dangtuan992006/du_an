@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="../css/base.css" />
@@ -18,11 +18,24 @@
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/components/footer.css">
 
-    <style>
-        body {
-            background-color: #fff7f7;
-            font-family: "Roboto", sans-serif;
+      <!-- Typography: sync with index.html -->
+      <style>
+        html, body, button, input, select, textarea {
+          font-family: 'Poppins', sans-serif !important;
         }
+        h1, h2, h3, h4, h5, h6,
+        .section-title,
+        .product-name {
+          font-family: 'Playfair Display', serif !important;
+        }
+        .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+      </style>
+
+    <style>
+    body {
+      background-color: #fff7f7;
+      margin: 0;
+    }
         .about-us-section {
             max-width: 1200px;
             margin: 20px auto;
@@ -32,11 +45,10 @@
             box-shadow: var(--shadow-md);
             border: 1px solid #ffd1d1;
         }
-        .about-us-section h1, .about-us-section h2 {
+    .about-us-section h1, .about-us-section h2 {
             text-align: center;
             color: #9e182b;
             margin-bottom: 20px;
-            font-family: "Alkatra", sans-serif;
         }
         .about-us-section p {
             line-height: 1.7;
@@ -51,9 +63,8 @@
             color: #700f1d;
             margin-bottom: 30px;
         }
-        .team-title {
+    .team-title {
             text-align: center;
-            font-family: "Alkatra", sans-serif;
             font-size: 2.5rem;
             color: var(--primary-dark);
             margin: 40px 0 20px;
@@ -73,45 +84,7 @@
             <p class="pacifico-regular">Pomegranate</p>
           </a>
         </li>
-        <li class="search-container">
-          <div class="search-category">
-            <select class="category-select">
-              <option>ALL</option>
-              <option>Bán chạy nhất</option>
-              <option>Quà tặng trái cây</option>
-              <option>Trái cây Việt Nam</option>
-              <option>Đặc biệt</option>
-            </select>
-          </div>
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Tìm kiếm sản phẩm..."
-          />
-          <button class="search-button">
-            <i class="fas fa-search"></i>
-          </button>
-        </li>
-        <li class="nav-buttons">
-          <div class="user-dropdown">
-            <button class="nav-button user-toggle">
-              <i class="fas fa-user"></i><span class="user-text">Đăng nhập</span>
-            </button>
-            <div class="dropdown-menu">
-              <a href="../pages/thongtintaikhoan.html" class="dropdown-item"
-                >Thông tin tài khoản</a
-              >
-              <a href="../pages/order-history.html" class="dropdown-item"
-                >Lịch sử mua hàng</a
-              >
-              <button class="dropdown-item logout-btn">Đăng xuất</button>
-            </div>
-          </div>
-          <button class="nav-button" id="openCartPopup">
-            <i class="fas fa-shopping-cart"></i> Giỏ hàng
-            <span class="cart-count">0</span>
-          </button>
-        </li>
+        
       </ul>
     </nav>
 
@@ -340,14 +313,4 @@
       </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="../js/mainjs.js" defer></script>
-    <script>
-      // Khởi tạo Feather Icons
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof feather !== "undefined") {
-          feather.replace();
-        }
-      });
-    </script>
 </html>

@@ -3,7 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Đăng nhập Admin</title>
+    <!-- Fonts to match index.html -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/components/admin-login.css" />
+    <style>
+      /* Align with site-wide typography */
+      html, body, button, input, select, textarea { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+      .pacifico-regular { font-family: 'Pacifico', cursive; }
+    </style>
   </head>
   <body>
     <div class="login-container">
@@ -34,29 +45,11 @@
           />
         </div>
 
-        <a
-          href="../admin/index.html"
-          class="login-button"
-          style="
-            color: #ffffff;
-            background-color: #e74c3c;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 500;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-          "
-        >
-          Đăng nhập
-        </a>
+        <button type="submit" class="login-button">Đăng nhập</button>
       </form>
       <a href="../pages/index.html">Thoat</a>
     </div>
 
-    <script src="../js/mainjs.js" defer></script>
+    <!-- No JavaScript in this build -->
   </body>
 </html>

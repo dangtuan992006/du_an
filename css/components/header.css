@@ -54,6 +54,11 @@ nav {
   border-radius: 22px;
   border: 1px solid var(--border-color);
   transition: border-color var(--transition-normal);
+  /* Align to the right like the sample */
+  justify-self: end;
+  width: 320px; /* compact width so placeholder fits with slight breathing room */
+  max-width: 40vw;
+  position: relative; /* allow placing the search icon at the far right */
 }
 
 .search-container:hover {
@@ -75,11 +80,13 @@ nav {
 .search-input {
   background: transparent;
   border: none;
-  padding: 3px 6px;
+  padding: 8px 38px 8px 10px; /* space on the right for the icon button */
   font-size: 14px;
   color: var(--text-color);
   width: 100%;
   outline: none;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .search-input::placeholder {
@@ -98,6 +105,10 @@ nav {
   justify-content: center;
   border-radius: var(--border-radius-full);
   transition: background var(--transition-fast);
+  position: absolute; /* stick to the right inside the pill */
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .search-button:hover {
@@ -127,12 +138,14 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
+  text-decoration: none; /* remove underline for anchor-style buttons */
 }
 
 .nav-button:hover {
   border-color: var(--primary-color);
   color: var(--primary-color);
   background: rgba(211, 47, 47, 0.04);
+  text-decoration: none; /* keep no underline on hover */
 }
 
 .nav-button i {
@@ -158,7 +171,8 @@ nav {
   display: inline-block;
 }
 
-.user-toggle {
+/* Ensure summary behaves like button */
+.user-dropdown > summary.user-toggle {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -171,9 +185,13 @@ nav {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
+  list-style: none;
 }
 
-.user-toggle:hover {
+.user-dropdown > summary.user-toggle::-webkit-details-marker { display: none; }
+.user-dropdown > summary.user-toggle::marker { display: none; }
+
+.user-dropdown > summary.user-toggle:hover {
   border-color: var(--primary-color);
   color: var(--primary-color);
   background: rgba(211, 47, 47, 0.04);
@@ -196,7 +214,8 @@ nav {
   transition: all var(--transition-normal);
 }
 
-.dropdown-menu.show {
+/* Show menu when details is open (CSS-only) */
+.user-dropdown[open] > .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -244,14 +263,13 @@ nav {
   .logo-link {
     justify-content: center;
   }
-  .search-container {
-    justify-content: center;
-    width: 100%;
-  }
-  .search-input {
-    width: 120px;
-  }
+  .search-container { width: 100%; max-width: none; justify-self: center; }
+  .search-input { width: 100%; }
   .nav-buttons {
     justify-content: center;
   }
+}
+
+@media (max-width: 992px) {
+  .search-container { width: 300px; }
 }

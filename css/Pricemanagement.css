@@ -25,7 +25,6 @@
     display: flex;
     gap: 10px;
     padding: 20px;
-  justify-content: flex-end; /* align search tools to the right */
 }
 
 .manager input {
@@ -70,9 +69,11 @@
 
 /* ----- NỀN TRANG ----- */
 body {
-    height: 100vh;
+    background-color: pink;
+    height: 100%;
+    width: 100% ;
     margin: 0;
-    background-image: linear-gradient(rgba(158, 24, 43, 0.5), rgba(148, 22, 41, 0.5)), url(../images/s4.jpg);
+    background-image: linear-gradient(rgba(158, 24, 43, 0.5), rgba(148, 22, 41, 0.5));
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -112,7 +113,7 @@ body {
 }
 
 /* ----- NÚT SỬA / XÓA ----- */
-.sua, .xoa {
+.sua1, .sua2, .sua3, .sua4, .sua5, .sua6, .sua7, .sua8 {
     padding: 6px 12px;
     border-radius: 6px;
     border: none;
@@ -121,23 +122,22 @@ body {
     transition: 0.2s;
 }
 
-.sua {
+.sua1, .sua2, .sua3, .sua4, .sua5, .sua6, .sua7, .sua8 {
     background-color: #f1c40f;
     color: #222;
 }
 
-.xoa {
-    background-color: #e74c3c;
-    color: white;
-}
-
-.sua:hover {
+.sua1:hover, .sua2:hover, .sua3:hover, .sua4:hover, .sua5:hover, .sua6:hover, .sua7:hover, .sua8:hover {
     background-color: #f39c12;
 }
 
-.xoa:hover {
-    background-color: #c0392b;
-}
+
+
+
+
+
+
+
 
 /* ----- NÚT THÊM SẢN PHẨM ----- */
 #btnAdd {
@@ -239,65 +239,84 @@ select.category {
 .pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 40px auto;
-  padding: 15px 25px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  width: fit-content;
-  font-family: "Poppins", sans-serif;
+  gap: 10px;
 }
 
-/* Danh sách số trang */
-.pagination .pages {
+.pages {
   list-style: none;
   display: flex;
   gap: 10px;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  padding-left:50%;
 }
 
-/* Mỗi số trang */
-.pagination .pages li {
-  padding: 8px 14px;
-  border: 1px solid #ddd;
+.pages li {
+  position: relative;
+}
+
+/* Ẩn radio */
+.pages input {
+  display: none;
+}
+
+/* Style chung của nút */
+.pages label {
+  padding: 8px 12px;
+  border: 1px solid #aaa;
   border-radius: 6px;
   cursor: pointer;
-  color: #555;
-  transition: all 0.3s ease;
+  transition: 0.3s;
+  background: #f2f2f2;
 }
 
-/* Hiệu ứng hover */
-.pagination .pages li:hover {
-  background-color: #f03709;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* Trang hiện tại */
-.pagination .pages li.active {
-  background-color: #d2011d;
+/* Khi được chọn → nhảy lên + đổi màu */
+.pages input:checked + label {
+  background: dodgerblue;
   color: white;
-  font-weight: 600;
+  transform: translateY(-4px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
-/* Nút trái/phải */
-.pagination button {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  width: 38px;
-  height: 38px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+
+
+
+
+
+.edit1-input, .edit2-input, .edit3-input,
+.edit4-input, .edit5-input, .edit6-input,
+.edit7-input, .edit8-input {
+  display: none;
+  width: 30px;
+  margin-left: 66px;
 }
 
-/* Hover cho nút trái/phải */
-.pagination button:hover {
-  background-color: #e34e03;
-  color: #fff;
+#edit1:checked ~ .ln1, #edit2:checked ~ .ln2, #edit3:checked ~ .ln3,
+#edit4:checked ~ .ln4, #edit5:checked ~ .ln5, #edit6:checked ~ .ln6,
+#edit7:checked ~ .ln7, #edit8:checked ~ .ln8 {
+  display: none;
 }
+
+#edit1:checked ~ .edit1-input, #edit2:checked ~ .edit2-input, #edit3:checked ~ .edit3-input,
+#edit4:checked ~ .edit4-input, #edit5:checked ~ .edit5-input, #edit6:checked ~ .edit6-input,
+#edit7:checked ~ .edit7-input, #edit8:checked ~ .edit8-input {
+  display: flex;
+}
+
+
+
+
+.tim{
+  border-radius: 10px;
+  background-color: rgb(215, 20, 20);
+}
+
+.tim:hover{
+  background-color: rgb(95, 11, 11);
+  color: white;
+}
+
+
+
+
+
