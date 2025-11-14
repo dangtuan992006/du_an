@@ -57,6 +57,7 @@ body {
   gap: 15px;
   background-color: white;
   padding: 20px;
+  align-items: center;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
@@ -79,6 +80,24 @@ button.loc, button.dl {
 
 button.loc { background-color: #0078d7; }
 button.dl { background-color: #ff4747; }
+
+.infor, .infor1, .infor2 {
+    background-color: #f0f8ff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border-left: 5px solid #0078d7;
+    margin-left: auto; /* Đẩy các box này về bên phải */
+}
+
+.infor1 {
+    border-left-color: #28a745;
+}
+
+.infor2 {
+    border-left-color: #dc3545;
+}
+
+.infor p, .infor1 p, .infor2 p { margin: 2px 0; }
 
 .table-container {
   margin-top: 25px;
