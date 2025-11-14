@@ -229,6 +229,8 @@
         font-size: 1.15rem;
         border: none;
         transition: background 0.2s, color 0.2s;
+        text-decoration: none; /* ĐÃ THÊM */
+        text-align: center; /* ĐÃ THÊM */
       }
       .btn-detail {
         background: #ffe4ec;
@@ -327,12 +329,9 @@
     </style>
   </head>
   <body>
-    <!-- Global checkbox for CSS-only cart drawer -->
     <input type="checkbox" id="cartToggle" hidden />
-    <!-- Thanh điều hướng -->
     <nav>
       <ul class="nav-grid">
-        <!-- Logo -->
         <li>
           <a href="index.html" class="logo-link">
             <img
@@ -343,9 +342,8 @@
           </a>
         </li>
 
-        <!-- Thanh tìm kiếm (khôi phục) -->
         <li class="search-container">
-          <form action="./index.html#products" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+          <form action="timkiem.html" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
             <input
               type="text"
               class="search-input"
@@ -359,9 +357,7 @@
           </form>
         </li>
 
-        <!-- Nút đăng nhập & giỏ hàng -->
         <li class="nav-buttons">
-          <!-- Dropdown người dùng CSS-only -->
           <details class="user-dropdown">
             <summary class="nav-button user-toggle">
               <i class="fas fa-user" aria-hidden="true"></i>
@@ -374,7 +370,6 @@
             </div>
           </details>
 
-          <!-- Giỏ hàng CSS-only (checkbox toggle) -->
           <a href="./Giohang.html" class="nav-button" role="button">
             <i class="fas fa-shopping-cart" aria-hidden="true"></i>
             Giỏ hàng
@@ -386,7 +381,6 @@
 
     <div class="topbar">
       <div class="topbar-container">
-        <!-- Thanh cam kết -->
         <div class="commitment-bar">
           <a href="#products" class="commitment-link">
             <div class="commitment-items">
@@ -457,18 +451,14 @@
       </div>
     </div>
 
-    <!-- Main Content -->
     <main>
       <div class="order-container">
         <h1 class="order-history-title">Lịch sử đơn hàng</h1>
-        <!-- Phân trang CSS-only -->
         <input type="radio" name="orderPage" id="order-page-1" checked hidden>
         <input type="radio" name="orderPage" id="order-page-2" hidden>
         <input type="radio" name="orderPage" id="order-page-3" hidden>
         <div class="order-list-wrapper">
-          <!-- Chỉ trang 1 hiển thị tất cả đơn hàng -->
           <div class="order-list order-list-page-1">
-            <!-- Đơn hàng 1 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -478,17 +468,16 @@
                 <span class="order-status">Đã giao hàng</span>
               </div>
               <div class="order-images">
-                <img src="../images/cherry.jpeg" alt="Sản phẩm 1" loading="lazy">
-                <img src="../images/quatang1.jpeg" alt="Sản phẩm 2" loading="lazy">
-                <img src="../images/quatang3.jpeg" alt="Sản phẩm 3" loading="lazy">
+                <img src="../images/luu.jpeg" alt="Sản phẩm 1" loading="lazy">
+                <img src="../images/duavang.jpeg" alt="Sản phẩm 2" loading="lazy">
+                <img src="../images/bo.jpeg" alt="Sản phẩm 3" loading="lazy">
               </div>
-              <div class="order-total">2.600.000₫</div>
+              <div class="order-total">255.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400123">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400123">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400123">Đặt lại đơn hàng</a>
               </div>
             </div>
-            <!-- Đơn hàng 2 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -504,10 +493,9 @@
               <div class="order-total">900.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400122">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400122">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400122">Đặt lại đơn hàng</a>
               </div>
             </div>
-            <!-- Đơn hàng 3 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -523,10 +511,9 @@
               <div class="order-total">1.200.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400121">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400121">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400121">Đặt lại đơn hàng</a>
               </div>
             </div>
-            <!-- Đơn hàng 4 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -542,10 +529,9 @@
               <div class="order-total">750.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400120">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400120">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400120">Đặt lại đơn hàng</a>
               </div>
             </div>
-            <!-- Đơn hàng 5 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -561,10 +547,9 @@
               <div class="order-total">1.050.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400119">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400119">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400119">Đặt lại đơn hàng</a>
               </div>
             </div>
-            <!-- Đơn hàng 6 -->
             <div class="order-card">
               <div class="order-header">
                 <div>
@@ -580,25 +565,20 @@
               <div class="order-total">600.000₫</div>
               <div class="order-buttons">
                 <button class="btn-detail" aria-label="Xem chi tiết đơn hàng #BL202400118">Xem chi tiết</button>
-                <button class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400118">Đặt lại đơn hàng</button>
+                <a href="./Giohang.html" class="btn-reorder" aria-label="Đặt lại đơn hàng #BL202400118">Đặt lại đơn hàng</a>
               </div>
             </div>
           </div>
-          <!-- Trang 2 và 3 đều hiển thị lại trang 1 -->
           <div class="order-list order-list-page-2"></div>
           <div class="order-list order-list-page-3"></div>
         </div>
-        <!-- Phân trang với mũi tên -->
         <div class="order-pagination">
-          <!-- Mũi tên trái: ở trang 1 thì trỏ về trang 3, ở trang 2 thì về trang 1, ở trang 3 thì về trang 2 -->
           <label for="order-page-3" class="order-arrow-btn" id="arrow-left-1"><i class="fas fa-chevron-left"></i></label>
           <label for="order-page-1" class="order-arrow-btn" id="arrow-left-2"><i class="fas fa-chevron-left"></i></label>
           <label for="order-page-2" class="order-arrow-btn" id="arrow-left-3"><i class="fas fa-chevron-left"></i></label>
-          <!-- Số trang -->
           <label for="order-page-1" class="order-page-btn">1</label>
           <label for="order-page-2" class="order-page-btn">2</label>
           <label for="order-page-3" class="order-page-btn">3</label>
-          <!-- Mũi tên phải: ở trang 1 thì trỏ về trang 2, ở trang 2 thì về trang 3, ở trang 3 thì về trang 1 -->
           <label for="order-page-2" class="order-arrow-btn" id="arrow-right-1"><i class="fas fa-chevron-right"></i></label>
           <label for="order-page-3" class="order-arrow-btn" id="arrow-right-2"><i class="fas fa-chevron-right"></i></label>
           <label for="order-page-1" class="order-arrow-btn" id="arrow-right-3"><i class="fas fa-chevron-right"></i></label>
@@ -687,7 +667,6 @@
 
     </main>
 
-    <!-- Order Detail Drawer -->
     <div class="order-detail-overlay" id="orderDetailOverlay"></div>
     <div class="order-detail-drawer" id="orderDetailDrawer">
       <div class="order-detail-header">
@@ -697,14 +676,10 @@
         </button>
       </div>
       <div class="order-detail-content" id="orderDetailContent">
-        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
-      </div>
+        </div>
     </div>
-    <!-- Đã loại bỏ giỏ hàng drawer trên header để dùng trang Giohang.html -->
-
     <footer class="main-footer">
       <div class="footer-container">
-        <!-- Brand Column -->
         <div class="footer-column footer-brand">
           <a href="../pages/index.html" class="footer-logo">
             <img
@@ -721,7 +696,6 @@
           <div class="newsletter-form"></div>
         </div>
 
-        <!-- Quick Links -->
         <div class="footer-column">
           <h4>Liên kết nhanh</h4>
           <ul class="footer-links">
@@ -743,7 +717,6 @@
           </ul>
         </div>
 
-        <!-- Contact & Social -->
         <div class="footer-column footer-contact">
           <h4>Liên hệ</h4>
           <div class="contact-info">
@@ -788,6 +761,5 @@
       </div>
     </footer>
 
-    <!-- No JavaScript in this build -->
-  </body>
+    </body>
 </html>

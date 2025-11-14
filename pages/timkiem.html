@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tìm kiếm sản phẩm - Pomegranate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <style>
+        html, body, button, input, select, textarea {
+            font-family: 'Poppins', sans-serif !important;
+            background: #fcd1db;
+        }
+        h1, h2, h3, h4, h5, h6, .section-title, .product-name {
+            font-family: 'Playfair Display', serif !important;
+        }
+        .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+        .search-section {
+            max-width: 1300px;
+            margin: 32px auto 0 auto;
+            display: flex;
+            gap: 32px;
+            padding: 0 16px;
+        }
+        .filter-box {
+            width: 300px;
+            background: #fff;
+            padding: 28px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(211,47,47,0.08);
+            border: 1px solid #ffd1d1;
+        }
+        .filter-box h3 {
+            margin-top: 0;
+            color: #d32f2f;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .filter-box label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: 500;
+            color: #a52a2a;
+        }
+        .filter-box input, .filter-box select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ffd1d1;
+            margin-bottom: 12px;
+            font-size: 15px;
+            background: #fff7f7;
+        }
+        .price-box {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 14px;
+            box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #a52a2a;
+        }
+        .results-box {
+            flex: 1;
+            background: #fff;
+            padding: 28px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(211,47,47,0.08);
+            border: 1px solid #ffd1d1;
+            min-height: 400px;
+        }
+        .results-box h3 {
+            color: #d32f2f;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 0;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .product {
+            background: #fff7f7;
+            border-radius: 14px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(211,47,47,0.06);
+            border: 1px solid #ffd1d1;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .product:hover {
+            box-shadow: 0 6px 18px rgba(211,47,47,0.12);
+            transform: translateY(-2px);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #ffd1d1;
+        }
+        .product h4 {
+            margin: 12px 0 6px;
+            font-size: 18px;
+            color: #d32f2f;
+            font-weight: 700;
+        }
+        .price {
+            font-weight: 700;
+            color: #a52a2a;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .btn-outline {
+            width: 90%;
+            padding: 10px 0;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            transition: background var(--transition-fast), color var(--transition-fast);
+            box-shadow: 0 2px 8px rgba(211,47,47,0.06);
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-outline:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            border-color: var(--primary-dark);
+        }
+        .btn-outline.buy-now {
+            background: var(--primary-color);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 4px 16px rgba(211,47,47,0.10);
+            margin-bottom: 2px;
+            transition: background var(--transition-fast);
+        }
+        .btn-outline.buy-now:hover {
+            background: var(--primary-dark);
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 28px 0 0 0;
+            gap: 12px;
+        }
+        .page {
+            padding: 8px 16px;
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1.5px solid #ffd1d1;
+            font-weight: 600;
+            color: #d32f2f;
+            font-size: 16px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .active-page {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+            box-shadow: 0 2px 8px rgba(211,47,47,0.12);
+        }
+        @media (max-width: 900px) {
+            .search-section { flex-direction: column; gap: 20px; }
+            .filter-box, .results-box { width: 100%; max-width: 100%; }
+            .products { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+        }
+        @media (max-width: 600px) {
+            .search-section { padding: 0 4px; }
+            .filter-box, .results-box { padding: 16px 8px; border-radius: 10px; }
+            .products { gap: 12px; }
+            .product img { height: 120px; }
+        }
+        .filter-box {
+        align-self: flex-start;
+        }
+        /* Topbar & Commitment Bar Styles (đồng bộ index.html) */
+        .topbar {
+            background: #ffd3d3;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .topbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .commitment-bar {
+            background: #ffd3d3;
+            padding: 12px 0;
+        }
+        .commitment-link {
+            text-decoration: none;
+            display: block;
+        }
+        .commitment-items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        .commitment-items::-webkit-scrollbar {
+            display: none;
+        }
+        .commitment-title {
+            color: #a52a2a;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+        .commitment-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .commitment-item span {
+            color: #27272a;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .commitment-item img {
+            flex-shrink: 0;
+            filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+        }
+        .divider {
+            width: 1px;
+            height: 20px;
+            background: #ebebf0;
+            flex-shrink: 0;
+        }
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .commitment-items {gap: 0;}
+        }
+        @media (max-width: 768px) {
+            .topbar-container {padding: 0 1rem;}
+            .commitment-bar {padding: 8px 0;}
+            .commitment-title {font-size: 13px;}
+            .commitment-item span {font-size: 11px;}
+            .commitment-item {padding: 0 4px;}
+        }
+        @media (max-width: 480px) {
+            .commitment-title {font-size: 12px;}
+            .commitment-item span {font-size: 10px;}
+            .commitment-item img {width: 16px; height: 16px;}
+            .divider {height: 14px;}
+        }
+        /* Đổi màu icon từng loại cam kết */
+        .commitment-item img {
+            filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+        }
+        .commitment-item:nth-child(3) img,
+        .commitment-item:nth-child(5) img,
+        .commitment-item:nth-child(7) img,
+        .commitment-item:nth-child(9) img,
+        .commitment-item:nth-child(11) img,
+        .commitment-item:nth-child(13) img {
+            filter: hue-rotate(120deg) saturate(1.5);
+        }
+
+        /* === CSS PHÂN TRANG MỚI THÊM === */
+        .search-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 32px 0 0 0;
+            align-items: center;
+            position: relative;
+        }
+        /* Ẩn/hiện mũi tên dựa trên radio button được check */
+        #arrow-left-s1, #arrow-left-s2, #arrow-left-s3,
+        #arrow-right-s1, #arrow-right-s2, #arrow-right-s3 {
+            display: none;
+        }
+        /* Logic hiển thị mũi tên cho trang 1 */
+        #search-page-1:checked ~ .search-section .search-pagination #arrow-left-s1,
+        #search-page-1:checked ~ .search-section .search-pagination #arrow-right-s1 {
+            display: flex;
+        }
+        /* Logic hiển thị mũi tên cho trang 2 */
+        #search-page-2:checked ~ .search-section .search-pagination #arrow-left-s2,
+        #search-page-2:checked ~ .search-section .search-pagination #arrow-right-s2 {
+            display: flex;
+        }
+        /* Logic hiển thị mũi tên cho trang 3 */
+        #search-page-3:checked ~ .search-section .search-pagination #arrow-left-s3,
+        #search-page-3:checked ~ .search-section .search-pagination #arrow-right-s3 {
+            display: flex;
+        }
+        
+        .search-page-btn {
+            background: #fff7f7;
+            color: #d32f2f;
+            border: 1px solid #ffd1d1;
+            border-radius: 999px;
+            padding: 8px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-page-btn:hover,
+        #search-page-1:checked ~ .search-section .search-pagination label[for="search-page-1"],
+        #search-page-2:checked ~ .search-section .search-pagination label[for="search-page-2"],
+        #search-page-3:checked ~ .search-section .search-pagination label[for="search-page-3"] {
+            background: #d32f2f;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(211,47,47,.15);
+        }
+        
+        .search-arrow-btn {
+            background: #fff7f7;
+            color: #d32f2f;
+            border: 1px solid #ffd1d1;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-arrow-btn:hover {
+            background: #d32f2f;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(211,47,47,.15);
+        }
+        /* === KẾT THÚC CSS PHÂN TRANG === */
+
+    </style>
+</head>
+<body>
+        <input type="checkbox" id="cartToggle" hidden />
+        <nav>
+            <ul class="nav-grid">
+                <li>
+                    <a href="../pages/index.html" class="logo-link">
+                        <img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Logo" />
+                        <p class="pacifico-regular">Pomegranate</p>
+                    </a>
+                </li>
+                <li class="search-container">
+                    <form action="timkiem.html" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+                        <input type="text" class="search-input" name="q" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" />
+                        <button class="search-button" type="submit" aria-label="Tìm kiếm">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-buttons">
+                    <details class="user-dropdown">
+                        <summary class="nav-button user-toggle">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            <span class="user-text">KhachHang001@gmail.com</span>
+                        </summary>
+                        <div class="dropdown-menu">
+                            <a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin cá nhân</a>
+                            <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+                            <a href="../pages/login.html" class="dropdown-item">Đăng xuất</a>
+                        </div>
+                    </details>
+                    <a href="../pages/Giohang.html" class="nav-button" role="button">
+                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        Giỏ hàng
+                        <span class="cart-count">3</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="topbar">
+            <div class="topbar-container">
+                <div class="commitment-bar">
+                    <a href="#products" class="commitment-link">
+                        <div class="commitment-items">
+                            <div class="commitment-title">Cam kết</div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png" alt="100% hàng chất lượng" width="20" height="20" />
+                                <span>100% hàng chất lượng</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png" alt="Freeship mọi đơn" width="20" height="20" />
+                                <span>Freeship mọi đơn</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png" alt="Hoàn 200% nếu hàng giả" width="20" height="20" />
+                                <span>Hoàn 200% nếu hàng hư</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png" alt="30 ngày đổi trả" width="20" height="20" />
+                                <span>30 ngày đổi trả</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png" alt="Giao nhanh 2h" width="20" height="20" />
+                                <span>Giao nhanh 2h</span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="commitment-item">
+                                <img src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png" alt="Giá siêu rẻ" width="20" height="20" />
+                                <span>Giá siêu rẻ</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div> <main>
+        <h1 style="text-align:center;color:#d32f2f;font-size:32px;font-family:'Playfair Display',serif;font-weight:700;margin:32px 0 0 0;">Tìm kiếm sản phẩm</h1>
+        
+        <input type="radio" name="searchPage" id="search-page-1" checked hidden>
+        <input type="radio" name="searchPage" id="search-page-2" hidden>
+        <input type="radio" name="searchPage" id="search-page-3" hidden>
+
+        <section class="search-section">
+            <div class="filter-box">
+                <h3>Tìm kiếm nâng cao</h3>
+                <label for="search-name">Tên sản phẩm</label>
+                <input id="search-name" type="text" placeholder="Nhập tên sản phẩm...">
+                <label for="search-category">Phân loại</label>
+                <select id="search-category">
+                    <option>Tất cả phân loại</option>
+                    <option>Trái cây Việt Nam</option>
+                    <option>Quà tặng trái cây</option>
+                    <option>Bán chạy nhất</option>
+                    <option>Đặc biệt</option>
+                </select>
+                <label>Khoảng giá</label>
+                <div class="price-box">
+                    <input type="number" placeholder="Từ (₫)">
+                    <input type="number" placeholder="Đến (₫)">
+                </div>
+                <button class="btn">Áp dụng</button>
+            </div>
+            <div class="results-box">
+                <h3>Kết quả tìm kiếm</h3>
+                <div class="products">
+                    <div class="product">
+                        <img src="../images/bananas.jpg" alt="Banana" />
+                        <h4>Banana</h4>
+                        <div class="price">25.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/dautay.jpeg" alt="Dâu Tây" />
+                        <h4>Dâu Tây</h4>
+                        <div class="price">180.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/cam.webp" alt="Cam Ngọt" />
+                        <h4>Cam Ngọt</h4>
+                        <div class="price">40.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/nho.jpeg" alt="Nho Tím" />
+                        <h4>Nho Tím</h4>
+                        <div class="price">120.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/bo.jpeg" alt="Bơ" />
+                        <h4>Bơ</h4>
+                        <div class="price">55.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/vai.jpeg" alt="Vải Thiều" />
+                        <h4>Vải Thiều</h4>
+                        <div class="price">90.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/luu.jpeg" alt="Lựu Đỏ" />
+                        <h4>Lựu Đỏ</h4>
+                        <div class="price">110.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/cherry.jpeg" alt="Cherry Đỏ" />
+                        <h4>Cherry Đỏ</h4>
+                        <div class="price">320.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/duavang.jpeg" alt="Dứa Vàng" />
+                        <h4>Dứa Vàng</h4>
+                        <div class="price">35.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1" />
+                        <h4>Set trái cây quà tặng số 1</h4>
+                        <div class="price">650.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/chanh.jpeg" alt="Chanh" />
+                        <h4>Chanh</h4>
+                        <div class="price">15.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/kiwi.jpeg" alt="Kiwi Xanh" />
+                        <h4>Kiwi Xanh</h4>
+                        <div class="price">60.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/apple.jpg" alt="Táo" />
+                        <h4>Táo</h4>
+                        <div class="price">45.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/man.jpeg" alt="Mận" />
+                        <h4>Mận</h4>
+                        <div class="price">30.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/carrot.jpg" alt="Carrot" />
+                        <h4>Carrot</h4>
+                        <div class="price">28.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/quatang2.jpeg" alt="Set trái cây quà tặng số 2" />
+                        <h4>Set trái cây quà tặng số 2</h4>
+                        <div class="price">780.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ" />
+                        <h4>Dưa Hấu Đỏ</h4>
+                        <div class="price">50.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <img src="../images/mango.jpg" alt="Xoài" />
+                        <h4>Xoài</h4>
+                        <div class="price">45.000₫</div>
+                        <div class="product-actions">
+                            <label for="cartToggle" class="btn-outline add-to-cart">Thêm giỏ</label>
+                            <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
+                        </div>
+                    </div>
+                </div> <div class="search-pagination">
+                    <label for="search-page-3" class="search-arrow-btn" id="arrow-left-s1"><i class="fas fa-chevron-left"></i></label>
+                    <label for="search-page-1" class="search-arrow-btn" id="arrow-left-s2"><i class="fas fa-chevron-left"></i></label>
+                    <label for="search-page-2" class="search-arrow-btn" id="arrow-left-s3"><i class="fas fa-chevron-left"></i></label>
+                    <label for="search-page-1" class="search-page-btn">1</label>
+                    <label for="search-page-2" class="search-page-btn">2</label>
+                    <label for="search-page-3" class="search-page-btn">3</label>
+                    <label for="search-page-2" class="search-arrow-btn" id="arrow-right-s1"><i class="fas fa-chevron-right"></i></label>
+                    <label for="search-page-3" class="search-arrow-btn" id="arrow-right-s2"><i class="fas fa-chevron-right"></i></label>
+                    <label for="search-page-1" class="search-arrow-btn" id="arrow-right-s3"><i class="fas fa-chevron-right"></i></label>
+                </div>
+                </div> </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column footer-brand">
+                <a href="../pages/index.html" class="footer-logo">
+                    <img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Pomegranate Logo" class="footer-logo-img" />
+                    <span class="footer-logo-text">Pomegranate</span>
+                </a>
+                <p class="footer-tagline">
+                    Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự nhiên, không chất bảo quản, giao hàng tận nơi.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Liên kết nhanh</h4>
+                <ul class="footer-links">
+                    <li><a href="../pages/index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                    <li><a href="../pages/about_us.html"><i class="fas fa-info-circle"></i> Về chúng tôi</a></li>
+                    <li><a href="../pages/contact.html"><i class="fas fa-phone"></i> Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column footer-contact">
+                <h4>Liên hệ</h4>
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>123 Đường ABC, Quận 1, TP.HCM</span></div>
+                    <div class="contact-item"><i class="fas fa-phone"></i> <span>0900 123 456</span></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i> <span>info@pomegranate.com</span></div>
+                    <div class="contact-item"><i class="fas fa-clock"></i> <span>8:00 - 22:00 (T2 - CN)</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="copyright">&copy; 2024 Pomegranate. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="../pages/privacy.html">Chính sách bảo mật</a>
+                    <a href="../pages/terms.html">Điều khoản sử dụng</a>
+                    <a href="../pages/return.html">Chính sách đổi trả</a>
+                </div>
+                <div class="payment-methods">
+                    <span class="payment-text">Chấp nhận thanh toán:</span>
+                    <div class="payment-icon">VISA</div>
+                    <div class="payment-icon">MC</div>
+                    <div class="payment-icon">COD</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Thông báo khi nhấn nút Thêm giỏ
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.add-to-cart').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          alert('Đã thêm sản phẩm vào giỏ hàng thành công');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
