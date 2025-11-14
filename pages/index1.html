@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Login System - Trái Lựu Theme</title>
+    <!-- icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  <!-- feather icons removed (no-JS build) -->
+    <!-- font chu logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font chu banana -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Playfair Display font for banner -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Body font to match Bloom site (no-JS build) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- file -->
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components/header.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components/product.css" />
+    <link rel="stylesheet" href="../css/components/footer.css" />
+    <!-- CSS riêng cho banner -->
+    <link rel="stylesheet" href="../css/components/banner.css" />
+    <!-- 3D model viewer removed (no-JS build) -->
+    <!-- Page-wide font overrides to match banner typography -->
+    <style>
+      /* Body and UI text use Poppins like banner content/buttons */
+      html, body, button, input, select, textarea {
+        font-family: 'Poppins', sans-serif !important;
+      }
+      /* Headings and prominent titles use Playfair like banner title */
+      h1, h2, h3, h4, h5, h6,
+      .section-title,
+      .product-name {
+        font-family: 'Playfair Display', serif !important;
+      }
+      /* Keep logo special font intact */
+      .pacifico-regular { font-family: 'Pacifico', cursive !important; }
+    </style>
+    <style>
+      /* --- Chat Support --- */
+      .chat-support {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9998;
+      }
+      .chat-support button {
+        background: #ff4b5c;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .chat-support button i {
+        margin-right: 5px;
+      }
+    </style>
+
+    <style>
+      /* Topbar Styles */
+      .topbar {
+        background: #ffd3d3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .topbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Commitment Bar - TẤT CẢ CÙNG 1 HÀNG */
+      .commitment-bar {
+        background: #ffd3d3;
+        padding: 12px 0;
+      }
+
+      .commitment-link {
+        text-decoration: none;
+        display: block;
+      }
+
+      .commitment-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .commitment-items::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Cam kết title */
+      .commitment-title {
+        color: #a52a2a;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .commitment-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .commitment-item span {
+        color: #27272a;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .commitment-item img {
+        flex-shrink: 0;
+      }
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #ebebf0;
+        flex-shrink: 0;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .commitment-items {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .topbar-container {
+          padding: 0 1rem;
+        }
+
+        .commitment-bar {
+          padding: 8px 0;
+        }
+
+        .commitment-title {
+          font-size: 13px;
+          padding: 0 6px;
+        }
+
+        .commitment-item span {
+          font-size: 11px;
+        }
+
+        .commitment-item {
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .commitment-title {
+          font-size: 12px;
+          padding: 0 4px;
+        }
+
+        .commitment-item span {
+          font-size: 10px;
+        }
+
+        .commitment-item img {
+          width: 16px;
+          height: 16px;
+        }
+
+        .divider {
+          height: 16px;
+        }
+      }
+
+      /* Animation */
+      .commitment-link:hover {
+        opacity: 0.9;
+      }
+
+      .commitment-item:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+      }
+      /* Đổi màu icon bằng filter */
+      .commitment-item img {
+        flex-shrink: 0;
+        filter: hue-rotate(45deg) saturate(2) brightness(0.8); /* Màu cam */
+      }
+
+      /* Hoặc từng icon riêng biệt */
+      .commitment-item:nth-child(3) img {
+        /* 100% hàng thật */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(5) img {
+        /* Freeship */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(7) img {
+        /* Hoàn 200% */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(9) img {
+        /* 30 ngày đổi trả */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(11) img {
+        /* Giao nhanh 2h */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+
+      .commitment-item:nth-child(13) img {
+        /* Giá siêu rẻ */
+        filter: hue-rotate(120deg) saturate(1.5); /* Màu xanh lá */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Global checkbox for CSS-only cart drawer -->
+    <input type="checkbox" id="cartToggle" hidden />
+    <!-- Thanh điều hướng -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index1.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Thanh tìm kiếm (khôi phục) -->
+        <li class="search-container">
+          <form action="../pages/login.html" method="get" class="search-form" style="display:flex;align-items:center;gap:6px;">
+            <input
+              type="text"
+              class="search-input"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm..."
+              aria-label="Tìm kiếm sản phẩm"
+            />
+            <button class="search-button" type="submit" aria-label="Tìm kiếm">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Nút đăng nhập (thay thế dropdown) -->
+          <a href="./login.html" class="nav-button user-toggle">
+            <i class="fas fa-user" aria-hidden="true"></i>
+            <span class="user-text">Đăng nhập</span>
+          </a>
+
+          <!-- Giỏ hàng -->
+          <a href="./login.html" class="nav-button" role="button">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            Giỏ hàng
+            <span class="cart-count">0</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-container">
+        <!-- Thanh cam kết -->
+        <div class="commitment-bar">
+          <a href="#products" class="commitment-link">
+            <div class="commitment-items">
+              <div class="commitment-title">Cam kết</div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/96/76/a3/16324a16c76ee4f507d5777608dab831.png"
+                  alt="100% hàng chất lượng"
+                  width="20"
+                  height="20"
+                />
+                <span>100% hàng chất lượng</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/11/09/ec/456a2a8c308c2de089a34bbfef1c757b.png"
+                  alt="Freeship mọi đơn"
+                  width="20"
+                  height="20"
+                />
+                <span>Freeship mọi đơn</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/0b/f2/19/c03ae8f46956eca66845fb9aaadeca1e.png"
+                  alt="Hoàn 200% nếu hàng giả"
+                  width="20"
+                  height="20"
+                />
+                <span>Hoàn 200% nếu hàng hư</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/3a/f4/7d/86ca29927e9b360dcec43dccb85d2061.png"
+                  alt="30 ngày đổi trả"
+                  width="20"
+                  height="20"
+                />
+                <span>30 ngày đổi trả</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/87/98/77/fc33e3d472fc4ce4bae8c835784b707a.png"
+                  alt="Giao nhanh 2h"
+                  width="20"
+                  height="20"
+                />
+                <span>Giao nhanh 2h</span>
+              </div>
+              <div class="divider"></div>
+              <div class="commitment-item">
+                <img
+                  src="https://salt.tikicdn.com/ts/upload/6a/81/06/0675ef5512c275a594d5ec1d58c37861.png"
+                  alt="Giá siêu rẻ"
+                  width="20"
+                  height="20"
+                />
+                <span>Giá siêu rẻ</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Banner Carousel -->
+    <!-- Carousel CSS-only (radio-controlled) -->
+    <section class="hero-carousel">
+  <input type="radio" name="hero" id="hero-1" class="sr-only" checked>
+  <input type="radio" name="hero" id="hero-2" class="sr-only">
+  <input type="radio" name="hero" id="hero-3" class="sr-only">
+
+      <div class="carousel-track slides">
+        <div class="slide" id="slide-1">
+          <picture>
+            <source media="(min-width: 1200px)" srcset="../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1920w, ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w" />
+            <source media="(min-width: 768px)" srcset="../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 1200w, ../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png 768w" />
+            <img src="../images/Gemini_Generated_Image_24o9jm24o9jm24o9.png" alt="Benefits of Pomegranate" class="slide-image" loading="eager" />
+          </picture>
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Tinh Hoa Từ Thiên Nhiên</h2>
+              <p class="slide-description">Chăm sóc sức khỏe và sắc đẹp từ bên trong</p>
+              <a href="#products" class="btn-primary">Khám Phá Ngay</a>
+            </div>
+          </div>
+        </div>
+  <div class="slide" id="slide-2">
+          <img src="../images/cam.png" alt="Banner 2" class="slide-image" />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Khơi Dậy Năng Lượng Tích Cực</h2>
+              <p class="slide-description">Cho một ngày tràn đầy sức sống</p>
+              <a href="#products" class="btn-primary">Khám Phá Ngay</a>
+            </div>
+          </div>
+        </div>
+  <div class="slide" id="slide-3">
+          <img src="https://placehold.co/1920x1080/1a1a1a/ffffff?text=Premium+Quality" alt="Banner 3" class="slide-image" />
+          <div class="slide-overlay">
+            <div class="slide-content">
+              <h2 class="slide-title">Chất Lượng Tạo Niềm Tin</h2>
+              <p class="slide-description">Lựa chọn hoàn hảo cho phong cách sống hiện đại</p>
+              <a href="#products" class="btn-primary">Khám Phá Ngay</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators" role="tablist" aria-label="Chọn slide banner">
+        <label class="indicator" for="hero-1" role="tab" aria-controls="slide-1" aria-label="Slide 1: Tinh Hoa" tabindex="0"></label>
+        <label class="indicator" for="hero-2" role="tab" aria-controls="slide-2" aria-label="Slide 2: Năng Lượng" tabindex="0"></label>
+        <label class="indicator" for="hero-3" role="tab" aria-controls="slide-3" aria-label="Slide 3: Chất Lượng" tabindex="0"></label>
+      </div>
+
+      <!-- Arrow controls (CSS-state specific) -->
+      <div class="carousel-arrows">
+        <!-- When on slide 1: prev -> slide 3, next -> slide 2 -->
+        <label class="carousel-nav carousel-nav-prev prev-1" for="hero-3"><i class="fas fa-chevron-left nav-icon" aria-hidden="true"></i></label>
+        <label class="carousel-nav carousel-nav-next next-1" for="hero-2"><i class="fas fa-chevron-right nav-icon" aria-hidden="true"></i></label>
+        <!-- When on slide 2: prev -> slide 1, next -> slide 3 -->
+        <label class="carousel-nav carousel-nav-prev prev-2" for="hero-1"><i class="fas fa-chevron-left nav-icon" aria-hidden="true"></i></label>
+        <label class="carousel-nav carousel-nav-next next-2" for="hero-3"><i class="fas fa-chevron-right nav-icon" aria-hidden="true"></i></label>
+        <!-- When on slide 3: prev -> slide 2, next -> slide 1 -->
+        <label class="carousel-nav carousel-nav-prev prev-3" for="hero-2"><i class="fas fa-chevron-left nav-icon" aria-hidden="true"></i></label>
+        <label class="carousel-nav carousel-nav-next next-3" for="hero-1"><i class="fas fa-chevron-right nav-icon" aria-hidden="true"></i></label>
+      </div>
+    </section>
+
+    <!-- Favorites Modal -->
+    <div id="favorites-modal-overlay" class="modal-overlay"></div>
+    <div id="favorites-modal" class="product-modal">
+      <button id="close-favorites-modal-button" class="modal-close-btn">
+        <i data-feather="x" class="modal-close-icon"></i>
+      </button>
+      <h2 class="modal-title">Danh sách yêu thích</h2>
+
+      <div id="favorites-grid" class="favorites-grid">
+        <!-- Các sản phẩm yêu thích sẽ được render vào đây -->
+      </div>
+
+      <div id="favorites-empty" class="favorites-empty">
+        <p>Bạn chưa có sản phẩm yêu thích nào.</p>
+      </div>
+
+      <!-- PHẦN THÊM VÀO: Footer của modal với nút thanh toán -->
+      <div id="favorites-footer" class="favorites-footer">
+        <button id="add-favorites-to-cart-btn" class="btn-primary">
+          Thêm tất cả vào giỏ hàng
+        </button>
+      </div>
+    </div>
+    <!-- End Favorites Modal -->
+
+    <!-- Category tabs styles (CSS-only) -->
+    <style>
+      .category-tabs {display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:40px auto 24px;padding:10px 16px;background:#fff7f7;border:1px solid #ffd1d1;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.04);max-width:920px}
+      .category-tabs label{cursor:pointer;padding:10px 20px;border-radius:999px;font-size:14px;font-weight:700;background:#fff;color:var(--primary-color,#d32f2f);transition:all .25s ease}
+      .category-tabs label:hover{background:#ffe4e4}
+      #cat-all:checked ~ .category-tabs label[for="cat-all"],
+      #cat-banchay:checked ~ .category-tabs label[for="cat-banchay"],
+      #cat-quatang:checked ~ .category-tabs label[for="cat-quatang"],
+      #cat-vietnam:checked ~ .category-tabs label[for="cat-vietnam"],
+      #cat-dacbiet:checked ~ .category-tabs label[for="cat-dacbiet"]{background:var(--primary-color,#d32f2f);color:#fff;box-shadow:0 4px 12px rgba(211,47,47,.3)}
+      /* Filtering */
+      #cat-banchay:checked ~ .products-container .product-card:not(.cat-banchay){display:none}
+      #cat-quatang:checked ~ .products-container .product-card:not(.cat-quatang){display:none}
+      #cat-vietnam:checked ~ .products-container .product-card:not(.cat-vietnam){display:none}
+      #cat-dacbiet:checked ~ .products-container .product-card:not(.cat-dacbiet){display:none}
+    </style>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Phần sản phẩm mới -->
+      <section class="products-section" id="products">
+        <!-- ======================== CSS-ONLY CATEGORY FILTER & PAGINATION ======================== -->
+        <!-- Category radios -->
+        <input type="radio" name="catFilter" id="cat-all" checked hidden>
+        <input type="radio" name="catFilter" id="cat-banchay" hidden>
+        <input type="radio" name="catFilter" id="cat-quatang" hidden>
+        <input type="radio" name="catFilter" id="cat-vietnam" hidden>
+        <input type="radio" name="catFilter" id="cat-dacbiet" hidden>
+
+        <!-- Page radios for each category (All has 2 pages, others 1) -->
+        <input type="radio" name="pageAll" id="page-all-1" checked hidden>
+        <input type="radio" name="pageAll" id="page-all-2" hidden>
+  <input type="radio" name="pageBanChay" id="page-banchay-1" checked hidden>
+  <input type="radio" name="pageBanChay" id="page-banchay-2" hidden>
+  <input type="radio" name="pageQuaTang" id="page-quatang-1" checked hidden>
+  <input type="radio" name="pageQuaTang" id="page-quatang-2" hidden>
+  <input type="radio" name="pageVietNam" id="page-vietnam-1" checked hidden>
+  <input type="radio" name="pageVietNam" id="page-vietnam-2" hidden>
+  <input type="radio" name="pageDacBiet" id="page-dacbiet-1" checked hidden>
+  <input type="radio" name="pageDacBiet" id="page-dacbiet-2" hidden>
+
+        <!-- Category Tabs (Bloom style inspired) -->
+        <div class="category-tabs" role="tablist" aria-label="Phân loại sản phẩm">
+          <label for="cat-all" role="tab" aria-selected="true">Tất cả sản phẩm</label>
+          <label for="cat-banchay" role="tab" aria-selected="false">Bán chạy nhất</label>
+          <label for="cat-quatang" role="tab" aria-selected="false">Quà tặng trái cây</label>
+          <label for="cat-vietnam" role="tab" aria-selected="false">Trái cây Việt Nam</label>
+          <label for="cat-dacbiet" role="tab" aria-selected="false">Đặc biệt</label>
+        </div>
+        <h2 class="section-title visually-hidden">Sản phẩm nổi bật</h2>
+
+        <!-- Products Wrapper -->
+        <div class="products-wrapper">
+          <!-- ================= ALL PRODUCTS PAGE 1 ================= -->
+          <div class="product-page page-all-1 cat-all">
+            <!-- 12 sản phẩm đầu tiên -->
+            <article class="product-card" aria-label="Banana">
+              <a href="./login.html" class="product-link"><img src="../images/bananas.jpg" alt="Banana - Chuối vàng thơm ngọt" loading="lazy"></a>
+              <h3>Banana</h3><p class="price">25.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-banchay" aria-label="Dâu Tây">
+              <a href="./login.html" class="product-link"><img src="../images/dautay.jpeg" alt="Dâu Tây - Đỏ mọng ngọt dịu" loading="lazy"></a>
+              <h3>Dâu Tây</h3><p class="price">180.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Cam Ngọt">
+              <a href="./login.html" class="product-link"><img src="../images/cam.webp" alt="Cam Ngọt - Giàu vitamin C" loading="lazy"></a>
+              <h3>Cam Ngọt</h3><p class="price">40.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-banchay" aria-label="Nho Tím">
+              <a href="./login.html" class="product-link"><img src="../images/nho.jpeg" alt="Nho Tím - Căng mọng đậm vị" loading="lazy"></a>
+              <h3>Nho Tím</h3><p class="price">120.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-dacbiet" aria-label="Bơ">
+              <a href="./login.html" class="product-link"><img src="../images/bo.jpeg" alt="Bơ - Béo ngậy bổ dưỡng" loading="lazy"></a>
+              <h3>Bơ</h3><p class="price">55.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Vải Thiều">
+              <a href="./login.html" class="product-link"><img src="../images/vai.jpeg" alt="Vải Thiều - Ngọt thơm đặc trưng" loading="lazy"></a>
+              <h3>Vải Thiều</h3><p class="price">90.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-dacbiet" aria-label="Lựu Đỏ">
+              <a href="./login.html" class="product-link"><img src="../images/luu.jpeg" alt="Lựu Đỏ - Giàu chất chống oxy hóa" loading="lazy"></a>
+              <h3>Lựu Đỏ</h3><p class="price">110.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-quatang" aria-label="Cherry Đỏ">
+              <a href="./login.html" class="product-link"><img src="../images/cherry.jpeg" alt="Cherry Đỏ - Quà tặng sang trọng" loading="lazy"></a>
+              <h3>Cherry Đỏ</h3><p class="price">320.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Dứa Vàng">
+              <a href="./login.html" class="product-link"><img src="../images/duavang.jpeg" alt="Dứa Vàng - Ngọt thanh mát" loading="lazy"></a>
+              <h3>Dứa Vàng</h3><p class="price">35.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-quatang" aria-label="Set quà tặng 1">
+              <a href="./login.html" class="product-link"><img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1" loading="lazy"></a>
+              <h3>Set trái cây quà tặng số 1</h3><p class="price">650.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Chanh">
+              <a href="./login.html" class="product-link"><img src="../images/chanh.jpeg" alt="Chanh - Tươi giàu vitamin C" loading="lazy"></a>
+              <h3>Chanh</h3><p class="price">15.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-dacbiet" aria-label="Kiwi Xanh">
+              <a href="./login.html" class="product-link"><img src="../images/kiwi.jpeg" alt="Kiwi Xanh - Chua ngọt giàu dinh dưỡng" loading="lazy"></a>
+              <h3>Kiwi Xanh</h3><p class="price">60.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+          </div>
+
+          <!-- ================= ALL PRODUCTS PAGE 2 ================= -->
+          <div class="product-page page-all-2 cat-all">
+            <article class="product-card cat-dacbiet" aria-label="Táo">
+              <a href="./login.html" class="product-link"><img src="../images/apple.jpg" alt="Táo - Giòn ngọt tốt cho sức khỏe" loading="lazy"></a>
+              <h3>Táo</h3><p class="price">45.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Mận">
+              <a href="./login.html" class="product-link"><img src="../images/man.jpeg" alt="Mận - Chua ngọt hấp dẫn" loading="lazy"></a>
+              <h3>Mận</h3><p class="price">30.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-dacbiet" aria-label="Carrot">
+              <a href="./login.html" class="product-link"><img src="../images/carrot.jpg" alt="Carrot - Giàu vitamin A" loading="lazy"></a>
+              <h3>Carrot</h3><p class="price">28.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-quatang" aria-label="Set quà tặng 2">
+              <a href="./login.html" class="product-link"><img src="../images/quatang2.jpeg" alt="Set trái cây quà tặng số 2" loading="lazy"></a>
+              <h3>Set trái cây quà tặng số 2</h3><p class="price">780.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Dưa Hấu Đỏ">
+              <a href="./login.html" class="product-link"><img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ - Ngọt mát giải nhiệt" loading="lazy"></a>
+              <h3>Dưa Hấu Đỏ</h3><p class="price">50.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+            <article class="product-card cat-vietnam" aria-label="Xoài">
+              <a href="./login.html" class="product-link"><img src="../images/mango.jpg" alt="Xoài - Chín thơm dẻo ngọt" loading="lazy"></a>
+              <h3>Xoài</h3><p class="price">45.000₫</p>
+              <div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div>
+            </article>
+          </div>
+
+          <!-- ================= CATEGORY: BÁN CHẠY (1 PAGE) ================= -->
+          <div class="product-page page-banchay-1 cat-banchay">
+            <article class="product-card" aria-label="Dâu Tây"><a href="./login.html" class="product-link"><img src="../images/dautay.jpeg" alt="Dâu Tây bán chạy" loading="lazy"></a><h3>Dâu Tây</h3><p class="price">180.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Nho Tím"><a href="./login.html" class="product-link"><img src="../images/nho.jpeg" alt="Nho Tím bán chạy" loading="lazy"></a><h3>Nho Tím</h3><p class="price">120.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Cherry Đỏ"><a href="./login.html" class="product-link"><img src="../images/cherry.jpeg" alt="Cherry Đỏ bán chạy" loading="lazy"></a><h3>Cherry Đỏ</h3><p class="price">320.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Banana"><a href="./login.html" class="product-link"><img src="../images/chuoi.webp" alt="Chuối bán chạy" loading="lazy"></a><h3>Banana</h3><p class="price">25.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+          </div>
+
+          <!-- ================= CATEGORY: QUÀ TẶNG (1 PAGE) ================= -->
+            <div class="product-page page-quatang-1 cat-quatang">
+              <article class="product-card" aria-label="Set trái cây quà tặng số 1"><a href="./login.html" class="product-link"><img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1" loading="lazy"></a><h3>Set quà tặng số 1</h3><p class="price">650.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+              <article class="product-card" aria-label="Set trái cây quà tặng số 2"><a href="./login.html" class="product-link"><img src="../images/quatang2.jpeg" alt="Set trái cây quà tặng số 2" loading="lazy"></a><h3>Set quà tặng số 2</h3><p class="price">780.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+              <article class="product-card" aria-label="Cherry Đỏ"><a href="./login.html" class="product-link"><img src="../images/cherry.jpeg" alt="Cherry đỏ quà tặng" loading="lazy"></a><h3>Cherry Đỏ</h3><p class="price">320.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            </div>
+
+          <!-- ================= CATEGORY: VIỆT NAM (1 PAGE) ================= -->
+          <div class="product-page page-vietnam-1 cat-vietnam">
+            <article class="product-card" aria-label="Cam Ngọt"><a href="./login.html" class="product-link"><img src="../images/cam.webp" alt="Cam Ngọt Việt Nam" loading="lazy"></a><h3>Cam Ngọt</h3><p class="price">40.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Vải Thiều"><a href="./login.html" class="product-link"><img src="../images/vai.jpeg" alt="Vải Thiều Việt Nam" loading="lazy"></a><h3>Vải Thiều</h3><p class="price">90.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Dứa Vàng"><a href="./login.html" class="product-link"><img src="../images/duavang.jpeg" alt="Dứa Vàng Việt Nam" loading="lazy"></a><h3>Dứa Vàng</h3><p class="price">35.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Chanh"><a href="./login.html" class="product-link"><img src="../images/chanh.jpeg" alt="Chanh Việt Nam" loading="lazy"></a><h3>Chanh</h3><p class="price">15.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Mận"><a href="./login.html" class="product-link"><img src="../images/man.jpeg" alt="Mận Việt Nam" loading="lazy"></a><h3>Mận</h3><p class="price">30.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Dưa Hấu Đỏ"><a href="./login.html" class="product-link"><img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ Việt Nam" loading="lazy"></a><h3>Dưa Hấu Đỏ</h3><p class="price">50.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Xoài"><a href="./login.html" class="product-link"><img src="../images/mango.jpg" alt="Xoài Việt Nam" loading="lazy"></a><h3>Xoài</h3><p class="price">45.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+          </div>
+
+          <!-- ================= CATEGORY: ĐẶC BIỆT (1 PAGE) ================= -->
+          <div class="product-page page-dacbiet-1 cat-dacbiet">
+            <article class="product-card" aria-label="Bơ"><a href="./login.html" class="product-link"><img src="../images/bo.jpeg" alt="Bơ đặc biệt" loading="lazy"></a><h3>Bơ</h3><p class="price">55.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Lựu Đỏ"><a href="./login.html" class="product-link"><img src="../images/luu.jpeg" alt="Lựu Đỏ đặc biệt" loading="lazy"></a><h3>Lựu Đỏ</h3><p class="price">110.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Kiwi Xanh"><a href="./login.html" class="product-link"><img src="../images/kiwi.jpeg" alt="Kiwi Xanh đặc biệt" loading="lazy"></a><h3>Kiwi Xanh</h3><p class="price">60.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Táo"><a href="./login.html" class="product-link"><img src="../images/apple.jpg" alt="Táo đặc biệt" loading="lazy"></a><h3>Táo</h3><p class="price">45.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+            <article class="product-card" aria-label="Carrot"><a href="./login.html" class="product-link"><img src="../images/carrot.jpg" alt="Carrot đặc biệt" loading="lazy"></a><h3>Carrot</h3><p class="price">28.000₫</p><div class="product-actions"><a href="login.html" class="btn-outline">Mua ngay</a><a href="login.html" class="btn-outline add-to-cart">Thêm giỏ</a></div></article>
+          </div>
+        </div>
+
+        <!-- Pagination navigation (CSS-only) -->
+        <div class="pagination-container">
+          <!-- All products pagination -->
+          <div class="pagination pagination-all" aria-label="Phân trang tất cả">
+            <div class="pagination-inner">
+              <!-- Left arrows (only one visible per state) -->
+              <label class="page-arrow prev prev-all-1" for="page-all-2" aria-label="Trang trước">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              </label>
+              <label class="page-arrow prev prev-all-2" for="page-all-1" aria-label="Trang trước">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+              </label>
+              
+              <!-- Page numbers (center) -->
+              <label for="page-all-1" class="page-number page-all-1-btn" aria-label="Trang 1">1</label>
+              <label for="page-all-2" class="page-number page-all-2-btn" aria-label="Trang 2">2</label>
+
+              <!-- Right arrows (only one visible per state) -->
+              <label class="page-arrow next next-all-1" for="page-all-2" aria-label="Trang sau">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </label>
+              <label class="page-arrow next next-all-2" for="page-all-1" aria-label="Trang sau">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </label>
+            </div>
+          </div>
+          <!-- Single page categories (hidden page numbers) -->
+          <div class="pagination pagination-banchay" aria-label="Phân trang bán chạy">
+            <div class="pagination-inner">
+              <!-- Left arrows for trạng thái trang -->
+              <label class="page-arrow prev prev-banchay-1" for="page-banchay-2" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label class="page-arrow prev prev-banchay-2" for="page-banchay-1" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <!-- Numbers (center) -->
+              <label for="page-banchay-1" class="page-number page-banchay-1-btn" aria-label="Trang 1">1</label>
+              <label for="page-banchay-2" class="page-number page-banchay-2-btn" aria-label="Trang 2">2</label>
+              <!-- Right arrows -->
+              <label class="page-arrow next next-banchay-1" for="page-banchay-2" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+              <label class="page-arrow next next-banchay-2" for="page-banchay-1" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+            </div>
+          </div>
+          <div class="pagination pagination-quatang" aria-label="Phân trang quà tặng">
+            <div class="pagination-inner">
+              <label class="page-arrow prev prev-quatang-1" for="page-quatang-2" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label class="page-arrow prev prev-quatang-2" for="page-quatang-1" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label for="page-quatang-1" class="page-number page-quatang-1-btn" aria-label="Trang 1">1</label>
+              <label for="page-quatang-2" class="page-number page-quatang-2-btn" aria-label="Trang 2">2</label>
+              <label class="page-arrow next next-quatang-1" for="page-quatang-2" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+              <label class="page-arrow next next-quatang-2" for="page-quatang-1" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+            </div>
+          </div>
+          <div class="pagination pagination-vietnam" aria-label="Phân trang Việt Nam">
+            <div class="pagination-inner">
+              <label class="page-arrow prev prev-vietnam-1" for="page-vietnam-2" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label class="page-arrow prev prev-vietnam-2" for="page-vietnam-1" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label for="page-vietnam-1" class="page-number page-vietnam-1-btn" aria-label="Trang 1">1</label>
+              <label for="page-vietnam-2" class="page-number page-vietnam-2-btn" aria-label="Trang 2">2</label>
+              <label class="page-arrow next next-vietnam-1" for="page-vietnam-2" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+              <label class="page-arrow next next-vietnam-2" for="page-vietnam-1" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+            </div>
+          </div>
+          <div class="pagination pagination-dacbiet" aria-label="Phân trang đặc biệt">
+            <div class="pagination-inner">
+              <label class="page-arrow prev prev-dacbiet-1" for="page-dacbiet-2" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label class="page-arrow prev prev-dacbiet-2" for="page-dacbiet-1" aria-label="Trang trước"><i class="fas fa-chevron-left"></i></label>
+              <label for="page-dacbiet-1" class="page-number page-dacbiet-1-btn" aria-label="Trang 1">1</label>
+              <label for="page-dacbiet-2" class="page-number page-dacbiet-2-btn" aria-label="Trang 2">2</label>
+              <label class="page-arrow next next-dacbiet-1" for="page-dacbiet-2" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+              <label class="page-arrow next next-dacbiet-2" for="page-dacbiet-1" aria-label="Trang sau"><i class="fas fa-chevron-right"></i></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline CSS for new structure (kept minimal) -->
+        <style>
+          /* Accessibility */
+          .visually-hidden{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+          /* Layout */
+          .products-section{padding-top:32px}
+          .products-wrapper{display:block;max-width:1200px;margin:0 auto;padding:0 16px}
+          .product-page{display:none;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:32px}
+          /* Show correct page based on selected radios */
+          #cat-all:checked ~ #page-all-1:checked ~ .products-wrapper .page-all-1,
+          #cat-all:checked ~ #page-all-2:checked ~ .products-wrapper .page-all-2{display:grid}
+          #cat-banchay:checked ~ #page-banchay-1:checked ~ .products-wrapper .page-banchay-1,
+          #cat-banchay:checked ~ #page-banchay-2:checked ~ .products-wrapper .page-banchay-1{display:grid}
+          #cat-quatang:checked ~ #page-quatang-1:checked ~ .products-wrapper .page-quatang-1,
+          #cat-quatang:checked ~ #page-quatang-2:checked ~ .products-wrapper .page-quatang-1{display:grid}
+          #cat-vietnam:checked ~ #page-vietnam-1:checked ~ .products-wrapper .page-vietnam-1,
+          #cat-vietnam:checked ~ #page-vietnam-2:checked ~ .products-wrapper .page-vietnam-1{display:grid}
+          #cat-dacbiet:checked ~ #page-dacbiet-1:checked ~ .products-wrapper .page-dacbiet-1,
+          #cat-dacbiet:checked ~ #page-dacbiet-2:checked ~ .products-wrapper .page-dacbiet-1{display:grid}
+          /* Card reset (override old glass style) */
+          .product-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:.3s;height:auto !important;min-height:480px;overflow:hidden}
+          .product-card:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,0,0,.1)}
+          .product-card img{width:100%;height:300px;object-fit:cover;border-radius:8px;display:block}
+          /* Cố định khoảng cách giữa ảnh và tên */
+          .product-card .product-link{display:block;width:100%;margin-bottom:12px}
+          .product-card h3{font-size:20px;margin:0 0 8px;color:#333;font-weight:700;line-height:1.35;min-height:48px}
+          .product-card .price{font-size:22px;font-weight:800;color:#d32f2f;margin:0 0 12px}
+          .product-actions{margin-top:auto;width:100%;display:flex;gap:10px}
+          .product-actions .btn-outline{flex:1;display:inline-flex;align-items:center;justify-content:center;height:38px;border:1.5px solid var(--primary-color,#2e7d68);color:var(--primary-color,#2e7d68);border-radius:10px;background:#fff;font-weight:600;transition:.25s;text-decoration:none;cursor:pointer}
+          .product-actions .btn-outline:hover{background:rgba(46,125,104,.08);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+          .pagination-container{display:flex;justify-content:center;margin:0 auto 48px;flex-direction:column;align-items:center;gap:12px}
+          .pagination{display:none;gap:8px;align-items:center}
+          .pagination .pagination-inner{display:flex;gap:10px;align-items:center;background:#ffd6de;padding:8px 12px;border-radius:999px;box-shadow:0 10px 24px rgba(211,47,47,.12)}
+          #cat-all:checked ~ .pagination-container .pagination-all{display:flex}
+          #cat-banchay:checked ~ .pagination-container .pagination-banchay,
+          #cat-quatang:checked ~ .pagination-container .pagination-quatang,
+          #cat-vietnam:checked ~ .pagination-container .pagination-vietnam,
+          #cat-dacbiet:checked ~ .pagination-container .pagination-dacbiet{display:flex}
+          .page-number{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ffd1d1;border-radius:50%;cursor:pointer;font-weight:600;color:#d32f2f;transition:.25s}
+          .page-number:hover{background:#ffe6e6}
+          #page-all-1:checked ~ .products-wrapper + .pagination-container .pagination-all label[for="page-all-1"],
+          #page-all-2:checked ~ .products-wrapper + .pagination-container .pagination-all label[for="page-all-2"]{background:#d32f2f;color:#fff;border-color:#d32f2f;box-shadow:0 4px 12px rgba(211,47,47,.3)}
+          /* Active states for single-page categories (unified style) */
+          #page-banchay-1:checked ~ .products-wrapper + .pagination-container .pagination-banchay .page-banchay-1-btn,
+          #page-banchay-2:checked ~ .products-wrapper + .pagination-container .pagination-banchay .page-banchay-2-btn,
+          #page-quatang-1:checked ~ .products-wrapper + .pagination-container .pagination-quatang .page-quatang-1-btn,
+          #page-quatang-2:checked ~ .products-wrapper + .pagination-container .pagination-quatang .page-quatang-2-btn,
+          #page-vietnam-1:checked ~ .products-wrapper + .pagination-container .pagination-vietnam .page-vietnam-1-btn,
+          #page-vietnam-2:checked ~ .products-wrapper + .pagination-container .pagination-vietnam .page-vietnam-2-btn,
+          #page-dacbiet-1:checked ~ .products-wrapper + .pagination-container .pagination-dacbiet .page-dacbiet-1-btn,
+          #page-dacbiet-2:checked ~ .products-wrapper + .pagination-container .pagination-dacbiet .page-dacbiet-2-btn{background:#d32f2f;color:#fff;border-color:#d32f2f;box-shadow:0 4px 12px rgba(211,47,47,.3)}
+
+          /* Arrow buttons */
+          .page-arrow{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ffd1d1;color:#d32f2f;cursor:pointer;transition:.25s}
+          .page-arrow:hover{background:#ffe6e6}
+          .page-arrow.disabled{opacity:.5;pointer-events:none}
+
+          /* Show right arrow pair depending on All's current page */
+          .pagination-all .page-arrow{display:none}
+          #page-all-1:checked ~ .pagination-container .pagination-all .prev-all-1,
+          #page-all-1:checked ~ .pagination-container .pagination-all .next-all-1{display:inline-flex}
+          #page-all-2:checked ~ .pagination-container .pagination-all .prev-all-2,
+          #page-all-2:checked ~ .pagination-container .pagination-all .next-all-2{display:inline-flex}
+
+          /* Arrow visibility for each category */
+          .pagination-banchay .page-arrow{display:none}
+          #page-banchay-1:checked ~ .pagination-container .pagination-banchay .prev-banchay-1,
+          #page-banchay-1:checked ~ .pagination-container .pagination-banchay .next-banchay-1{display:inline-flex}
+          #page-banchay-2:checked ~ .pagination-container .pagination-banchay .prev-banchay-2,
+          #page-banchay-2:checked ~ .pagination-container .pagination-banchay .next-banchay-2{display:inline-flex}
+
+          .pagination-quatang .page-arrow{display:none}
+          #page-quatang-1:checked ~ .pagination-container .pagination-quatang .prev-quatang-1,
+          #page-quatang-1:checked ~ .pagination-container .pagination-quatang .next-quatang-1{display:inline-flex}
+          #page-quatang-2:checked ~ .pagination-container .pagination-quatang .prev-quatang-2,
+          #page-quatang-2:checked ~ .pagination-container .pagination-quatang .next-quatang-2{display:inline-flex}
+
+          .pagination-vietnam .page-arrow{display:none}
+          #page-vietnam-1:checked ~ .pagination-container .pagination-vietnam .prev-vietnam-1,
+          #page-vietnam-1:checked ~ .pagination-container .pagination-vietnam .next-vietnam-1{display:inline-flex}
+          #page-vietnam-2:checked ~ .pagination-container .pagination-vietnam .prev-vietnam-2,
+          #page-vietnam-2:checked ~ .pagination-container .pagination-vietnam .next-vietnam-2{display:inline-flex}
+
+          .pagination-dacbiet .page-arrow{display:none}
+          #page-dacbiet-1:checked ~ .pagination-container .pagination-dacbiet .prev-dacbiet-1,
+          #page-dacbiet-1:checked ~ .pagination-container .pagination-dacbiet .next-dacbiet-1{display:inline-flex}
+          #page-dacbiet-2:checked ~ .pagination-container .pagination-dacbiet .prev-dacbiet-2,
+          #page-dacbiet-2:checked ~ .pagination-container .pagination-dacbiet .next-dacbiet-2{display:inline-flex}
+
+          /* Old single-page chip style no longer used */
+          .single-page{display:none}
+          @media (max-width:1024px){.product-page{grid-template-columns:repeat(3,1fr)}.product-card{min-height:440px}.product-card img{height:280px}.product-card .price{font-size:20px}}
+          @media (max-width:768px){.product-page{grid-template-columns:repeat(2,1fr)}.product-card{min-height:400px}.product-card img{height:260px}.product-card h3{font-size:18px}.product-card .price{font-size:18px}}
+          @media (max-width:480px){.product-page{grid-template-columns:1fr}.product-card{min-height:380px}.product-card img{height:260px}.product-card h3{font-size:18px}.product-card .price{font-size:18px}}
+        </style>
+      </section>
+
+  <!-- Giỏ hàng drawer (CSS-only via checkbox) -->
+  <!-- Đã xóa cart-drawer -->
+    </main>
+
+    <!-- Footer HTML -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index1.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form">
+            
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index1.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about_us.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    // Thông báo khi nhấn nút Thêm giỏ
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.add-to-cart').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          // Thay vì alert, chuyển hướng đến trang login
+          window.location.href = 'login.html';
+        });
+      });
+    });
+  </script>
+  </body>
+</html>
