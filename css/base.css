@@ -65,7 +65,7 @@ html, body {
 
 body {
   font-family: var(--font-primary);
-  background: var(--bg-light);
+  background: #f9cbd6;
   color: var(--text-color);
   min-height: 100vh; /* Ensure full viewport height */
   display: flex; /* Enable flex column for sticky footer */
