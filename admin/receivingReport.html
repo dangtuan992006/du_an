@@ -7,14 +7,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div class="header">
-    <!-- Nút quay lại -->
+  <div class="title">
     <button class="back-btn" onclick="window.location.href='../admin/index.html'">
       <span class="arrow">←</span>
     </button>
+      <h1>Quản lý Phiếu Nhập</h1> 
+    <a href="../pages/index.html" class="back-btn">
+      <i class="fa fa-home"></i>
+    </a>
+  
+  </div>
 
-    <h1>Quản lý Phiếu Nhập</h1>
-
+  <div class="infor">
     <div class="search">
   <form method="get">
     <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
@@ -29,7 +33,7 @@
        <div class="modal-add">
           <div class="modal-content">
             <label for="add" class="close">&times;</label>
-            <h2>Thêm Phiếu Nhập</h2>
+            <h2 class=>Thêm Phiếu Nhập</h2>
 
             <label>Mã phiếu:</label>
             <input type="text" placeholder="Nhập mã phiếu"><br>
@@ -40,8 +44,7 @@
 
             <h3>Chi tiết sản phẩm</h3>
 
-            <!-- Dòng chi tiết 1 -->
-            <p>Số thứ tự:1</p>
+            <!-- Dòng chi tiết 1 -->  
             <div class="detail-row">
               <div class="selection-wrapper">
                 <select id="product" class="selection">
@@ -137,12 +140,10 @@
 
 
     </div>
-
-    <!-- Nút về trang chủ -->
-    <a href="../pages/index.html" class="back-btn">
-      <i class="fa fa-home"></i>
-    </a>
   </div>
+  
+
+  <div class="header">
 
   <!-- Bảng danh sách -->
   <div class="list">
@@ -337,16 +338,26 @@
 
   <!-- Phân trang --> 
   <div class="pagination">
-    <button class="prev">⟨</button>
-    <ul class="pages">
-      <li class="active">1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>...</li>
-      <li>10</li>
-    </ul>
-    <button class="next">⟩</button>
-  </div>
+
+  <ul class="pages">
+    <li>
+      <input type="radio" name="page" id="page1" checked>
+      <label for="page1">1</label>
+    </li>
+
+    <li>
+      <input type="radio" name="page" id="page2">
+      <label for="page2">2</label>
+    </li>
+
+    <li>
+      <input type="radio" name="page" id="page3">
+      <label for="page3">3</label>
+    </li>
+  </ul>
+
+</div>
+
   <script src="../js/receivingReport.js" defer></script>
 </body>
 </html>
