@@ -28,7 +28,7 @@
         <option value="Rau củ">Quà Tặng Trái Cây</option>
         <option value="Nước ép">Trái Cây Việt Nam</option>
         <option value="Đặc Biệt">Dặc Biệt</option>
-      </select>
+      </select> 
       <button class="loc" onclick="window.location.href='NInventoryManagemen.html'">Lọc</button>
       <button class="dl" onclick="window.location.href='InventoryManagemen.html'">Đặt lại</button>
       <div class="infor">
@@ -44,34 +44,38 @@
           <p>2</p>
       </div>
     </div>
-
     <h1>Kết Quả Tìm Kiếm</h1>
-
-
     <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Mã SP</th>
-            <th>Tên sản phẩm</th>
-            <th>Loại</th>
-            <th>Số lượng tồn</th>
-          </tr>
-        </thead>
-        
-      </table>
+        <table>
+            <tr>
+              <td>Mã Sản Phẩm</td>
+              <td>Tên Sản Phẩm</td>
+              <td>Thể Loại</td>
+              <td>Số Lượng</td>
+              <td>Tình Trạng</td>
+            </tr>
+        </table>
     </div>
   </div>
   <div class="pagination">
-            <button class="prev">⟨</button>
-            <ul class="pages">
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>...</li>
-                <li>10</li>
-            </ul>
-            <button class="next">⟩</button>
-        </div>
+
+  <ul class="pages">
+    <li>
+      <input type="radio" name="page" id="page1" checked>
+      <label for="page1">1</label>
+    </li>
+
+    <li>
+      <input type="radio" name="page" id="page2">
+      <label for="page2">2</label>
+    </li>
+
+    <li>
+      <input type="radio" name="page" id="page3">
+      <label for="page3">3</label>
+    </li>
+  </ul>
+
+  </div>
 </body>
 </html>
