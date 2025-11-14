@@ -86,7 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const newProductCard = document.createElement("div");
     newProductCard.className = "product-card new-product-card";
     newProductCard.innerHTML = `
-      <input type="text" placeholder="URL Hình ảnh (VD: ../images/ten.jpg)" id="new-image">
+      <div class="image-upload-container" style="margin-bottom: 10px;">
+          <img src="../images/placeholder.png" class="image-preview" alt="Xem trước" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; border: 1px dashed #ccc;">
+          <input type="file" id="new-image-input" accept="image/*" style="display: none;">
+          <label for="new-image-input" class="image-upload-label" style="background-color: #f9cbd6; cursor: pointer; display: block; margin-top: 5px; color: #555; text-align: center;">Chọn ảnh từ máy tính</label>
+      </div>
       <input type="text" placeholder="Tên sản phẩm" id="new-name">
       <select id="new-type">
         <option>Bán chạy nhất</option>
@@ -103,6 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     productList.prepend(newProductCard);
 
+    // --- LOGIC MỚI ĐỂ XEM TRƯỚC ẢNH KHI THÊM ---
+    const imageInput = document.getElementById("new-image-input");
+    const imagePreview = newProductCard.querySelector(".image-preview");
+
+    // Cập nhật ảnh xem trước khi người dùng chọn tệp
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (file) {
+        // Sử dụng URL.createObjectURL để tạo link tạm thời cho ảnh
+        imagePreview.src = URL.createObjectURL(file);
+      }
+    });
+
     // Nút Hủy
     document.getElementById("cancel-new-product").addEventListener("click", () => {
       newProductCard.remove();
@@ -110,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Nút Lưu
     document.getElementById("save-new-product").addEventListener("click", () => {
-      const imageUrl = document.getElementById("new-image").value.trim(); 
+      // Không cần lấy giá trị vì đây là chức năng mô phỏng
       const name = document.getElementById("new-name").value.trim(); // Vẫn lấy tên từ input có id="new-name"
       const description = document.getElementById("new-desc").value.trim();
 
@@ -170,8 +187,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ).join('');
 
       // Tạo form chỉnh sửa
+      // Thay đổi input text thành khu vực chọn ảnh giống trang admin
       infoDiv.innerHTML = `
-        <input type="text" value="${originalImageUrl}" class="edit-input" placeholder="URL Hình ảnh">
+        <div class="image-upload-container" style="margin-bottom: 10px;">
+            <img src="${originalImageUrl}" class="image-preview" alt="Xem trước" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px; border: 1px dashed #ccc;">
+            <input type="file" class="edit-image-input" accept="image/*" style="display: none;">
+            <label class="image-upload-label" style="background-color: #f9cbd6 ;cursor: pointer; display: block; margin-top: 5px; color: #555; text-align: center;">Chọn ảnh mới ở đây</label>
+        </div>
         <input type="text" value="${originalName}" class="edit-input">
         <select class="edit-input">
           ${optionsHtml}
@@ -180,6 +202,24 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="save-edit-btn">Lưu</button>
         <button class="cancel-edit-btn">Hủy</button>
       `;
+
+      // --- LOGIC MỚI ĐỂ XEM TRƯỚC ẢNH KHI SỬA ---
+      const imageInput = infoDiv.querySelector(".edit-image-input");
+      const imagePreview = infoDiv.querySelector(".image-preview");
+      const imageLabel = infoDiv.querySelector(".image-upload-label");
+
+      // Gán id duy nhất để label hoạt động chính xác
+      const uniqueId = `edit-image-${Date.now()}`;
+      imageInput.id = uniqueId;
+      imageLabel.setAttribute("for", uniqueId);
+
+      // Cập nhật ảnh xem trước khi người dùng chọn tệp
+      imageInput.addEventListener("change", () => {
+        const file = imageInput.files[0];
+        if (file) {
+          imagePreview.src = URL.createObjectURL(file);
+        }
+      });
     }
 
     // Nút Lưu sau khi sửa
@@ -254,5 +294,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Kiểm tra lần đầu khi tải trang
   updateEmptyState(productList.querySelectorAll(".product-card:not(.new-product-card)").length);
-  updatePaginationUI(); // Cập nhật giao diện phân trang lần đầu
+  renderPagination(); // Cập nhật giao diện phân trang lần đầu
 });

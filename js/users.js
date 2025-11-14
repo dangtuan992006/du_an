@@ -26,8 +26,8 @@
 
         // --- KHÓA/MỞ KHÓA TÀI KHOẢN ---
         if (target.closest(".toggle-lock-btn")) {
-            row.classList.toggle('locked');
-            // alert(`Đã thay đổi trạng thái cho người dùng.`);
+            // row.classList.toggle('locked');
+            alert(`Đã thay đổi trạng thái cho người dùng.`);
         }
 
         // --- CHUYỂN SANG CHẾ ĐỘ SỬA ---
@@ -47,17 +47,21 @@
             const name = cells[0].textContent;
             const email = cells[1].textContent;
             const phone = cells[2].textContent;
-            const password = cells[3].textContent;
-            const status = cells[4].textContent;
-            const joinDate = cells[5].textContent;
+            const address = cells[3].textContent;
+            const password = cells[4].textContent;
+            const status = cells[5].textContent;
+            const joinDate = cells[6].textContent;
+            const orderCount = cells[7].textContent;
 
             row.innerHTML = `
                 <td><input type="text" value="${name}" style="width: 100%;"></td>
                 <td>${email}</td>
                 <td><input type="text" value="${phone}" style="width: 100%;"></td>
+                <td><input type="text" value="${address}" style="width: 100%;"></td>
                 <td><input type="password" value="${password}" style="width: 100%;"></td>
                 <td>${status}</td>
                 <td>${joinDate}</td>
+                <td><input type="number" value="${orderCount}" style="width: 80px;"></td>
                 <td>
                     <button class="action-btn save-edit-btn" title="Lưu"><i class="fa-solid fa-save"></i></button>
                     <button class="action-btn cancel-edit-btn" title="Hủy"><i class="fa-solid fa-times"></i></button>
@@ -97,9 +101,11 @@
             <td><input type="text" placeholder="Tên người dùng" style="width: 100%;"></td>
             <td><input type="email" placeholder="Email" style="width: 100%;"></td>
             <td><input type="text" placeholder="Số điện thoại" style="width: 100%;"></td>
+            <td><input type="text" placeholder="Địa chỉ" style="width: 100%;"></td>
             <td><input type="password" placeholder="Mật khẩu" style="width: 100%;"></td>
             <td>Hoạt động</td>
             <td><input type="date" style="width: 100%;"></td>
+            <td><input type="number" placeholder="Số đơn" style="width: 80px;"></td>
             <td>
                 <button class="action-btn save-new-btn" title="Lưu"><i class="fa-solid fa-save"></i></button>
                 <button class="action-btn cancel-new-btn" title="Hủy"><i class="fa-solid fa-times"></i></button>
@@ -145,7 +151,8 @@
 
     // --- CHỨC NĂNG PHÂN TRANG ẢO ---
     let currentPage = 1;
-    const totalPages = 5; // Giả sử có 5 trang (4 số và dấu '...')
+    // Đếm số trang thực tế có thể nhấp vào (không tính '...')
+    const totalPages = pageNumbersContainer.querySelectorAll('.page-number:not(:last-child)').length; // Giữ lại dòng này
 
     const updatePaginationUI = () => {
         // Bỏ active ở tất cả các nút
