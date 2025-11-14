@@ -273,3 +273,139 @@ nav {
 @media (max-width: 992px) {
   .search-container { width: 300px; }
 }
+
+/* Topbar cam kết */
+.topbar {
+  background: #ffd3d3;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.topbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.commitment-bar {
+  background: #ffd3d3;
+  padding: 12px 0;
+}
+
+.commitment-link {
+  text-decoration: none;
+  display: block;
+}
+
+.commitment-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.commitment-items::-webkit-scrollbar {
+  display: none;
+}
+
+.commitment-title {
+  color: #a52a2a;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.commitment-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.commitment-item span {
+  color: #27272a;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.commitment-item img {
+  flex-shrink: 0;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: #ebebf0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .commitment-items {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar-container {
+    padding: 0 1rem;
+  }
+  .commitment-bar {
+    padding: 8px 0;
+  }
+  .commitment-title {
+    font-size: 13px;
+    padding: 0 6px;
+  }
+  .commitment-item span {
+    font-size: 11px;
+  }
+  .commitment-item {
+    padding: 0 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .commitment-title {
+    font-size: 12px;
+    padding: 0 4px;
+  }
+  .commitment-item span {
+    font-size: 10px;
+  }
+  .commitment-item img {
+    width: 16px;
+    height: 16px;
+  }
+  .divider {
+    height: 16px;
+  }
+}
+
+.commitment-link:hover {
+  opacity: 0.9;
+}
+
+.commitment-item:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
+.commitment-item img {
+  flex-shrink: 0;
+  filter: hue-rotate(45deg) saturate(2) brightness(0.8);
+}
+.commitment-item:nth-child(3) img,
+.commitment-item:nth-child(5) img,
+.commitment-item:nth-child(7) img,
+.commitment-item:nth-child(9) img,
+.commitment-item:nth-child(11) img,
+.commitment-item:nth-child(13) img {
+  filter: hue-rotate(120deg) saturate(1.5);
+}
