@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết đơn hàng - Pomegranate</title>
+  <!-- Icons and Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400..700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components/header.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/donhangdamua.css" />
+</head>
+<body>
+  <div class="site-wrapper">
+
+    <!-- HEADER -->
+    <nav>
+      <ul class="nav-grid">
+        <li>
+          <a href="index.html" class="logo-link">
+            <img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Logo" />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+        <li class="nav-buttons">
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">Tuan Dang</span>
+            </button>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" class="dropdown-item">Thông tin cá nhân</a>
+              <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+          <a href="Giohang.html" class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="order-detail-container" aria-labelledby="order-detail-heading">
+      <div class="order-detail-header">
+        <div class="back-navigation">
+          <a href="order-history.html" class="back-link">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            Quay lại lịch sử đơn hàng
+          </a>
+        </div>
+        
+        <div class="order-title-section">
+          <h1 id="order-detail-heading">Chi tiết đơn hàng</h1>
+          <div class="order-meta">
+            <span class="order-id">#PG20251114</span>
+            <span class="order-date">Đặt ngày: 14/11/2025</span>
+          </div>
+        </div>
+        
+        <div class="order-status-badge status-completed">
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
+          Đã giao hàng
+        </div>
+      </div>
+
+      <!-- Thông tin giao hàng -->
+      <section class="order-section" aria-labelledby="shipping-info-heading">
+        <h2 id="shipping-info-heading" class="section-title">
+          <i class="fas fa-truck" aria-hidden="true"></i>
+          Thông tin giao hàng
+        </h2>
+        
+        <div class="shipping-info-grid">
+          <div class="info-group">
+            <label>Người nhận:</label>
+            <span>Đặng Ngọc Tuấn</span>
+          </div>
+          
+          <div class="info-group">
+            <label>Số điện thoại:</label>
+            <span><a href="tel:+84939662790">0939 662 790</a></span>
+          </div>
+          
+          <div class="info-group full-width">
+            <label>Địa chỉ giao hàng:</label>
+            <span>123 Đường ABC, Quận 1, TP.HCM</span>
+          </div>
+          
+          <div class="info-group">
+            <label>Thời gian giao hàng:</label>
+            <span>14/11/2025 - 15:30</span>
+          </div>
+          
+          <div class="info-group">
+            <label>Phương thức giao hàng:</label>
+            <span>Giao hàng hỏa tốc</span>
+          </div>
+          
+          <div class="info-group">
+            <label>Ghi chú:</label>
+            <span>Giao hàng trong giờ hành chính, vui lòng gọi trước.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chi tiết sản phẩm -->
+      <section class="order-section" aria-labelledby="products-heading">
+        <h2 id="products-heading" class="section-title">
+          <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+          Sản phẩm đã đặt
+        </h2>
+        
+        <div class="order-items">
+          <!-- Sản phẩm 1 -->
+          <div class="order-item" role="listitem">
+            <div class="item-image">
+              <img src="../images/nho.jpeg" alt="Nho Tím">
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">Nho Tím</h3>
+              <p class="item-description">Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao.</p>
+              <div class="item-meta">
+                <span class="item-quantity">Số lượng: 2 kg</span>
+                <span class="item-price">120.000₫ / kg</span>
+              </div>
+            </div>
+            
+            <div class="item-total">
+              240.000₫
+            </div>
+          </div>
+          
+          <!-- Sản phẩm 2 -->
+          <div class="order-item" role="listitem">
+            <div class="item-image">
+              <img src="../images/cherry.jpeg" alt="Cherry Đỏ">
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">Cherry Đỏ</h3>
+              <p class="item-description">Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ.</p>
+              <div class="item-meta">
+                <span class="item-quantity">Số lượng: 1 kg</span>
+                <span class="item-price">320.000₫ / kg</span>
+              </div>
+            </div>
+            
+            <div class="item-total">
+              320.000₫
+            </div>
+          </div>
+          
+          <!-- Sản phẩm 3 -->
+          <div class="order-item" role="listitem">
+            <div class="item-image">
+              <img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1">
+            </div>
+            
+            <div class="item-details">
+              <h3 class="item-name">Set trái cây quà tặng số 1</h3>
+              <p class="item-description">Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng.</p>
+              <div class="item-meta">
+                <span class="item-quantity">Số lượng: 1 set</span>
+                <span class="item-price">650.000₫ / set</span>
+              </div>
+            </div>
+            
+            <div class="item-total">
+              650.000₫
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Thông tin thanh toán -->
+      <section class="order-section" aria-labelledby="payment-heading">
+        <h2 id="payment-heading" class="section-title">
+          <i class="fas fa-credit-card" aria-hidden="true"></i>
+          Thông tin thanh toán
+        </h2>
+        
+        <div class="payment-info">
+          <div class="info-group">
+            <label>Phương thức thanh toán:</label>
+            <span>Thanh toán khi nhận hàng (COD)</span>
+          </div>
+        </div>
+        
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Tổng tiền hàng:</span>
+            <span>1.210.000₫</span>
+          </div>
+          
+          <div class="summary-row">
+            <span>Phí vận chuyển:</span>
+            <span>0₫</span>
+          </div>
+          
+          
+          
+          <div class="summary-row total">
+            <span>Tổng thanh toán:</span>
+            <span>1.160.000₫</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hành động -->
+      <section class="order-actions">
+        <button class="btn-primary" onclick="reorder('PG20251114')">
+          <i class="fas fa-redo" aria-hidden="true"></i>
+          Đặt lại đơn hàng
+        </button>
+        
+        <button class="btn-outline" onclick="printOrder()">
+          <i class="fas fa-print" aria-hidden="true"></i>
+          In đơn hàng
+        </button>
+        
+        <button class="btn-secondary" onclick="contactSupport()">
+          <i class="fas fa-headset" aria-hidden="true"></i>
+          Liên hệ hỗ trợ
+        </button>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png" alt="Pomegranate Logo" class="footer-logo-img" />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">Chuyên cung cấp trái cây tươi ngon, chất lượng cao.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li><a href="../pages/index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="../pages/about_us.html"><i class="fas fa-info-circle"></i> Về chúng tôi</a></li>
+            <li><a href="../pages/contact.html"><i class="fas fa-phone"></i> Liên hệ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>123 Đường ABC, Quận 1, TP.HCM</span></div>
+            <div class="contact-item"><i class="fas fa-phone"></i><span>0900 123 456</span></div>
+            <div class="contact-item"><i class="fas fa-envelope"></i><span>info@pomegranate.com</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">&copy; 2024 Pomegranate. All rights reserved.</div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
