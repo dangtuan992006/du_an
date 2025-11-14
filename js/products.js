@@ -1,36 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const productList = document.querySelector(".product-list");
   const addProductBtn = document.getElementById("add-product-btn");
-  const searchInput = document.getElementById("search-input");
-  const searchBtn = document.getElementById("search-btn");
   const pageNumbersContainer = document.getElementById("page-numbers");
   const prevPageBtn = document.querySelector(".pagination-arrow:first-of-type");
   const nextPageBtn = document.querySelector(".pagination-arrow:last-of-type");
-
-  // --- CHỨC NĂNG TÌM KIẾM ---
-  const filterProducts = () => {
-    const keyword = searchInput.value.toLowerCase().trim();
-    const allProducts = productList.querySelectorAll(".product-card:not(.new-product-card)");
-    let found = false;
-
-    allProducts.forEach(card => {
-      const nameElement = card.querySelector(".product-info p:first-child");
-      if (nameElement) {
-        const name = nameElement.textContent.toLowerCase();
-        if (name.includes(keyword)) {
-          card.style.display = "flex";
-          found = true;
-        } else {
-          card.style.display = "none";
-        }
-      }
-    });
-
-    // Cập nhật lại thông báo nếu không tìm thấy sản phẩm
-    updateEmptyState(found ? productList.children.length : 0);
-  };
-
-  searchBtn.addEventListener("click", filterProducts);
 
   // --- CHỨC NĂNG PHÂN TRANG ẢO ---
   let currentPage = 1;
@@ -286,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
       emptyState.className = "empty-state";
       emptyState.innerHTML = `
         <i class="fa-solid fa-box-open"></i>
-        <p>${searchInput.value ? 'Không tìm thấy sản phẩm nào.' : 'Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!'}</p>
+        <p>Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!</p>
       `;
       productList.appendChild(emptyState);
     }
