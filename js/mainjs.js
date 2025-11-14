@@ -311,9 +311,6 @@ const App = {
 // ========================================
 // MODULE XÁC THỰC (AUTH) - ĐÃ ĐƠN GIẢN HÓA
 // ========================================
-// ========================================
-// MODULE XÁC THỰC (AUTH) - ĐÃ ĐƠN GIẢN HÓA
-// ========================================
 App.Auth = {
   init() {
     const existing = JSON.parse(localStorage.getItem("registeredUsers")) || {};
@@ -383,6 +380,7 @@ App.Auth = {
   },
 
   // Hàm xử lý đăng ký nhanh
+  // Trong đối tượng App.Auth
   handleQuickRegister() {
     const emailInput = document.getElementById("email");
     const email = emailInput ? emailInput.value.trim() : "";
@@ -393,12 +391,13 @@ App.Auth = {
         ? email
         : `user_${Date.now()}@pomegranate.com`;
 
-    const username = email ? email.split("@")[0] : `user_${Date.now()}`;
+    // THAY ĐỔI: Luôn đặt tên mặc định là "Tuan Dang"
+    const defaultName = "Tuan Dang";
 
     // Lưu thông tin người dùng mới
     const users = JSON.parse(localStorage.getItem("registeredUsers")) || {};
     users[userEmail] = {
-      name: username,
+      name: defaultName, // <-- DÙNG TÊN MẶC ĐỊNH
       email: userEmail,
       password: "", // Không cần mật khẩu
       created: new Date().toISOString(),
@@ -408,7 +407,7 @@ App.Auth = {
     localStorage.setItem("registeredUsers", JSON.stringify(users));
 
     // Đăng nhập ngay
-    localStorage.setItem("currentUser", username);
+    localStorage.setItem("currentUser", defaultName); // <-- DÙNG TÊN MẶC ĐỊNH
     localStorage.setItem("currentUserEmail", userEmail);
     localStorage.setItem("currentUserRole", "customer");
 
@@ -467,7 +466,7 @@ App.Auth = {
           profileCompleted: false,
         };
         localStorage.setItem("registeredUsers", JSON.stringify(users));
-        localStorage.setItem("currentUser", username);
+        localStorage.setItem("currentUser", "Tuan Dang");
         localStorage.setItem("currentUserEmail", email);
         localStorage.setItem("currentUserRole", "customer");
         App.Cart.transferTempCartToUser(email);
@@ -1040,11 +1039,23 @@ App.UI = {
 
   updateAuthUI() {
     const user = localStorage.getItem("currentUser");
+
+    let displayName = "Đăng nhập"; // Tên mặc định khi chưa đăng nhập
+
+    // Nếu có dữ liệu người dùng trong localStorage
+    if (user) {
+      // Nếu giá trị lưu là 'true' hoặc một giá trị không phải tên người dùng,
+      // thì đặt tên hiển thị mặc định là "Tuan".
+      // Nếu không, lấy chính giá trị đó làm tên hiển thị.
+      displayName = user === "true" || user === "null" ? "Tuan" : user;
+    }
+
     document
       .querySelectorAll(".user-text")
-      .forEach((el) => (el.textContent = user || "Đăng nhập"));
+      .forEach((el) => (el.textContent = displayName));
   },
 
+  // ... Phần setupUserDropdown giữ nguyên ...
   setupUserDropdown() {
     const toggle = document.querySelector(".user-toggle");
     const menu = document.querySelector(".dropdown-menu");
@@ -1058,15 +1069,12 @@ App.UI = {
 
     document.addEventListener("click", () => menu.classList.remove("show"));
 
-    // SỬA LỖI ĐĂNG XUẤT: Xử lý logic đăng xuất ngay trong menu
     menu.addEventListener("click", (e) => {
-      e.stopPropagation(); // Giữ menu mở khi click vào các mục bên trong
-
-      // Kiểm tra xem nút đăng xuất có được nhấn không
+      e.stopPropagation();
       if (e.target.closest(".logout-btn")) {
         console.log("Nút đăng xuất đã được nhấn từ trong menu!");
-        e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
-        App.Auth.logout(); // Gọi hàm đăng xuất
+        e.preventDefault();
+        App.Auth.logout();
       }
     });
   },
