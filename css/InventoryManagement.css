@@ -59,7 +59,30 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  justify-content: flex-end; /* align search tools to the right */
+}
+
+.infor p,.infor1 p,.infor2 p{
+  margin: 10px 0px 0px 0px;
+}
+
+.infor1 {
+  background-color: green;
+  border-radius: 20px;
+}
+
+.infor1 p{
+  color: white;
+  margin-left: 20px;
+}
+
+.infor2{
+  background-color: red;
+  border-radius: 14px;
+}
+
+.infor2 p{
+  color:white;
+  margin-left: 20px;
 }
 
 .search input, .search select {
@@ -67,6 +90,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
+  height: 70px;
 }
 
 button.loc, button.dl {
@@ -76,6 +100,7 @@ button.loc, button.dl {
   color: white;
   font-size: 15px;
   cursor: pointer;
+  height: 70px;
 }
 
 button.loc { background-color: #0078d7; }
@@ -163,3 +188,62 @@ th {
     color: white;
     transform: scale(1.1);
 }
+
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 40px auto;
+    padding: 15px 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: fit-content;
+    font-family: "Poppins", sans-serif;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pages {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.pages li {
+  position: relative;
+}
+
+/* Ẩn radio */
+.pages input {
+  display: none;
+}
+
+/* Style chung của nút */
+.pages label {
+  padding: 8px 12px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #f2f2f2;
+}
+
+/* Khi được chọn → nhảy lên + đổi màu */
+.pages input:checked + label {
+  background: dodgerblue;
+  color: white;
+  transform: translateY(-4px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+
+
