@@ -75,7 +75,7 @@
             font-weight: 600;
             font-size: 16px;
             margin-top: 14px;
-            box-shadow: 0 2px 8px rgba(211,47,47,0.08);
+            box-shadow: 0 2px 8ưpx rgba(211,47,47,0.08);
             transition: background 0.2s;
         }
         .btn:hover {
@@ -376,6 +376,56 @@
         }
         /* === KẾT THÚC CSS PHÂN TRANG === */
 
+        /* === CSS BỘ LỌC PHÂN LOẠI (MỚI THÊM) === */
+        .category-filter-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .filter-cat-btn {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px; /* Giống style của filter-box */
+            font-size: 14px;
+            font-weight: 600;
+            background: #fff7f7;
+            color: #d32f2f;
+            border: 1px solid #ffd1d1;
+            transition: all .2s ease;
+            margin: 0; /* Ghi đè margin mặc định của label */
+            display: inline-block !important; /* Ghi đè display: block */
+        }
+        .filter-cat-btn:hover {
+            background: #ffe4e4;
+        }
+        
+        /* CSS để đổi màu nút lọc khi được chọn */
+        #cat-all:checked ~ .search-section .filter-box label[for="cat-all"],
+        #cat-banchay:checked ~ .search-section .filter-box label[for="cat-banchay"],
+        #cat-quatang:checked ~ .search-section .filter-box label[for="cat-quatang"],
+        #cat-vietnam:checked ~ .search-section .filter-box label[for="cat-vietnam"],
+        #cat-dacbiet:checked ~ .search-section .filter-box label[for="cat-dacbiet"] {
+            background: #d32f2f;
+            color: #fff;
+            border-color: #d32f2f;
+        }
+
+        /* CSS để lọc sản phẩm */
+        #cat-banchay:checked ~ .search-section .products .product:not(.cat-banchay) { 
+            display: none; 
+        }
+        #cat-quatang:checked ~ .search-section .products .product:not(.cat-quatang) { 
+            display: none; 
+        }
+        #cat-vietnam:checked ~ .search-section .products .product:not(.cat-vietnam) { 
+            display: none; 
+        }
+        #cat-dacbiet:checked ~ .search-section .products .product:not(.cat-dacbiet) { 
+            display: none; 
+        }
+        /* === KẾT THÚC CSS BỘ LỌC === */
+
     </style>
 </head>
 <body>
@@ -457,26 +507,36 @@
                     </a>
                 </div>
             </div>
-        </div> <main>
+        </div> 
+        
+    <main>
         <h1 style="text-align:center;color:#d32f2f;font-size:32px;font-family:'Playfair Display',serif;font-weight:700;margin:32px 0 0 0;">Tìm kiếm sản phẩm</h1>
         
         <input type="radio" name="searchPage" id="search-page-1" checked hidden>
         <input type="radio" name="searchPage" id="search-page-2" hidden>
         <input type="radio" name="searchPage" id="search-page-3" hidden>
 
+        <input type="radio" name="catFilter" id="cat-all" checked hidden>
+        <input type="radio" name="catFilter" id="cat-banchay" hidden>
+        <input type="radio" name="catFilter" id="cat-quatang" hidden>
+        <input type="radio" name="catFilter" id="cat-vietnam" hidden>
+        <input type="radio" name="catFilter" id="cat-dacbiet" hidden>
+
+
         <section class="search-section">
             <div class="filter-box">
                 <h3>Tìm kiếm nâng cao</h3>
                 <label for="search-name">Tên sản phẩm</label>
                 <input id="search-name" type="text" placeholder="Nhập tên sản phẩm...">
-                <label for="search-category">Phân loại</label>
-                <select id="search-category">
-                    <option>Tất cả phân loại</option>
-                    <option>Trái cây Việt Nam</option>
-                    <option>Quà tặng trái cây</option>
-                    <option>Bán chạy nhất</option>
-                    <option>Đặc biệt</option>
-                </select>
+                
+                <label>Phân loại</label>
+                <div class="category-filter-list">
+                    <label for="cat-all" class="filter-cat-btn">Tất cả</label>
+                    <label for="cat-banchay" class="filter-cat-btn">Bán chạy nhất</label>
+                    <label for="cat-quatang" class="filter-cat-btn">Quà tặng trái cây</label>
+                    <label for="cat-vietnam" class="filter-cat-btn">Trái cây Việt Nam</label>
+                    <label for="cat-dacbiet" class="filter-cat-btn">Đặc biệt</label>
+                </div>
                 <label>Khoảng giá</label>
                 <div class="price-box">
                     <input type="number" placeholder="Từ (₫)">
@@ -496,7 +556,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-banchay">
                         <img src="../images/dautay.jpeg" alt="Dâu Tây" />
                         <h4>Dâu Tây</h4>
                         <div class="price">180.000₫</div>
@@ -505,7 +565,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/cam.webp" alt="Cam Ngọt" />
                         <h4>Cam Ngọt</h4>
                         <div class="price">40.000₫</div>
@@ -514,7 +574,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-banchay">
                         <img src="../images/nho.jpeg" alt="Nho Tím" />
                         <h4>Nho Tím</h4>
                         <div class="price">120.000₫</div>
@@ -523,7 +583,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-dacbiet">
                         <img src="../images/bo.jpeg" alt="Bơ" />
                         <h4>Bơ</h4>
                         <div class="price">55.000₫</div>
@@ -532,7 +592,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/vai.jpeg" alt="Vải Thiều" />
                         <h4>Vải Thiều</h4>
                         <div class="price">90.000₫</div>
@@ -541,7 +601,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-dacbiet">
                         <img src="../images/luu.jpeg" alt="Lựu Đỏ" />
                         <h4>Lựu Đỏ</h4>
                         <div class="price">110.000₫</div>
@@ -550,7 +610,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-quatang cat-banchay">
                         <img src="../images/cherry.jpeg" alt="Cherry Đỏ" />
                         <h4>Cherry Đỏ</h4>
                         <div class="price">320.000₫</div>
@@ -559,7 +619,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/duavang.jpeg" alt="Dứa Vàng" />
                         <h4>Dứa Vàng</h4>
                         <div class="price">35.000₫</div>
@@ -568,7 +628,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-quatang">
                         <img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1" />
                         <h4>Set trái cây quà tặng số 1</h4>
                         <div class="price">650.000₫</div>
@@ -577,7 +637,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/chanh.jpeg" alt="Chanh" />
                         <h4>Chanh</h4>
                         <div class="price">15.000₫</div>
@@ -586,7 +646,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-dacbiet">
                         <img src="../images/kiwi.jpeg" alt="Kiwi Xanh" />
                         <h4>Kiwi Xanh</h4>
                         <div class="price">60.000₫</div>
@@ -595,7 +655,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-dacbiet">
                         <img src="../images/apple.jpg" alt="Táo" />
                         <h4>Táo</h4>
                         <div class="price">45.000₫</div>
@@ -604,7 +664,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/man.jpeg" alt="Mận" />
                         <h4>Mận</h4>
                         <div class="price">30.000₫</div>
@@ -613,7 +673,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-dacbiet">
                         <img src="../images/carrot.jpg" alt="Carrot" />
                         <h4>Carrot</h4>
                         <div class="price">28.000₫</div>
@@ -622,7 +682,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-quatang">
                         <img src="../images/quatang2.jpeg" alt="Set trái cây quà tặng số 2" />
                         <h4>Set trái cây quà tặng số 2</h4>
                         <div class="price">780.000₫</div>
@@ -631,7 +691,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ" />
                         <h4>Dưa Hấu Đỏ</h4>
                         <div class="price">50.000₫</div>
@@ -640,7 +700,7 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                    <div class="product">
+                    <div class="product cat-vietnam">
                         <img src="../images/mango.jpg" alt="Xoài" />
                         <h4>Xoài</h4>
                         <div class="price">45.000₫</div>
@@ -649,7 +709,9 @@
                             <a href="../pages/Giohang.html" class="btn-outline buy-now">Mua ngay</a>
                         </div>
                     </div>
-                </div> <div class="search-pagination">
+                </div> 
+                
+                <div class="search-pagination">
                     <label for="search-page-3" class="search-arrow-btn" id="arrow-left-s1"><i class="fas fa-chevron-left"></i></label>
                     <label for="search-page-1" class="search-arrow-btn" id="arrow-left-s2"><i class="fas fa-chevron-left"></i></label>
                     <label for="search-page-2" class="search-arrow-btn" id="arrow-left-s3"><i class="fas fa-chevron-left"></i></label>
@@ -660,7 +722,8 @@
                     <label for="search-page-3" class="search-arrow-btn" id="arrow-right-s2"><i class="fas fa-chevron-right"></i></label>
                     <label for="search-page-1" class="search-arrow-btn" id="arrow-right-s3"><i class="fas fa-chevron-right"></i></label>
                 </div>
-                </div> </section>
+            </div> 
+        </section>
     </main>
 
     <footer class="main-footer">
