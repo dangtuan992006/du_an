@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xác nhận đơn hàng - Pomegranate</title> 
+  <!-- file -->
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components/header.css" />
+  <link rel="stylesheet" href="../css/xacnhandonhang.css">
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <!-- font chu logo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <!-- SITE WRAPPER -->
+  <div class="site-wrapper">
+
+    <!-- HEADER -->
+    <nav>
+      <ul class="nav-grid">
+        <!-- Logo -->
+        <li>
+          <a href="index.html" class="logo-link">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Logo"
+            />
+            <p class="pacifico-regular">Pomegranate</p>
+          </a>
+        </li>
+
+        <!-- Nút đăng nhập & giỏ hàng -->
+        <li class="nav-buttons">
+          <!-- Dropdown người dùng (sẽ được bật/tắt bằng JS) -->
+          <div class="user-dropdown">
+            <button class="nav-button user-toggle">
+              <i class="fas fa-user"></i>
+              <span class="user-text">Đăng nhập</span>
+            </button>
+            <div class="dropdown-menu">
+              <a href="../pages/thongtintaikhoan.html" target="_blank" class="dropdown-item">Thông tin cá nhân</a>
+              <a href="../pages/order-history.html" class="dropdown-item">Xem lại đơn hàng</a>
+              <button class="dropdown-item logout-btn">Đăng xuất</button>
+            </div>
+          </div>
+          <a href="./Giohang.html" class="nav-button" id="openCartPopup">
+            <i class="fas fa-shopping-cart"></i>
+            Giỏ hàng
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="confirmation-container">
+      <div class="confirmation-card">
+        <div class="confirmation-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h1>Đặt hàng thành công!</h1>
+        <p>Cảm ơn bạn đã đặt hàng tại Pomegranate. Đơn hàng của bạn đã được xác nhận và đang được xử lý.</p>
+        
+        <div class="order-details">
+          <div class="detail-row">
+            <span>Mã đơn hàng:</span>
+            <strong>#PG20251114</strong>
+          </div>
+          <div class="detail-row">
+            <span>Ngày đặt hàng:</span>
+            <span>14/11/2025</span>
+          </div>
+          <div class="detail-row">
+            <span>Tổng tiền:</span>
+            <strong>1.160.000₫</strong>
+          </div>
+          <div class="detail-row">
+            <span>Phương thức thanh toán:</span>
+            <span>Thanh toán khi nhận hàng (COD)</span>
+          </div>
+          <div class="detail-row">
+            <span>Địa chỉ giao hàng:</span>
+            <span>123 Đường ABC, Quận 1, TP.HCM</span>
+          </div>
+        </div>
+
+        <div class="confirmation-actions">
+          <button class="btn-outline" onclick="window.location.href='../pages/index.html'">
+            <i class="fas fa-home"></i>
+            Về trang chủ
+          </button>
+          <button class="btn-primary" onclick="window.location.href='../pages/order-history.html'">
+            <i class="fas fa-list"></i>
+            Xem lịch sử đơn hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <!-- Brand Column -->
+        <div class="footer-column footer-brand">
+          <a href="../pages/index.html" class="footer-logo">
+            <img
+              src="../images/Gemini_Generated_Image_o63bfqo63bfqo63b-removebg-preview (Edited).png"
+              alt="Pomegranate Logo"
+              class="footer-logo-img"
+            />
+            <span class="footer-logo-text">Pomegranate</span>
+          </a>
+          <p class="footer-tagline">
+            Chuyên cung cấp trái cây tươi ngon, chất lượng cao. Cam kết 100% tự
+            nhiên, không chất bảo quản, giao hàng tận nơi.
+          </p>
+          <div class="newsletter-form"></div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h4>Liên kết nhanh</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="../pages/index.html"
+                ><i class="fas fa-home"></i> Trang chủ</a
+              >
+            </li>
+            <li>
+              <a href="../pages/about_us.html"
+                ><i class="fas fa-info-circle"></i> Về chúng tôi</a
+              >
+            </li>
+            <li>
+              <a href="../pages/contact.html"
+                ><i class="fas fa-phone"></i> Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact & Social -->
+        <div class="footer-column footer-contact">
+          <h4>Liên hệ</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>123 Đường ABC, Quận 1, TP.HCM</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>0900 123 456</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>info@pomegranate.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>8:00 - 22:00 (T2 - CN)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="copyright">
+            &copy; 2024 Pomegranate. All rights reserved.
+          </div>
+          <div class="footer-legal">
+            <a href="../pages/privacy.html">Chính sách bảo mật</a>
+            <a href="../pages/terms.html">Điều khoản sử dụng</a>
+            <a href="../pages/return.html">Chính sách đổi trả</a>
+          </div>
+          <div class="payment-methods">
+            <span class="payment-text">Chấp nhận thanh toán:</span>
+            <div class="payment-icon">VISA</div>
+            <div class="payment-icon">MC</div>
+            <div class="payment-icon">COD</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div> <!-- /site-wrapper -->
+
+</body>
+</html>
