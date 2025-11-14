@@ -13,6 +13,65 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/components/form.css" />
+    <style>
+      .guest-login {
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        color: #333;
+        padding: 12px;
+        border-radius: 4px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .guest-login:hover {
+        background-color: #e0e0e0;
+      }
+
+      .quick-register {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px;
+        border-radius: 4px;
+        font-weight: 500;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        border: none;
+        font-size: 16px;
+      }
+
+      .quick-register:hover {
+        background-color: #45a049;
+      }
+
+      .divider {
+        margin: 20px 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: #ddd;
+      }
+
+      .divider span {
+        background-color: #fff;
+        padding: 0 15px;
+        position: relative;
+        color: #777;
+      }
+    </style>
   </head>
   <body>
     <div class="login-container">
@@ -25,6 +84,12 @@
       </div>
 
       <h2 class="login-title">Sign in or create account</h2>
+
+      <!-- <button class="guest-login" id="guestLoginBtn">
+        <i class="fas fa-user"></i> Đăng nhập không cần tài khoản
+      </button> -->
+
+      <!-- <div class="divider"><span>hoặc đăng nhập với email</span></div> -->
 
       <form id="emailForm">
         <div class="input-group">
@@ -46,7 +111,11 @@
         </button>
       </form>
 
-      <div class="divider"><span>or continue with</span></div>
+      <button class="quick-register" id="quickRegisterBtn">
+        <i class="fas fa-user-plus"></i> Đăng ký nhanh
+      </button>
+
+      <div class="divider"><span>hoặc tiếp tục với</span></div>
 
       <div class="social-login">
         <div class="social-btn" onclick="handleSocialLogin('Google')">
@@ -58,12 +127,13 @@
       </div>
 
       <a href="../pages/index.html" class="back-home">
-        <i class="fas fa-arrow-left"></i> Back to home </a
-      ><br />
+        <i class="fas fa-arrow-left"></i> Back to home
+      </a>
+      <br />
       <a href="../pages/admin-login.html" class="admin-link"
         >Đăng nhập dành cho Admin</a
       >
-  </div>
+    </div>
 
     <script src="../js/mainjs.js"></script>
   </body>
