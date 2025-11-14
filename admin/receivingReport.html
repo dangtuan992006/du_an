@@ -4,81 +4,144 @@
   <meta charset="UTF-8">
   <title>Quản lý nhập sản phẩm</title>
   <link rel="stylesheet" href="../css/receivingReport.css">
-  <link rel="stylesheet" href="../css/components/admin-header.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="header">
-    <div class="header-inner">
-      <button class="back-btn" onclick="window.location.href='../admin/index.html'" aria-label="Quay lại trang quản trị">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <h1 class="heading">Quản lý Phiếu Nhập</h1>
-      <a href="../pages/index.html" class="home-btn" aria-label="Về trang chủ">
-        <i class="fa-solid fa-house"></i>
-      </a>
-    </div>
-  </div>
+    <!-- Nút quay lại -->
+    <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+      <span class="arrow">←</span>
+    </button>
 
-  <!-- Thanh công cụ bên dưới header -->
-  <div class="toolbar">
+    <h1>Quản lý Phiếu Nhập</h1>
+
     <div class="search">
-      <form method="get">
-        <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
-        <button type="submit">Tìm</button>
-      </form>
+  <form method="get">
+    <input type="text" name="search" placeholder="Tìm phiếu theo mã / ngày">
+    <a href="../admin/NreceivingReport.html" class="reset-btn">Tìm</a>
+    <a href="../admin/receivingReport.html" class="reset-btn">Đặt Lại</a>
+  </form>
     </div>
     <div class="search">
-      <input type="checkbox" id="add" hidden>
-      <label for="add" class="add1">Thêm Phiếu nhập</label>
-      <div class="modal-add">
-        <div class="modal-content">
-          <label for="add" class="close">&times;</label>
-          <h2>Thêm Phiếu Nhập</h2>
-          <label>Mã phiếu:</label>
-          <input type="text" placeholder="Nhập mã phiếu"><br>
-          <label>Ngày nhập:</label>
-          <input type="date"><br>
-          <label>Tổng giá trị:</label>
-          <input class="price" type="text" inputmode="numeric" placeholder="Nhập tổng giá trị"><br><br>
-          <h3>Chi tiết sản phẩm</h3>
-          <p>Số thứ tự:1</p>
-          <div class="detail-row">
-            <p><input type="text" placeholder="Mã SP"></p>
-            <p><input type="text" placeholder="TÊN SP"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
+        <input type="checkbox" id="add" hidden>
+        <label for="add" class="add1">Thêm Phiếu nhập</label>
+
+       <div class="modal-add">
+          <div class="modal-content">
+            <label for="add" class="close">&times;</label>
+            <h2>Thêm Phiếu Nhập</h2>
+
+            <label>Mã phiếu:</label>
+            <input type="text" placeholder="Nhập mã phiếu"><br>
+
+            <label>Ngày nhập:</label>
+            <input type="date"><br>
+
+
+            <h3>Chi tiết sản phẩm</h3>
+
+            <!-- Dòng chi tiết 1 -->
+            <p>Số thứ tự:1</p>
+            <div class="detail-row">
+              <div class="selection-wrapper">
+                <select id="product" class="selection">
+                    <option value="">Chọn sản phẩm</option>
+                    <option value="banana">Banana</option>
+                    <option value="strawberry">Dâu Tây</option>
+                    <option value="orange">Cam Ngọt</option>
+                    <option value="grape">Nho Tím</option>
+                    <option value="avocado">Bơ</option>
+                    <option value="lychee">Vải Thiều</option>
+                    <option value="pomegranate">Lựu Đỏ</option>
+                    <option value="cherry">Cherry Đỏ</option>
+                    <option value="pineapple">Dứa Vàng</option>
+                    <option value="lemon">Chanh</option>
+                    <option value="kiwi">Kiwi</option>
+                    <option value="apple">Táo</option>
+                    <option value="plum">Mận</option>
+                    <option value="carrot">Carrot</option>
+                    <option value="watermelon">Dưa hấu Đỏ</option>
+                    <option value="mango">Xoài</option>
+                </select>
+                <p><input type="text" inputmode="numeric" placeholder="Nhập Số Lượng"></p>
+              </div>
+              
+            </div>
+
+            <input type="checkbox" id="row2" hidden>
+            <label for="row2" class="add-row">+ Thêm dòng chi tiết</label>
+
+            
+            <div class="detail-row" id="dentail-row2">
+              <div class="selection-wrapper">
+                <select id="product" class="selection">
+                    <option value="">Chọn sản phẩm</option>
+                    <option value="banana">Banana</option>
+                    <option value="strawberry">Dâu Tây</option>
+                    <option value="orange">Cam Ngọt</option>
+                    <option value="grape">Nho Tím</option>
+                    <option value="avocado">Bơ</option>
+                    <option value="lychee">Vải Thiều</option>
+                    <option value="pomegranate">Lựu Đỏ</option>
+                    <option value="cherry">Cherry Đỏ</option>
+                    <option value="pineapple">Dứa Vàng</option>
+                    <option value="lemon">Chanh</option>
+                    <option value="kiwi">Kiwi</option>
+                    <option value="apple">Táo</option>
+                    <option value="plum">Mận</option>
+                    <option value="carrot">Carrot</option>
+                    <option value="watermelon">Dưa hấu Đỏ</option>
+                    <option value="mango">Xoài</option>
+                </select>
+                    <p><input type="text" inputmode="numeric" placeholder="Nhập Số Lượng"></p>
+              </div>
+                  <input type="checkbox" id="delete2" hidden>
+                  <label for="row2" class ="de2">- Xóa dòng chi tiết</label>
+            </div>
+
+            <input type="checkbox" id="row3" hidden>
+            <label for="row3" class="add-row">+ Thêm dòng chi tiết</label>
+
+            
+            <div class="detail-row" id="dentail-row3">
+              <div class="selection-wrapper">
+                <select id="product" class="selection">
+                    <option value="">Chọn sản phẩm</option>
+                    <option value="banana">Banana</option>
+                    <option value="strawberry">Dâu Tây</option>
+                    <option value="orange">Cam Ngọt</option>
+                    <option value="grape">Nho Tím</option>
+                    <option value="avocado">Bơ</option>
+                    <option value="lychee">Vải Thiều</option>
+                    <option value="pomegranate">Lựu Đỏ</option>
+                    <option value="cherry">Cherry Đỏ</option>
+                    <option value="pineapple">Dứa Vàng</option>
+                    <option value="lemon">Chanh</option>
+                    <option value="kiwi">Kiwi</option>
+                    <option value="apple">Táo</option>
+                    <option value="plum">Mận</option>
+                    <option value="carrot">Carrot</option>
+                    <option value="watermelon">Dưa hấu Đỏ</option>
+                    <option value="mango">Xoài</option>
+                </select>
+                    <p><input type="text" inputmode="numeric" placeholder="Nhập Số Lượng"></p>
+              </div>
+                  <label for="row3" class ="de3">- Xóa dòng chi tiết</label>
+            </div>
+
+            <button class="save" onclick="window.location.href='receivingReport.html'">Lưu</button>
+
+            <label for="add" class="cancel">Hủy</label>
           </div>
-          <input type="checkbox" id="row2" hidden>
-          <label for="row2" class="add-row">+ Thêm dòng chi tiết</label>
-          <p class="s2">Số thứ tự:2</p>
-          <div class="detail-row" id="dentail-row2">
-            <p><input type="text" placeholder="Mã SP"></p>
-            <p><input type="text" placeholder="TÊN SP"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
-            <input type="checkbox" id="delete2" hidden>
-            <label for="row2" class="de2">- Xóa dòng chi tiết</label>
-          </div>
-          <input type="checkbox" id="row3" hidden>
-          <label for="row3" class="add-row">+ Thêm dòng chi tiết</label>
-          <p class="s3">Số thứ tự:3</p>
-          <div class="detail-row" id="dentail-row3">
-            <p><input type="text" placeholder="Mã SP"></p>
-            <p><input type="text" placeholder="TÊN SP"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Số Lượng"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Giá Nhập"></p>
-            <p><input type="text" inputmode="numeric" placeholder="Tổng Tiền"></p>
-            <input type="checkbox" id="delete3" hidden>
-            <label for="row3" class="de3">- Xóa dòng chi tiết</label>
-          </div>
-          <button class="save">Lưu</button>
-          <label for="add" class="cancel">Hủy</label>
         </div>
-      </div>
+
+
     </div>
+
+    <!-- Nút về trang chủ -->
+    <a href="../pages/index.html" class="back-btn">
+      <i class="fa fa-home"></i>
+    </a>
   </div>
 
   <!-- Bảng danh sách -->
@@ -134,10 +197,10 @@
                             <th>25kg </th>
                             <th>1.000.000 VNĐ</th>
                         </tr>
+                        <tr>
+                            <th colspan="6" class="total"> Tổng Tiền : 2.000.000 VNĐ</th>
+                        </tr>
                     </tbody>
-                
-
-
                 </table>
               </div>
             </div>
@@ -192,7 +255,9 @@
                             <th>10kg </th>
                             <th>200.000 VNĐ</th>
                         </tr>
-
+                        <tr>
+                            <th colspan="6" class="total"> Tổng Tiền : 1.800.000 VNĐ</th>
+                        </tr>
 
                     </tbody>
                 
@@ -250,6 +315,9 @@
                             <th>40.000 VNĐ/kg</th>
                             <th>50kg </th>
                             <th>2.000.000 VNĐ</th>
+                        </tr>
+                        <tr>
+                            <th colspan="6" class="total"> Tổng Tiền : 5.000.000 VNĐ</th>
                         </tr>
                     </tbody>
                 
