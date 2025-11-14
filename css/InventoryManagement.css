@@ -215,6 +215,7 @@ tbody tr:hover {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: 50%;
 }
 
 .pages {

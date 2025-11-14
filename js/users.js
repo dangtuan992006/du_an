@@ -1,15 +1,12 @@
     document.addEventListener("DOMContentLoaded", () => {
     const userList = document.getElementById("user-list");
     const addUserBtn = document.getElementById("add-user-btn");
-    const searchInput = document.getElementById("search-in");
-    const searchBtn = document.getElementById("search-b");
+    const searchInput = document.getElementById("search-input");
+    const searchBtn = document.getElementById("search-btn");
     const pageNumbersContainer = document.getElementById("page-numbers");
     const prevPageBtn = document.querySelector(".pagination .pagination-arrow:first-of-type");
     const nextPageBtn = document.querySelector(".pagination .pagination-arrow:last-of-type");
     const USER_STORAGE_KEY = 'crud_users';
-
-    // Biến để lưu trạng thái gốc của một hàng khi đang sửa
-    let originalRowHTML = null;
 
     // --- XỬ LÝ SỰ KIỆN ---
 
@@ -124,74 +121,59 @@
 
     // --- TÌM KIẾM ---
     const handleSearch = () => {
-        const keyword = searchInput.value.toLowerCase().trim();
-        const rows = userList.querySelectorAll('tr');
-        let found = false;
-        rows.forEach(row => {
-            const name = row.cells[0]?.textContent.toLowerCase();
-            const email = row.cells[1]?.textContent.toLowerCase();
-            if (name.includes(keyword) || email.includes(keyword)) {
-                row.style.display = '';
-                found = true;
-            } else {
-                row.style.display = 'none';
-            }
-        });
+      // Chức năng tìm kiếm đã được vô hiệu hóa theo yêu cầu.
+      // Giao diện được giữ lại nhưng hàm này không thực hiện hành động nào.
     };
 
     searchBtn.addEventListener("click", handleSearch);
     searchInput.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") {
+      if (e.key === "Enter") {
         handleSearch();
-        }
+      }
     });
 
     // --- CHỨC NĂNG PHÂN TRANG ẢO ---
     let currentPage = 1;
-    // Đếm số trang thực tế có thể nhấp vào (không tính '...')
-    const totalPages = pageNumbersContainer.querySelectorAll('.page-number:not(:last-child)').length; // Giữ lại dòng này
+    const totalPages =
+      pageNumbersContainer.querySelectorAll(".page-number").length;
 
     const updatePaginationUI = () => {
-        // Bỏ active ở tất cả các nút
-        pageNumbersContainer.querySelectorAll('.page-number').forEach(btn => {
-            btn.classList.remove('active');
-        });
-    
-        // Thêm active cho nút của trang hiện tại
-        // Tìm nút dựa trên vị trí của nó, không phải nội dung
-        const currentBtn = pageNumbersContainer.querySelector(`.page-number:nth-child(${currentPage})`);
-        if (currentBtn) {
-            currentBtn.classList.add('active');
-        }
-    
-        // Cập nhật trạng thái của nút Trước/Sau
-        prevPageBtn.disabled = currentPage === 1;
-        nextPageBtn.disabled = currentPage === totalPages;
+      // Bỏ active ở tất cả các nút
+      pageNumbersContainer.querySelectorAll(".page-number").forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      // Thêm active cho nút của trang hiện tại
+      const currentBtn = pageNumbersContainer.querySelector(
+        `.page-number:nth-child(${currentPage})`
+      );
+      if (currentBtn) {
+        currentBtn.classList.add("active");
+      }
+
+      // Cập nhật trạng thái của nút Trước/Sau
+      prevPageBtn.disabled = currentPage === 1;
+      nextPageBtn.disabled = currentPage === totalPages;
     };
-    
+
     const goToPage = (page) => {
-        currentPage = page;
-        updatePaginationUI();
+      currentPage = page;
+      updatePaginationUI();
     };
-    
+
     prevPageBtn.addEventListener("click", () => {
-        if (currentPage > 1) goToPage(currentPage - 1);
+      if (currentPage > 1) goToPage(currentPage - 1);
     });
-    
+
     nextPageBtn.addEventListener("click", () => {
-        if (currentPage < totalPages) goToPage(currentPage + 1);
+      if (currentPage < totalPages) goToPage(currentPage + 1);
     });
-    
+
     pageNumbersContainer.addEventListener("click", (e) => {
-        if (e.target.classList.contains('page-number') && !e.target.textContent.includes('...')) {
-            // Lấy vị trí của nút được nhấn để xác định trang
-            const allButtons = Array.from(pageNumbersContainer.querySelectorAll('.page-number'));
-            const pageIndex = allButtons.indexOf(e.target);
-            if (pageIndex !== -1) {
-                const page = pageIndex + 1;
-                if (page !== currentPage) goToPage(page);
-            }
-        }
+      if (e.target.classList.contains("page-number")) {
+        const page = parseInt(e.target.textContent);
+        if (!isNaN(page) && page !== currentPage) goToPage(page);
+      }
     });
 
     updatePaginationUI(); // Cập nhật giao diện phân trang lần đầu

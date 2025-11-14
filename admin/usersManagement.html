@@ -6,6 +6,48 @@
     <title>Product Management</title>
     <link rel="stylesheet" href="../css/users_management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* --- CSS CHO PHÂN TRANG --- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .pagination-arrow {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .pagination-arrow:hover:not(:disabled) {
+            background-color: #f0f0f0;
+        }
+        .pagination-arrow:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #page-numbers {
+            display: flex;
+            gap: 8px;
+        }
+        .page-number {
+            padding: 8px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .page-number.active, .page-number:hover {
+            background-color: #d32f2f; /* Màu đỏ chủ đạo */
+            color: white;
+            border-color: #d32f2f;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -198,7 +240,6 @@
                     <span class="page-number">2</span>
                     <span class="page-number">3</span>
                     <span class="page-number">4</span>
-                    <span class="page-number">...</span>
                 </div>
                 <button class="pagination-arrow">&raquo;</button>
             </div>
