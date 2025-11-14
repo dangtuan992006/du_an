@@ -4,18 +4,16 @@
   <meta charset="UTF-8">
   <title>Quản lý số lượng tồn</title>
   <link rel="stylesheet" href="../css/InventoryManagement.css">
-  <link rel="stylesheet" href="../css/components/admin-header.css">
-  <script src="../js/InventoryManagement.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="header">
-    <div class="header-inner">
-      <button class="back-btn" onclick="window.location.href='../admin/index.html'" aria-label="Quay lại trang quản trị">
+    <div class="header-left">
+      <button class="back-btn" onclick="window.location.href='../admin/index.html'">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
       <h1 class="heading">Quản lý số lượng tồn</h1>
-      <a href="../pages/index.html" class="home-btn" aria-label="Về trang chủ">
+      <a href="../pages/index.html" class="home-btn">
         <i class="fa-solid fa-house"></i>
       </a>
     </div>
@@ -26,11 +24,12 @@
       <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
       <select id="category">
         <option value="">Tất cả loại</option>
-        <option value="Trái cây">Trái cây</option>
-        <option value="Rau củ">Rau củ</option>
-        <option value="Nước ép">Nước ép</option>
+        <option value="Trái cây">Bán Chạy Nhất</option>
+        <option value="Rau củ">Quà Tặng Trái Cây</option>
+        <option value="Nước ép">Trái Cây Việt Nam</option>
+        <option value="Đặc Biệt">Dặc Biệt</option>
       </select>
-      <button class="loc" onclick="filterProducts()">Lọc</button>
+      <button class="loc" onclick="window.location.href='NInventoryManagemen.html'">Lọc</button>
       <button class="dl" onclick="resetFilter()">Đặt lại</button>
     </div>
 
@@ -42,55 +41,66 @@
             <th>Tên sản phẩm</th>
             <th>Loại</th>
             <th>Số lượng tồn</th>
-            <th>Thao tác</th>
+            <th>Trạng Thái</th>
           </tr>
         </thead>
         <tbody id="productTable">
           <tr>
-            <td>SP001</td>
-            <td>Táo đỏ Mỹ</td>
-            <td>Trái cây</td>
-            <td>5</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+            <td>1</td>
+            <td>Chuối</td>
+            <td>Dặc Biệt</td>
+            <td>100(kg)</td>
+            <td>Còn Hàng</td>
           </tr>
           <tr>
-            <td>SP002</td>
-            <td>Cam sành</td>
-            <td>Trái cây</td>
-            <td>40</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
-          </tr>
-          <tr>
-            <td>SP003</td>
-            <td>Cà rốt Đà Lạt</td>
-            <td>Rau củ</td>
-            <td>5</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
-          </tr>
-          <tr>
-            <td>SP004</td>
-            <td>Nước ép nho</td>
-            <td>Nước ép</td>
-            <td>20</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
-          </tr>
-          <tr>
-            <td>SP005</td>
-            <td>Xoài cát Hòa Lộc</td>
-            <td>Trái cây</td>
-            <td>20</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
-          </tr>
-          <tr>
-            <td>SP006</td>
-            <td>Rau cải xanh</td>
-            <td>Rau củ</td>
             <td>2</td>
-            <td><button class="edit-btn" onclick="editRow(this)">Sửa</button></td>
+            <td>Dâu Tây</td>
+            <td>Quà Tặng Trái Cây</td>
+            <td>40(kg)</td>
+            <td>Còn Hàng</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Cam Ngọt</td>
+            <td>Trái Cây Việt Nam</td>
+            <td>5(kg)</td>
+            <td>Sắp hết hàng</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Nho Tím</td>
+            <td>Bán Chạy Nhất</td>
+            <td>20(kg)</td>
+            <td>Còn Hàng</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Bơ</td>
+            <td>Trái cây Việt Nam</td>
+            <td>20(kg)</td>
+            <td>Còn Hàng</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Vải Thều</td>
+            <td>Trái Cây Việt Nam</td>
+            <td>2(kg)</td>
+            <td>Sắp Xếp Hàng  </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <div class="pagination">
+            <button class="prev">⟨</button>
+            <ul class="pages">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>...</li>
+                <li>10</li>
+            </ul>
+            <button class="next">⟩</button>
+        </div>
 </body>
 </html>
