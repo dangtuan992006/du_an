@@ -1,551 +1,506 @@
-/* ====== HEADER ====== */
-.header {
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f9cbd6;
-    font-family: "Helvetica Neue", Arial, sans-serif;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
 }
 
-.header h1 {
-    font-size: 40px;
-    color: white;
-}
-
-.search{
-    margin-left:40px ;
-}
-
-.search input {
-    width: 250px;
-    height: 40px;
-    padding-left: 15px;
-    border-radius: 10px;
-    font-size: 15px;
-    border: 2px solid #030b1b;
-}
-
-.search button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    background-color: #f9cbd6;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.search button:hover {
-    background-color: #ec4f0c;
-    color: white;
-}
-
-/* ====== BACK BUTTON ====== */
-.back-btn {
-    background-color: white;
-    border: none;
-    color: #b80c84;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.back-btn:hover {
-    background-color: #a3085b;
-    color: white;
-    transform: scale(1.1);
-}
-
-/* ====== BACKGROUND ====== */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: linear-gradient(rgba(158, 24, 43, 0.5), rgba(158, 24, 43, 0.5)), url(../images/peel.jpg);
-    background-position: center;
-    background-size: cover;
-    z-index: -1;
-}
-
-/* ====== TABLE ====== */
-.list table {
-    background-color: whitesmoke;
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.tablehoadon th {
-    font-size: 20px;
-    border: 2px solid #030b1b;
-}
-
-.tablesp th {
-    border: 2px solid #f9cbd6;
-    font-size: 18px;
-    padding: 8px;
-}
-
-/* ====== NÚT XEM ====== */
-label.see {
-    display: inline-block;
-    width: 80px;
-    text-align: center;
-    padding: 6px 0;
-    border-radius: 6px;
-    background-color: #d4a714;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-label.see:hover {
-    background-color: #ff2abf;
-    transform: translateY(-2px);
-}
-
-/* ====== MODAL CHI TIẾT ====== */
-.modal2 {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal2 .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px 30px;
-    border-radius: 12px;
-    width: 600px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease;
-}
-
-.modal2 .close {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-    color: #888;
-}
-
-.modal2 .close:hover {
-    color: red;
-}
-
-/* Hiệu ứng xuất hiện */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Khi checkbox được bật → hiện modal */
-input[type="checkbox"]:checked + label + .modal2 {
-    display: block;
-}
-
-/* ====== PHÂN TRANG ====== */
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 40px auto;
-    padding: 15px 25px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    width: fit-content;
-    font-family: "Poppins", sans-serif;
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pages {
-  list-style: none;
-  display: flex;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-}
-
-.pages li {
-  position: relative;
-}
-
-/* Ẩn radio */
-.pages input {
-  display: none;
-}
-
-/* Style chung của nút */
-.pages label {
-  padding: 8px 12px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  background: #f2f2f2;
-}
-
-/* Khi được chọn → nhảy lên + đổi màu */
-.pages input:checked + label {
-  background: dodgerblue;
-  color: white;
-  transform: translateY(-4px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-}
-
-
-/* ====== NÚT THÊM PHIẾU NHẬP ====== */
-.add1 {
-    display: inline-block;
-    background-color: #ffb6c1;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: black;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.add1:hover {
-    background-color: #ff69b4;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* ====== MODAL THÊM PHIẾU NHẬP ====== */
-.modal-add {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-/* Khi checkbox #add được bật -> hiển thị modal */
-#add:checked + label + .modal-add {
-    display: flex;
-}
-
-/* Nội dung modal */
-.modal-add .modal-content {
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    width: 400px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-}
-
-/* Nút đóng (x) */
-.modal-add .close {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-    color: #888;
-}
-
-.modal-add .close:hover {
-    color: red;
-}
-
-/* Nút Lưu và Hủy */
-.modal-add .save,
-.modal-add .cancel {
-    margin-top: 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.modal-add .save {
-    background-color: #28a745;
-    color: white;
-}
-
-.modal-add .save:hover {
-    background-color: #1e7e34;
-}
-
-.modal-add .cancel {
-    background-color: #dc3545;
-    color: white;
-    margin-left: 10px;
-}
-
-.modal-add .cancel:hover {
-    background-color: #c82333;
-}
-
-/* --- Form chi tiết sản phẩm --- */
-.detail-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.detail-row p input {
-    width: 140px;
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-/* --- Nút thêm và xóa dòng --- */
-.add-row,
-.remove-row {
-    display: inline-block;
-    margin: 5px 0 10px;
-    padding: 5px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.add-row {
-    background-color: #f9cbd6;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffeef3 0%, #ffe0e8 100%);
+    min-height: 100vh;
     color: #333;
 }
 
-.add-row:hover {
-    background-color: #ff69b4;
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+.header h1 {
+    color: #9e182b;
+    font-size: 2rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header .header-btn {
+    color: #9e182b;
+    border: none;
+    background-color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.header .header-btn:hover {
+    background-color: #9e182b;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Content */
+.content {
+    background-color: #f9cbd6;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+}
+
+/* Actions: Search and Add button */
+.actions {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.add-btn {
+    background-color: #9e182b;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.add-btn:hover {
+    opacity: 0.9;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px; /* Thêm khoảng cách giữa các phần tử con */
+    align-items: center;
+}
+
+.search-group {
+    display: flex;
+    flex-grow: 1; /* Cho phép nhóm tìm kiếm co giãn */
+}
+
+.search-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    font-size: 1em;
+    flex-grow: 1;
+}
+
+.search-group .search-btn {
+    padding: 12px 20px;
+    border: none;
+    background: #7d1322;
     color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0 15px 15px 0; /* Bo góc phải cho nút tìm kiếm */
+    transition: background-color 0.2s;
 }
 
-.remove-row {
-    background-color: #ffb6b6;
-    color: #222;
+.search-group .search-btn:hover {
+    background: #9e182b;
 }
 
-.remove-row:hover {
-    background-color: #ff4d4d;
+.search-box .reset-btn {
+    padding: 12px 20px;
+    border: none;
+    background: #6c757d; /* Màu xám */
     color: white;
+    border-radius: 15px; /* Bo tròn tất cả các góc */
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s;
 }
 
-.s2{
-  display: none;
+/* Table Styling */
+.list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .list th, .list td {
+    padding: 15px;
+    text-align: left;
 }
 
-#dentail-row2{
-  display: none;
+.list thead {
+    background-color: #9e182b;
+    color: #fff;
+    font-size: 1rem;
 }
 
-#row2:checked ~ .s2{ 
-  display: flex; 
-
+.list tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
 }
 
-#row2:checked ~ #dentail-row2{ 
-  display: flex; 
-
+.list tbody tr:last-child {
+    border-bottom: none;
 }
 
-#row2:checked ~ label[for="row2"] {
-  display: none;
+.list tbody tr:hover {
+    background-color: #fff5f7;
 }
 
-.de2 {
-  background-color: red;
-  color: white;                  /* màu chữ nổi bật */
-  width: 150px;                  /* chiều rộng cố định */
-  height: 55px;                  /* chiều cao hợp lý hơn */
-  margin-top:15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  display: flex;                 /* dùng flex để căn giữa nội dung */
-  justify-content: center;       /* căn giữa theo chiều ngang */
-  align-items: center;           /* căn giữa theo chiều dọc */
-  cursor: pointer;               /* trỏ chuột dạng tay */
-  transition: all 0.3s ease;     /* hiệu ứng mượt khi hover */
+.status.completed {
+    color: #28a745;
+    font-weight: bold;
 }
 
-
-.de2:hover {
-  background-color: darkred;
-  transform: scale(1.05);
+.status.pending {
+    color: #ffc107;
+    font-weight: bold;
 }
 
-.de2:checked ~ #dentail-row2{
-  display:none;
+/* Action Buttons in table */
+.action-btn, .see {
+    background: #f9cbd6;
+    color: #9e182b;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 5px;
+    text-decoration: none;
 }
 
-#row3 {
-  display: none;
+.action-btn:hover, .see:hover {
+    background: #7d1322;
+    color: #f9cbd6;
+    transform: scale(1.1);
 }
 
-/* Chỉ hiện nút “+ Thêm dòng chi tiết 3” khi dòng 2 đã mở */
-#row2:checked ~ label.add-row[for="row3"] {
-  display: inline-block;
+.see {
+    border-radius: 8px;
+    width: auto;
+    padding: 0 12px;
 }
 
-/* Hiện nút xóa chi tiết 3 khi dòng 3 được bật */
-#row3:checked ~ #dentail-row3 label.de3 {
-  display: flex;
+/* Modal Styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: flex-start; /* Căn nội dung lên trên */
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
 }
 
-
-
-#dentail-row3{
-    display:none;
+input[type="checkbox"]:checked + .modal-overlay {
+    display: flex;
 }
 
-.s3{
-    display:none;
+/* Ngăn cuộn trang nền khi modal đang mở */
+input[type="checkbox"]:checked {
+    overflow: hidden; /* Áp dụng cho thẻ html/body nếu input là con trực tiếp */
 }
 
-#row3:checked ~ #dentail-row3{ 
-  display: flex; 
-
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    margin: 5vh 0; /* Thêm khoảng cách trên dưới để không bị dính sát mép */
+    animation: scaleUp 0.3s ease;
 }
 
-#row3:checked ~ label[for="row3"] {
-  display: none;
+.modal-content h2 {
+    color: #9e182b;
+    margin-bottom: 20px;
 }
 
-label.add-row[for="row3"] {
-  display: none;
+.modal-content p {
+    margin-bottom: 8px;
+    color: #555;
 }
 
-#row3:checked + label.add-row[for="row3"] {
-    display: none;
+.modal-content p strong {
+    color: #333;
+    min-width: 100px;
+    display: inline-block;
+}
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.de3 {
-  background-color: red;
-  color: white;                  /* màu chữ nổi bật */
-  width: 150px;                  /* chiều rộng cố định */
-  height: 55px;                  /* chiều cao hợp lý hơn */
-  margin-top:15px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  display: flex;                 /* dùng flex để căn giữa nội dung */
-  justify-content: center;       /* căn giữa theo chiều ngang */
-  align-items: center;           /* căn giữa theo chiều dọc */
-  cursor: pointer;               /* trỏ chuột dạng tay */
-  transition: all 0.3s ease;     /* hiệu ứng mượt khi hover */
+.close-btn:hover {
+    color: #333;
 }
 
-/* ====== SELECTION (Dropdown chọn sản phẩm) ====== */
-.selection-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+/* Modal for adding new item */
+.modal-add .modal-content {
+    max-width: 1000px;
 }
 
-.selection-wrapper label {
-  margin-bottom: 4px;
-  font-weight: 600;
-  color: #333;
+.modal-add label {
+    display: block;
+    font-weight: 600;
+    color: #555;
 }
 
-.selection {
-  width: 180px;
-  height: 50px;
-  padding: 6px 10px;
-  border: 2px solid #1d1b1b;
-  border-radius: 8px;
-  background-color: #fffafc;
-  font-size: 15px;
-  color: #333;
-  appearance: none; /* Ẩn mũi tên mặc định */
-  background-image:
-    url("data:image/svg+xml;utf8,<svg fill='%23d63384' height='12' viewBox='0 0 20 20' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M5.5 7l4.5 5 4.5-5H5.5z'/></svg>");
-  background-position: right 10px center;
-  background-repeat: no-repeat;
-  transition: all 0.3s ease;
-  cursor: pointer;
+.modal-add input[type="text"],
+.modal-add input[type="date"],
+.modal-add input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-/* Hover */
-.selection:hover {
-  border-color: #0d0e0d;
-  background-color: #fff0f5;
-  box-shadow: 0 0 6px rgba(28, 27, 27, 0.4);
+.modal-add .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-/* Focus */
-.selection:focus {
-  outline: none;
-  border-color: #1a1819;
-  box-shadow: 0 0 8px rgba(17, 17, 17, 0.5);
-  background-color: #fffafc;
+.modal-add .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* Disabled */
-.selection:disabled {
-  background-color: #f2f2f2;
-  color: #999;
-  border-color: #ddd;
-  cursor: not-allowed;
+.modal-add .save-btn { background-color: #28a745; }
+.modal-add .cancel-btn { background-color: #dc3545; }
+
+/* Modal for editing item */
+.modal-edit .modal-content {
+    max-width: 1000px;
+}
+.modal-edit label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+}
+.modal-edit select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: white;
+}
+.modal-edit input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.modal-edit .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+.modal-edit .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-edit .detail-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 1.1em;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+.modal-edit .save-btn { background-color: #28a745; }
+.modal-edit .cancel-btn { background-color: #dc3545; }
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 10px;
+    gap: 8px;
 }
 
-#product{
-    margin-top: 18px;
+.pagination .page-number {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #333;
+    background-color: #fff;
 }
 
-.reset-btn {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #e10fa2;  
-  color: white;
-  border-radius: 4px;
-  text-decoration: none;
+.pagination .page-number:hover {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
 }
-.reset-btn:hover {
-  background-color: #72065b;
+
+#page1:checked ~ .pagination label[for="page1"],
+#page2:checked ~ .pagination label[for="page2"],
+#page3:checked ~ .pagination label[for="page3"] {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
 }
-.total {
+
+/* --- Detail Table in Modal --- */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.detail-table thead {
+    background-color: #f8f9fa;
+}
+
+.detail-table th,
+.detail-table td {
+    padding: 12px 15px;
+    border: 1px solid #f9cbd6;
+    text-align: center;
+    color: #7d1322;
+}
+
+.detail-table tbody tr:nth-child(even) {
+    background-color: #fdfdfe;
+}
+
+.detail-table .total {
+    font-weight: bold;
+    font-size: 1.1em;
     text-align: right;
-    padding-right: 10px; /* tuỳ chọn */
+    background-color: #f8f9fa;
+    color: #9e182b;
 }
 
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(239, 184, 193);
-  border-radius: 20px;
-  margin-bottom: 10px;
+.detail-table.editable td input {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #fff;
 }
 
-.infor{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f9cbd6;
+.detail-table td:nth-child(1),
+.detail-table td:nth-child(5) {
+    text-align: center;
 }
 
 
+/* --- Delete Functionality --- */
+.modal-delete .modal-content {
+    max-width: 450px;
+    text-align: center;
+}
+
+.modal-delete p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+.modal-delete .btn-group {
+    justify-content: center;
+    display: flex;
+    gap: 15px;
+}
+
+.modal-delete .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: opacity 0.2s ease;
+}
+
+.modal-delete .btn:hover {
+    opacity: 0.85;
+}
+
+.modal-delete .delete-confirm-btn {
+    background-color: #dc3545;
+}
+
+.modal-delete .cancel-btn {
+    background-color: #6c757d; /* Gray for cancellation */
+}
+
+/* Hide the row when its corresponding delete checkbox is checked */
+.delete-confirm-checkbox:checked {
+    display: none; /* Hide the helper row */
+}
+.delete-confirm-checkbox:checked + tr.tablesp {
+    display: none; /* Hide the actual data row */
+}
