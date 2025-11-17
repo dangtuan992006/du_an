@@ -1,328 +1,278 @@
-/* ======= CÀI ĐẶT CƠ BẢN ======= */
-* {
-    box-sizing: border-box;
-}
-
+/* ----- THIẾT LẬP CHUNG ----- */
 body {
-    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffeef3 0%, #ffe0e8 100%);
     margin: 0;
-    padding: 0;
-    background-color: #f5f6fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
 
-/* ======= HEADER ======= */
+.container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ----- HEADER ----- */
 .header {
-    background-color: #f9cbd6;
-    color: white;
-    padding: 15px 40px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-left {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: #f9cbd6;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
+    margin-bottom: 20px;
 }
 
-.heading {
-    font-size: 26px;
-    font-weight: 600;
-    text-align: center;
-    flex-grow: 1;
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #9e182b;
+    font-weight: 700;
 }
 
-/* ======= NÚT QUAY LẠI & TRANG CHỦ ======= */
-.back-btn,
-.home-btn {
-    background-color: white;
+.header-btn {
+    background-color: #fff;
+    color: #9e182b;
     border: none;
-    color: #f9cbd6;
-    width: 42px;
-    height: 42px;
     border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.back-btn:hover,
-.home-btn:hover {
-    background-color: #f9cbd6;
-    color: white;
+.header-btn:hover {
+    background-color: #9e182b;
+    color: #fff;
     transform: scale(1.1);
 }
 
-/* ======= MAIN ======= */
-.main {
-    padding: 25px 50px;
+/* ----- CONTENT ----- */
+.content {
+    background-color: #f9cbd6;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(158, 24, 43, 0.1);
 }
 
-/* ======= KHUNG TÌM KIẾM / LỌC ======= */
-.search {
+/* ----- BỘ LỌC VÀ TÌM KIẾM ----- */
+.actions {
     display: flex;
     align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
     flex-wrap: wrap;
-    gap: 12px 20px;
-    background-color: white;
-    padding: 15px 25px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-.search .nd {
-    margin: 0;
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #555;
+}
+
+.actions input[type="date"],
+.actions select,
+.actions .search-input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     font-size: 15px;
-    font-weight: 500;
-    color: #444;
+    background-color: #fff;
 }
 
-.search input[type="date"],
-.search select,
-.search input[type="text"] {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    font-size: 14px;
-    transition: border-color 0.2s;
+.actions .search-input {
+    flex-grow: 1;
 }
 
-.search input[type="text"] {
-    width: 260px;
-}
-
-.search input:focus,
-.search select:focus {
-    border-color: #f9cbd6;
-}
-
-/* ======= NÚT ======= */
-button.loc,
-button.dl {
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
+.action-btn {
+    background-color: #9e182b;
     color: white;
-    font-size: 15px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s;
 }
 
-button.loc {
-    background-color: #0078d7;
+.action-btn.reset-btn {
+    background-color: #777;
 }
 
-button.dl {
-    background-color: #ff4747;
+.action-btn:hover {
+    background-color: #c0392b;
 }
 
-button.loc:hover {
-    background-color: #005fa3;
+.action-btn.reset-btn:hover {
+    background-color: #555;
 }
 
-button.dl:hover {
-    background-color: #d93a3a;
-}
-
-/* ======= BẢNG DỮ LIỆU ======= */
-.table-container {
-    margin-top: 30px;
-    background-color: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    overflow-x: auto;
-}
-
-table {
+/* ----- BẢNG DỮ LIỆU ----- */
+.list table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 950px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-th, td {
-    padding: 12px 10px;
+.list th, .list td {
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-    vertical-align: middle;
-    font-size: 15px;
+    border-bottom: 1px solid #eee;
 }
 
-th {
-    background-color: #f2f2f2;
-    font-weight: 600;
-    color: #333;
+.list thead {
+    background-color: #9e182b;
+    color: #fff;
+    font-size: 16px;
 }
 
-tr:hover {
+.list tbody tr:hover {
+    background-color: #fff8f9;
+}
+
+.no-results td {
+    text-align: center;
+    padding: 50px 20px;
+    color: #777;
+    font-size: 1.2em;
+    font-style: italic;
+    background-color: #fafafa;
+}
+
+.status-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.view-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.view-btn:hover {
+    background-color: #2980b9;
+}
+
+/* ----- PHÂN TRANG ----- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.page-number {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+.page-number:hover,
+input[type="radio"]:checked + .page-number {
+    background-color: #9e182b;
+    color: white;
+    border-color: #9e182b;
+}
+
+/* ----- MODAL CHI TIẾT ----- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    transform: translateY(-50px);
+    transition: transform 0.3s;
+}
+
+.modal-toggle:checked + .modal-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-toggle:checked + .modal-overlay .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #9e182b;
+}
+
+.detail-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.detail-table th, .detail-table td {
+    padding: 12px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+.detail-table thead {
     background-color: #f9f9f9;
 }
 
-td select {
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    font-size: 14px;
+.total-row {
+    font-weight: bold;
+    background-color: #f9f9f9;
 }
 
-td select:focus {
-    border-color: #0078d7;
+.total-row td:first-child {
+    text-align: right;
 }
-
-/* ======= RESPONSIVE ======= */
-@media (max-width: 768px) {
-    .main {
-        padding: 15px 20px;
-    }
-
-    .search {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .search input[type="text"] {
-        width: 100%;
-    }
-
-    th, td {
-        font-size: 13px;
-    }
-}
-
-body {
-    font-family: "Segoe UI", sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(rgba(148, 22, 41, 0.5), rgba(148, 22, 41, 0.5)), url(../images/grape.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-    color: #333;
-}
-
-/* Nút giống see1 đến see4 */
-#see1, #see2, #see3, #see4 {
-    background-color: yellow;
-    margin-left: 20px;
-    height: 100px;
-    width: 30px;
-    border-radius: 3px;
-    border: 2px solid black;
-    cursor: pointer;
-}
-
-#see1:hover, #see2:hover, #see3:hover, #see4:hover {
-    background-color: rgb(153, 153, 11);
-    color: white;
-}
-
-/* Flex container a1 đến a4 */
-.a1, .a2, .a3, .a4 {
-    display: flex;
-    flex-direction: row;
-    gap: 80%;
-}
-
-/* Popup d1 đến d4 */
-.d1, .d2, .d3, .d4 {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    width: 70%;
-    max-height: 90%;
-    overflow-y: auto;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid black;
-    display: none;
-    z-index: 2000;
-}
-
-/* Hiển thị popup khi checkbox tương ứng được check */
-#check1:checked ~ .overlay,
-#check1:checked ~ .d1,
-#check2:checked ~ .overlay,
-#check2:checked ~ .d2,
-#check3:checked ~ .overlay,
-#check3:checked ~ .d3,
-#check4:checked ~ .overlay,
-#check4:checked ~ .d4 {
-    display: block;
-}
-
-
-
-.close-btn{
-    background-color: red;
-    padding-left: 4px ;
-    height: 20px;
-    width: 20px;
-}
-
-.close-btn:hover{
-    background-color: rgb(155, 20, 20);
-    color: white;
-}
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    z-index: 1500;  
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.pages {
-  list-style: none;
-  display: flex;
-  gap: 10px;
-  padding: 0;
-  margin-left:50%;
-}
-
-.pages li {
-  position: relative;
-}
-
-/* Ẩn radio */
-.pages input {
-  display: none;
-}
-
-/* Style chung của nút */
-.pages label {
-  padding: 8px 12px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  background: #f2f2f2;
-}
-
-/* Khi được chọn → nhảy lên + đổi màu */
-.pages input:checked + label {
-  background: dodgerblue;
-  color: white;
-  transform: translateY(-4px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-}
-
-
-
-

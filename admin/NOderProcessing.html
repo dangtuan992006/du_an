@@ -1,45 +1,49 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <title>Quản lý đơn hàng</title>
-        <link rel="stylesheet" href="../css/OderProcessing.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng - Không tìm thấy</title>
+    <link rel="stylesheet" href="../css/OderProcessing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="header-left">
-                <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-            <h1 class="heading">Quản lý đơn hàng</h1>
-            <a href="../pages/index.html" class="home-btn">
-                    <i class="fa-solid fa-house"></i>
-                </a>
-            </div>
+            <button class="header-btn" onclick="window.location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản lý đơn hàng</h1>
+            <a href="../pages/index.html" class="header-btn">
+                <i class="fa fa-home"></i>
+            </a>
         </div>
 
-        <!-- Main -->
-        <div class="main">
-            <div class="search">
-                <h2 class="nd">Ngày đặt</h2>
-                <input class="dat" type="date">
-
-                <h2 class="nd">Trạng thái</h2>
-                <select id="state" name="state">
-                    <option value="">Tất cả các hóa đơn</option>
-                    <option value="">Đã Giao</option>
-                    <option value="">Đang xử lý</option>
-                </select>
-
-                <input type="text" placeholder="Tìm hóa đơn theo mã hóa đơn, tên KH hoặc SĐT">
-                <button class="loc" onclick="location.href='../admin/NOderProcessing.html'">Lọc</button>
-                <button class="dl" onclick="location.href='../admin/OderProcessing.html'">Đặt lại</button>
+        <!-- Content -->
+        <div class="content">
+            <!-- Actions: Search and Filter -->
+            <div class="actions">
+                <div class="filter-group">
+                    <label for="order-date">Ngày đặt</label>
+                    <input id="order-date" type="date">
+                </div>
+                <div class="filter-group">
+                    <label for="state">Trạng thái</label>
+                    <select id="state" name="state">
+                        <option value="">Tất cả</option>
+                        <option value="Đã giao">Đã Giao</option>
+                        <option value="Đang xử lý">Đang xử lý</option>
+                        <option value="Bị hủy">Bị hủy</option>
+                        <option value="Đang vận chuyển">Đang vận chuyển</option>
+                    </select>
+                </div>
+                <input class="search-input" type="text" placeholder="Tìm theo mã đơn, tên KH hoặc SĐT">
+                <button class="action-btn" onclick="location.href='../admin/NOderProcessing.html'">Lọc</button>
+                <button class="action-btn reset-btn" onclick="location.href='../admin/OderProcessing.html'">Đặt lại</button>
             </div>
 
-            <div class="table-container">
+            <!-- Bảng danh sách -->
+            <div class="list">
                 <table>
                     <thead>
                         <tr>
@@ -52,26 +56,19 @@
                             <th>Chi Tiết</th>
                         </tr>
                     </thead>
-                   
+                    <tbody>
+                        <tr class="no-results">
+                            <td colspan="7">Không tìm thấy đơn hàng phù hợp.</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
+
+            <!-- Phân trang (ẩn đi) -->
+            <div class="pagination" style="display: none;">
+                <label class="page-number">1</label>
+            </div>
         </div>
-
-        <ul class="pages">
-    <li>
-      <input type="radio" name="page" id="page1" checked>
-      <label for="page1">1</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page2">
-      <label for="page2">2</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page3">
-      <label for="page3">3</label>
-    </li>
-  </ul>
-    </body>
-    </html>
+    </div>
+</body>
+</html>

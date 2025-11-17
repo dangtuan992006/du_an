@@ -2,76 +2,66 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý giá bán trái cây</title>
+    <title>Quản lý giá bán trái cây - Kết quả tìm kiếm</title>
     <link rel="stylesheet" href="../css/Pricemanagement.css">
 </head>
 <body>  
-    <div class="heading">
-        <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-        <span class="arrow">←</span>
-        </button>
-        <h1 class="tieude">Quản lý giá bán trái cây</h1>
-        <div class="manager">   
-            <input type="text" placeholder="Tìm theo tên trái cây">
-            <button class="tim" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
-            <button class="tim" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
-            <label for="category"></label>
-            <select class="category" name="category">
-                <option value="">-- Tất cả loại trái cây --</option>
-                <option value="Trái cây nhập khẩu">Đăc Biệt</option>
-                <option value="Trái cây nội địa">Quà Tặng Trái Cây</option>
-                <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
-                <option value="Bán Chạy nhất">Bán Chạy nhất</option>
-            </select> 
-        </div>
-        <a href="../pages/index.html" class="back-btn">
-        <i class="fa fa-home"></i>
-        </a>
-
-        <!-- Thêm Font Awesome nếu chưa có -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <button class="header-btn" onclick="window.location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản lý giá bán trái cây</h1>
+            <a href="../pages/index.html" class="header-btn">
+                <i class="fa fa-home"></i>
+            </a>
         </div>
 
+        <!-- Content -->
+        <div class="content">
+            <!-- Actions: Search and Filter -->
+            <div class="actions">
+                <input type="text" placeholder="Tìm theo tên trái cây">
+                <button class="tim" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
+                <button class="tim" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
+                <select class="category" name="category">
+                    <option value="">-- Tất cả loại trái cây --</option>
+                    <option value="Trái cây nhập khẩu">Đặc Biệt</option>
+                    <option value="Trái cây nội địa">Quà Tặng Trái Cây</option>
+                    <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
+                    <option value="Bán Chạy nhất">Bán Chạy nhất</option>
+                </select> 
+            </div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+            <!-- Bảng danh sách -->
+            <div class="list">
+                <table class="table">
+                    <thead class="element">
+                        <tr>
+                            <th>Tên trái cây</th>
+                            <th>Loại</th>
+                            <th>Giá vốn (VNĐ/Kg)</th>
+                            <th>Lợi nhuận</th>
+                            <th>Giá bán (VNĐ/Kg)</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="data">
+                        <tr class="no-results">
+                            <td colspan="6">Không tìm thấy kết quả phù hợp.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Phân trang (ẩn đi) -->
+            <div class="pagination" style="display: none;">
+                <label class="page-number">1</label>
+                <label class="page-number">2</label>
+                <label class="page-number">3</label>
+            </div>
+        </div>
     </div>
-    <h1>Kết Quả Tìm Kiếm</h1>
-    <div>
-        <table class="table">
-            <thead class="element">
-                <tr>
-                    <th>Tên trái cây</th>
-                    <th>Loại</th>
-                    <th>Giá vốn (VNĐ/Kg)</th>
-                    <th>Lợi nhuận</th>
-                    <th>Giá bán (VNĐ/Kg)</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            
-        </table>
-    </div>
-
-    
-
-    <ul class="pages">
-    <li>
-      <input type="radio" name="page" id="page1" checked>
-      <label for="page1">1</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page2">
-      <label for="page2">2</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page3">
-      <label for="page3">3</label>
-    </li>
-  </ul>
-
-
-
-    
-</body>
 </html>

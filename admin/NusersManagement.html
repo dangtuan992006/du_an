@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng - Không tìm thấy</title>
+    <link rel="stylesheet" href="../css/users_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <input type="checkbox" id="toggle-add-user-form" hidden>
+    <div class="container">
+        <div class="header">
+            <button onclick="location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản Lý người dùng</h1>
+            <button onclick="location.href='../pages/index.html'">
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+        
+        <div class="content">
+            <div class="actions">
+                <label for="toggle-add-user-form" id="add-user-btn-label">
+                    <i class="fa-solid fa-user-plus"></i> Thêm người dùng
+                </label>
+                <div class="search-and-reset">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Nhập tên hoặc email...">
+                        <button id="search-btn" onclick="location.href = '../admin/NusersManagement.html'">
+                            <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                        </button>
+                    </div>
+                    <button class="reset-btn" onclick="location.href = '../admin/usersManagement.html'">
+                            Đặt lại
+                        </button>
+                </div>
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Tên người dùng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>mật khẩu</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tham gia</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list" class="user-list">
+                    <tr class="no-results">
+                        <td colspan="8">Không có người dùng cần tìm.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Phân trang (ẩn đi) -->
+            <div class="pagination" style="display: none;">
+                <button class="pagination-arrow" disabled>&laquo;</button>
+                <div id="page-numbers">
+                    <span class="page-number active">1</span>
+                </div>
+                <button class="pagination-arrow">&raquo;</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Popup cho việc thêm người dùng -->
+    <div class="modal-overlay" id="add-user-modal">
+        <div class="modal-card add-user-form-section">
+            <label for="toggle-add-user-form" class="close-btn">&times;</label>
+            <h3>Thêm người dùng mới</h3>
+            <div class="form-group">
+                <label for="new-username">Tên người dùng:</label>
+                <input type="text" id="new-username" placeholder="Nhập tên người dùng">
+            </div>
+            <div class="form-group">
+                <label for="new-email">Email:</label>
+                <input type="email" id="new-email" placeholder="Nhập email">
+            </div>
+            <div class="form-group">
+                <label for="new-phone">Số điện thoại:</label>
+                <input type="text" id="new-phone" placeholder="Nhập số điện thoại">
+            </div>
+            <div class="form-group">
+                <label for="new-address">Địa chỉ:</label>
+                <input type="text" id="new-address" placeholder="Nhập địa chỉ">
+            </div>
+            <div class="form-group">
+                <label for="new-password">Mật khẩu:</label>
+                <input type="password" id="new-password" placeholder="Nhập mật khẩu">
+            </div>
+            <div class="form-group">
+                <label for="new-join-date">Ngày tham gia:</label>
+                <input type="date" id="new-join-date">
+            </div>
+            <div class="form-buttons">
+                <label for="toggle-add-user-form" class="action-btn save-new-btn">Lưu</label>
+                <label for="toggle-add-user-form" class="action-btn cancel-new-btn">Hủy</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -6,52 +6,57 @@
   <link rel="stylesheet" href="../css/InventoryManagement.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-  <div class="header">
-    <div class="header-left">
-      <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+ <body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <button class="header-btn" onclick="window.location.href='../admin/index.html'">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
-      <h1 class="heading">Quản lý số lượng tồn</h1>
-      <a href="../pages/index.html" class="home-btn">
+      <h1>Quản lý số lượng tồn</h1>
+      <a href="../pages/index.html" class="header-btn">
         <i class="fa-solid fa-house"></i>
       </a>
     </div>
-  </div>
 
-  <div class="main">
-    <div class="search">
-      <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
-      <select id="category">
-        <option value="">Tất cả loại</option>
-        <option value="Trái cây">Bán Chạy Nhất</option>
-        <option value="Rau củ">Quà Tặng Trái Cây</option>
-        <option value="Nước ép">Trái Cây Việt Nam</option>
-        <option value="Đặc Biệt">Đặc Biệt</option>
-        <option value="Sản phẩm sắp hết hàng">Sản phẩm sắp hết hàng</option>
-        <option value="Sản phẩm còn hàng">Sản phẩm còn hàng</option>
-      </select> 
-      <button class="loc" onclick="window.location.href='NInventoryManagemen.html'">Lọc</button>
-      <button class="dl" onclick="resetFilter()">Đặt lại</button>
-      <div class="infor">
-          <p>Số lượng sản phẩm:</p>
-          <p>18</p>
+    <!-- Content -->
+    <div class="content">
+      <!-- Actions: Search and Filter -->
+      <div class="actions">
+        <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
+        <select id="category">
+          <option value="">Tất cả loại</option>
+          <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
+          <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
+          <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
+          <option value="Đặc Biệt">Đặc Biệt</option>
+          <option value="Sắp hết hàng">Sản phẩm sắp hết hàng</option>
+          <option value="Còn hàng">Sản phẩm còn hàng</option>
+        </select>
+        <button class="action-btn" onclick="window.location.href='NInventoryManagemen.html'">Lọc</button>
+        <button class="action-btn reset-btn" onclick="window.location.href='InventoryManagemen.html'">Đặt lại</button>
       </div>
-      <div class="infor1">
-          <p>Số lượng sản phẩm còn hàng:</p>
-          <p>14</p>
-      </div>  
-      <div class="infor2">
-          <p><i class="fa-solid fa-triangle-exclamation"></i> Số lượng sản phẩm Sắp hết hàng:</p>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-item">
+          <p class="stat-title">Tổng số sản phẩm</p>
+          <p class="stat-number">18</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-title">Sản phẩm còn hàng</p>
+          <p class="stat-number">14</p>
+        </div>
+        <div class="stat-item warning-stat">
+          <p class="stat-title"><i class="fa-solid fa-triangle-exclamation"></i> Sắp hết hàng</p>
           <p class="stat-number">4</p>
+        </div>
       </div>
-    </div>
 
-    <div class="table-container">
-      <table>
-            
-          </tr>
-        <thead>
+      <!-- Bảng danh sách -->
+      <div class="list">
+        <table>
+          <thead>
             <tr>
               <th>Mã Sản Phẩm</th>
               <th>Tên Sản Phẩm</th>
@@ -59,157 +64,148 @@
               <th>Số Lượng</th>
               <th>Tình Trạng</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
+          </thead>
+          <tbody>
+            <tr class="status-warning">
               <td>1</td>
               <td>Banana</td>
               <td>Đặc Biệt</td>
               <td>58(kg)</td>
-              <td class="warning">Sắp hết hàng</td>
+              <td>Sắp hết hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>2</td>
               <td>Dâu Tây</td>
               <td>Quà Tặng Trái Cây</td>
               <td>112(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>3</td>
               <td>Cam Ngọt</td>
               <td>Trái Cây Việt Nam</td>
               <td>75(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>4</td>
               <td>Nho Tím</td>
               <td>Bán Chạy Nhất</td>
               <td>180(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-warning">
               <td>5</td>
               <td>Bơ</td>
               <td>Trái Cây Việt Nam</td>
               <td>64(kg)</td>
-              <td class="warning">Sắp hết hàng</td>
+              <td>Sắp hết hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>6</td>
               <td>Vải Thiều</td>
               <td>Trái Cây Việt Nam</td>
               <td>138(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>7</td>
               <td>Lựu Đỏ</td>
               <td>Bán Chạy Nhất</td>
               <td>91(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>8</td>
               <td>Cherry Đỏ</td>
               <td>Quà Tặng Trái Cây</td>
               <td>124(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-warning">
               <td>9</td>
               <td>Dứa Vàng</td>
               <td>Bán Chạy Nhất</td>
               <td>43(kg)</td>
-              <td class="warning">Sắp Hết Hàng</td>
+              <td>Sắp Hết Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>10</td>
               <td>Set Trái Cây Quà Tặng Số 1</td>
               <td>Quà Tặng Trái Cây</td>
               <td>98(set)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>11</td>
               <td>Chanh</td>
               <td>Bán Chạy Nhất</td>
               <td>172(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-warning">
               <td>12</td>
               <td>Kiwi Xanh</td>
               <td>Bán Chạy Nhất</td>
               <td>67(kg)</td>
-              <td class="warning">Sắp hết hàng</td>
+              <td>Sắp hết hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>13</td>
               <td>Táo</td>
               <td>Bán Chạy Nhất</td>
               <td>154(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>14</td>
               <td>Mận</td>
               <td>Bán Chạy Nhất</td>
               <td>117(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>15</td>
               <td>Carrot</td>
               <td>Trái Cây Việt Nam</td>
               <td>134(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>16</td>
               <td>Set Trái Cây Quà Tặng Số 2</td>
               <td>Quà Tặng Trái Cây</td>
               <td>188(set)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>17</td>
               <td>Dưa Hấu Đỏ</td>
               <td>Trái Cây Việt Nam</td>
               <td>142(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-            <tr>
+            <tr class="status-ok">
               <td>18</td>
               <td>Xoài</td>
               <td>Trái Cây Việt Nam</td>
               <td>88(kg)</td>
               <td>Còn Hàng</td>
             </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Phân trang -->
+      <div class="pagination">
+        <input type="radio" name="page" id="page1" hidden checked>
+        <label for="page1" class="page-number">1</label>
+        <input type="radio" name="page" id="page2" hidden>
+        <label for="page2" class="page-number">2</label>
+        <input type="radio" name="page" id="page3" hidden>
+        <label for="page3" class="page-number">3</label>
+      </div>
     </div>
   </div>
-  <div class="pagination">
-
-  <ul class="pages">
-    <li>
-      <input type="radio" name="page" id="page1" checked>
-      <label for="page1">1</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page2">
-      <label for="page2">2</label>
-    </li>
-
-    <li>
-      <input type="radio" name="page" id="page3">
-      <label for="page3">3</label>
-    </li>
-  </ul>
-
-  </div>
-</body>
+ </body>
 </html>

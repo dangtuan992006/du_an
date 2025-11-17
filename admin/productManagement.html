@@ -8,6 +8,46 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </head>
     <body>
+        <!-- Checkbox điều khiển popup -->
+        <input type="checkbox" id="add-product-toggle" hidden>
+
+        <!-- Checkbox và Modal cho Sửa Sản phẩm 1 (Banana) -->
+        <input type="checkbox" id="edit-product-1" class="modal-toggle" hidden>
+        <div class="modal-overlay" id="edit-product-1-modal">
+            <div class="modal-card">
+                <label for="edit-product-1" class="close-btn">&times;</label>
+                <h3>Sửa sản phẩm</h3>
+                <div class="image-upload-container">
+                    <img src="../images/chuoi.webp" class="image-preview" alt="Xem trước">
+                    <input type="file" id="edit-image-1" accept="image/*" hidden>
+                    <label for="edit-image-1" class="image-upload-label">Thay đổi ảnh</label>
+                </div>
+                <div class="form-group">
+                    <label for="edit-name-1">Tên sản phẩm:</label>
+                    <input type="text" id="edit-name-1" value="Banana">
+                </div>
+                <div class="form-group">
+                    <label for="edit-type-1">Loại sản phẩm:</label>
+                    <select id="edit-type-1">
+                        <option>Bán chạy nhất</option>
+                        <option>Quà tặng trái cây</option>
+                        <option>Trái cây Việt Nam</option>
+                        <option selected>Đặc biệt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-desc-1">Giới thiệu:</label>
+                    <textarea id="edit-desc-1">Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</textarea>
+                </div>
+                <div class="form-buttons">
+                    <label for="edit-product-1" class="form-btn save-btn">Lưu</label>
+                    <label for="edit-product-1" class="form-btn cancel-btn">Hủy</label>
+                </div>
+            </div>
+        </div>
+
+        
+
         <div class="container">
             <!-- Header -->
             <div class="header">
@@ -23,13 +63,18 @@
             <div class="content">
                 <!-- nút thêm sản phẩm -->
                 <div class="actions">
-                    <button id="add-product-btn">
+                    <label for="add-product-toggle" id="add-product-btn">
                         <i class="fa-solid fa-plus"></i> Thêm sản phẩm
-                    </button>
-                    <div class="search-box">
-                        <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
-                        <button id="search-btn" onclick="location.href = '../admin/productManagement.html'">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                    <div class="search-and-reset">
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
+                            <button id="search-btn" onclick="location.href = '../admin/NproductManagement.html'">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <button class="reset-btn" onclick="location.href = '../admin/productManagement.html'">
+                            Đặt lại
                         </button>
                     </div>
                 </div>
@@ -38,9 +83,9 @@
                 <div class="product-list">
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/chuoi.webp" alt="Banana">
                         <div class="product-info">
@@ -51,9 +96,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/quatang2.jpeg" alt="Dâu Tây">
                         <div class="product-info">
@@ -64,9 +109,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/cam.webp" alt="Cam Ngọt">
                         <div class="product-info">
@@ -77,9 +122,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/nho.jpeg" alt="Nho Tím">
                         <div class="product-info">
@@ -88,11 +133,11 @@
                             <p>Giới thiệu: Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.</p>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card hidden">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/bo.jpeg" alt="Bơ">
                         <div class="product-info">
@@ -103,9 +148,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/vai.jpeg" alt="Vải Thiều">
                         <div class="product-info">
@@ -116,9 +161,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/luu.jpeg" alt="Lựu Đỏ">
                         <div class="product-info">
@@ -127,11 +172,11 @@
                             <p>Giới thiệu: Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.</p>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card hidden">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/cherry.jpeg" alt="Cherry Đỏ">
                         <div class="product-info">
@@ -142,9 +187,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/duavang.jpeg" alt="Dứa Vàng">
                         <div class="product-info">
@@ -155,9 +200,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/quatang1.jpeg" alt="set trái cây quà tặng số 1">
                         <div class="product-info">
@@ -166,11 +211,11 @@
                             <p>Giới thiệu: Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.</p>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card hidden">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/chanh.jpeg" alt="Chanh">
                         <div class="product-info">
@@ -181,9 +226,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/kiwi.jpeg" alt="Kiwi Xanh">
                         <div class="product-info">
@@ -194,9 +239,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/tao.jpeg" alt="Táo">
                         <div class="product-info">
@@ -207,9 +252,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/man.jpeg" alt="Mận">
                         <div class="product-info">
@@ -220,9 +265,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/carrot.jpg" alt="Carrot">
                         <div class="product-info">
@@ -233,9 +278,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/quatang3.jpeg" alt="set trái cây quà tặng số 2">
                         <div class="product-info">
@@ -246,9 +291,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ">
                         <div class="product-info">
@@ -259,9 +304,9 @@
                     </div>
                     <div class="product-card">
                         <div class="actions-top">
-                            <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
-                            <button class="hide-btn"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <img src="../images/mango.jpg" alt="Xoài">
                         <div class="product-info">
@@ -274,21 +319,52 @@
 
                 <!-- Phân trang (chỉ hiển thị, không có chức năng) -->
                 <div class="pagination">
-                    <button class="pagination-arrow" disabled>&laquo;</button>
                     <div id="page-numbers">
                         <span class="page-number active">1</span>
                         <span class="page-number">2</span>
                         <span class="page-number">3</span>
                         <span class="page-number">4</span>
-                        <span class="page-number">...</span>
+                        <span class="page-number">5</span>
                     </div>
-                    <button class="pagination-arrow">&raquo;</button>
                 </div>
 
             </div>
         </div>
 
-        <script src="../js/products.js"></script> <!-- Đảm bảo đã có dòng này -->
+        <!-- Modal Popup cho việc thêm sản phẩm -->
+        <div class="modal-overlay" id="add-product-modal">
+            <div class="modal-card">
+                <label for="add-product-toggle" class="close-btn">&times;</label>
+                <h3>Thêm sản phẩm mới</h3>
+                <div class="image-upload-container">
+                    <img src="https://placehold.co/600x400" class="image-preview" alt="Xem trước">
+                    <input type="file" id="new-image-input" accept="image/*" hidden>
+                    <label for="new-image-input" class="image-upload-label">Chọn ảnh từ máy tính</label>
+                </div>
+                <div class="form-group">
+                    <label for="new-name">Tên sản phẩm:</label>
+                    <input type="text" id="new-name" placeholder="Nhập tên sản phẩm">
+                </div>
+                <div class="form-group">
+                    <label for="new-type">Loại sản phẩm:</label>
+                    <select id="new-type">
+                        <option>Bán chạy nhất</option>
+                        <option>Quà tặng trái cây</option>
+                        <option>Trái cây Việt Nam</option>
+                        <option>Đặc biệt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new-desc">Giới thiệu:</label>
+                    <textarea id="new-desc" placeholder="Nhập giới thiệu sản phẩm"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <label for="add-product-toggle" class="form-btn save-btn">Lưu</label>
+                    <label for="add-product-toggle" class="form-btn cancel-btn">Hủy</label>
+                </div>
+            </div>
+        </div>
+
     </body>
     </html>
 

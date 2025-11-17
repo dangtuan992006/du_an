@@ -142,8 +142,32 @@ p:first-child {
     font-size: 1em;
     font-weight: 600;
     transition: all 0.3s ease;
+    cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
+}
+
+.search-and-reset {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.reset-btn {
+    background-color: #777;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.reset-btn:hover {
+    background-color: #555;
 }
 
 #add-product-btn:hover {
@@ -261,6 +285,7 @@ p:first-child {
 }
 
 .edit-btn, .hide-btn, .delete-btn {
+    /* Chuyển thành label vẫn giữ style như button */
     position: static; 
     opacity: 1 !important; 
     transform: none !important;
@@ -401,6 +426,165 @@ p:first-child {
     color: white;
     border-color: #9e182b;
     font-weight: bold;
+}
+
+/* --- MODAL POPUP CHO THÊM SẢN PHẨM --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-card {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#add-product-toggle:checked ~ .modal-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+#add-product-toggle:checked ~ .modal-overlay .modal-card {
+    transform: scale(1);
+}
+
+/* Hiển thị modal SỬA sản phẩm */
+#edit-product-1:checked ~ #edit-product-1-modal,
+#edit-product-2:checked ~ #edit-product-2-modal {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-toggle:checked ~ .modal-overlay .modal-card,
+#edit-product-1:checked ~ #edit-product-1-modal .modal-card,
+#edit-product-2:checked ~ #edit-product-2-modal .modal-card {
+    transform: scale(1);
+}
+
+/* Khóa cuộn trang khi modal mở */
+#add-product-toggle:checked ~ * {
+    overflow: hidden;
+}
+.modal-toggle:checked ~ * {
+    overflow: hidden;
+}
+
+.modal-card .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-card .close-btn:hover {
+    color: #333;
+}
+
+.modal-card h3 {
+    color: #9e182b;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.modal-card .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-card .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+}
+
+.modal-card input[type="text"],
+.modal-card select,
+.modal-card textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.modal-card textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.image-upload-container .image-preview {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px dashed #ddd;
+    margin-bottom: 10px;
+}
+
+.image-upload-label {
+    display: block;
+    text-align: center;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.image-upload-label:hover {
+    background-color: #e0e0e0;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.form-btn {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.form-btn:hover {
+    opacity: 0.9;
+}
+
+.form-btn.save-btn {
+    background-color: #28a745;
+}
+
+.form-btn.cancel-btn {
+    background-color: #dc3545;
 }
 
 /* CSS cho các ô số trang */

@@ -1,47 +1,49 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <title>Quản lý đơn hàng</title>
-        <link rel="stylesheet" href="../css/OderProcessing.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="../css/OderProcessing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="header-left">
-                <button class="back-btn" onclick="window.location.href='../admin/index.html'">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-            <h1 class="heading">Quản lý đơn hàng</h1>
-            <a href="../pages/index.html" class="home-btn">
-                    <i class="fa-solid fa-house"></i>
-                </a>
-            </div>
+            <button class="header-btn" onclick="window.location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản lý đơn hàng</h1>
+            <a href="../pages/index.html" class="header-btn">
+                <i class="fa fa-home"></i>
+            </a>
         </div>
 
-        <!-- Main -->
-        <div class="main">
-            <div class="search">
-                <h2 class="nd">Ngày đặt</h2>
-                <input class="dat" type="date">
-
-                <h2 class="nd">Trạng thái</h2>
-                <select id="state" name="state">
-                    <option value="">Tất cả các hóa đơn</option>
-                    <option value="">Đã Giao</option>
-                    <option value="">Đang xử lý</option>
-                    <option value="Bị hủy">Bị hủy</option>
-                    <option value="Đang vận chuyển">Đang vận chuyển</option>
-                </select>
-
-                <input type="text" placeholder="Tìm hóa đơn theo mã hóa đơn, tên KH hoặc SĐT">
-                <button class="loc" onclick="location.href='../admin/NOderProcessing.html'">Lọc</button>
-                <button class="dl" onclick="location.href='../admin/OderProcessing.html'">Đặt lại</button>
+        <!-- Content -->
+        <div class="content">
+            <!-- Actions: Search and Filter -->
+            <div class="actions">
+                <div class="filter-group">
+                    <label for="order-date">Ngày đặt</label>
+                    <input id="order-date" type="date">
+                </div>
+                <div class="filter-group">
+                    <label for="state">Trạng thái</label>
+                    <select id="state" name="state">
+                        <option value="">Tất cả</option>
+                        <option value="Đã giao">Đã Giao</option>
+                        <option value="Đang xử lý">Đang xử lý</option>
+                        <option value="Bị hủy">Bị hủy</option>
+                        <option value="Đang vận chuyển">Đang vận chuyển</option>
+                    </select>
+                </div>
+                <input class="search-input" type="text" placeholder="Tìm theo mã đơn, tên KH hoặc SĐT">
+                <button class="action-btn" onclick="location.href='../admin/NOderProcessing.html'">Lọc</button>
+                <button class="action-btn reset-btn" onclick="location.href='../admin/OderProcessing.html'">Đặt lại</button>
             </div>
 
-            <div class="table-container">
+            <!-- Bảng danh sách -->
+            <div class="list">
                 <table>
                     <thead>
                         <tr>
@@ -62,60 +64,16 @@
                             <td>123 Lê Lợi, Hà Nội</td>
                             <td>2025-10-10</td>
                             <td>
-                                <select>
+                                <select class="status-select">
                                     <option value="Đang xử lý" selected>Đang xử lý</option>
                                     <option value="Đã giao">Đã giao</option>
                                     <option value="Đang vận chuyển">Đang vận chuyển</option>
                                     <option value="Bị hủy">Bị hủy</option>
                                 </select>
                             </td>
-                            <th>
-                                <input type="checkbox" id="check1" hidden>
-                                <label for="check1" id="see1">Xem</label>
-                                <label for="check1" class="overlay"></label>
-                                <div class="d1">
-                                    <div class="a1">
-                                        <p class="den1">Chi Tiết Hóa Đơn</p>
-                                        <label for="check1" class="close-btn">&times;</label>
-                                    </div>
-                                    <table class="dentai1">
-                                        <thead>
-                                            <tr>
-                                                <th>Số Thứ Tự</th>
-                                                <th>Mã Sản Phẩm</th>
-                                                <th>Tên Sản Phẩm</th>
-                                                <th>Giá Bán</th>
-                                                <th>Số lượng</th>
-                                                <th>Thành Tiền</th>
-                                            </tr>
-                                        </thead>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>Chuối</td>
-                                                <td>25.000(VNĐ/kg)</td>
-                                                <td>2(kg)</td>
-                                                <td>50.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>Cam Ngọt</td>
-                                                <td>40.000(VNĐ/kg)</td>
-                                                <td>3(kg)</td>
-                                                <td>120.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tổng tiền:</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>170.000</td>
-                                            </tr>
-                                        </table>
-                                </div>
-                            </th>
+                            <td>
+                                <label for="view1" class="view-btn">Xem</label>
+                            </td>
                         </tr>
                         <tr>
                             <td>DH002</td>
@@ -124,68 +82,16 @@
                             <td>45 Nguyễn Huệ, TP.HCM</td>
                             <td>2025-10-09</td>
                             <td>
-                                <select>
+                                <select class="status-select">
                                     <option value="Đang xử lý">Đang xử lý</option>
                                     <option value="Đã giao" selected>Đã giao</option>
                                     <option value="Đang vận chuyển">Đang vận chuyển</option>
                                     <option value="Bị hủy">Bị hủy</option>
                                 </select>
                             </td>
-                            <th>
-                                <input type="checkbox" id="check2" hidden>
-                                <label for="check2" id="see2">Xem</label>
-                                <label for="check2" class="overlay"></label>
-                                <div class="d2">
-                                    <div class="a2">
-                                        <p class="den2">Chi Tiết Hóa Đơn</p>
-                                        <label for="check2" class="close-btn">&times;</label>
-                                    </div>
-                                    <table class="dentai2">
-                                        <thead>
-                                            <tr>
-                                                <th>Số Thứ Tự</th>
-                                                <th>Mã Sản Phẩm</th>
-                                                <th>Tên Sản Phẩm</th>
-                                                <th>Giá Bán</th>
-                                                <th>Số lượng</th>
-                                                <th>Thành Tiền</th>
-                                            </tr>
-                                        </thead>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>5</td>
-                                                <td>Bơ</td>
-                                                <td>60.000(VNĐ/kg)</td>
-                                                <td>10(kg)</td>
-                                                <td>600.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>8</td>
-                                                <td>Chery Đỏ</td>
-                                                <td>250.000(VNĐ/kg)</td>
-                                                <td>2(kg)</td>
-                                                <td>500.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>10</td>
-                                                <td>Set trái cây số 1</td>
-                                                <td>350.000(VNĐ/set)</td>
-                                                <td>1(set)</td>
-                                                <td>350.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>Tổng tiền:</td>
-                                                <td>1.450.000</td>
-                                            </tr>
-                                        </table>
-                                </div>
-                            </th>
+                            <td>
+                                <label for="view2" class="view-btn">Xem</label>
+                            </td>
                         </tr>
                         <tr>
                             <td>DH003</td>
@@ -194,89 +100,85 @@
                             <td>89 Nguyễn Trãi, Đà Nẵng</td>
                             <td>2025-10-09</td>
                             <td>
-                                <select>
+                                <select class="status-select">
                                     <option value="Đang xử lý">Đang xử lý</option>
                                     <option value="Đã giao">Đã giao</option>
                                     <option value="Đang vận chuyển" selected>Đang vận chuyển</option>
                                     <option value="Bị hủy">Bị hủy</option>
                                 </select>
                             </td>
-                            <th>
-                                <input type="checkbox" id="check3" hidden>
-                                <label for="check3" id="see3">Xem</label>
-                                <label for="check3" class="overlay"></label>
-                                <div class="d3">
-                                    <div class="a3">
-                                        <p class="den3">Chi Tiết Hóa Đơn</p>
-                                        <label for="check3" class="close-btn">&times;</label>
-                                    </div>
-                                    <table class="dentai3">
-                                        <thead>
-                                            <tr>
-                                                <th>Số Thứ Tự</th>
-                                                <th>Mã Sản Phẩm</th>
-                                                <th>Tên Sản Phẩm</th>
-                                                <th>Giá Bán</th>
-                                                <th>Số lượng</th>
-                                                <th>Thành Tiền</th>
-                                            </tr>
-                                        </thead>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>4</td>
-                                                <td>Nho Tím</td>
-                                                <td>120.000(VNĐ/kg)</td>
-                                                <td>10(kg)</td>
-                                                <td>1.200.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>6</td>
-                                                <td>Vải Thều</td>
-                                                <td>50.000(VNĐ/kg)</td>
-                                                <td>12(kg)</td>
-                                                <td>600.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>9</td>
-                                                <td>Dứa Vàng</td>
-                                                <td>30.000(VNĐ/kg)</td>
-                                                <td>30(kg)</td>
-                                                <td>900.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tổng Tiền</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>2.700.000</td>
-                                            </tr>
-                                        </table>
-                                </div>
-                            </th>
+                            <td>
+                                <label for="view3" class="view-btn">Xem</label>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <!-- Phân trang -->
+            <div class="pagination">
+                <input type="radio" name="page" id="page1" hidden checked>
+                <label for="page1" class="page-number">1</label>
+                <input type="radio" name="page" id="page2" hidden>
+                <label for="page2" class="page-number">2</label>
+                <input type="radio" name="page" id="page3" hidden>
+                <label for="page3" class="page-number">3</label>
+            </div>
         </div>
+    </div>
 
-        <ul class="pages">
-    <li>
-      <input type="radio" name="page" id="page1" checked>
-      <label for="page1">1</label>
-    </li>
+    <!-- Modals -->
+    <!-- Modal Xem chi tiết cho Dòng 1 -->
+    <input type="checkbox" id="view1" class="modal-toggle" hidden>
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <label for="view1" class="close-btn">&times;</label>
+            <h2>Chi Tiết Hóa Đơn DH001</h2>
+            <table class="detail-table">
+                <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>1</td><td>Chuối</td><td>25.000(VNĐ/kg)</td><td>2(kg)</td><td>50.000</td></tr>
+                    <tr><td>2</td><td>3</td><td>Cam Ngọt</td><td>40.000(VNĐ/kg)</td><td>3(kg)</td><td>120.000</td></tr>
+                    <tr class="total-row"><td colspan="5">Tổng tiền</td><td>170.000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <li>
-      <input type="radio" name="page" id="page2">
-      <label for="page2">2</label>
-    </li>
+    <!-- Modal Xem chi tiết cho Dòng 2 -->
+    <input type="checkbox" id="view2" class="modal-toggle" hidden>
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <label for="view2" class="close-btn">&times;</label>
+            <h2>Chi Tiết Hóa Đơn DH002</h2>
+            <table class="detail-table">
+                <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>5</td><td>Bơ</td><td>60.000(VNĐ/kg)</td><td>10(kg)</td><td>600.000</td></tr>
+                    <tr><td>2</td><td>8</td><td>Cherry Đỏ</td><td>250.000(VNĐ/kg)</td><td>2(kg)</td><td>500.000</td></tr>
+                    <tr><td>3</td><td>10</td><td>Set trái cây số 1</td><td>350.000(VNĐ/set)</td><td>1(set)</td><td>350.000</td></tr>
+                    <tr class="total-row"><td colspan="5">Tổng tiền</td><td>1.450.000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <li>
-      <input type="radio" name="page" id="page3">
-      <label for="page3">3</label>
-    </li>
-  </ul>
-    </body>
-    </html>
+    <!-- Modal Xem chi tiết cho Dòng 3 -->
+    <input type="checkbox" id="view3" class="modal-toggle" hidden>
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <label for="view3" class="close-btn">&times;</label>
+            <h2>Chi Tiết Hóa Đơn DH003</h2>
+            <table class="detail-table">
+                <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>4</td><td>Nho Tím</td><td>120.000(VNĐ/kg)</td><td>10(kg)</td><td>1.200.000</td></tr>
+                    <tr><td>2</td><td>6</td><td>Vải Thều</td><td>50.000(VNĐ/kg)</td><td>12(kg)</td><td>600.000</td></tr>
+                    <tr><td>3</td><td>9</td><td>Dứa Vàng</td><td>30.000(VNĐ/kg)</td><td>30(kg)</td><td>900.000</td></tr>
+                    <tr class="total-row"><td colspan="5">Tổng tiền</td><td>2.700.000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

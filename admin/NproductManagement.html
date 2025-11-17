@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management - Not Found</title>
+    <link rel="stylesheet" href="../css/product_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Checkbox điều khiển popup -->
+        <input type="checkbox" id="add-product-toggle" hidden>
+
+        <!-- Modal Popup cho việc thêm sản phẩm -->
+        <div class="modal-overlay" id="add-product-modal">
+            <div class="modal-card">
+                <label for="add-product-toggle" class="close-btn">&times;</label>
+                <h3>Thêm sản phẩm mới</h3>
+                <div class="image-upload-container">
+                    <img src="../images/placeholder.png" class="image-preview" alt="Xem trước">
+                    <input type="file" id="new-image-input" accept="image/*" hidden>
+                    <label for="new-image-input" class="image-upload-label">Chọn ảnh từ máy tính</label>
+                </div>
+                <div class="form-group">
+                    <label for="new-name">Tên sản phẩm:</label>
+                    <input type="text" id="new-name" placeholder="Nhập tên sản phẩm">
+                </div>
+                <div class="form-group">
+                    <label for="new-type">Loại sản phẩm:</label>
+                    <select id="new-type">
+                        <option>Bán chạy nhất</option>
+                        <option>Quà tặng trái cây</option>
+                        <option>Trái cây Việt Nam</option>
+                        <option>Đặc biệt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new-desc">Giới thiệu:</label>
+                    <textarea id="new-desc" placeholder="Nhập giới thiệu sản phẩm"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <label for="add-product-toggle" class="form-btn save-btn">Lưu</label>
+                    <label for="add-product-toggle" class="form-btn cancel-btn">Hủy</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <button onclick="location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản Lý Sản Phẩm</h1>
+            <button onclick="location.href='../pages/index.html'">
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+        
+        <div class="content">
+            <!-- nút thêm sản phẩm -->
+            <div class="actions">
+                <label for="add-product-toggle" id="add-product-btn">
+                    <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+                </label>
+                <div class="search-and-reset">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
+                        <button id="search-btn" onclick="location.href = '../admin/NproductManagement.html'">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <button class="reset-btn" onclick="location.href = '../admin/productManagement.html'">
+                        Đặt lại
+                    </button>
+                </div>
+            </div>
+
+            <!-- danh sách sản phẩm -->
+            <div class="product-list">
+                <div class="empty-state">
+                    <i class="fa-solid fa-box-open"></i>
+                    <p>Không có sản phẩm cần tìm.</p>
+                </div>
+            </div>
+
+            <!-- Phân trang (ẩn đi) -->
+            <div class="pagination" style="display: none;">
+                <button class="pagination-arrow" disabled>&laquo;</button>
+                <div id="page-numbers"></div>
+                <button class="pagination-arrow">&raquo;</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
