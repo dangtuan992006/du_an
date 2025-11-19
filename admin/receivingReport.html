@@ -29,6 +29,8 @@
         </label>
         <div class="search-box">
           <div class="search-group">
+            
+            <input type="date" name="filter-date" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
             <input type="text" name="search" placeholder="Tìm phiếu theo mã">
             <a href="../admin/NreceivingReport.html" class="search-btn">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -48,7 +50,7 @@
               <th>STT</th>
               <th>Mã phiếu</th>
               <th>Ngày nhập</th>
-              <th>Số lượng sản phẩm</th>
+              <th>Sản phẩm</th>
               <th>Tổng Giá trị</th>
               <th>Trạng thái</th>
               <th>Thao tác</th>
@@ -60,7 +62,11 @@
               <td>1</td>
               <td>MH001</td>
               <td>30/09/2025</td>
-              <td>2</td>
+              <td>
+                <ul>
+                  <li>Banana (35kg), Dâu Tây (10kg)</li>
+                </ul>
+              </td>
               <td>2.000.000</td>
               <td class="status completed">Đã hoàn thành</td>
               <td>
@@ -78,7 +84,11 @@
               <td>2</td>
               <td>MH002</td>
               <td>15/09/2025</td>
-              <td>3</td>
+              <td>
+                <ul>
+                  <li>Cam Ngọt (14kg), Nho Tím (10kg), Bơ (10kg)</li>
+                </ul>
+              </td>
               <td>1.800.000</td>
               <td class="status completed">Đã hoàn thành</td>
               <td>
@@ -96,7 +106,11 @@
               <td>3</td>
               <td>MH003</td>
               <td>17/09/2025</td>
-              <td>3</td>
+              <td>
+                <ul>
+                  <li>Vải Thiều (25kg), Lựu Đỏ (20kg), Cherry Đỏ (10kg)</li>
+                </ul>
+              </td>
               <td>5.000.000</td>
               <td class="status completed">Đã hoàn thành</td>
               <td>
@@ -114,7 +128,11 @@
               <td>4</td>
               <td>MH004</td>
               <td>12/09/2025</td>
-              <td>2</td>
+              <td>
+                <ul>
+                  <li>Dứa Vàng (10kg), Set trái cây quà tặng số 1 (10 set)</li>
+                </ul>
+              </td>
               <td>1.250.000</td>
               <td class="status pending">Chờ xử lý</td>
               <td>
@@ -129,7 +147,11 @@
               <td>5</td>
               <td>MH005</td>
               <td>10/09/2025</td>
-              <td>1</td>
+              <td>
+                <ul>
+                  <li>Chanh (10kg)</li>
+                </ul>
+              </td>
               <td>1.500.000</td>
               <td class="status pending">Chờ xử lý</td>
               <td>
@@ -144,7 +166,11 @@
               <td>6</td>
               <td>MH006</td>
               <td>08/09/2025</td>
-              <td>3</td>
+              <td>
+                <ul>
+                  <li>Kiwi Xanh (10kg), Táo (10kg)</li>
+                </ul>
+              </td>
               <td>1.100.000</td>
               <td class="status pending">Chờ xử lý</td>
               <td>
@@ -159,7 +185,11 @@
               <td>7</td>
               <td>MH007</td>
               <td>05/09/2025</td>
-              <td>2</td>
+              <td>
+                <ul>
+                  <li>Mận (10kg), Carrot (20kg)</li>
+                </ul>
+              </td>
               <td>1.700.000</td>
               <td class="status pending">Chờ xử lý</td>
               <td>
@@ -174,7 +204,11 @@
               <td>8</td>
               <td>MH008</td>
               <td>02/09/2025</td>
-              <td>4</td>
+              <td>
+                <ul>
+                  <li>Set trái cây quà tặng số 2 (5 set), Dưa Hấu Đỏ (10kg), Xoài (5kg)</li>
+                </ul>
+              </td>
               <td>1.950.000</td>
               <td class="status pending">Chờ xử lý</td>
               <td>
@@ -212,65 +246,51 @@
       <input type="text" placeholder="Nhập mã phiếu"><br>
       <label>Ngày nhập:</label>
       <input type="date"><br>
-      <label>Tổng giá trị:</label>
-      <input type="number" min="0"><br>
       <h3>Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="add-product-tbody">
           <tr>
-            <td>1</td>
-            <td><input type="text" placeholder="Mã SP"></td>
-            <td><input type="text" placeholder="Tên SP"></td>
-            <td><input type="number" min="0" placeholder="Giá nhập"></td>
-            <td><input type="number" min="0" placeholder="Số lượng"></td>
-            <td><input type="number" min="0" placeholder="Thành tiền"></td>
+            <td>
+              <select>
+                <option value="">-- Chọn sản phẩm --</option>
+                <option value="SP001">SP001 - Banana</option>
+                <option value="SP002">SP002 - Dâu Tây</option>
+                <option value="SP003">SP003 - Cam Ngọt</option>
+                <option value="SP004">SP004 - Nho Tím</option>
+                <option value="SP005">SP005 - Bơ</option>
+                <option value="SP006">SP006 - Vải Thiều</option>
+                <option value="SP007">SP007 - Lựu Đỏ</option>
+                <option value="SP008">SP008 - Cherry Đỏ</option>
+                <option value="SP009">SP009 - Dứa Vàng</option>
+                <option value="SP010">SP010 - set trái cây quà tặng số 1</option>
+                <option value="SP011">SP011 - Chanh</option>
+                <option value="SP012">SP012 - Kiwi Xanh</option>
+                <option value="SP013">SP013 - Táo</option>
+                <option value="SP014">SP014 - Mận</option>
+                <option value="SP015">SP015 - Carrot</option>
+                <option value="SP016">SP016 - set trái cây quà tặng số 2</option>
+                <option value="SP017">SP017 - Dưa Hấu Đỏ</option>
+                <option value="SP018">SP018 - Xoài</option>
+              </select>
+            </td>
+            <td><input type="number" class="price" min="0" placeholder="Giá nhập"></td>
+            <td><input type="number" class="quantity" min="0" placeholder="Số lượng"></td>
+            <td><input type="text" placeholder="Thành tiền" readonly></td>
+            <td></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td><input type="text" placeholder="Mã SP"></td>
-            <td><input type="text" placeholder="Tên SP"></td>
-            <td><input type="number" min="0" placeholder="Giá nhập"></td>
-            <td><input type="number" min="0" placeholder="Số lượng"></td>
-            <td><input type="number" min="0" placeholder="Thành tiền"></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><input type="text" placeholder="Mã SP"></td>
-            <td><input type="text" placeholder="Tên SP"></td>
-            <td><input type="number" min="0" placeholder="Giá nhập"></td>
-            <td><input type="number" min="0" placeholder="Số lượng"></td>
-            <td><input type="number" min="0" placeholder="Thành tiền"></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td><input type="text" placeholder="Mã SP"></td>
-            <td><input type="text" placeholder="Tên SP"></td>
-            <td><input type="number" min="0" placeholder="Giá nhập"></td>
-            <td><input type="number" min="0" placeholder="Số lượng"></td>
-            <td><input type="number" min="0" placeholder="Thành tiền"></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td><input type="text" placeholder="Mã SP"></td>
-            <td><input type="text" placeholder="Tên SP"></td>
-            <td><input type="number" min="0" placeholder="Giá nhập"></td>
-            <td><input type="number" min="0" placeholder="Số lượng"></td>
-            <td><input type="number" min="0" placeholder="Thành tiền"></td>
-          </tr>
-          
         </tbody>
       </table>
-      
+      <button type="button" id="add-product-btn" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total">0 VNĐ</span></p>
 
       <div class="btn-group">
         <button class="btn save-btn" onclick="window.location.href='receivingReport.html'">Lưu</button>
@@ -292,39 +312,79 @@
         <option value="completed" selected>Đã hoàn thành</option>
         <option value="pending">Chờ xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="1.700.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-1">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="1"></td>
-            <td><input type="text" value="Banana"></td>
-            <td><input type="text" value="20.000 VNĐ/kg"></td>
-            <td><input type="text" value="35kg"></td>
+            <td>
+              <select>
+                <option value="SP001" selected>SP001 - Banana</option>
+                <option value="SP002">SP002 - Dâu Tây</option>
+                <option value="SP003">SP003 - Cam Ngọt</option>
+                <option value="SP004">SP004 - Nho Tím</option>
+                <option value="SP005">SP005 - Bơ</option>
+                <option value="SP006">SP006 - Vải Thiều</option>
+                <option value="SP007">SP007 - Lựu Đỏ</option>
+                <option value="SP008">SP008 - Cherry Đỏ</option>
+                <option value="SP009">SP009 - Dứa Vàng</option>
+                <option value="SP010">SP010 - set trái cây quà tặng số 1</option>
+                <option value="SP011">SP011 - Chanh</option>
+                <option value="SP012">SP012 - Kiwi Xanh</option>
+                <option value="SP013">SP013 - Táo</option>
+                <option value="SP014">SP014 - Mận</option>
+                <option value="SP015">SP015 - Carrot</option>
+                <option value="SP016">SP016 - set trái cây quà tặng số 2</option>
+                <option value="SP017">SP017 - Dưa Hấu Đỏ</option>
+                <option value="SP018">SP018 - Xoài</option>
+              </select>
+            </td>
+            <td><input type="number" class="price" value="20000"></td>
+            <td><input type="number" class="quantity" value="35"></td>
             <td><input type="text" value="700.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><input type="text" value="2"></td>
-            <td><input type="text" value="Dâu Tây"></td>
-            <td><input type="text" value="100.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td>
+              <select>
+                <option value="SP001">SP001 - Banana</option>
+                <option value="SP002" selected>SP002 - Dâu Tây</option>
+                <option value="SP003">SP003 - Cam Ngọt</option>
+                <option value="SP004">SP004 - Nho Tím</option>
+                <option value="SP005">SP005 - Bơ</option>
+                <option value="SP006">SP006 - Vải Thiều</option>
+                <option value="SP007">SP007 - Lựu Đỏ</option>
+                <option value="SP008">SP008 - Cherry Đỏ</option>
+                <option value="SP009">SP009 - Dứa Vàng</option>
+                <option value="SP010">SP010 - set trái cây quà tặng số 1</option>
+                <option value="SP011">SP011 - Chanh</option>
+                <option value="SP012">SP012 - Kiwi Xanh</option>
+                <option value="SP013">SP013 - Táo</option>
+                <option value="SP014">SP014 - Mận</option>
+                <option value="SP015">SP015 - Carrot</option>
+                <option value="SP016">SP016 - set trái cây quà tặng số 2</option>
+                <option value="SP017">SP017 - Dưa Hấu Đỏ</option>
+                <option value="SP018">SP018 - Xoài</option>
+              </select>
+            </td>
+            <td><input type="number" class="price" value="100000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="1.000.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn" style="background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Xóa</button></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-1" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-1">1.700.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit1" class="btn save-btn">Lưu</label>
@@ -438,47 +498,44 @@
         <option value="completed" selected>Đã hoàn thành</option>
         <option value="pending">Chờ xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="1.820.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-2">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="3"></td>
-            <td><input type="text" value="Cam Ngọt"></td>
-            <td><input type="text" value="30.000 VNĐ/kg"></td>
-            <td><input type="text" value="14kg"></td>
+            <td><select><option value="SP003" selected>SP003 - Cam Ngọt</option></select></td>
+            <td><input type="number" class="price" value="30000"></td>
+            <td><input type="number" class="quantity" value="14"></td>
             <td><input type="text" value="420.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><input type="text" value="4"></td>
-            <td><input type="text" value="Nho Tím"></td>
-            <td><input type="text" value="90.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP004" selected>SP004 - Nho Tím</option></select></td>
+            <td><input type="number" class="price" value="90000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="900.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
           <tr>
-            <td>3</td>
-            <td><input type="text" value="5"></td>
-            <td><input type="text" value="Bơ"></td>
-            <td><input type="text" value="50.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP005" selected>SP005 - Bơ</option></select></td>
+            <td><input type="number" class="price" value="50000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="500.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-2" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-2">1.820.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit2" class="btn save-btn">Lưu</label>
@@ -550,47 +607,44 @@
         <option value="completed" selected>Đã hoàn thành</option>
         <option value="pending">Chờ xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="5.100.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-3">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="6"></td>
-            <td><input type="text" value="Vải Thiều"></td>
-            <td><input type="text" value="40.000 VNĐ/kg"></td>
-            <td><input type="text" value="25kg"></td>
+            <td><select><option value="SP006" selected>SP006 - Vải Thiều</option></select></td>
+            <td><input type="number" class="price" value="40000"></td>
+            <td><input type="number" class="quantity" value="25"></td>
             <td><input type="text" value="1.000.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><input type="text" value="7"></td>
-            <td><input type="text" value="Lựu Đỏ"></td>
-            <td><input type="text" value="90.000 VNĐ/kg"></td>
-            <td><input type="text" value="20kg"></td>
+            <td><select><option value="SP007" selected>SP007 - Lựu Đỏ</option></select></td>
+            <td><input type="number" class="price" value="90000"></td>
+            <td><input type="number" class="quantity" value="20"></td>
             <td><input type="text" value="1.800.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
           <tr>
-            <td>3</td>
-            <td><input type="text" value="8"></td>
-            <td><input type="text" value="Cherry Đỏ"></td>
-            <td><input type="text" value="230.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP008" selected>SP008 - Cherry Đỏ</option></select></td>
+            <td><input type="number" class="price" value="230000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="2.300.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-3" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-3">5.100.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit3" class="btn save-btn">Lưu</label>
@@ -598,6 +652,96 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // Hàm tính toán chung
+    function setupPurchaseOrderForm(tbodyId, addButtonId, totalSpanId) {
+      const tbody = document.getElementById(tbodyId);
+      const addButton = document.getElementById(addButtonId);
+      const totalSpan = document.getElementById(totalSpanId);
+
+      if (!tbody || !addButton || !totalSpan) return;
+
+      const updateTotals = () => {
+        let grandTotal = 0;
+        tbody.querySelectorAll('tr').forEach(row => {
+          const priceInput = row.querySelector('.price');
+          const quantityInput = row.querySelector('.quantity');
+          const subtotalCell = row.cells[3].querySelector('input');
+
+          const price = parseFloat(priceInput.value) || 0;
+          const quantity = parseFloat(quantityInput.value) || 0;
+          const subtotal = price * quantity;
+          subtotalCell.value = subtotal.toLocaleString('vi-VN') + ' VNĐ';
+          grandTotal += subtotal;
+        });
+        totalSpan.textContent = grandTotal.toLocaleString('vi-VN') + ' VNĐ';
+      };
+
+      addButton.addEventListener('click', () => {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>
+            <select>
+              <option value="">-- Chọn sản phẩm --</option>
+              <option value="SP001">SP001 - Banana</option>
+              <option value="SP002">SP002 - Dâu Tây</option>
+              <option value="SP003">SP003 - Cam Ngọt</option>
+              <option value="SP004">SP004 - Nho Tím</option>
+              <option value="SP005">SP005 - Bơ</option>
+              <option value="SP006">SP006 - Vải Thiều</option>
+              <option value="SP007">SP007 - Lựu Đỏ</option>
+              <option value="SP008">SP008 - Cherry Đỏ</option>
+              <option value="SP009">SP009 - Dứa Vàng</option>
+              <option value="SP010">SP010 - set trái cây quà tặng số 1</option>
+              <option value="SP011">SP011 - Chanh</option>
+              <option value="SP012">SP012 - Kiwi Xanh</option>
+              <option value="SP013">SP013 - Táo</option>
+              <option value="SP014">SP014 - Mận</option>
+              <option value="SP015">SP015 - Carrot</option>
+              <option value="SP016">SP016 - set trái cây quà tặng số 2</option>
+              <option value="SP017">SP017 - Dưa Hấu Đỏ</option>
+              <option value="SP018">SP018 - Xoài</option>
+            </select>
+          </td>
+          <td><input type="number" class="price" min="0" placeholder="Giá nhập"></td>
+          <td><input type="number" class="quantity" min="0" placeholder="Số lượng"></td>
+          <td><input type="text" placeholder="Thành tiền" readonly></td>
+          <td><button type="button" class="remove-row-btn" style="background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">Xóa</button></td>
+        `;
+        tbody.appendChild(newRow);
+      });
+
+      tbody.addEventListener('input', (e) => {
+        if (e.target.classList.contains('price') || e.target.classList.contains('quantity')) {
+          updateTotals();
+        }
+      });
+
+      tbody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-row-btn')) {
+          e.target.closest('tr').remove();
+          updateTotals();
+        }
+      });
+
+      updateTotals();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Thiết lập cho form Thêm mới
+      setupPurchaseOrderForm('add-product-tbody', 'add-product-btn', 'grand-total');
+      // Thiết lập cho form Sửa (ví dụ cho phiếu nhập 1)
+      setupPurchaseOrderForm('edit-product-tbody-1', 'add-product-btn-edit-1', 'grand-total-edit-1');
+      setupPurchaseOrderForm('edit-product-tbody-2', 'add-product-btn-edit-2', 'grand-total-edit-2');
+      setupPurchaseOrderForm('edit-product-tbody-3', 'add-product-btn-edit-3', 'grand-total-edit-3');
+      setupPurchaseOrderForm('edit-product-tbody-4', 'add-product-btn-edit-4', 'grand-total-edit-4');
+      setupPurchaseOrderForm('edit-product-tbody-5', 'add-product-btn-edit-5', 'grand-total-edit-5');
+      setupPurchaseOrderForm('edit-product-tbody-6', 'add-product-btn-edit-6', 'grand-total-edit-6');
+      setupPurchaseOrderForm('edit-product-tbody-7', 'add-product-btn-edit-7', 'grand-total-edit-7');
+      setupPurchaseOrderForm('edit-product-tbody-8', 'add-product-btn-edit-8', 'grand-total-edit-8');
+    });
+  </script>
 
   <!-- MODALS CHO CÁC DÒNG MỚI (4, 5, 6) -->
   <!-- Modal Xem cho Dòng 4 -->
@@ -631,39 +775,37 @@
         <option value="completed">Đã hoàn thành</option>
         <option value="pending" selected>Đang xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="3.250.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-4">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="9"></td>
-            <td><input type="text" value="Dứa Vàng"></td>
-            <td><input type="text" value="25.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP009" selected>SP009 - Dứa Vàng</option></select></td>
+            <td><input type="number" class="price" value="25000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="250.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><input type="text" value="10"></td>
-            <td><input type="text" value="Set trái cây quà tặng số 1"></td>
-            <td><input type="text" value="300.000 VNĐ/set"></td>
-            <td><input type="text" value="10 set"></td>
+            <td><select><option value="SP010" selected>SP010 - Set trái cây quà tặng số 1</option></select></td>
+            <td><input type="number" class="price" value="300000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="3.000.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-4" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-4">3.250.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit4" class="btn save-btn">Lưu</label>
@@ -702,31 +844,30 @@
         <option value="completed">Đã hoàn thành</option>
         <option value="pending" selected>Chờ xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="150.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-5">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="11"></td>
-            <td><input type="text" value="Chanh"></td>
-            <td><input type="text" value="15.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP011" selected>SP011 - Chanh</option></select></td>
+            <td><input type="number" class="price" value="15000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="150.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-5" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-5">150.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit5" class="btn save-btn">Lưu</label>
@@ -766,39 +907,37 @@
         <option value="completed">Đã hoàn thành</option>
         <option value="pending" selected>Chờ xử lý</option>
       </select>
-      <label>Tổng giá trị:</label><input type="text" value="1.000.000">
 
       <h3 class="detail-title">Chi tiết sản phẩm</h3>
       <table class="detail-table editable">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Mã SP</th>
-            <th>Tên SP</th>
+            <th>Sản phẩm</th>
             <th>Giá nhập</th>
             <th>Số lượng</th>
             <th>Thành Tiền</th>
+            <th>Xóa</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="edit-product-tbody-6">
           <tr>
-            <td>1</td>
-            <td><input type="text" value="12"></td>
-            <td><input type="text" value="Kiwi Xanh"></td>
-            <td><input type="text" value="60.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP012" selected>SP012 - Kiwi Xanh</option></select></td>
+            <td><input type="number" class="price" value="60000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="600.000 VNĐ" readonly></td>
+            <td></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><input type="text" value="13"></td>
-            <td><input type="text" value="Táo"></td>
-            <td><input type="text" value="40.000 VNĐ/kg"></td>
-            <td><input type="text" value="10kg"></td>
+            <td><select><option value="SP013" selected>SP013 - Táo</option></select></td>
+            <td><input type="number" class="price" value="40000"></td>
+            <td><input type="number" class="quantity" value="10"></td>
             <td><input type="text" value="400.000 VNĐ" readonly></td>
+            <td><button type="button" class="remove-row-btn">Xóa</button></td>
           </tr>
         </tbody>
       </table>
+      <button type="button" id="add-product-btn-edit-6" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button>
+      <p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-6">1.000.000 VNĐ</span></p>
 
       <div class="btn-group">
         <label for="edit6" class="btn save-btn">Lưu</label>
@@ -809,10 +948,10 @@
 
   <!-- MODALS CHO DÒNG 7 & 8 -->
   <input type="checkbox" id="view7" hidden><div class="modal-overlay modal-view"><div class="modal-content"><label for="view7" class="close-btn">&times;</label><h2>Thông tin chi tiết MH007</h2><p><strong>Mã phiếu:</strong> MH007</p><p><strong>Ngày nhập:</strong>05/9/2025</p><table class="detail-table"><thead><th>Số thứ tự</th><th>Mã Sản Phẩm</th><th>Tên Sản Phẩm</th><th>Giá nhập</th><th>Số lượng</th><th>Tổng Tiền</th></thead><tbody><tr><td>1</td><td>14</td><td>Mận</td><td>30.000 VNĐ/kg</td><td>10kg </td><td>300.000 VNĐ</td></tr><tr><td>2</td><td>15</td><td>Carrot</td><td>25.000 VNĐ/kg</td><td>20kg </td><td>500.000 VNĐ</td></tr><tr><td colspan="6" class="total"> Tổng Tiền : 800.000 VNĐ</td></tr></tbody></table></div></div>
-  <input type="checkbox" id="edit7" hidden><div class="modal-overlay modal-edit"><div class="modal-content"><label for="edit7" class="close-btn">&times;</label><h2>Sửa Phiếu Nhập MH007</h2><label>Mã phiếu:</label><input type="text" value="MH007"><label>Ngày nhập:</label><input type="date" value="2025-09-05"><label>Trạng thái:</label><select><option value="completed">Đã hoàn thành</option><option value="pending" selected>Chờ xử lý</option></select><label>Tổng giá trị:</label><input type="text" value="800.000"><h3 class="detail-title">Chi tiết sản phẩm</h3><table class="detail-table editable"><thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá nhập</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead><tbody><tr><td>1</td><td><input type="text" value="14"></td><td><input type="text" value="Mận"></td><td><input type="text" value="30.000 VNĐ/kg"></td><td><input type="text" value="10kg"></td><td><input type="text" value="300.000 VNĐ" readonly></td></tr><tr><td>2</td><td><input type="text" value="15"></td><td><input type="text" value="Carrot"></td><td><input type="text" value="25.000 VNĐ/kg"></td><td><input type="text" value="20kg"></td><td><input type="text" value="500.000 VNĐ" readonly></td></tr></tbody></table><div class="btn-group"><label for="edit7" class="btn save-btn">Lưu</label><label for="edit7" class="btn cancel-btn">Hủy</label></div></div></div>
+  <input type="checkbox" id="edit7" hidden><div class="modal-overlay modal-edit"><div class="modal-content"><label for="edit7" class="close-btn">&times;</label><h2>Sửa Phiếu Nhập MH007</h2><label>Mã phiếu:</label><input type="text" value="MH007"><label>Ngày nhập:</label><input type="date" value="2025-09-05"><label>Trạng thái:</label><select><option value="completed">Đã hoàn thành</option><option value="pending" selected>Chờ xử lý</option></select><h3 class="detail-title">Chi tiết sản phẩm</h3><table class="detail-table editable"><thead><tr><th>Sản phẩm</th><th>Giá nhập</th><th>Số lượng</th><th>Thành Tiền</th><th>Xóa</th></tr></thead><tbody id="edit-product-tbody-7"><tr><td><select><option value="SP014" selected>SP014 - Mận</option></select></td><td><input type="number" class="price" value="30000"></td><td><input type="number" class="quantity" value="10"></td><td><input type="text" value="300.000 VNĐ" readonly></td><td></td></tr><tr><td><select><option value="SP015" selected>SP015 - Carrot</option></select></td><td><input type="number" class="price" value="25000"></td><td><input type="number" class="quantity" value="20"></td><td><input type="text" value="500.000 VNĐ" readonly></td><td><button type="button" class="remove-row-btn">Xóa</button></td></tr></tbody></table><button type="button" id="add-product-btn-edit-7" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button><p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-7">800.000 VNĐ</span></p><div class="btn-group"><label for="edit7" class="btn save-btn">Lưu</label><label for="edit7" class="btn cancel-btn">Hủy</label></div></div></div>
 
   <input type="checkbox" id="view8" hidden><div class="modal-overlay modal-view"><div class="modal-content"><label for="view8" class="close-btn">&times;</label><h2>Thông tin chi tiết MH008</h2><p><strong>Mã phiếu:</strong> MH008</p><p><strong>Ngày nhập:</strong>02/9/2025</p><table class="detail-table"><thead><th>Số thứ tự</th><th>Mã Sản Phẩm</th><th>Tên Sản Phẩm</th><th>Giá nhập</th><th>Số lượng</th><th>Tổng Tiền</th></thead><tbody><tr><td>1</td><td>16</td><td>Set trái cây quà tặng số 2</td><td>320.000 VNĐ/set</td><td>5 set </td><td>1.600.000 VNĐ</td></tr><tr><td>2</td><td>17</td><td>Dưa Hấu Đỏ</td><td>15.000 VNĐ/kg</td><td>10kg </td><td>150.000 VNĐ</td></tr><tr><td>3</td><td>18</td><td>Xoài</td><td>40.000 VNĐ/kg</td><td>5kg </td><td>200.000 VNĐ</td></tr><tr><td colspan="6" class="total"> Tổng Tiền : 1.950.000 VNĐ</td></tr></tbody></table></div></div>
-  <input type="checkbox" id="edit8" hidden><div class="modal-overlay modal-edit"><div class="modal-content"><label for="edit8" class="close-btn">&times;</label><h2>Sửa Phiếu Nhập MH008</h2><label>Mã phiếu:</label><input type="text" value="MH008"><label>Ngày nhập:</label><input type="date" value="2025-09-02"><label>Trạng thái:</label><select><option value="completed">Đã hoàn thành</option><option value="pending" selected>Chờ xử lý</option></select><label>Tổng giá trị:</label><input type="text" value="1.950.000"><h3 class="detail-title">Chi tiết sản phẩm</h3><table class="detail-table editable"><thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá nhập</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead><tbody><tr><td>1</td><td><input type="text" value="16"></td><td><input type="text" value="Set trái cây quà tặng số 2"></td><td><input type="text" value="320.000 VNĐ/set"></td><td><input type="text" value="5 set"></td><td><input type="text" value="1.600.000 VNĐ" readonly></td></tr><tr><td>2</td><td><input type="text" value="17"></td><td><input type="text" value="Dưa Hấu Đỏ"></td><td><input type="text" value="15.000 VNĐ/kg"></td><td><input type="text" value="10kg"></td><td><input type="text" value="150.000 VNĐ" readonly></td></tr><tr><td>3</td><td><input type="text" value="18"></td><td><input type="text" value="Xoài"></td><td><input type="text" value="40.000 VNĐ/kg"></td><td><input type="text" value="5kg"></td><td><input type="text" value="200.000 VNĐ" readonly></td></tr></tbody></table><div class="btn-group"><label for="edit8" class="btn save-btn">Lưu</label><label for="edit8" class="btn cancel-btn">Hủy</label></div></div></div>
+  <input type="checkbox" id="edit8" hidden><div class="modal-overlay modal-edit"><div class="modal-content"><label for="edit8" class="close-btn">&times;</label><h2>Sửa Phiếu Nhập MH008</h2><label>Mã phiếu:</label><input type="text" value="MH008"><label>Ngày nhập:</label><input type="date" value="2025-09-02"><label>Trạng thái:</label><select><option value="completed">Đã hoàn thành</option><option value="pending" selected>Chờ xử lý</option></select><h3 class="detail-title">Chi tiết sản phẩm</h3><table class="detail-table editable"><thead><tr><th>Sản phẩm</th><th>Giá nhập</th><th>Số lượng</th><th>Thành Tiền</th><th>Xóa</th></tr></thead><tbody id="edit-product-tbody-8"><tr><td><select><option value="SP016" selected>SP016 - Set trái cây quà tặng số 2</option></select></td><td><input type="number" class="price" value="320000"></td><td><input type="number" class="quantity" value="5"></td><td><input type="text" value="1.600.000 VNĐ" readonly></td><td></td></tr><tr><td><select><option value="SP017" selected>SP017 - Dưa Hấu Đỏ</option></select></td><td><input type="number" class="price" value="15000"></td><td><input type="number" class="quantity" value="10"></td><td><input type="text" value="150.000 VNĐ" readonly></td><td><button type="button" class="remove-row-btn">Xóa</button></td></tr><tr><td><select><option value="SP018" selected>SP018 - Xoài</option></select></td><td><input type="number" class="price" value="40000"></td><td><input type="number" class="quantity" value="5"></td><td><input type="text" value="200.000 VNĐ" readonly></td><td><button type="button" class="remove-row-btn">Xóa</button></td></tr></tbody></table><button type="button" id="add-product-btn-edit-8" class="add-detail-btn" style="margin-top: 10px;"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button><p style="text-align: right; font-size: 1.2em; font-weight: bold; margin-top: 10px;">Tổng giá trị: <span id="grand-total-edit-8">1.950.000 VNĐ</span></p><div class="btn-group"><label for="edit8" class="btn save-btn">Lưu</label><label for="edit8" class="btn cancel-btn">Hủy</label></div></div></div>
 
   <!-- Modal Xóa chung -->
   <input type="checkbox" id="delete-toggle" hidden>

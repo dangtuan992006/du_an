@@ -24,11 +24,11 @@
             <!-- Actions: Search and Filter -->
             <div class="actions">
                 <div class="filter-group">
-                    <label for="order-date">Ngày đặt</label>
+                    <label for="order-date"style="color: #9e182b;">Ngày đặt</label>
                     <input id="order-date" type="date">
                 </div>
                 <div class="filter-group">
-                    <label for="state">Trạng thái</label>
+                    <label for="state" style="color: #9e182b;">Trạng thái</label>
                     <select id="state" name="state">
                         <option value="">Tất cả</option>
                         <option value="Đã giao">Đã Giao</option>
@@ -51,6 +51,7 @@
                             <th>Khách hàng</th>
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
+                            <th>Sản phẩm mua</th>
                             <th>Ngày đặt</th>
                             <th>Trạng thái</th>
                             <th>Chi Tiết</th>
@@ -62,6 +63,7 @@
                             <td>Nguyễn Văn An</td>
                             <td>0901234567</td>
                             <td>123 Lê Lợi, Hà Nội</td>
+                            <td>Chuối (2kg), Cam Ngọt (3kg)</td>
                             <td>2025-10-10</td>
                             <td>
                                 <select class="status-select">
@@ -80,6 +82,7 @@
                             <td>Trần Thị Bích </td>
                             <td>0919876543</td>
                             <td>45 Nguyễn Huệ, TP.HCM</td>
+                            <td>Bơ (10kg), Cherry Đỏ (2kg), Set trái cây số 1 (1 set)</td>
                             <td>2025-10-09</td>
                             <td>
                                 <select class="status-select">
@@ -98,12 +101,70 @@
                             <td>Lê Minh Hoàng</td>
                             <td>0987654321</td>
                             <td>89 Nguyễn Trãi, Đà Nẵng</td>
+                            <td>Nho Tím (10kg), Vải Thều (12kg), Dứa Vàng (30kg)</td>
                             <td>2025-10-09</td>
                             <td>
                                 <select class="status-select">
                                     <option value="Đang xử lý">Đang xử lý</option>
                                     <option value="Đã giao">Đã giao</option>
                                     <option value="Đang vận chuyển" selected>Đang vận chuyển</option>
+                                    <option value="Bị hủy">Bị hủy</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label for="view3" class="view-btn">Xem</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DH004</td>
+                            <td>Phạm Danh Dũng</td>
+                            <td>0904567890</td>
+                            <td>313 Đường VWX, Quận 6, TP.HCM</td>
+                            <td>Táo (5kg)</td>
+                            <td>2025-09-25</td>
+                            <td>
+                                <select class="status-select">
+                                    <option value="Đang xử lý">Đang xử lý</option>
+                                    <option value="Đã giao" selected>Đã giao</option>
+                                    <option value="Đang vận chuyển">Đang vận chuyển</option>
+                                    <option value="Bị hủy">Bị hủy</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label for="view1" class="view-btn">Xem</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DH005</td>
+                            <td>Đoàn Quang Vinh</td>
+                            <td>0905678901</td>
+                            <td>414 Đường YZA, Quận 7, TP.HCM</td>
+                            <td>Lựu Đỏ (3kg), Kiwi Xanh (2kg)</td>
+                            <td>2025-09-15</td>
+                            <td>
+                                <select class="status-select">
+                                    <option value="Đang xử lý">Đang xử lý</option>
+                                    <option value="Đã giao">Đã giao</option>
+                                    <option value="Đang vận chuyển">Đang vận chuyển</option>
+                                    <option value="Bị hủy" selected>Bị hủy</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label for="view2" class="view-btn">Xem</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>DH006</td>
+                            <td>Hoàng Thị Mai</td>
+                            <td>0906789012</td>
+                            <td>515 Đường BCD, Quận 8, TP.HCM</td>
+                            <td>Set trái cây quà tặng số 2 (2 set)</td>
+                            <td>2025-09-01</td>
+                            <td>
+                                <select class="status-select">
+                                    <option value="Đang xử lý" selected>Đang xử lý</option>
+                                    <option value="Đã giao">Đã giao</option>
+                                    <option value="Đang vận chuyển">Đang vận chuyển</option>
                                     <option value="Bị hủy">Bị hủy</option>
                                 </select>
                             </td>
@@ -133,6 +194,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view1" class="close-btn">&times;</label>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div>
+                    <h3>Thông tin đơn hàng</h3>
+                    <p><strong>Mã đơn hàng:</strong> DH001</p>
+                    <p><strong>Ngày đặt:</strong> 2025-10-10</p>
+                </div>
+                <div>
+                    <h3>Thông tin khách hàng</h3>
+                    <p><strong>Tên:</strong> Nguyễn Văn An</p>
+                    <p><strong>Địa chỉ:</strong> 123 Lê Lợi, Hà Nội</p>
+                </div>
+            </div>
             <h2>Chi Tiết Hóa Đơn DH001</h2>
             <table class="detail-table">
                 <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>
@@ -150,6 +223,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view2" class="close-btn">&times;</label>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div>
+                    <h3>Thông tin đơn hàng</h3>
+                    <p><strong>Mã đơn hàng:</strong> DH002</p>
+                    <p><strong>Ngày đặt:</strong> 2025-10-09</p>
+                </div>
+                <div>
+                    <h3>Thông tin khách hàng</h3>
+                    <p><strong>Tên:</strong> Trần Thị Bích</p>
+                    <p><strong>Địa chỉ:</strong> 45 Nguyễn Huệ, TP.HCM</p>
+                </div>
+            </div>
             <h2>Chi Tiết Hóa Đơn DH002</h2>
             <table class="detail-table">
                 <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>
@@ -168,6 +253,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view3" class="close-btn">&times;</label>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                <div>
+                    <h3>Thông tin đơn hàng</h3>
+                    <p><strong>Mã đơn hàng:</strong> DH003</p>
+                    <p><strong>Ngày đặt:</strong> 2025-10-09</p>
+                </div>
+                <div>
+                    <h3>Thông tin khách hàng</h3>
+                    <p><strong>Tên:</strong> Lê Minh Hoàng</p>
+                    <p><strong>Địa chỉ:</strong> 89 Nguyễn Trãi, Đà Nẵng</p>
+                </div>
+            </div>
             <h2>Chi Tiết Hóa Đơn DH003</h2>
             <table class="detail-table">
                 <thead><tr><th>STT</th><th>Mã SP</th><th>Tên SP</th><th>Giá Bán</th><th>Số lượng</th><th>Thành Tiền</th></tr></thead>

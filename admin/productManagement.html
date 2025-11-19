@@ -6,6 +6,30 @@
         <title>Product Management</title>
         <link rel="stylesheet" href="../css/product_management.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            .filters {
+                flex-grow: 1;
+                justify-content: center;
+            }
+            .filters select {
+                padding: 12px 15px; /* Chỉnh padding cho bằng với ô search */
+                border: 1px solid #ddd;
+                border-radius: 15px; /* Bo tròn góc cho giống ô search */
+                background-color: #fff;
+                font-size: 1em; /* Đảm bảo cỡ chữ giống nhau */
+                color: #555;
+                cursor: pointer;
+                outline: none;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            .filters select:hover {
+                border-color: #f9cbd6;
+            }
+            .filters select:focus {
+                border-color: #9e182b;
+                box-shadow: 0 0 0 3px rgba(158, 24, 43, 0.1);
+            }
+        </style>
     </head>
     <body>
         <!-- Checkbox điều khiển popup -->
@@ -66,7 +90,27 @@
                     <label for="add-product-toggle" id="add-product-btn">
                         <i class="fa-solid fa-plus"></i> Thêm sản phẩm
                     </label>
-                    <div class="search-and-reset">
+                    <div class="search-and-reset" style="display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: flex-end;">
+                        <div class="filters" style="display: flex; gap: 10px; align-items: center;">
+                            <select id="filter-category" name="category">
+                                <option value="">-- Lọc theo loại --</option>
+                                <option value="Bán chạy nhất">Bán chạy nhất</option>
+                                <option value="Quà tặng trái cây">Quà tặng trái cây</option>
+                                <option value="Trái cây Việt Nam">Trái cây Việt Nam</option>
+                                <option value="Đặc biệt">Đặc biệt</option>
+                            </select>
+                            <select id="filter-status" name="status">
+                                <option value="">-- Lọc theo trạng thái --</option>
+                                <option value="in_stock">Còn hàng</option>
+                                <option value="out_of_stock">Hết hàng</option>
+                            </select>
+                            <select id="filter-price" name="price">
+                                <option value="">-- Lọc theo giá --</option>
+                                <option value="0-50000">Dưới 50.000đ</option>
+                                <option value="50000-100000">50.000đ - 100.000đ</option>
+                                <option value="100000-up">Trên 100.000đ</option>
+                            </select>
+                        </div>
                         <div class="search-box">
                             <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
                             <button id="search-btn" onclick="location.href = '../admin/NproductManagement.html'">

@@ -504,3 +504,27 @@ input[type="checkbox"]:checked {
 .delete-confirm-checkbox:checked + tr.tablesp {
     display: none; /* Hide the actual data row */
 }
+
+/* --- Style cho nút Thêm/Xóa chi tiết --- */
+.add-detail-btn {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white; /* Chữ màu trắng */
+    border: none; /* Bỏ viền */
+    padding: 8px 15px; /* Tăng khoảng đệm */
+    border-radius: 8px; /* Bo tròn các góc */
+    cursor: pointer; /* Biểu tượng con trỏ chuột */
+    font-size: 14px; /* Cỡ chữ */
+    font-weight: 600;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-detail-btn:hover {
+    background-color: #218838; /* Màu xanh lá cây đậm hơn khi di chuột qua */
+}
+
+.remove-row-btn {
+    background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;
+}
