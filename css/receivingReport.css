@@ -528,3 +528,7 @@ input[type="checkbox"]:checked {
 .remove-row-btn {
     background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;
 }
+
+.k{
+    margin-left:40px;
+}
