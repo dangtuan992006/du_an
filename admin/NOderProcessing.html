@@ -23,12 +23,15 @@
         <div class="content">
             <!-- Actions: Search and Filter -->
             <div class="actions">
-                <div class="filter-group">
-                    <label for="order-date">Ngày đặt</label>
-                    <input id="order-date" type="date">
+                <div class="filter-group date-range-filter">
+                    <label style="color: #9e182b; font-weight: bold;">Ngày đặt:</label>
+                    <label for="from-date">Từ</label>
+                    <input id="from-date" type="date">
+                    <label for="to-date">Đến</label>
+                    <input id="to-date" type="date">
                 </div>
                 <div class="filter-group">
-                    <label for="state">Trạng thái</label>
+                    <label for="state" style="color: #9e182b;">Trạng thái</label>
                     <select id="state" name="state">
                         <option value="">Tất cả</option>
                         <option value="Đã giao">Đã Giao</option>

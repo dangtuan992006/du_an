@@ -23,9 +23,12 @@
         <div class="content">
             <!-- Actions: Search and Filter -->
             <div class="actions">
-                <div class="filter-group">
-                    <label for="order-date"style="color: #9e182b;">Ngày đặt</label>
-                    <input id="order-date" type="date">
+                <div class="filter-group date-range-filter">
+                    <label style="color: #9e182b; font-weight: bold;">Ngày đặt:</label>
+                    <label for="from-date">Từ</label>
+                    <input id="from-date" type="date">
+                    <label for="to-date">Đến</label>
+                    <input id="to-date" type="date">
                 </div>
                 <div class="filter-group">
                     <label for="state" style="color: #9e182b;">Trạng thái</label>
@@ -194,16 +197,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view1" class="close-btn">&times;</label>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                <div>
+            <div class="modal-header-info">
+                <div class="info-block">
                     <h3>Thông tin đơn hàng</h3>
                     <p><strong>Mã đơn hàng:</strong> DH001</p>
                     <p><strong>Ngày đặt:</strong> 2025-10-10</p>
+                    <p><strong>Trạng thái:</strong> <span class="status-processing">Đang xử lý</span></p>
                 </div>
-                <div>
+                <div class="info-block">
                     <h3>Thông tin khách hàng</h3>
                     <p><strong>Tên:</strong> Nguyễn Văn An</p>
                     <p><strong>Địa chỉ:</strong> 123 Lê Lợi, Hà Nội</p>
+                    <p><strong>Số điện thoại:</strong> 0901234567</p>
                 </div>
             </div>
             <h2>Chi Tiết Hóa Đơn DH001</h2>
@@ -223,16 +228,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view2" class="close-btn">&times;</label>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                <div>
+            <div class="modal-header-info">
+                <div class="info-block">
                     <h3>Thông tin đơn hàng</h3>
                     <p><strong>Mã đơn hàng:</strong> DH002</p>
                     <p><strong>Ngày đặt:</strong> 2025-10-09</p>
+                    <p><strong>Trạng thái:</strong> <span class="status-delivered">Đã giao</span></p>
                 </div>
-                <div>
+                <div class="info-block">
                     <h3>Thông tin khách hàng</h3>
                     <p><strong>Tên:</strong> Trần Thị Bích</p>
                     <p><strong>Địa chỉ:</strong> 45 Nguyễn Huệ, TP.HCM</p>
+                    <p><strong>Số điện thoại:</strong> 0919876543</p>
                 </div>
             </div>
             <h2>Chi Tiết Hóa Đơn DH002</h2>
@@ -253,16 +260,18 @@
     <div class="modal-overlay">
         <div class="modal-content">
             <label for="view3" class="close-btn">&times;</label>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-                <div>
+            <div class="modal-header-info">
+                <div class="info-block">
                     <h3>Thông tin đơn hàng</h3>
                     <p><strong>Mã đơn hàng:</strong> DH003</p>
                     <p><strong>Ngày đặt:</strong> 2025-10-09</p>
+                    <p><strong>Trạng thái:</strong> <span class="status-shipping">Đang vận chuyển</span></p>
                 </div>
-                <div>
+                <div class="info-block">
                     <h3>Thông tin khách hàng</h3>
                     <p><strong>Tên:</strong> Lê Minh Hoàng</p>
                     <p><strong>Địa chỉ:</strong> 89 Nguyễn Trãi, Đà Nẵng</p>
+                    <p><strong>Số điện thoại:</strong> 0987654321</p>
                 </div>
             </div>
             <h2>Chi Tiết Hóa Đơn DH003</h2>
