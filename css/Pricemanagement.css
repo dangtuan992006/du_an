@@ -160,6 +160,12 @@ body {
 .luu-btn { background-color: #2ecc71; color: white; }
 .luu-btn:hover { background-color: #27ae60; }
 
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 select.category {
   width: 250px;        /* chiều rộng */
   height: 40px;        /* chiều cao */
@@ -197,11 +203,26 @@ input[type="radio"]:checked + label.page-number {
 .edit1-input, .edit2-input, .edit3-input,
 .edit4-input, .edit5-input, .edit6-input,
 .edit7-input, .edit8-input {
-  display: none;
-  width: 30px;
-  margin-left: 66px;
+  /* Kiểu dáng mới cho ô nhập liệu */
+  display: none; /* Giữ nguyên để logic ẩn/hiện hoạt động */
+  width: 70px; /* Tăng chiều rộng */
+  padding: 6px 10px; /* Thêm khoảng đệm bên trong */
+  font-size: 16px; /* Cỡ chữ to hơn */
+  text-align: center; /* Căn giữa văn bản */
+  border: 2px solid #ddd; /* Thêm viền */
+  border-radius: 8px; /* Bo tròn các góc */
+  outline: none; /* Bỏ viền mặc định khi focus */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Hiệu ứng chuyển động mượt mà */
+  margin: 0 auto; /* Tự động căn giữa trong ô chứa nó */
 }
 
+/* Hiệu ứng khi người dùng nhấp vào ô input */
+.edit1-input:focus, .edit2-input:focus, .edit3-input:focus,
+.edit4-input:focus, .edit5-input:focus, .edit6-input:focus,
+.edit7-input:focus, .edit8-input:focus {
+  border-color: #9e182b; /* Đổi màu viền khi focus */
+  box-shadow: 0 0 5px rgba(158, 24, 43, 0.3); /* Thêm hiệu ứng đổ bóng nhẹ */
+}
 /* --- Logic ẩn/hiện bằng CSS :has() --- */
 
 /* Mặc định: Ẩn ô input và nút Lưu */
@@ -233,7 +254,7 @@ tr:has(#edit5:checked) .edit5-input, tr:has(#edit5:checked) .luu-btn,
 tr:has(#edit6:checked) .edit6-input, tr:has(#edit6:checked) .luu-btn,
 tr:has(#edit7:checked) .edit7-input, tr:has(#edit7:checked) .luu-btn,
 tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
-  display: flex;
+  display: inline-flex; /* Sử dụng inline-flex để nút hiển thị đúng */
 }
 
 #edit1:checked ~ .sua1{
@@ -258,11 +279,4 @@ tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
 
 .tim:hover{
   background-color: #c0392b;
-}
-
-
-.luu-btn{
-  width: 25px;
-  margin-left: 66px;
-  margin-right: 5px;
 }
