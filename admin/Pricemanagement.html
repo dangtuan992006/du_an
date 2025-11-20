@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/Pricemanagement.css">
 </head>
 <body>  
+<<<<<<< HEAD
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -184,4 +185,187 @@
             </div>
         </div>
     </div>
+=======
+    <div class="heading">
+        <button class="back-btn" onclick="window.location.href='../admin/index.html'">
+        <span class="arrow">←</span>
+        </button>
+        <h1 class="tieude">Quản lý giá bán trái cây</h1>
+        <div class="manager">   
+            <input type="text" placeholder="Tìm theo tên trái cây">
+            <button>Tìm</button>
+            <label for="category"></label>
+            <select class="category" name="category">
+                <option value="">-- Tất cả loại trái cây --</option>
+                <option value="Trái cây nhập khẩu">Đăc Biệt</option>
+                <option value="Trái cây nội địa">Quà Tặng Trái Cây</option>
+                <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
+                <option value="Bán Chạy nhất">Bán Chạy nhất</option>
+            </select> 
+        </div>
+        <a href="../pages/index.html" class="back-btn">
+        <i class="fa fa-home"></i>
+        </a>
+
+        <!-- Thêm Font Awesome nếu chưa có -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        </div>
+
+    </div>
+
+    <div>
+        <table class="table">
+            <thead class="element">
+                <tr>
+                    <th>Tên trái cây</th>
+                    <th>Loại</th>
+                    <th>Giá vốn (VNĐ/Kg)</th>
+                    <th>Lợi nhuận</th>
+                    <th>Giá bán (VNĐ/Kg)</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody class="data">
+                <tr>
+                    <th>Chuối</th>
+                    <th>Đặc Biệt</th>
+                    <th>20.000</th>
+                    <th>
+                        <input type="checkbox" id="edit1" hidden>
+                        <p class="ln1">25%</p>
+                        <input type="text" class="edit1-input" value="25%">
+                    </th>
+                    <th>25.000</th>
+                    <th>
+                        <label for="edit1" class="sua1">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <th>Dâu Tây </th>
+                    <th>Quà tặng trái cây</th>
+                    <th>150.000</th>
+                    <th>
+                        <input type="checkbox" id="edit2" hidden>
+                        <p class="ln1">20%</p>
+                        <input type="text" class="edit2-input" value="20%">
+                    </th>
+                    <th>180.000</th>
+                    <th>
+                        <label for="edit2" class="sua2">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--25 40-->
+                    <th>Cam Ngọt</th>
+                    <th>Trái cây Việt Nam</th>
+                    <th>32.000</th>
+                    <th>
+                        <input type="checkbox" id="edit3" hidden>
+                        <p class="ln3">25%</p>
+                        <input type="text" class="edit3-input" value="25%">
+                    </th>
+                    <th>40.000</th>
+                    <th>
+                        <label for="edit3" class="sua3">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--20 120-->
+                    <th>Nho Tím</th>
+                    <th>Bán chạy nhất</th>
+                    <th>100.000</th>
+                    <th>
+                        <input type="checkbox" id="edit4" hidden>
+                        <p class="ln4">20%</p>
+                        <input type="text" class="edit4-input" value="20%">
+                    </th>
+                    <th>120.000</th>
+                    <th>
+                        <label for="edit4" class="sua4">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--20 60-->
+                    <th>Bơ</th>
+                    <th>Trái cây nhập khẩu</th>
+                    <th>50.000</th>
+                    <th>
+                        <input type="checkbox" id="edit5" hidden>
+                        <p class="ln5">20%</p>
+                        <input type="text" class="edit5-input" value="20%">
+                    </th>
+                    <th>60.000</th>
+                    <th>
+                        <label for="edit5" class="sua5">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--10 50-->
+                    <th>Vải Thều</th>
+                    <th>Trái cây Việt Nam</th>
+                    <th>45.000</th>
+                    <th>
+                        <input type="checkbox" id="edit6" hidden>
+                        <p class="ln6">10%</p>
+                        <input type="text" class="edit6-input" value="10%">
+                    </th>
+                    <th>50.000</th>
+                    <th>
+                        <label for="edit6" class="sua6">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--10 33-->
+                    <th>Carrot</th>
+                    <th>Trái cây Việt Nam</th>
+                    <th>30.000</th>
+                    <th>
+                        <input type="checkbox" id="edit7" hidden>
+                        <p class="ln7">10%</p>
+                        <input type="text" class="edit7-input" value="10%">
+                    </th>
+                    <th>33.000</th>
+                    <th>
+                        <label for="edit7" class="sua7">Sửa</label> 
+                    </th>
+                </tr>
+                <tr>
+                    <!--30 130-->
+                    <th>Lựu Đỏ</th>
+                    <th>Bán Chạy Nhất</th>
+                    <th>100.000</th>
+                    <th>
+                        <input type="checkbox" id="edit8" hidden>
+                        <p class="ln8">30%</p>
+                        <input type="text" class="edit8-input" value="30%">
+                    </th>
+                    <th>130.000</th>
+                    <th>
+                        <label for="edit8" class="sua8">Sửa</label> 
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+
+    <div class="pagination">
+            <button class="prev">⟨</button>
+            <ul class="pages">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>...</li>
+                <li>10</li>
+            </ul>
+            <button class="next">⟩</button>
+        </div>
+
+
+
+    
+</body>
+>>>>>>> 64f338a (Refactor Pricemanagement.html structure and styles)
 </html>
