@@ -3,14 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
+    <title>User Management</title>
     <link rel="stylesheet" href="../css/users_management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* --- PHẦN SỬA LỖI CUỘN TRANG (CSS FIX) --- */
+        
+        /* Đảm bảo Modal Overlay che phủ và cố định */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            /* Ẩn mặc định (dựa trên logic checkbox của bạn) */
+            opacity: 0;
+            visibility: hidden; 
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        /* Logic hiển thị Modal khi Checkbox được check */
+        #toggle-add-user-form:checked ~ #add-user-modal-overlay,
+        .modal-toggle:checked + .modal-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Cấu hình cuộn cho thẻ chứa nội dung Modal */
+        .modal-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 500px; /* Hoặc độ rộng tùy chỉnh của bạn */
+            max-width: 95%;
+            
+            /* QUAN TRỌNG: Giới hạn chiều cao và cho phép cuộn */
+            max-height: 90vh; 
+            overflow-y: auto; 
+
+            /* QUAN TRỌNG: Ngăn việc cuộn lan ra trang sau (body) */
+            overscroll-behavior: contain; 
+        }
+
+        /* Tùy chỉnh thanh cuộn cho đẹp hơn (tùy chọn) */
+        .modal-card::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-card::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+        .modal-card::-webkit-scrollbar-thumb:hover {
+            background-color: #aaa;
+        }
+    </style>
 </head>
 <body>
     <input type="checkbox" id="toggle-add-user-form" hidden>
 
-    <!-- Checkbox và Modal cho việc sửa người dùng-->
     <input type="checkbox" id="edit-user-1" class="modal-toggle" hidden>
     <div class="modal-overlay edit-modal-overlay" id="edit-user-1-modal-overlay">
         <div class="modal-card add-user-form-section">
@@ -31,6 +87,10 @@
             <div class="form-group">
                 <label for="edit-address-1">Địa chỉ:</label>
                 <input type="text" id="edit-address-1" value="123 Đường ABC, Quận 1, TP.HCM">
+            </div>
+            <div class="form-group">
+                <label for="edit-orders-1">Số đơn hàng:</label>
+                <input type="number" id="edit-orders-1" value="15" min="0">
             </div>
             <div class="form-group">
                 <label for="new-password">Mật khẩu:</label>
@@ -83,6 +143,7 @@
                         <th>Email</th>
                         <th>Số điện thoại</th>
                         <th>Địa chỉ</th>
+                        <th>Số đơn hàng</th>
                         <th>mật khẩu</th>
                         <th>Trạng thái</th>
                         <th>Ngày tham gia</th>
@@ -95,6 +156,7 @@
                         <td>tuandangngoc5@gmail.com</td>
                         <td>0939662790</td>
                         <td>123 Đường ABC, Quận 1, TP.HCM</td>
+                        <td>15</td>
                         <td>1</td>
                         <td>Hoạt động</td>
                         <td>2023-10-01</td>
@@ -109,6 +171,7 @@
                         <td>endohshun992006@gmail.com</td>
                         <td>0939662790</td>
                         <td>456 Đường XYZ, Quận 2, TP.HCM</td>
+                        <td>2</td>
                         <td>1</td>
                         <td>bị khóa</td>
                         <td>2023-10-01</td>
@@ -123,6 +186,7 @@
                         <td>nguyenvana@gmail.com</td>
                         <td>0901234567</td>
                         <td>789 Đường LMN, Quận 3, TP.HCM</td>
+                        <td>5</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-02</td>
@@ -137,6 +201,7 @@
                         <td>tranthib@gmail.com</td>
                         <td>0902345678</td>
                         <td>101 Đường PQR, Quận 4, TP.HCM</td>
+                        <td>8</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-03</td>
@@ -151,6 +216,7 @@
                         <td>leminhc@gmail.com</td>
                         <td>0903456789</td>
                         <td>212 Đường STU, Quận 5, TP.HCM</td>
+                        <td>12</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-04</td>
@@ -165,6 +231,7 @@
                         <td>phamdanhd@gmail.com</td>
                         <td>0904567890</td>
                         <td>313 Đường VWX, Quận 6, TP.HCM</td>
+                        <td>0</td>
                         <td>123</td>
                         <td>Bị khóa</td>
                         <td>2023-10-05</td>
@@ -179,6 +246,7 @@
                         <td>doanquange@gmail.com</td>
                         <td>0905678901</td>
                         <td>414 Đường YZA, Quận 7, TP.HCM</td>
+                        <td>3</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-06</td>
@@ -193,6 +261,7 @@
                         <td>hoangthif@gmail.com</td>
                         <td>0906789012</td>
                         <td>515 Đường BCD, Quận 8, TP.HCM</td>
+                        <td>20</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-07</td>
@@ -207,6 +276,7 @@
                         <td>vuhoangg@gmail.com</td>
                         <td>0907890123</td>
                         <td>616 Đường EFG, Quận 9, TP.HCM</td>
+                        <td>7</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-08</td>
@@ -221,6 +291,7 @@
                         <td>truonganht@gmail.com</td>
                         <td>0908901234</td>
                         <td>717 Đường HIK, Quận 10, TP.HCM</td>
+                        <td>1</td>
                         <td>123</td>
                         <td>Hoạt động</td>
                         <td>2023-10-09</td>
@@ -230,11 +301,9 @@
                             <button class="action-btn toggle-lock-btn" title="Khóa/Mở khóa tài khoản" onclick="alert('Đã thay đổi trạng thái cho người dùng.')"><i class="fa-solid fa-lock"></i></button>
                         </td>
                     </tr>
-                    <!-- Các người dùng khác có thể được thêm vào đây -->
-                </tbody>
+                    </tbody>
             </table>
 
-            <!-- Phân trang (chỉ hiển thị, không có chức năng) -->
             <div class="pagination">
                 <input type="radio" name="page" id="page-1" hidden checked>
                 <label for="page-1" class="page-number">1</label>
@@ -249,7 +318,6 @@
         </div>
     </div>
 
-    <!-- Modal Popup cho việc thêm người dùng -->
     <div class="modal-overlay" id="add-user-modal-overlay">
         <div class="modal-card add-user-form-section">
             <label for="toggle-add-user-form" class="close-btn">&times;</label>
@@ -269,6 +337,10 @@
             <div class="form-group">
                 <label for="new-address">Địa chỉ:</label>
                 <input type="text" id="new-address" placeholder="Nhập địa chỉ">
+            </div>
+            <div class="form-group">
+                <label for="new-orders">Số đơn hàng:</label>
+                <input type="number" id="new-orders" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
                 <label for="new-password">Mật khẩu:</label>

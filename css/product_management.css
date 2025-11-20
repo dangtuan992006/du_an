@@ -322,6 +322,13 @@ p:first-child {
     box-sizing: border-box; /* Đảm bảo padding không làm thay đổi chiều rộng */
     transition: border-color 0.2s;
 }
+/* Style cho các ô chỉ xem (không sửa được) */
+.locked-input {
+    background-color: #e9ecef !important; /* Màu xám nhạt */
+    color: #6c757d !important; /* Màu chữ xám đậm */
+    cursor: not-allowed; /* Con trỏ chuột hiện dấu cấm */
+    border: 1px solid #ced4da;
+}
 
 /* Style riêng cho textarea khi chỉnh sửa */
 .product-info textarea.edit-input {
@@ -446,7 +453,6 @@ p:first-child {
 
 .modal-card {
     background-color: #fff;
-    border-radius: 15px;
     padding: 30px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     width: 90%;
@@ -454,11 +460,18 @@ p:first-child {
     position: relative;
     transform: scale(0.95);
     transition: transform 0.3s ease;
+
+    max-height: 90vh; 
+    overflow-y: auto; 
 }
 
-#add-product-toggle:checked ~ .modal-overlay {
+#add-product-toggle:checked ~ #add-product-modal {
     opacity: 1;
     visibility: visible;
+}
+
+#add-product-toggle:checked ~ #add-product-modal .modal-card {
+    transform: scale(1);
 }
 
 #add-product-toggle:checked ~ .modal-overlay .modal-card {
@@ -466,7 +479,7 @@ p:first-child {
 }
 
 /* Hiển thị modal SỬA sản phẩm */
-newpr-product-1:checked ~ #edit-product-1-modal,
+#edit-product-1:checked ~ #edit-product-1-modal,
 #edit-product-2:checked ~ #edit-product-2-modal {
     opacity: 1;
     visibility: visible;
@@ -477,13 +490,6 @@ newpr-product-1:checked ~ #edit-product-1-modal,
     transform: scale(1);
 }
 
-/* Khóa cuộn trang khi modal mở */
-#add-product-toggle:checked ~ * {
-    overflow: hidden;
-}
-.modal-toggle:checked ~ * {
-    overflow: hidden;
-}
 
 .modal-card .close-btn {
     position: absolute;

@@ -419,3 +419,4 @@ input[type="radio"]:checked + .page-number {
 .modal-toggle:checked ~ * {
     overflow: hidden;
 }
+
