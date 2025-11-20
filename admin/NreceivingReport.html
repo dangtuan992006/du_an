@@ -37,10 +37,15 @@
         </label>
         <div class="search-box">
           <div class="search-group">
-            <h4>Từ Ngày</h4>
-            <input type="date" name="filter-date" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <h4 class="k">Từ ngày</h4>
+            <input type="date" name="filter-date">
             <h4 class="k">Đến Ngày</h4>
-            <input type="date" name="filter-date" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <input type="date" name="filter-date">
+            <select name="status-filter" class="status-filter-select">
+              <option value="">Tất cả trạng thái</option>
+              <option value="completed">Đã hoàn thành</option>
+              <option value="pending">Chờ xử lý</option>
+            </select>
             <input type="text" name="search" placeholder="Tìm phiếu theo mã">
             <a href="../admin/NreceivingReport.html" class="search-btn">
               <i class="fa-solid fa-magnifying-glass"></i>

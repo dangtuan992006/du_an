@@ -534,3 +534,23 @@ input[type="checkbox"]:checked {
     margin-left:40px;
     color: #7d1322;
 }
+
+.status-select {
+    width: 100%;
+    padding: 10px;
+    border: 3px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.status-filter-select {
+    padding: 8px 12px;
+    border: 2px solid #ccc;
+    border-radius: 14px;
+    font-size: 14px;
+    background-color: white;
+    margin-left: 10px;
+    margin-right: 20px;
+}
