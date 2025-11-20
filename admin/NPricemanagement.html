@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý giá bán trái cây - Kết quả tìm kiếm</title>
+    <title>Quản lý giá bán trái cây</title>
     <link rel="stylesheet" href="../css/Pricemanagement.css">
 </head>
 <body>  
@@ -23,6 +23,15 @@
             <!-- Actions: Search and Filter -->
             <div class="actions">
                 <input type="text" placeholder="Tìm theo tên trái cây">
+                <select class="category">
+                    <option value="">Tất cả loại</option>
+                    <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
+                    <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
+                    <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
+                    <option value="Đặc Biệt">Đặc Biệt</option>
+                    <option value="Sắp hết hàng">Sản phẩm sắp hết hàng</option>
+                    <option value="Còn hàng">Sản phẩm còn hàng</option>
+                </select>
                 <button class="tim" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
                 <button class="tim" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
             </div>
@@ -42,18 +51,21 @@
                         </tr>
                     </thead>
                     <tbody class="data">
-                        <tr class="no-results">
-                            <td colspan="6">Không tìm thấy kết quả phù hợp.</td>
+                        <tr>
+                            <th>Không có sản phẩm cần tìm.</th>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Phân trang (ẩn đi) -->
-            <div class="pagination" style="display: none;">
-                <label class="page-number">1</label>
-                <label class="page-number">2</label>
-                <label class="page-number">3</label>
+            <!-- Phân trang -->
+            <div class="pagination">
+                <input type="radio" name="page" id="page1" hidden checked>
+                <label for="page1" class="page-number">1</label>
+                <input type="radio" name="page" id="page2" hidden>
+                <label for="page2" class="page-number">2</label>
+                <input type="radio" name="page" id="page3" hidden>
+                <label for="page3" class="page-number">3</label>
             </div>
         </div>
     </div>
