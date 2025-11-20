@@ -1,416 +1,536 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Product Management</title>
-        <link rel="stylesheet" href="../css/product_management.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <style>
-            .filters {
-                flex-grow: 1;
-                justify-content: center;
-            }
-            .filters select {
-                padding: 12px 15px; /* Chỉnh padding cho bằng với ô search */
-                border: 1px solid #ddd;
-                border-radius: 15px; /* Bo tròn góc cho giống ô search */
-                background-color: #fff;
-                font-size: 1em; /* Đảm bảo cỡ chữ giống nhau */
-                color: #555;
-                cursor: pointer;
-                outline: none;
-                transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            }
-            .filters select:hover {
-                border-color: #f9cbd6;
-            }
-            .filters select:focus {
-                border-color: #9e182b;
-                box-shadow: 0 0 0 3px rgba(158, 24, 43, 0.1);
-            }
-        </style>
-    </head>
-    <body>
-        <!-- Checkbox điều khiển popup -->
-        <input type="checkbox" id="add-product-toggle" hidden>
-
-        <!-- Checkbox và Modal cho Sửa Sản phẩm 1 (Banana) -->
-        <input type="checkbox" id="edit-product-1" class="modal-toggle" hidden>
-        <div class="modal-overlay" id="edit-product-1-modal">
-            <div class="modal-card">
-                <label for="edit-product-1" class="close-btn">&times;</label>
-                <h3>Sửa sản phẩm</h3>
-                <div class="image-upload-container">
-                    <img src="../images/chuoi.webp" class="image-preview" alt="Xem trước">
-                    <input type="file" id="edit-image-1" accept="image/*" hidden>
-                    <label for="edit-image-1" class="image-upload-label">Thay đổi ảnh</label>
-                </div>
-                <div class="form-group">
-                    <label for="edit-name-1">Tên sản phẩm:</label>
-                    <input type="text" id="edit-name-1" value="Banana">
-                </div>
-                <div class="form-group">
-                    <label for="edit-type-1">Loại sản phẩm:</label>
-                    <select id="edit-type-1">
-                        <option>Bán chạy nhất</option>
-                        <option>Quà tặng trái cây</option>
-                        <option>Trái cây Việt Nam</option>
-                        <option selected>Đặc biệt</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="edit-desc-1">Giới thiệu:</label>
-                    <textarea id="edit-desc-1">Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</textarea>
-                </div>
-                <div class="form-buttons">
-                    <label for="edit-product-1" class="form-btn save-btn">Lưu</label>
-                    <label for="edit-product-1" class="form-btn cancel-btn">Hủy</label>
-                </div>
-            </div>
-        </div>
-
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="../css/product_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .filters {
+            flex-grow: 1;
+            justify-content: center;
+        }
+        .filters select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            background-color: #fff;
+            font-size: 1em;
+            color: #555;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .filters select:hover {
+            border-color: #f9cbd6;
+        }
+        .filters select:focus {
+            border-color: #9e182b;
+            box-shadow: 0 0 0 3px rgba(158, 24, 43, 0.1);
+        }
         
+        /* Style cho các ô chỉ xem (không sửa được) */
+        .locked-input {
+            background-color: #e9ecef !important;
+            color: #6c757d !important;
+            cursor: not-allowed;
+            border: 1px solid #ced4da;
+        }
 
-        <div class="container">
-            <!-- Header -->
-            <div class="header">
-                <button onclick="location.href='../admin/index.html'">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <h1>Quản Lý Sản Phẩm</h1>
-                <button onclick="location.href='../pages/index.html'">
-                    <i class="fa-solid fa-house"></i>
-                </button>
+        /* Style cho 2 ô nằm trên 1 hàng trong Modal */
+        .modal-card .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .modal-card .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* Sửa lỗi chọn Modal Overlay */
+        #add-product-toggle:checked ~ #add-product-modal {
+            opacity: 1;
+            visibility: visible;
+        }
+        #add-product-toggle:checked ~ #add-product-modal .modal-card {
+            transform: scale(1);
+        }
+
+        /* Sửa lỗi cuộn trang */
+        .modal-card {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="add-product-toggle" hidden>
+
+    <input type="checkbox" id="edit-product-1" class="modal-toggle" hidden>
+    <div class="modal-overlay" id="edit-product-1-modal">
+        <div class="modal-card">
+            <label for="edit-product-1" class="close-btn">&times;</label>
+            <h3>Sửa sản phẩm</h3>
+            <div class="image-upload-container">
+                <img src="../images/chuoi.webp" class="image-preview" alt="Xem trước">
+                <input type="file" id="edit-image-1" accept="image/*" hidden>
+                <label for="edit-image-1" class="image-upload-label">Thay đổi ảnh</label>
             </div>
             
-            <div class="content">
-                <!-- nút thêm sản phẩm -->
-                <div class="actions">
-                    <label for="add-product-toggle" id="add-product-btn">
-                        <i class="fa-solid fa-plus"></i> Thêm sản phẩm
-                    </label>
-                    <div class="search-and-reset" style="display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: flex-end;">
-                        <div class="filters" style="display: flex; gap: 10px; align-items: center;">
-                            <select id="filter-category" name="category">
-                                <option value="">-- Lọc theo loại --</option>
-                                <option value="Bán chạy nhất">Bán chạy nhất</option>
-                                <option value="Quà tặng trái cây">Quà tặng trái cây</option>
-                                <option value="Trái cây Việt Nam">Trái cây Việt Nam</option>
-                                <option value="Đặc biệt">Đặc biệt</option>
-                            </select>
-                            <select id="filter-status" name="status">
-                                <option value="">-- Lọc theo trạng thái --</option>
-                                <option value="in_stock">Còn hàng</option>
-                                <option value="out_of_stock">Hết hàng</option>
-                            </select>
-                            <select id="filter-price" name="price">
-                                <option value="">-- Lọc theo giá --</option>
-                                <option value="0-50000">Dưới 50.000đ</option>
-                                <option value="50000-100000">50.000đ - 100.000đ</option>
-                                <option value="100000-up">Trên 100.000đ</option>
-                            </select>
-                        </div>
-                        <div class="search-box">
-                            <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
-                            <button id="search-btn" onclick="location.href = '../admin/NproductManagement.html'">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                        <button class="reset-btn" onclick="location.href = '../admin/productManagement.html'">
-                            Đặt lại
+            <div class="form-group">
+                <label for="edit-name-1">Tên sản phẩm:</label>
+                <input type="text" id="edit-name-1" value="Banana">
+            </div>
+
+            <div class="form-group">
+                <label for="edit-type-1">Loại sản phẩm:</label>
+                <select id="edit-type-1">
+                    <option>Bán chạy nhất</option>
+                    <option>Quà tặng trái cây</option>
+                    <option>Trái cây Việt Nam</option>
+                    <option selected>Đặc biệt</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edit-desc-1">Giới thiệu:</label>
+                <textarea id="edit-desc-1">Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-product-1" class="form-btn save-btn">Lưu</label>
+                <label for="edit-product-1" class="form-btn cancel-btn">Hủy</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <button onclick="location.href='../admin/index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h1>Quản Lý Sản Phẩm</h1>
+            <button onclick="location.href='../pages/index.html'">
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+        
+        <div class="content">
+            <div class="actions">
+                <label for="add-product-toggle" id="add-product-btn">
+                    <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+                </label>
+                <div class="search-and-reset" style="display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: flex-end;">
+                    <div class="filters" style="display: flex; gap: 10px; align-items: center;">
+                        <select id="filter-category" name="category">
+                            <option value="">-- Lọc theo loại --</option>
+                            <option value="Bán chạy nhất">Bán chạy nhất</option>
+                            <option value="Quà tặng trái cây">Quà tặng trái cây</option>
+                            <option value="Trái cây Việt Nam">Trái cây Việt Nam</option>
+                            <option value="Đặc biệt">Đặc biệt</option>
+                        </select>
+                        <select id="filter-status" name="status">
+                            <option value="">-- Lọc theo trạng thái --</option>
+                            <option value="in_stock">Còn hàng</option>
+                            <option value="out_of_stock">Hết hàng</option>
+                        </select>
+                        <select id="filter-price" name="price">
+                            <option value="">-- Lọc theo giá --</option>
+                            <option value="0-50000">Dưới 50.000đ</option>
+                            <option value="50000-100000">50.000đ - 100.000đ</option>
+                            <option value="100000-up">Trên 100.000đ</option>
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Tìm theo tên sản phẩm...">
+                        <button id="search-btn" onclick="location.href = '../admin/NproductManagement.html'">
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
+                    <button class="reset-btn" onclick="location.href = '../admin/productManagement.html'">
+                        Đặt lại
+                    </button>
                 </div>
+            </div>
 
-                <!-- danh sách sản phẩm -->
-                <div class="product-list">
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/chuoi.webp" alt="Banana">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Banana</p>
-                            <p>Loại sản phẩm: Đặc biệt</p>
-                            <p>Giới thiệu: Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</p>
-                        </div>
+            <div class="product-list">
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
                     </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/quatang2.jpeg" alt="Dâu Tây">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Dâu Tây</p>
-                            <p>Loại sản phẩm: Quà tặng trái cây</p>
-                            <p>Giới thiệu: Dâu tây đỏ mọng, vị ngọt nhẹ, hương thơm dịu dàng khiến ai cũng muốn thưởng thức mãi.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/cam.webp" alt="Cam Ngọt">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Cam Ngọt</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Cam ngọt tươi mát, mọng nước và giàu vitamin giúp bạn khởi đầu ngày mới thật sảng khoái.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/nho.jpeg" alt="Nho Tím">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Nho Tím</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.</p>
-                        </div>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/bo.jpeg" alt="Bơ">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Bơ</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Bơ sáp thơm béo, mềm mịn, chứa nhiều dưỡng chất giúp làn da mịn màng và cơ thể khỏe mạnh.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/vai.jpeg" alt="Vải Thiều">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Vải Thiều</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Vải thiều ngọt thanh, hương thơm quyến rũ, là món quà tinh tế mang hương vị mùa hè Việt.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/luu.jpeg" alt="Lựu Đỏ">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Lựu Đỏ</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.</p>
-                        </div>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/cherry.jpeg" alt="Cherry Đỏ">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Cherry Đỏ</p>
-                            <p>Loại sản phẩm: Quà tặng trái cây</p>
-                            <p>Giới thiệu: Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ khiến bạn khó quên ngay lần đầu.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/duavang.jpeg" alt="Dứa Vàng">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Dứa Vàng</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Dứa vàng chín mọng, vị chua ngọt hài hòa mang lại cảm giác sảng khoái trong ngày oi bức.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/quatang1.jpeg" alt="set trái cây quà tặng số 1">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: set trái cây quà tặng số 1</p>
-                            <p>Loại sản phẩm: Quà tặng trái cây</p>
-                            <p>Giới thiệu: Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.</p>
-                        </div>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/chanh.jpeg" alt="Chanh">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Chanh</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Chanh tươi mọng nước, vị chua dịu nhẹ giúp thanh lọc cơ thể và mang lại cảm giác sảng khoái.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/kiwi.jpeg" alt="Kiwi Xanh">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Kiwi Xanh</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Kiwi xanh chua ngọt hài hòa, chứa nhiều vitamin giúp làn da tươi sáng và cơ thể khỏe mạnh.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/tao.jpeg" alt="Táo">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Táo</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Táo giòn ngọt, hương thơm dễ chịu, biểu tượng cho sức khỏe dồi dào và sự may mắn lâu dài.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/man.jpeg" alt="Mận">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Mận</p>
-                            <p>Loại sản phẩm: Bán chạy nhất</p>
-                            <p>Giới thiệu: Mận chín đỏ, vị chua ngọt giòn tan, là món ăn thanh mát giúp xua tan mệt mỏi ngày hè.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/carrot.jpg" alt="Carrot">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Carrot</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Cà rốt tươi giòn, giàu vitamin A, giúp sáng mắt, đẹp da và tăng cường sức đề kháng tự nhiên.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/quatang3.jpeg" alt="set trái cây quà tặng số 2">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: set trái cây quà tặng số 2</p>
-                            <p>Loại sản phẩm: Quà tặng trái cây</p>
-                            <p>Giới thiệu: Hộp quà trái cây cao cấp, lựa chọn hoàn hảo để gửi gắm yêu thương và tri ân người thân yêu.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Dưa Hấu Đỏ</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Dưa hấu đỏ ngọt thanh, mọng nước, giúp giải nhiệt và mang lại cảm giác mát lành tuyệt vời.</p>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="actions-top">
-                            <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
-                            <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
-                        </div>
-                        <img src="../images/mango.jpg" alt="Xoài">
-                        <div class="product-info">
-                            <p>Tên sản phẩm: Xoài</p>
-                            <p>Loại sản phẩm: Trái cây Việt Nam</p>
-                            <p>Giới thiệu: Xoài cát vàng chín ngọt, thơm lừng đặc trưng, mang hương vị đậm đà khó quên của miền nhiệt đới.</p>
-                        </div>
+                    <img src="../images/chuoi.webp" alt="Banana">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Banana</p>
+                        <p>Loại sản phẩm: Đặc biệt</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Chuối vàng thơm ngọt, cung cấp năng lượng dồi dào và mang lại cảm giác thư thái dễ chịu.</p>
+                        <p>Giá nhập: 15.000 VNĐ</p>
+                        <p>Giá bán: 25.000 VNĐ</p>
+                        <p>Số lượng: 120</p>
                     </div>
                 </div>
 
-                <!-- Phân trang (chỉ hiển thị, không có chức năng) -->
-                <div class="pagination">
-                    <div id="page-numbers">
-                        <span class="page-number active">1</span>
-                        <span class="page-number">2</span>
-                        <span class="page-number">3</span>
-                        <span class="page-number">4</span>
-                        <span class="page-number">5</span>
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/quatang2.jpeg" alt="Dâu Tây">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Dâu Tây</p>
+                        <p>Loại sản phẩm: Quà tặng trái cây</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Dâu tây đỏ mọng, vị ngọt nhẹ, hương thơm dịu dàng khiến ai cũng muốn thưởng thức mãi.</p>
+                        <p>Giá nhập: 150.000 VNĐ</p>
+                        <p>Giá bán: 250.000 VNĐ</p>
+                        <p>Số lượng: 50</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/cam.webp" alt="Cam Ngọt">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Cam Ngọt</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Cam ngọt tươi mát, mọng nước và giàu vitamin giúp bạn khởi đầu ngày mới thật sảng khoái.</p>
+                        <p>Giá nhập: 20.000 VNĐ</p>
+                        <p>Giá bán: 35.000 VNĐ</p>
+                        <p>Số lượng: 200</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/nho.jpeg" alt="Nho Tím">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Nho Tím</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Nho tím đậm vị, lớp vỏ căng mọng và hương vị thanh tao khiến người thưởng thức say mê.</p>
+                        <p>Giá nhập: 80.000 VNĐ</p>
+                        <p>Giá bán: 120.000 VNĐ</p>
+                        <p>Số lượng: 45</p>
+                    </div>
+                </div>
+
+                <div class="product-card hidden">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/bo.jpeg" alt="Bơ">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Bơ</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Bơ sáp thơm béo, mềm mịn, chứa nhiều dưỡng chất giúp làn da mịn màng và cơ thể khỏe mạnh.</p>
+                        <p>Giá nhập: 40.000 VNĐ</p>
+                        <p>Giá bán: 60.000 VNĐ</p>
+                        <p>Số lượng: 80</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/vai.jpeg" alt="Vải Thiều">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Vải Thiều</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Vải thiều ngọt thanh, hương thơm quyến rũ, là món quà tinh tế mang hương vị mùa hè Việt.</p>
+                        <p>Giá nhập: 30.000 VNĐ</p>
+                        <p>Giá bán: 45.000 VNĐ</p>
+                        <p>Số lượng: 100</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/luu.jpeg" alt="Lựu Đỏ">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Lựu Đỏ</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Sắp hết hàng</p>
+                        <p>Giới thiệu: Lựu đỏ mọng nước, hạt giòn ngọt, tượng trưng cho sự thịnh vượng và may mắn trong cuộc sống.</p>
+                        <p>Giá nhập: 50.000 VNĐ</p>
+                        <p>Giá bán: 75.000 VNĐ</p>
+                        <p>Số lượng: 15</p>
+                    </div>
+                </div>
+
+                <div class="product-card hidden">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/cherry.jpeg" alt="Cherry Đỏ">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Cherry Đỏ</p>
+                        <p>Loại sản phẩm: Quà tặng trái cây</p>
+                        <p>Trạng thái: Sắp hết hàng</p>
+                        <p>Giới thiệu: Cherry đỏ tươi, vị ngọt thanh và hương thơm quyến rũ khiến bạn khó quên ngay lần đầu.</p>
+                        <p>Giá nhập: 200.000 VNĐ</p>
+                        <p>Giá bán: 350.000 VNĐ</p>
+                        <p>Số lượng: 5</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/duavang.jpeg" alt="Dứa Vàng">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Dứa Vàng</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Dứa vàng chín mọng, vị chua ngọt hài hòa mang lại cảm giác sảng khoái trong ngày oi bức.</p>
+                        <p>Giá nhập: 10.000 VNĐ</p>
+                        <p>Giá bán: 18.000 VNĐ</p>
+                        <p>Số lượng: 60</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/quatang1.jpeg" alt="Set trái cây quà tặng số 1">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Set trái cây quà tặng số 1</p>
+                        <p>Loại sản phẩm: Quà tặng trái cây</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Giỏ quà trái cây tươi ngon, được chọn lọc kỹ lưỡng, thể hiện sự tinh tế và chân thành khi tặng.</p>
+                        <p>Giá nhập: 300.000 VNĐ</p>
+                        <p>Giá bán: 500.000 VNĐ</p>
+                        <p>Số lượng: 10</p>
+                    </div>
+                </div>
+
+                <div class="product-card hidden">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/chanh.jpeg" alt="Chanh">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Chanh</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Chanh tươi mọng nước, vị chua dịu nhẹ giúp thanh lọc cơ thể và mang lại cảm giác sảng khoái.</p>
+                        <p>Giá nhập: 5.000 VNĐ</p>
+                        <p>Giá bán: 10.000 VNĐ</p>
+                        <p>Số lượng: 500</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/kiwi.jpeg" alt="Kiwi Xanh">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Kiwi Xanh</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Kiwi xanh chua ngọt hài hòa, chứa nhiều vitamin giúp làn da tươi sáng và cơ thể khỏe mạnh.</p>
+                        <p>Giá nhập: 90.000 VNĐ</p>
+                        <p>Giá bán: 130.000 VNĐ</p>
+                        <p>Số lượng: 40</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/tao.jpeg" alt="Táo">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Táo</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Táo giòn ngọt, hương thơm dễ chịu, biểu tượng cho sức khỏe dồi dào và sự may mắn lâu dài.</p>
+                        <p>Giá nhập: 40.000 VNĐ</p>
+                        <p>Giá bán: 65.000 VNĐ</p>
+                        <p>Số lượng: 90</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/man.jpeg" alt="Mận">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Mận</p>
+                        <p>Loại sản phẩm: Bán chạy nhất</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Mận chín đỏ, vị chua ngọt giòn tan, là món ăn thanh mát giúp xua tan mệt mỏi ngày hè.</p>
+                        <p>Giá nhập: 25.000 VNĐ</p>
+                        <p>Giá bán: 40.000 VNĐ</p>
+                        <p>Số lượng: 75</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/carrot.jpg" alt="Carrot">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Carrot</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Cà rốt tươi giòn, giàu vitamin A, giúp sáng mắt, đẹp da và tăng cường sức đề kháng tự nhiên.</p>
+                        <p>Giá nhập: 8.000 VNĐ</p>
+                        <p>Giá bán: 15.000 VNĐ</p>
+                        <p>Số lượng: 150</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/quatang3.jpeg" alt="Set trái cây quà tặng số 2">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Set trái cây quà tặng số 2</p>
+                        <p>Loại sản phẩm: Quà tặng trái cây</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Hộp quà trái cây cao cấp, lựa chọn hoàn hảo để gửi gắm yêu thương và tri ân người thân yêu.</p>
+                        <p>Giá nhập: 450.000 VNĐ</p>
+                        <p>Giá bán: 700.000 VNĐ</p>
+                        <p>Số lượng: 8</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/watermelon.jpg" alt="Dưa Hấu Đỏ">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Dưa Hấu Đỏ</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Dưa hấu đỏ ngọt thanh, mọng nước, giúp giải nhiệt và mang lại cảm giác mát lành tuyệt vời.</p>
+                        <p>Giá nhập: 12.000 VNĐ</p>
+                        <p>Giá bán: 20.000 VNĐ</p>
+                        <p>Số lượng: 30</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="actions-top">
+                        <label for="edit-product-1" class="edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                        <button class="hide-btn" onclick="alert('Đã thay đổi trạng thái ẩn/hiện của sản phẩm.')"><i class="fa-solid fa-eye-slash"></i></button>
+                        <button class="delete-btn" onclick="alert('Đã xóa sản phẩm.')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <img src="../images/mango.jpg" alt="Xoài">
+                    <div class="product-info">
+                        <p>Tên sản phẩm: Xoài</p>
+                        <p>Loại sản phẩm: Trái cây Việt Nam</p>
+                        <p>Trạng thái: Còn hàng</p>
+                        <p>Giới thiệu: Xoài cát vàng chín ngọt, thơm lừng đặc trưng, mang hương vị đậm đà khó quên của miền nhiệt đới.</p>
+                        <p>Giá nhập: 25.000 VNĐ</p>
+                        <p>Giá bán: 40.000 VNĐ</p>
+                        <p>Số lượng: 55</p>
                     </div>
                 </div>
 
             </div>
-        </div>
 
-        <!-- Modal Popup cho việc thêm sản phẩm -->
-        <div class="modal-overlay" id="add-product-modal">
-            <div class="modal-card">
-                <label for="add-product-toggle" class="close-btn">&times;</label>
-                <h3>Thêm sản phẩm mới</h3>
-                <div class="image-upload-container">
-                    <img src="https://placehold.co/600x400" class="image-preview" alt="Xem trước">
-                    <input type="file" id="new-image-input" accept="image/*" hidden>
-                    <label for="new-image-input" class="image-upload-label">Chọn ảnh từ máy tính</label>
-                </div>
-                <div class="form-group">
-                    <label for="new-name">Tên sản phẩm:</label>
-                    <input type="text" id="new-name" placeholder="Nhập tên sản phẩm">
-                </div>
-                <div class="form-group">
-                    <label for="new-type">Loại sản phẩm:</label>
-                    <select id="new-type">
-                        <option>Bán chạy nhất</option>
-                        <option>Quà tặng trái cây</option>
-                        <option>Trái cây Việt Nam</option>
-                        <option>Đặc biệt</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="new-desc">Giới thiệu:</label>
-                    <textarea id="new-desc" placeholder="Nhập giới thiệu sản phẩm"></textarea>
-                </div>
-                <div class="form-buttons">
-                    <label for="add-product-toggle" class="form-btn save-btn">Lưu</label>
-                    <label for="add-product-toggle" class="form-btn cancel-btn">Hủy</label>
+            <div class="pagination">
+                <div id="page-numbers">
+                    <span class="page-number active">1</span>
+                    <span class="page-number">2</span>
+                    <span class="page-number">3</span>
+                    <span class="page-number">4</span>
+                    <span class="page-number">5</span>
                 </div>
             </div>
+
         </div>
+    </div>
 
-    </body>
-    </html>
+    <div class="modal-overlay" id="add-product-modal">
+        <div class="modal-card">
+            <label for="add-product-toggle" class="close-btn">&times;</label>
+            <h3>Thêm sản phẩm mới</h3>
+            <div class="image-upload-container">
+                <img src="https://placehold.co/600x400" class="image-preview" alt="Xem trước">
+                <input type="file" id="new-image-input" accept="image/*" hidden>
+                <label for="new-image-input" class="image-upload-label">Chọn ảnh từ máy tính</label>
+            </div>
+            <div class="form-group">
+                <label for="new-name">Tên sản phẩm:</label>
+                <input type="text" id="new-name" placeholder="Nhập tên sản phẩm">
+            </div>
 
+            
 
-    
+            
+
+            <div class="form-group">
+                <label for="new-type">Loại sản phẩm:</label>
+                <select id="new-type">
+                    <option>Bán chạy nhất</option>
+                    <option>Quà tặng trái cây</option>
+                    <option>Trái cây Việt Nam</option>
+                    <option>Đặc biệt</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="new-desc">Giới thiệu:</label>
+                <textarea id="new-desc" placeholder="Nhập giới thiệu sản phẩm"></textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="add-product-toggle" class="form-btn save-btn">Lưu</label>
+                <label for="add-product-toggle" class="form-btn cancel-btn">Hủy</label>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

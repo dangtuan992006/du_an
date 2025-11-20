@@ -234,6 +234,14 @@ tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
   display: flex;
 }
 
+#edit1:checked ~ .sua1{
+  display: none;
+}
+
+#edit1:checked ~ .luu1{
+  display: flex;
+}
+
 .tim{
   border-radius: 10px;
   background-color: #9e182b;
