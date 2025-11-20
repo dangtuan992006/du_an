@@ -146,6 +146,17 @@ body {
     background-color: #f39c12;
 }
 
+/* --- CSS cho nút Sửa/Lưu --- */
+.sua-btn, .luu-btn {
+    padding: 6px 12px; border-radius: 6px; border: none;
+    cursor: pointer; font-size: 15px; transition: 0.2s;
+}
+.sua-btn { background-color: #f1c40f; color: #222; }
+.sua-btn:hover { background-color: #f39c12; }
+
+.luu-btn { background-color: #2ecc71; color: white; }
+.luu-btn:hover { background-color: #27ae60; }
+
 select.category {
   width: 250px;        /* chiều rộng */
   height: 40px;        /* chiều cao */
@@ -189,15 +200,37 @@ input[type="radio"]:checked + label.page-number {
   margin-left: 66px;
 }
 
-#edit1:checked ~ .ln1, #edit2:checked ~ .ln2, #edit3:checked ~ .ln3,
-#edit4:checked ~ .ln4, #edit5:checked ~ .ln5, #edit6:checked ~ .ln6,
-#edit7:checked ~ .ln7, #edit8:checked ~ .ln8 {
+/* --- Logic ẩn/hiện bằng CSS :has() --- */
+
+/* Mặc định: Ẩn ô input và nút Lưu */
+.edit1-input, .edit2-input, .edit3-input, .edit4-input,
+.edit5-input, .edit6-input, .edit7-input, .edit8-input,
+.luu-btn {
+    display: none;
+}
+
+/* Khi ở chế độ sửa (checkbox được check) */
+/* Ẩn text lợi nhuận và nút Sửa */
+tr:has(#edit1:checked) .ln1, tr:has(#edit1:checked) .sua-btn,
+tr:has(#edit2:checked) .ln2, tr:has(#edit2:checked) .sua-btn,
+tr:has(#edit3:checked) .ln3, tr:has(#edit3:checked) .sua-btn,
+tr:has(#edit4:checked) .ln4, tr:has(#edit4:checked) .sua-btn,
+tr:has(#edit5:checked) .ln5, tr:has(#edit5:checked) .sua-btn,
+tr:has(#edit6:checked) .ln6, tr:has(#edit6:checked) .sua-btn,
+tr:has(#edit7:checked) .ln7, tr:has(#edit7:checked) .sua-btn,
+tr:has(#edit8:checked) .ln8, tr:has(#edit8:checked) .sua-btn {
   display: none;
 }
 
-#edit1:checked ~ .edit1-input, #edit2:checked ~ .edit2-input, #edit3:checked ~ .edit3-input,
-#edit4:checked ~ .edit4-input, #edit5:checked ~ .edit5-input, #edit6:checked ~ .edit6-input,
-#edit7:checked ~ .edit7-input, #edit8:checked ~ .edit8-input {
+/* Hiện ô input và nút Lưu */
+tr:has(#edit1:checked) .edit1-input, tr:has(#edit1:checked) .luu-btn,
+tr:has(#edit2:checked) .edit2-input, tr:has(#edit2:checked) .luu-btn,
+tr:has(#edit3:checked) .edit3-input, tr:has(#edit3:checked) .luu-btn,
+tr:has(#edit4:checked) .edit4-input, tr:has(#edit4:checked) .luu-btn,
+tr:has(#edit5:checked) .edit5-input, tr:has(#edit5:checked) .luu-btn,
+tr:has(#edit6:checked) .edit6-input, tr:has(#edit6:checked) .luu-btn,
+tr:has(#edit7:checked) .edit7-input, tr:has(#edit7:checked) .luu-btn,
+tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
   display: flex;
 }
 
@@ -223,19 +256,9 @@ input[type="radio"]:checked + label.page-number {
   background-color: #c0392b;
 }
 
-.luu1{
-  background-color: rgb(26, 173, 56);
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-  transition: 0.2s;
-  display: none;
-}
 
-.luu1:hover{
-  background-color: rgb(2, 97, 19);
-  color: white;
+.luu-btn{
+  width: 25px;
+  margin-left: 66px;
+  margin-right: 5px;
 }
-
