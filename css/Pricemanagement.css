@@ -77,7 +77,7 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  margin-left: 500px;
+  margin-left: 721px; 
 }
 
 
@@ -201,6 +201,14 @@ input[type="radio"]:checked + label.page-number {
   display: flex;
 }
 
+#edit1:checked ~ .sua1{
+  display: none;
+}
+
+#edit1:checked ~ .luu1{
+  display: flex;
+}
+
 .tim{
   border-radius: 10px;
   background-color: #9e182b;
@@ -214,3 +222,20 @@ input[type="radio"]:checked + label.page-number {
 .tim:hover{
   background-color: #c0392b;
 }
+
+.luu1{
+  background-color: rgb(26, 173, 56);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s;
+  display: none;
+}
+
+.luu1:hover{
+  background-color: rgb(2, 97, 19);
+  color: white;
+}
+
