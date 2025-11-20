@@ -77,7 +77,10 @@ body {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
-  margin-left: 721px; 
+}
+
+#loc1 {
+  margin-left: 468px;
 }
 
 
@@ -164,7 +167,6 @@ select.category {
   border: 1px solid #ccc;
   border-radius: 8px;  /* bo góc */
   padding: 5px 10px;
-  margin-right: 10px;  /* khoảng cách giữa 2 ô */
   box-sizing: border-box;
 }
 /* Khung phân trang tổng thể */
@@ -242,7 +244,7 @@ tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
   display: flex;
 }
 
-.tim{
+.tim1 , .tim2{
   border-radius: 10px;
   background-color: #9e182b;
   color: white;
@@ -251,6 +253,8 @@ tr:has(#edit8:checked) .edit8-input, tr:has(#edit8:checked) .luu-btn {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
+
 
 .tim:hover{
   background-color: #c0392b;
