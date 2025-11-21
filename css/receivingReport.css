@@ -539,9 +539,15 @@ input[type="checkbox"]:checked {
     background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;
 }
 
-.k{
-    margin-right: 20px;
+.k1{
+    margin-right: 10px;
     margin-left:40px;
+    color: #7d1322;
+}
+
+.k2{
+    margin-right: 10px;
+    margin-left: 10px;
     color: #7d1322;
 }
 
@@ -562,5 +568,5 @@ input[type="checkbox"]:checked {
     font-size: 14px;
     background-color: white;
     margin-left: 10px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
