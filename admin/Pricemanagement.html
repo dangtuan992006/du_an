@@ -2,212 +2,608 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý giá bán trái cây</title>
-    <link rel="stylesheet" href="../css/Pricemanagement.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý giá bán</title>
+    <link rel="stylesheet" href="../css/users_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ========================================= */
+        /* 1. STYLE MỚI CHO TAB NAVIGATION (Giao diện đẹp) */
+        /* ========================================= */
+
+        /* Container chứa các tab */
+        .tab-navigation {
+            display: flex;
+            background: #ffffff;
+            border-radius: 15px; /* Bo tròn khung ngoài */
+            padding: 8px; /* Tạo khoảng cách đệm bên trong */
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(158, 24, 43, 0.1); /* Đổ bóng nhẹ màu đỏ */
+            border: 1px solid #ffe0e6; /* Viền hồng nhạt tinh tế */
+            gap: 10px; /* Khoảng cách giữa các tab */
+        }
+
+        /* Style chung cho từng nút tab */
+        .tab-label {
+            flex: 1;
+            padding: 14px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #666; /* Màu chữ xám khi chưa chọn */
+            background-color: transparent;
+            border-radius: 10px; /* Bo tròn từng tab */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Hiệu ứng chuyển động mượt */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid transparent;
+        }
+
+        /* Hiệu ứng khi di chuột vào tab (Hover) */
+        .tab-label:hover {
+            background-color: #fff0f3; /* Nền hồng phấn nhẹ */
+            color: #9e182b; /* Chữ màu đỏ chủ đạo */
+            transform: translateY(-2px); /* Nhấc nhẹ tab lên */
+        }
+
+        /* Icon chuyển động nhẹ khi hover */
+        .tab-label i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        .tab-label:hover i {
+            transform: scale(1.1);
+        }
+
+        /* ========================================= */
+        /* 2. LOGIC CHỌN TAB (QUAN TRỌNG: Đã sửa lỗi) */
+        /* ========================================= */
+
+        /* Khi radio button được chọn, tô màu cho label tương ứng bên trong .tab-navigation */
+        #tab-1:checked ~ .tab-navigation label[for="tab-1"],
+        #tab-2:checked ~ .tab-navigation label[for="tab-2"],
+        #tab-3:checked ~ .tab-navigation label[for="tab-3"] {
+            color: #ffffff !important; /* Chữ trắng */
+            background: linear-gradient(135deg, #9e182b 0%, #c92a42 100%) !important; /* Nền đỏ gradient */
+            box-shadow: 0 4px 15px rgba(158, 24, 43, 0.35); /* Đổ bóng nổi bật */
+            transform: translateY(0);
+            border-color: transparent;
+        }
+
+        /* ========================================= */
+        /* 3. LOGIC ẨN HIỆN NỘI DUNG (Giữ nguyên từ cũ) */
+        /* ========================================= */
+
+        .tab-panels {
+            min-height: 400px;
+        }
+
+        .management-section {
+            display: none; /* Mặc định ẩn tất cả */
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Hiệu ứng hiện dần nội dung */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Logic hiển thị panel tương ứng với tab đang chọn */
+        #tab-1:checked ~ .tab-panels #panel-1,
+        #tab-2:checked ~ .tab-panels #panel-2,
+        #tab-3:checked ~ .tab-panels #panel-3 {
+            display: block;
+        }
+
+        /* Style tiêu đề section (nếu có dùng) */
+        .section-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
 </head>
-<body>  
+<body>
     <div class="container">
-        <!-- Header -->
+        
         <div class="header">
-            <button class="header-btn" onclick="window.location.href='../admin/index.html'">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
-            <h1>Quản lý giá bán trái cây</h1>
-            <a href="../pages/index.html" class="header-btn">
-                <i class="fa fa-home"></i>
-            </a>
+            <button onclick="location.href='../admin/index.html'"><i class="fa-solid fa-arrow-left"></i></button>
+            <h1>Quản lý giá bán</h1>
+            <button onclick="location.href='../pages/index.html'"><i class="fa-solid fa-house"></i></button>
         </div>
-
-        <!-- Content -->
+ 
         <div class="content">
-            <!-- Actions: Search and Filter -->
-            <div class="actions" id="loc1">
-                <select class="category" id="profit-filter">
-                    <option value="">Tất cả lợi nhuận</option>
-                    <option value="duoi-15">Dưới 15%</option>
-                    <option value="15-25">Từ 15% - 30%</option>
-                    <option value="tren-25">Trên 30%</option>
-                </select>
-                <select class="category">
-                    <option value="">Tất cả loại</option>
-                    <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
-                    <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
-                    <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
-                    <option value="Đặc Biệt">Đặc Biệt</option>
-                </select>
-                <input type="text" placeholder="Tìm theo tên trái cây">
-                <button class="tim1" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
-                <button class="tim2" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
-            </div>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+            
+            <input type="radio" id="tab-1" name="tab-group" checked hidden>
+            <input type="radio" id="tab-2" name="tab-group" hidden>
+            <input type="radio" id="tab-3" name="tab-group" hidden>
 
-            <!-- Bảng danh sách -->
-            <div class="list">
-                <table class="table">
-                    <thead class="element">
-                        <tr>
-                            <th>Tên trái cây</th>
-                            <th>Loại</th>
-                            <th>Lợi nhuận</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody class="data">
-                        <tr>
-                            <th>Banana</th>
-                            <th>Bán chạy nhất</th>
-                            <th>
-                                <input type="checkbox" id="edit1" hidden>
-                                <p class="ln1">22%</p>
-                                <input type="text" class="edit1-input" value="25%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit1" class="sua-btn">Sửa</label>
-                                    <label for="edit1" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Dâu Tây </th>
-                            <th>Bán chạy nhất</th>
-                            <th>
-                                <input type="checkbox" id="edit2" hidden>
-                                <p class="ln2">21%</p>
-                                <input type="text" class="edit2-input" value="20%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit2" class="sua-btn">Sửa</label>
-                                    <label for="edit2" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--25 40-->
-                            <th>Cam Ngọt</th>
-                            <th>Trái cây Việt Nam</th>
-                            <th>
-                                <input type="checkbox" id="edit3" hidden>
-                                <p class="ln3">25%</p>
-                                <input type="text" class="edit3-input" value="25%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit3" class="sua-btn">Sửa</label>
-                                    <label for="edit3" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--20 120-->
-                            <th>Nho Tím</th>
-                            <th>Bán chạy nhất</th>
-                            <th>
-                                <input type="checkbox" id="edit4" hidden>
-                                <p class="ln4">18%</p>
-                                <input type="text" class="edit4-input" value="20%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit4" class="sua-btn">Sửa</label>
-                                    <label for="edit4" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--20 60-->
-                            <th>Bơ</th>
-                            <th>Đặc biệt</th>
-                            <th>
-                                <input type="checkbox" id="edit5" hidden>
-                                <p class="ln5">17%</p>
-                                <input type="text" class="edit5-input" value="20%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit5" class="sua-btn">Sửa</label>
-                                    <label for="edit5" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--10 50-->
-                            <th>Vải Thều</th>
-                            <th>Trái cây Việt Nam</th>
-                            <th>
-                                <input type="checkbox" id="edit6" hidden>
-                                <p class="ln6">13%</p>
-                                <input type="text" class="edit6-input" value="10%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit6" class="sua-btn">Sửa</label>
-                                    <label for="edit6" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--10 33-->
-                            <th>Carrot</th>
-                            <th>Đặc biệt</th>
-                            <th>
-                                <input type="checkbox" id="edit7" hidden>
-                                <p class="ln7">12%</p>
-                                <input type="text" class="edit7-input" value="10%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit7" class="sua-btn">Sửa</label>
-                                    <label for="edit7" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--30 130-->
-                            <th>Lựu Đỏ</th>
-                            <th>Đặc biệt</th>
-                            <th>
-                                <input type="checkbox" id="edit8" hidden>
-                                <p class="ln8">30%</p>
-                                <input type="text" class="edit8-input" value="30%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit8" class="sua-btn">Sửa</label>
-                                    <label for="edit8" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!--30 130-->
-                            <th>Set trái cây quà tặng số 1</th>
-                            <th>Quà tặng trái cây</th>
-                            <th>
-                                <input type="checkbox" id="edit8" hidden>
-                                <p class="ln8">32%</p>
-                                <input type="text" class="edit8-input" value="30%">
-                            </th>
-                            <th>
-                                <div class="action-buttons">
-                                    <label for="edit8" class="sua-btn">Sửa</label>
-                                    <label for="edit8" class="luu-btn">Lưu</label>
-                                </div>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tab-navigation">
+                <label for="tab-1" class="tab-label">
+                    <i class="fa-solid fa-chart-pie"></i> 1. Theo danh mục
+                </label>
+                <label for="tab-2" class="tab-label">
+                    <i class="fa-solid fa-apple-whole"></i> 2. Theo sản phẩm
+                </label>
+                <label for="tab-3" class="tab-label">
+                    <i class="fa-solid fa-magnifying-glass-dollar"></i> 3. Tra cứu giá
+                </label>
             </div>
 
-            <!-- Phân trang -->
-            <div class="pagination">
-                <input type="radio" name="page" id="page1" hidden checked>
-                <label for="page1" class="page-number">1</label>
-                <input type="radio" name="page" id="page2" hidden>
-                <label for="page2" class="page-number">2</label>
-                <input type="radio" name="page" id="page3" hidden>
-                <label for="page3" class="page-number">3</label>
+            <div class="tab-panels">
+                
+            <div class="management-section" id="panel-1">
+
+                <div class="search-toolbar" style="display: flex; align-items: center; justify-content: flex-end; gap: 25px; margin-bottom: 15px;">
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap;">Tên danh mục:</label>
+                        <input type="text" placeholder="Nhập tên danh mục" style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 200px;">
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap;">Lợi nhuận (%):</label>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <input type="number" placeholder="Từ" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 60px; text-align: center;">
+                            <span style="color: #9e182b; font-weight: bold;">-</span>
+                            <input type="number" placeholder="Đến" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 60px; text-align: center;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" style="background-color: #9e182b; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 3px 8px rgba(158, 24, 43, 0.25);">
+                            <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                        </button>
+                        <button onclick="location.reload()" style="background-color: #fff; color: #555; border: 1px solid #ccc; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fa-solid fa-rotate-right"></i> Đặt lại
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="list">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px; text-align: center;">STT</th>
+                                <th style="text-align: center;">Tên danh mục</th> 
+                                <th style="text-align: center;">Tỷ lệ lợi nhuận</th>
+                                <th style="text-align: center;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="data">
+                            <tr>
+                                <td style="text-align: center;">01</td>
+                                <td style="padding-left: 20px;">Bán chạy nhất</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="20" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">02</td>
+                                <td style="padding-left: 20px;">Quà tặng trái cây</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="30" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">03</td>
+                                <td style="padding-left: 20px;">Trái cây Việt Nam</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="25" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">04</td>
+                                <td style="padding-left: 20px;">Đặc biệt</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="28" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <input type="radio" name="page-tab1" id="page-tab1-1" hidden checked>
+                    <label for="page-tab1-1" class="page-number">1</label>
+                    
+                    <input type="radio" name="page-tab1" id="page-tab1-2" hidden>
+                    <label for="page-tab1-2" class="page-number">2</label>
+                    
+                    <input type="radio" name="page-tab1" id="page-tab1-3" hidden>
+                    <label for="page-tab1-3" class="page-number">3</label>
+                </div>
             </div>
-        </div>
+
+            <div class="management-section" id="panel-2">
+
+                <div class="search-toolbar" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;">
+                    
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Tên sản phẩm:</label>
+                        <input type="text" placeholder="Nhập tên..." style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 140px;">
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Danh mục:</label>
+                        <select style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; cursor: pointer;">
+                            <option value="">-- Tất cả --</option>
+                            <option value="banchay">Bán chạy nhất</option>
+                            <option value="quatang">Quà tặng trái cây</option>
+                            <option value="vietnam">Trái cây Việt Nam</option>
+                            <option value="dacbiet">Đặc biệt</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Lợi nhuận (%):</label>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <input type="number" placeholder="Từ" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 60px; text-align: center;">
+                            <span style="color: #9e182b; font-weight: bold;">-</span>
+                            <input type="number" placeholder="Đến" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 60px; text-align: center;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" style="background-color: #9e182b; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 3px 8px rgba(158, 24, 43, 0.25);">
+                            <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                        </button>
+                        <button onclick="location.reload()" style="background-color: #fff; color: #555; border: 1px solid #ccc; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fa-solid fa-rotate-right"></i> Đặt lại
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="list">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px; text-align: center;">STT</th>
+                                <th style="text-align: center;">Tên trái cây</th>
+                                <th style="text-align: center;">Danh mục</th>
+                                <th style="text-align: center;">Lợi nhuận (%)</th>
+                                <th style="text-align: center;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="data">
+                            <tr>
+                                <td style="text-align: center;">01</td>
+                                <td style="padding-left: 20px;">Banana (Chuối)</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="33" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">02</td>
+                                <td style="padding-left: 20px;">Dâu Tây</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="22" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">03</td>
+                                <td style="padding-left: 20px;">Cam Ngọt</td>
+                                <td style="text-align: center;">Trái Cây Việt Nam</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="40" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">04</td>
+                                <td style="padding-left: 20px;">Nho Tím</td>
+                                <td style="text-align: center;">Bán Chạy Nhất</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="31" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">05</td>
+                                <td style="padding-left: 20px;">Bơ</td>
+                                <td style="text-align: center;">Đặc biệt</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="44" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">06</td>
+                                <td style="padding-left: 20px;">Vải Thiều</td>
+                                <td style="text-align: center;">Trái Cây Việt Nam</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="44" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">07</td>
+                                <td style="padding-left: 20px;">Lựu Đỏ</td>
+                                <td style="text-align: center;">Đặc biệt</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="43" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">08</td>
+                                <td style="padding-left: 20px;">Cherry Đỏ</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="15" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">09</td>
+                                <td style="padding-left: 20px;">Dưa Vàng</td>
+                                <td style="text-align: center;">Trái cây Việt Nam</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="18" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">10</td>
+                                <td style="padding-left: 20px;">Set Trái Cây Quà Tặng Số 1</td>
+                                <td style="text-align: center;">Quà Tặng Trái Cây</td>
+                                <td class="profit-cell">
+                                    <div style="position: relative; height: 34px; display: flex; align-items: center; justify-content: center;">
+                                        <input type="number" value="36" style="width: 60px; height: 100%; text-align: center; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; font-size: 1rem; padding: 0;">
+                                        <span style="position: absolute; left: 50%; margin-left: 35px; color: #333; font-size: 1rem; line-height: 34px;">%</span>
+                                    </div>
+                                </td>
+                                <td class="action-cell" style="text-align: center;">
+                                    <button onclick="alert('Lưu tỷ lệ lợi nhuận thành công')" class="action-btn" style="background-color: #9e182b; color: #fff; border: none; padding: 6px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.2s;">Lưu</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <input type="radio" name="page-tab2" id="page-tab2-1" hidden checked>
+                    <label for="page-tab2-1" class="page-number">1</label>
+                    
+                    <input type="radio" name="page-tab2" id="page-tab2-2" hidden>
+                    <label for="page-tab2-2" class="page-number">2</label>
+                    
+                    <input type="radio" name="page-tab2" id="page-tab2-3" hidden>
+                    <label for="page-tab2-3" class="page-number">3</label>
+                </div>
+            </div>
+
+            <div class="management-section" id="panel-3">
+        
+                <div class="search-toolbar" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-bottom: 15px; flex-wrap: wrap;">
+                    
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Tên sản phẩm:</label>
+                        <input type="text" placeholder="Nhập tên..." style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 140px;">
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Danh mục:</label>
+                        <select style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; color: #333; cursor: pointer;">
+                            <option value="">-- Tất cả --</option>
+                            <option value="banchay">Bán chạy nhất</option>
+                            <option value="quatang">Quà tặng trái cây</option>
+                            <option value="vietnam">Trái cây Việt Nam</option>
+                            <option value="dacbiet">Đặc biệt</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <label style="font-weight: 700; color: #9e182b; white-space: nowrap; font-size: 0.95rem;">Khoảng giá bán:</label>
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <input type="text" placeholder="Từ" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 80px; text-align: center;">
+                            <span style="color: #9e182b; font-weight: bold;">-</span>
+                            <input type="text" placeholder="Đến" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px; outline: none; width: 80px; text-align: center;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" style="background-color: #9e182b; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 3px 8px rgba(158, 24, 43, 0.25);">
+                            <i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm
+                        </button>
+                        <button onclick="location.reload()" style="background-color: #fff; color: #555; border: 1px solid #ccc; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="fa-solid fa-rotate-right"></i> Đặt lại
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="list">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px; text-align: center;">STT</th>
+                                <th style="text-align: center;">Tên trái cây</th>
+                                <th style="text-align: center;">Danh mục</th>
+                                <th style="text-align: center;">Giá vốn (VNĐ)</th>
+                                <th style="text-align: center;">Lợi nhuận (%)</th>
+                                <th style="text-align: center;">Giá bán (VNĐ)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="data">
+                            <tr>
+                                <td style="text-align: center;">01</td>
+                                <td style="padding-left: 20px;">Banana (Chuối)</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td style="text-align: center; color: #555;">15.000</td>
+                                <td style="text-align: center;">33%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">25.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">02</td>
+                                <td style="padding-left: 20px;">Dâu Tây</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td style="text-align: center; color: #555;">150.000</td>
+                                <td style="text-align: center;">22%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">250.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">03</td>
+                                <td style="padding-left: 20px;">Cam Ngọt</td>
+                                <td style="text-align: center;">Trái Cây Việt Nam</td>
+                                <td style="text-align: center; color: #555;">20.000</td>
+                                <td style="text-align: center;">40%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">35.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">04</td>
+                                <td style="padding-left: 20px;">Nho Tím</td>
+                                <td style="text-align: center;">Bán Chạy Nhất</td>
+                                <td style="text-align: center; color: #555;">80.000</td>
+                                <td style="text-align: center;">31%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">120.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">05</td>
+                                <td style="padding-left: 20px;">Bơ</td>
+                                <td style="text-align: center;">Đặc biệt</td>
+                                <td style="text-align: center; color: #555;">40.000</td>
+                                <td style="text-align: center;">44%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">60.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">06</td>
+                                <td style="padding-left: 20px;">Vải Thiều</td>
+                                <td style="text-align: center;">Trái Cây Việt Nam</td>
+                                <td style="text-align: center; color: #555;">30.000</td>
+                                <td style="text-align: center;">44%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">45.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">07</td>
+                                <td style="padding-left: 20px;">Lựu Đỏ</td>
+                                <td style="text-align: center;">Đặc biệt</td>
+                                <td style="text-align: center; color: #555;">50.000</td>
+                                <td style="text-align: center;">43%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">75.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">08</td>
+                                <td style="padding-left: 20px;">Cherry Đỏ</td>
+                                <td style="text-align: center;">Bán chạy nhất</td>
+                                <td style="text-align: center; color: #555;">200.000</td>
+                                <td style="text-align: center;">15%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">350.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">09</td>
+                                <td style="padding-left: 20px;">Dưa Vàng</td>
+                                <td style="text-align: center;">Trái cây Việt Nam</td>
+                                <td style="text-align: center; color: #555;">10.000</td>
+                                <td style="text-align: center;">18%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">18.000</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">10</td>
+                                <td style="padding-left: 20px;">Set Trái Cây Quà Tặng Số 1</td>
+                                <td style="text-align: center;">Quà Tặng Trái Cây</td>
+                                <td style="text-align: center; color: #555;">300.000</td>
+                                <td style="text-align: center;">36%</td>
+                                <td style="text-align: center; color: #d63031; font-weight: bold;">500.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <input type="radio" name="page-tab3" id="page-tab3-1" hidden checked>
+                    <label for="page-tab3-1" class="page-number">1</label>
+                    
+                    <input type="radio" name="page-tab3" id="page-tab3-2" hidden>
+                    <label for="page-tab3-2" class="page-number">2</label>
+                    
+                    <input type="radio" name="page-tab3" id="page-tab3-3" hidden>
+                    <label for="page-tab3-3" class="page-number">3</label>
+                </div>
+            </div>
+        </div>   
     </div>
+
+</body>
 </html>
