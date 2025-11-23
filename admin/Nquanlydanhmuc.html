@@ -434,7 +434,7 @@
                  <div class="search-and-reset">
                      <div class="search-box">
                          <input type="text" id="search-input" placeholder="Tìm kiếm danh mục...">
-                         <button id="search-btn" onclick="location.href='Nquanlydanhmuc.html'"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                         <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
                      </div>
                      <button class="reset-btn" onclick="location.href='quanlydanhmuc.html'">Đặt lại</button>
                  </div>
@@ -453,84 +453,9 @@
                      </tr>
                  </thead>
                  <tbody id="user-list" class="user-list">
-                    <tr>
-                        <td>01</td>
-                        <td>Bán chạy nhất</td>
-                        <td>Những sản phẩm được khách hàng lựa chọn nhiều nhất. Chất lượng vượt trội – giá trị xứng tầm.</td>
-                        <td>4</td>
-                        <td>474</td>
-                        <td><span class="status-active">Hoạt động</span></td>
-                        <td class="action-cell">
-                            <label for="view-cat-1" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
-                            <label for="edit-cat-1" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>02</td>
-                        <td>Quà tặng trái cây</td>
-                        <td>Set quà trái cây mang đậm hương vị Việt, kết hợp những loại trái cây theo mùa được chọn lọc kỹ càng – tươi, sạch và giàu dinh dưỡng.</td>
-                        <td>2</td>
-                        <td>286</td>
-                        <td><span class="status-active">Hoạt động</span></td>
-                        <td class="action-cell">
-                            <label for="view-cat-2" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
-                            <label for="edit-cat-2" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>03</td>
-                        <td>Trái cây Việt Nam</td>
-                        <td>Trái cây Việt Nam: được tuyển chọn kỹ lưỡng và bán chạy nhất từ các vùng trồng uy tín trên khắp Việt Nam.</td>
-                        <td>7</td>
-                        <td>775</td>
-                        <td><span class="status-active">Hoạt động</span></td>
-                        <td class="action-cell">
-                            <label for="view-cat-3" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
-                            <label for="edit-cat-3" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>04</td>
-                        <td>Đặc biệt</td>
-                        <td>Những loại trái cây đặc biệt nhất, được tuyển chọn kỹ lưỡng và nổi bật về hương vị lẫn chất lượng.</td>
-                        <td>5</td>
-                        <td>510</td>
-                        <td><span class="status-active">Hoạt động</span></td>
-                        <td class="action-cell">
-                            <label for="view-cat-4" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
-                            <label for="edit-cat-4" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-
-                    <tr class="locked">
-                        <td>05</td>
-                        <td>Trái cây cắt sẵn</td>
-                        <td>Trái cây cắt sẵn tươi mới mỗi ngày, chuẩn vệ sinh và giữ trọn vị ngọt tự nhiên, sẵn sàng thưởng thức mọi lúc.</td>
-                        <td>3</td>
-                        <td>84</td>
-                        <td><span class="status-locked">Ẩn</span></td>
-                        <td class="action-cell">
-                            <label for="view-cat-5" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
-                            <label for="edit-cat-5" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
-                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
+                    <tr><td style=" font-weight: bold;">không tìm thấy danh mục cần tìm</td></tr>
                 </tbody>
              </table>
- 
-             <div class="pagination">
-                 <input type="radio" name="page" id="page-1" hidden checked>
-                 <label for="page-1" class="page-number">1</label>
-                 <input type="radio" name="page" id="page-2" hidden>
-                 <label for="page-2" class="page-number">2</label>
-             </div>
          </div>
      </div>
      <div class="modal-overlay">

@@ -21,19 +21,23 @@
         <!-- Content -->
         <div class="content">
             <!-- Actions: Search and Filter -->
-            <div class="actions">
-                <input type="text" placeholder="Tìm theo tên trái cây">
+            <div class="actions" id="loc1">
+                <select class="category" id="profit-filter">
+                    <option value="">Tất cả lợi nhuận</option>
+                    <option value="duoi-15">Dưới 15%</option>
+                    <option value="15-25">Từ 15% - 30%</option>
+                    <option value="tren-25">Trên 30%</option>
+                </select>
                 <select class="category">
                     <option value="">Tất cả loại</option>
                     <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
                     <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
                     <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
                     <option value="Đặc Biệt">Đặc Biệt</option>
-                    <option value="Sắp hết hàng">Sản phẩm sắp hết hàng</option>
-                    <option value="Còn hàng">Sản phẩm còn hàng</option>
                 </select>
-                <button class="tim" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
-                <button class="tim" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
+                <input type="text" placeholder="Tìm theo tên trái cây">
+                <button class="tim1" onclick="location.href='../admin/NPricemanagement.html'">Tìm</button>
+                <button class="tim2" onclick="location.href='../admin/Pricemanagement.html'">Đặt lại</button>
             </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -44,29 +48,17 @@
                         <tr>
                             <th>Tên trái cây</th>
                             <th>Loại</th>
-                            <th>Giá vốn (VNĐ/Kg)</th>
                             <th>Lợi nhuận</th>
-                            <th>Giá bán (VNĐ/Kg)</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody class="data">
-                        <tr>
-                            <th>Không có sản phẩm cần tìm.</th>
-                        </tr>
+                        <tr><td style = "font-weight: bold; padding: 10px;">không tìm thấy sản phẩm</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Phân trang -->
-            <div class="pagination">
-                <input type="radio" name="page" id="page1" hidden checked>
-                <label for="page1" class="page-number">1</label>
-                <input type="radio" name="page" id="page2" hidden>
-                <label for="page2" class="page-number">2</label>
-                <input type="radio" name="page" id="page3" hidden>
-                <label for="page3" class="page-number">3</label>
-            </div>
+            
         </div>
     </div>
 </html>
