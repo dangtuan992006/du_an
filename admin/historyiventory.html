@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Quản lý số lượng tồn</title>
-  <link rel="stylesheet" href="../css/InventoryManagement.css">
+  <link rel="stylesheet" href="../css/historyiventory.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     /* ----- THIẾT LẬP CHUNG ----- */
@@ -290,52 +290,18 @@
     <div class="content">
       <div class="actions">
         <div class="view-toggle-buttons">
-          <button class="action-btn active" onclick="window.location.href='InventoryManagemen.html'">Tồn kho hiện tại</button>
-          <button class="action-btn" onclick="window.location.href='historyiventory.html'">Lịch sử nhập-xuất</button>
+          <button class="action-btn" onclick="window.location.href='InventoryManagemen.html'">Tồn kho hiện tại</button>
+          <button class="action-btn active" onclick="window.location.href='historyiventory.html'">Lịch sử nhập-xuất</button>
         </div>
-        
         <div class="date-range-group">
             <label for="date-from">Từ:</label>
             <input id="date-from" type="date">
             <div style="width: 1px; height: 20px; background: #ddd; margin: 0 5px;"></div>
             <label for="date-to">Đến:</label>
             <input id="date-to" type="date">
-        </div>
-
-        <select id="category">
-          <option value="">-- Tất cả loại --</option>
-          <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
-          <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
-          <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
-          <option value="Đặc Biệt">Đặc Biệt</option>
-        </select>
-
-        <select id="status-filter">
-            <option value="">-- Tất cả tình trạng --</option>
-            <option value="Còn hàng">Sản phẩm còn hàng</option>
-            <option value="Sắp hết hàng">Sản phẩm sắp hết hàng</option>
-        </select>
-        <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
-
-        <button class="action-btn" onclick="window.location.href='NInventoryManagemen.html'">Lọc</button>
-        <button class="action-btn reset-btn" onclick="window.location.href='InventoryManagemen.html'">Đặt lại</button>
-      </div>
-
-      <div class="stats">
-        <div class="stat-item">
-          <p class="stat-title">Tổng số sản phẩm</p>
-          <p class="stat-number">18</p>
-        </div>
-        <div class="stat-item">
-          <p class="stat-title">Sản phẩm còn hàng</p>
-          <p class="stat-number">14</p>
-        </div>
-        <div class="stat-item warning-stat">
-          <p class="stat-title"><i class="fa-solid fa-triangle-exclamation"></i> Sắp hết hàng</p>
-          <p class="stat-number">4</p>
+            <button class="action-btn" onclick="filterByDate()">Lọc</button>
         </div>
       </div>
-
       <div class="list">
         <table>
           <thead>
@@ -343,8 +309,11 @@
               <th>Mã Sản Phẩm</th>
               <th>Tên Sản Phẩm</th>
               <th>Thể Loại</th>
-              <th>Số Lượng</th>
-              <th>Ngày Nhập</th> <th>Tình Trạng</th>
+              <th>Tồn Đầu Kỳ</th>
+              <th>Nhập</th>
+              <th>Xuất</th>
+              <th>Tồn Cuối Kỳ</th>
+              <th>Tình Trạng</th>
             </tr>
           </thead>
           <tbody>
@@ -352,144 +321,180 @@
               <td>1</td>
               <td>Banana</td>
               <td>Đặc Biệt</td>
+              <td>57(kg)</td>
+              <td class="add">+12(kg)</td>
+              <td class="minus">-11(kg)</td>
               <td>58(kg)</td>
-              <td>15/11/2025</td>
               <td>Sắp hết hàng</td>
             </tr>
             <tr class="status-ok">
               <td>2</td>
               <td>Dâu Tây</td>
               <td>Quà Tặng Trái Cây</td>
+              <td>107(kg)</td>
+              <td class="add">+20(kg)</td>
+              <td class="minus">-15(kg)</td>
               <td>112(kg)</td>
-              <td>18/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>3</td>
               <td>Cam Ngọt</td>
               <td>Trái Cây Việt Nam</td>
+              <td>55(kg)</td>
+              <td class="add">+30(kg)</td>
+              <td class="minus">-10(kg)</td>
               <td>75(kg)</td>
-              <td>10/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>4</td>
               <td>Nho Tím</td>
               <td>Bán Chạy Nhất</td>
+              <td>170(kg)</td>
+              <td class="add">+50(kg)</td>
+              <td class="minus">-40(kg)</td>
               <td>180(kg)</td>
-              <td>19/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-warning">
               <td>5</td>
               <td>Bơ</td>
               <td>Trái Cây Việt Nam</td>
+              <td>78(kg)</td>
+              <td class="add">+10(kg)</td>
+              <td class="minus">-24(kg)</td>
               <td>64(kg)</td>
-              <td>05/11/2025</td>
               <td>Sắp hết hàng</td>
             </tr>
             <tr class="status-ok">
               <td>6</td>
               <td>Vải Thiều</td>
               <td>Trái Cây Việt Nam</td>
+              <td>128(kg)</td>
+              <td class="add">+40(kg)</td>
+              <td class="minus">-30(kg)</td>
               <td>138(kg)</td>
-              <td>12/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>7</td>
               <td>Lựu Đỏ</td>
               <td>Bán Chạy Nhất</td>
+              <td>81(kg)</td>
+              <td class="add">+25(kg)</td>
+              <td class="minus">-15(kg)</td>
               <td>91(kg)</td>
-              <td>14/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>8</td>
               <td>Cherry Đỏ</td>
               <td>Quà Tặng Trái Cây</td>
+              <td>114(kg)</td>
+              <td class="add">+30(kg)</td>
+              <td class="minus">-20(kg)</td>
               <td>124(kg)</td>
-              <td>20/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-warning">
               <td>9</td>
               <td>Dứa Vàng</td>
               <td>Bán Chạy Nhất</td>
+              <td>36(kg)</td>
+              <td class="add">+15(kg)</td>
+              <td class="minus">-8(kg)</td>
               <td>43(kg)</td>
-              <td>01/11/2025</td>
               <td>Sắp Hết Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>10</td>
               <td>Set Trái Cây Quà Tặng Số 1</td>
               <td>Quà Tặng Trái Cây</td>
+              <td>88(set)</td>
+              <td class="add">+20(set)</td>
+              <td class="minus">-10(set)</td>
               <td>98(set)</td>
-              <td>16/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>11</td>
               <td>Chanh</td>
               <td>Bán Chạy Nhất</td>
+              <td>144(kg)</td>
+              <td class="add">+50(kg)</td>
+              <td class="minus">-22(kg)</td>
               <td>172(kg)</td>
-              <td>08/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-warning">
               <td>12</td>
               <td>Kiwi Xanh</td>
               <td>Bán Chạy Nhất</td>
+              <td>84(kg)</td>
+              <td class="add">+10(kg)</td>
+              <td class="minus">-27(kg)</td>
               <td>67(kg)</td>
-              <td>03/11/2025</td>
               <td>Sắp hết hàng</td>
             </tr>
             <tr class="status-ok">
               <td>13</td>
               <td>Táo</td>
               <td>Bán Chạy Nhất</td>
+              <td>144(kg)</td>
+              <td class="add">+40(kg)</td>
+              <td class="minus">-30(kg)</td>
               <td>154(kg)</td>
-              <td>17/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>14</td>
               <td>Mận</td>
               <td>Bán Chạy Nhất</td>
+              <td>102(kg)</td>
+              <td class="add">+30(kg)</td>
+              <td class="minus">-15(kg)</td>
               <td>117(kg)</td>
-              <td>09/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>15</td>
               <td>Carrot</td>
               <td>Trái Cây Việt Nam</td>
+              <td>124(kg)</td>
+              <td class="add">+20(kg)</td>
+              <td class="minus">-10(kg)</td>
               <td>134(kg)</td>
-              <td>13/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>16</td>
               <td>Set Trái Cây Quà Tặng Số 2</td>
               <td>Quà Tặng Trái Cây</td>
+              <td>184(set)</td>
+              <td class="add">+12(set)</td>
+              <td class="minus">-8(set)</td>
               <td>188(set)</td>
-              <td>19/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>17</td>
               <td>Dưa Hấu Đỏ</td>
               <td>Trái Cây Việt Nam</td>
+              <td>132(kg)</td>
+              <td class="add">+30(kg)</td>
+              <td class="minus">-20(kg)</td>
               <td>142(kg)</td>
-              <td>11/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
             <tr class="status-ok">
               <td>18</td>
               <td>Xoài</td>
               <td>Trái Cây Việt Nam</td>
+              <td>76(kg)</td>
+              <td class="add">+25(kg)</td>
+              <td class="minus">-13(kg)</td>
               <td>88(kg)</td>
-              <td>07/11/2025</td>
               <td>Còn Hàng</td>
             </tr>
           </tbody>
