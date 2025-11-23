@@ -97,7 +97,7 @@ body {
 
 .search-box input {
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 8px 0 0 8px; /* Joined with button */
     width: 250px;
     font-size: 15px;
@@ -166,10 +166,6 @@ body {
 
 .user-table tbody tr {
     border-bottom: 1px solid #dddddd;
-}
-
-.user-table tbody tr:nth-of-type(even) {
-    background-color: #fdeef2; /* Màu hồng nhạt cho hàng chẵn */
 }
 
 .user-table tbody tr:last-of-type {
@@ -419,4 +415,3 @@ input[type="radio"]:checked + .page-number {
 .modal-toggle:checked ~ * {
     overflow: hidden;
 }
-

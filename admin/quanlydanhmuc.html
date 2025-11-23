@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý danh mục</title>
+    <link rel="stylesheet" href="../css/users_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* --- CSS FIX CĂN CHỈNH BẢNG --- */
+        .action-cell {
+            display: table-cell !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+        .action-cell .action-btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            color: #555;
+            transition: color 0.2s;
+        }
+        
+        .action-cell .view-btn:hover { color: #007bff; }
+        .action-cell .edit-btn:hover { color: #ffc107; }
+        .action-cell .delete-btn:hover { color: #dc3545; }
+
+        /* --- CSS MODAL (CHECKBOX HACK) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Logic hiển thị Modal */
+        input[type="checkbox"]:checked + .modal-overlay,
+        #toggle-add-category-form:checked ~ #add-category-modal-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            width: 500px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-card h3 {
+            color: #9e182b;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: "Alkatra", sans-serif;
+            border-bottom: 2px solid #f9cbd6;
+            padding-bottom: 10px;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #9e182b; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;
+        }
+        
+        .image-preview {
+            width: 100px; height: 100px; border: 2px dashed #ddd; margin-top: 5px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; overflow: hidden;
+        }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+        .form-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .save-new-btn { background-color: #9e182b; color: white; padding: 8px 20px; border-radius: 20px; cursor: pointer; }
+        .cancel-new-btn { background-color: #eee; color: #333; padding: 8px 20px; border-radius: 20px; cursor: pointer; border: 1px solid #ccc; }
+
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; color: #999; }
+        .close-btn:hover { color: #333; }
+
+        /* --- DANH SÁCH SẢN PHẨM TRONG MODAL (GIAO DIỆN MỚI) --- */
+        .product-list-modal {
+            list-style: none;
+            padding: 5px; /* Thêm chút padding để bóng không bị cắt */
+            margin-top: 10px;
+            max-height: 400px; /* Giới hạn chiều cao nếu danh sách quá dài */
+            overflow-y: auto; /* Cho phép cuộn */
+        }
+
+        .product-list-modal li {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px; /* Khoảng cách giữa các sản phẩm */
+            background-color: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px; /* Bo góc mềm mại */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03); /* Đổ bóng nhẹ ban đầu */
+            transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+            cursor: default;
+        }
+
+        .product-list-modal li:last-child {
+            margin-bottom: 5px;
+        }
+
+        /* Hiệu ứng khi di chuột vào sản phẩm */
+        .product-list-modal li:hover {
+            transform: translateY(-4px); /* Nổi lên trên */
+            box-shadow: 0 8px 20px rgba(158, 24, 43, 0.15); /* Bóng đổ màu đỏ nhạt */
+            border-color: #f9cbd6;
+        }
+
+        .product-list-modal img {
+            width: 80px;  /* Tăng kích thước ảnh (cũ là 50px) */
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px; 
+            margin-right: 20px;
+            border: 2px solid #fff; /* Viền trắng quanh ảnh */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Bóng riêng cho ảnh */
+        }
+
+        .product-list-modal span {
+            font-size: 1.2rem; /* Tăng cỡ chữ */
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Style cho trạng thái ẩn/locked */
+        .status-locked {
+            color: #6c757d; /* Màu xám văn bản */
+            background-color: #e9ecef; /* Màu nền xám nhạt */
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        tr.locked {
+            opacity: 0.65; /* Làm mờ toàn bộ hàng */
+            transition: opacity 0.3s ease;
+        }
+        /* Hiệu ứng khi di chuột qua hàng bị khóa */
+        tr.locked:hover {
+            opacity: 1;
+            background-color: #fff8f9; /* Một màu nền rất nhạt để làm nổi bật */
+        }
+        /* --- CSS UPDATE MODAL FORM ĐẸP HƠN --- */
+        .modal-card {
+            background: #fff;
+            padding: 30px; /* Tăng padding cho thoáng */
+            border-radius: 16px; /* Bo góc tròn hơn */
+            width: 500px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Đổ bóng sâu hơn */
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-card h3 {
+            color: #9e182b;
+            text-align: center;
+            margin-bottom: 25px;
+            font-family: "Alkatra", sans-serif;
+            font-size: 1.5rem;
+            border-bottom: 2px dashed #f9cbd6; /* Đổi thành nét đứt cho tinh tế */
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #9e182b; 
+            font-size: 0.95rem;
+        }
+
+        /* Style chung cho Input, Select, Textarea */
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        /* Hiệu ứng khi click vào ô nhập liệu */
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: #9e182b;
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(158, 24, 43, 0.1); /* Hiệu ứng phát sáng nhẹ màu đỏ */
+        }
+
+        /* Style riêng cho dropdown Status */
+        .form-group select {
+            cursor: pointer;
+            appearance: none; /* Ẩn mũi tên mặc định */
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239e182b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
+
+        .form-buttons { 
+            display: flex; 
+            justify-content: flex-end; 
+            gap: 15px; 
+            margin-top: 25px; 
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .save-new-btn { 
+            background: linear-gradient(135deg, #9e182b, #c92a42); 
+            color: white; 
+            padding: 10px 30px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(158, 24, 43, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .save-new-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(158, 24, 43, 0.4);
+        }
+
+        .cancel-new-btn { 
+            background-color: #f1f1f1; 
+            color: #555; 
+            padding: 10px 30px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            border: 1px solid transparent; 
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .cancel-new-btn:hover {
+            background-color: #e4e4e4;
+            color: #333;
+        }
+
+        .close-btn { 
+            position: absolute; 
+            top: 15px; 
+            right: 20px; 
+            font-size: 28px; 
+            cursor: pointer; 
+            color: #ccc; 
+            transition: color 0.2s;
+            line-height: 1;
+        }
+        .close-btn:hover { color: #9e182b; }
+
+        /* --- TÔ ĐẬM DỮ LIỆU TÊN DANH MỤC (Cột thứ 2) --- */
+        .user-table tbody td:nth-child(2) {
+            font-weight: 700; /* Độ đậm chữ */
+            color: #333;   /* Màu đỏ thương hiệu (hoặc để #333 nếu thích màu đen) */
+            font-size: 1.05rem; /* Tăng kích thước một chút cho rõ */
+        }
+    </style>
+ </head>
+ <body>
+     <input type="checkbox" id="toggle-add-category-form" hidden>
+     
+ 
+     <div class="modal-overlay" id="add-category-modal-overlay">
+         <div class="modal-card">
+             <label for="toggle-add-category-form" class="close-btn">&times;</label>
+             <h3>Thêm Danh Mục Mới</h3>
+             
+             <div class="form-group">
+                 <label>Tên danh mục:</label>
+                 <input type="text" placeholder="Ví dụ: Trái cây nhập khẩu...">
+             </div>
+
+             <div class="form-group">
+                 <label>Trạng thái:</label>
+                 <select>
+                     <option value="active">Hoạt động</option>
+                     <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                 </select>
+             </div>
+
+             <div class="form-group">
+                 <label>Mô tả:</label>
+                 <textarea rows="4" placeholder="Nhập mô tả ngắn gọn cho danh mục..."></textarea>
+             </div>
+
+             <div class="form-buttons">
+                 <label for="toggle-add-category-form" class="cancel-new-btn">Hủy</label>
+                 <label for="toggle-add-category-form" class="save-new-btn">Lưu danh mục</label>
+             </div>
+         </div>
+     </div>
+
+     <div class="modal-overlay">
+         <div class="modal-card">
+             <label for="view-cat-1" class="close-btn">&times;</label>
+             <h3>Sản phẩm: Bán chạy nhất</h3>
+             <ul class="product-list-modal">
+                 <li><img src="../images/chuoi.webp" alt="Banana"> <span>Banana</span></li>
+                 <li><img src="../images/dautay.jpeg" alt="Dâu tây"> <span>Dâu tây</span></li>
+                 <li><img src="../images/nho.jpeg" alt="Nho tím"> <span>Nho tím</span></li>
+                 <li><img src="../images/cherry.jpeg" alt="Cherry Đỏ"> <span>Cherry Đỏ</span></li>
+             </ul>
+         </div>
+     </div>
+
+     <div class="modal-overlay">
+         <div class="modal-card">
+             <label for="view-cat-2" class="close-btn">&times;</label>
+             <h3>Sản phẩm: Quà tặng trái cây</h3>
+             <ul class="product-list-modal">
+                 <li><img src="../images/quatang1.jpeg" alt="Set 1"> <span>Set trái cây quà tặng số 1</span></li>
+                 <li><img src="../images/quatang2.jpeg" alt="Set 2"> <span>Set trái cây quà tặng số 2</span></li>
+             </ul>
+         </div>
+     </div>
+
+     <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-3" class="close-btn">&times;</label>
+            <h3>Sản phẩm: Trái cây Việt Nam</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/cam.webp" alt="Cam"> <span>Cam ngọt</span></li>
+                <li><img src="../images/vai.jpeg" alt="Vải"> <span>Vải thiều</span></li>
+                <li><img src="../images/duavang.jpeg" alt="Dưa"> <span>Dưa vàng</span></li>
+                <li><img src="../images/chanh.jpeg" alt="Chanh"> <span>Chanh</span></li>
+                <li><img src="../images/man.jpeg" alt="Mận"> <span>Mận</span></li>
+                <li><img src="../images/watermelon.jpg" alt="Dưa hấu"> <span>Dưa hấu đỏ</span></li>
+                <li><img src="../images/mango.jpg" alt="Xoài"> <span>Xoài</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-4" class="close-btn">&times;</label>
+            <h3>Sản phẩm: Đặc biệt</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/bo.jpeg" alt="Bơ"> <span>Bơ sáp</span></li>
+                <li><img src="../images/luu.jpeg" alt="Lựu"> <span>Lựu Đỏ</span></li>
+                <li><img src="../images/kiwi.jpeg" alt="Kiwi"> <span>Kiwi xanh</span></li>
+                <li><img src="../images/tao.jpeg" alt="Táo"> <span>Táo</span></li>
+                <li><img src="../images/carrot.jpg" alt="Carrot"> <span>Carrot</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-5" class="close-btn">&times;</label>
+            <h3>Sản phẩm: Trái cây cắt sẵn</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/duavang.jpeg" alt="Dưa hấu"> <span>Dưa hấu cắt sẵn</span></li>
+                <li><img src="../images/mango.jpg" alt="Xoài lắc"> <span>Xoài lắc muối ớt</span></li>
+                <li><img src="../images/man.jpeg" alt="Cóc"> <span>Cóc non ngâm chua ngọt</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-1" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Bán chạy nhất">
+            </div>
+            <div class="form-group">
+                <label>Hình ảnh:</label>
+                <input type="file">
+                <div class="image-preview"><img src="../images/chuoi.webp"></div>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-1" class="save-new-btn">Cập nhật</label>
+                <label for="edit-cat-1" class="cancel-new-btn">Hủy</label>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+         <div class="header">
+             <button onclick="location.href='../admin/index.html'"><i class="fa-solid fa-arrow-left"></i></button>
+             <h1>Quản Lý Danh Mục</h1>
+             <button onclick="location.href='../pages/index.html'"><i class="fa-solid fa-house"></i></button>
+         </div>
+         
+         <div class="content">
+             <div class="actions">
+                 <label for="toggle-add-category-form" id="add-user-btn-label">
+                     <i class="fa-solid fa-plus"></i> Thêm danh mục
+                 </label>
+                 <div class="search-and-reset">
+                     <div class="search-box">
+                         <input type="text" id="search-input" placeholder="Tìm kiếm danh mục...">
+                         <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</button>
+                     </div>
+                     <button class="reset-btn" onclick="location.href='quanlydanhmuc.html'">Đặt lại</button>
+                 </div>
+             </div>
+ 
+             <table class="user-table">
+                 <thead>
+                     <tr>
+                         <th>STT</th>
+                         <th>Tên danh mục</th>
+                         <th style="width: 35%;">Mô tả</th>
+                         <th>Số loại</th>
+                         <th>Tồn kho</th>
+                         <th>Trạng thái</th>
+                         <th>Thao tác</th>
+                     </tr>
+                 </thead>
+                 <tbody id="user-list" class="user-list">
+                    <tr>
+                        <td>01</td>
+                        <td>Bán chạy nhất</td>
+                        <td>Những sản phẩm được khách hàng lựa chọn nhiều nhất. Chất lượng vượt trội – giá trị xứng tầm.</td>
+                        <td>4</td>
+                        <td>474</td>
+                        <td><span class="status-active">Hoạt động</span></td>
+                        <td class="action-cell">
+                            <label for="view-cat-1" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
+                            <label for="edit-cat-1" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>02</td>
+                        <td>Quà tặng trái cây</td>
+                        <td>Set quà trái cây mang đậm hương vị Việt, kết hợp những loại trái cây theo mùa được chọn lọc kỹ càng – tươi, sạch và giàu dinh dưỡng.</td>
+                        <td>2</td>
+                        <td>286</td>
+                        <td><span class="status-active">Hoạt động</span></td>
+                        <td class="action-cell">
+                            <label for="view-cat-2" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
+                            <label for="edit-cat-2" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>03</td>
+                        <td>Trái cây Việt Nam</td>
+                        <td>Trái cây Việt Nam: được tuyển chọn kỹ lưỡng và bán chạy nhất từ các vùng trồng uy tín trên khắp Việt Nam.</td>
+                        <td>7</td>
+                        <td>775</td>
+                        <td><span class="status-active">Hoạt động</span></td>
+                        <td class="action-cell">
+                            <label for="view-cat-3" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
+                            <label for="edit-cat-3" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>04</td>
+                        <td>Đặc biệt</td>
+                        <td>Những loại trái cây đặc biệt nhất, được tuyển chọn kỹ lưỡng và nổi bật về hương vị lẫn chất lượng.</td>
+                        <td>5</td>
+                        <td>510</td>
+                        <td><span class="status-active">Hoạt động</span></td>
+                        <td class="action-cell">
+                            <label for="view-cat-4" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
+                            <label for="edit-cat-4" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr class="locked">
+                        <td>05</td>
+                        <td>Trái cây cắt sẵn</td>
+                        <td>Trái cây cắt sẵn tươi mới mỗi ngày, chuẩn vệ sinh và giữ trọn vị ngọt tự nhiên, sẵn sàng thưởng thức mọi lúc.</td>
+                        <td>3</td>
+                        <td>84</td>
+                        <td><span class="status-locked">Ẩn</span></td>
+                        <td class="action-cell">
+                            <label for="view-cat-5" class="action-btn view-btn" title="Xem sản phẩm"><i class="fa-solid fa-eye"></i></label>
+                            <label for="edit-cat-5" class="action-btn edit-btn" title="Sửa"><i class="fa-solid fa-pen"></i></label>
+                            <button class="action-btn delete-btn" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) alert('Đã xóa thành công!');"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
+ 
+             <div class="pagination">
+                 <input type="radio" name="page" id="page-1" hidden checked>
+                 <label for="page-1" class="page-number">1</label>
+                 <input type="radio" name="page" id="page-2" hidden>
+                 <label for="page-2" class="page-number">2</label>
+             </div>
+         </div>
+     </div>
+     <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-1" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Bán chạy nhất</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Bán chạy nhất">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Những sản phẩm được khách hàng lựa chọn nhiều nhất. Chất lượng vượt trội – giá trị xứng tầm.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Hình ảnh đại diện:</label>
+                <input type="file">
+                <div class="image-preview"><img src="../images/chuoi.webp"></div>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-1" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-1" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="edit-cat-1" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-1" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Bán chạy nhất</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Bán chạy nhất">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Những sản phẩm được khách hàng lựa chọn nhiều nhất. Chất lượng vượt trội – giá trị xứng tầm.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-1" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-1" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="edit-cat-2" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-2" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Quà tặng</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Quà tặng trái cây">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Set quà trái cây mang đậm hương vị Việt, kết hợp những loại trái cây theo mùa được chọn lọc kỹ càng – tươi, sạch và giàu dinh dưỡng.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-2" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-2" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="edit-cat-3" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-3" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Trái cây VN</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Trái cây Việt Nam">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Trái cây Việt Nam: được tuyển chọn kỹ lưỡng và bán chạy nhất từ các vùng trồng uy tín trên khắp Việt Nam.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-3" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-3" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="edit-cat-4" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-4" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Đặc biệt</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Đặc biệt">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active" selected>Hoạt động</option>
+                    <option value="hidden">Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Những loại trái cây đặc biệt nhất, được tuyển chọn kỹ lưỡng và nổi bật về hương vị lẫn chất lượng.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-4" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-4" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="edit-cat-5" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="edit-cat-5" class="close-btn">&times;</label>
+            <h3>Sửa Danh Mục: Cắt sẵn</h3>
+            <div class="form-group">
+                <label>Tên danh mục:</label>
+                <input type="text" value="Trái cây cắt sẵn">
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select>
+                    <option value="active">Hoạt động</option>
+                    <option value="hidden" selected>Ẩn (Khóa tạm thời)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Mô tả:</label>
+                <textarea rows="4">Trái cây cắt sẵn tươi mới mỗi ngày, chuẩn vệ sinh và giữ trọn vị ngọt tự nhiên, sẵn sàng thưởng thức mọi lúc.</textarea>
+            </div>
+            <div class="form-buttons">
+                <label for="edit-cat-5" class="cancel-new-btn">Hủy</label>
+                <label for="edit-cat-5" class="save-new-btn">Cập nhật</label>
+            </div>
+        </div>
+    </div>
+    
+    <input type="checkbox" id="view-cat-1" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-1" class="close-btn">&times;</label>
+            <h3>Danh sách sản phẩm</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/dautaymy.jpg" alt="Dâu tây"> <span>Dâu tây</span></li>
+                <li><img src="../images/nhoden.jpg" alt="Nho"> <span>Nho tím</span></li>
+                <li><img src="../images/cherry.jpeg" alt="Cherry"> <span>Cherry Đỏ</span></li>
+                <li><img src="../images/bananas.png" alt="Banana"> <span>Banana</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <input type="checkbox" id="view-cat-2" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-2" class="close-btn">&times;</label>
+            <h3>Danh sách sản phẩm</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/quatang1.jpeg" alt="Set 1"> <span>Set trái cây quà tặng số 1</span></li>
+                <li><img src="../images/quatang2.jpeg" alt="Set 2"> <span>Set trái cây quà tặng số 2</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <input type="checkbox" id="view-cat-3" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-3" class="close-btn">&times;</label>
+            <h3>Danh sách sản phẩm</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/cam.jpg" alt="Cam"> <span>Cam ngọt</span></li>
+                <li><img src="../images/vai.jpeg" alt="Vải"> <span>Vải thiều</span></li>
+                <li><img src="../images/duavang.jpeg" alt="Dưa"> <span>Dưa vàng</span></li>
+                <li><img src="../images/chanh.jpeg" alt="Chanh"> <span>Chanh</span></li>
+                <li><img src="../images/man.jpeg" alt="Mận"> <span>Mận</span></li>
+                <li><img src="../images/watermelon.jpg" alt="Dưa hấu"> <span>Dưa hấu đỏ</span></li>
+                <li><img src="../images/mango.jpg" alt="Xoài"> <span>Xoài</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <input type="checkbox" id="view-cat-4" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-4" class="close-btn">&times;</label>
+            <h3>Danh sách sản phẩm</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/Bo.jpg" alt="Bơ"> <span>Bơ sáp</span></li>
+                <li><img src="../images/luu.jpeg" alt="Lựu"> <span>Lựu Đỏ</span></li>
+                <li><img src="../images/kiwi.jpeg" alt="Kiwi"> <span>Kiwi Xanh</span></li>
+                <li><img src="../images/Tao_fuji.jpg" alt="Táo"> <span>Táo</span></li>
+                <li><img src="../images/carrot.jpg" alt="Carrot"> <span>Carrot</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <input type="checkbox" id="view-cat-5" hidden>
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <label for="view-cat-5" class="close-btn">&times;</label>
+            <h3>Danh sách sản phẩm</h3>
+            <ul class="product-list-modal">
+                <li><img src="../images/Duahau_catsan.png" alt="Dưa hấu cắt sẵn"> <span>Dưa hấu cắt sẵn</span></li>
+                <li><img src="../images/xoai_catsan.png" alt="Xoài cắt sẵn"> <span>Xoài cắt sẵn</span></li>
+                <li><img src="../images/tao_catsan.png" alt="Táo cắt sẵn"> <span>Táo cắt sẵn</span></li>
+            </ul>
+        </div>
+    </div>
+ </body>
+</html>
