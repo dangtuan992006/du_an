@@ -293,6 +293,7 @@
           <button class="action-btn" onclick="window.location.href='InventoryManagemen.html'">Tồn kho hiện tại</button>
           <button class="action-btn active" onclick="window.location.href='historyiventory.html'">Lịch sử nhập-xuất</button>
         </div>
+        
         <div class="date-range-group">
             <label for="date-from">Từ:</label>
             <input id="date-from" type="date">
@@ -302,6 +303,24 @@
             <button class="action-btn" onclick = "location.href = '../admin/Nhistoryiventory.html'" >Lọc</button>
             <button class="action-btn" onclick="location.href = '../admin/historyiventory.html'" style = "background-color: #555;">đặt lại</button>
         </div>
+
+        <select id="category">
+          <option value="">-- Tất cả loại --</option>
+          <option value="Bán Chạy Nhất">Bán Chạy Nhất</option>
+          <option value="Quà Tặng Trái Cây">Quà Tặng Trái Cây</option>
+          <option value="Trái Cây Việt Nam">Trái Cây Việt Nam</option>
+          <option value="Đặc Biệt">Đặc Biệt</option>
+        </select>
+
+        <select id="status-filter">
+            <option value="">-- Tất cả tình trạng --</option>
+            <option value="Còn hàng">Sản phẩm còn hàng</option>
+            <option value="Sắp hết hàng">Sản phẩm sắp hết hàng</option>
+        </select>
+        <input type="text" id="searchName" placeholder="Nhập mã hoặc tên sản phẩm">
+
+        <button class="action-btn" onclick="window.location.href='historyiventory.html'">Lọc</button>
+        <button class="action-btn reset-btn" onclick="window.location.href='historyiventory.html'">Đặt lại</button>
       </div>
       <div class="list">
         <table>
@@ -321,7 +340,7 @@
             <tr class="status-warning">
               <td>1</td>
               <td>Banana</td>
-              <td>Đặc Biệt</td>
+              <td>Bán chạy nhất</td>
               <td>57(kg)</td>
               <td class="add">+12(kg)</td>
               <td class="minus">-11(kg)</td>
@@ -331,7 +350,7 @@
             <tr class="status-ok">
               <td>2</td>
               <td>Dâu Tây</td>
-              <td>Quà Tặng Trái Cây</td>
+              <td>Bán chạy nhất</td>
               <td>107(kg)</td>
               <td class="add">+20(kg)</td>
               <td class="minus">-15(kg)</td>
@@ -361,7 +380,7 @@
             <tr class="status-warning">
               <td>5</td>
               <td>Bơ</td>
-              <td>Trái Cây Việt Nam</td>
+              <td>Đặc biệt</td>
               <td>78(kg)</td>
               <td class="add">+10(kg)</td>
               <td class="minus">-24(kg)</td>
@@ -381,7 +400,7 @@
             <tr class="status-ok">
               <td>7</td>
               <td>Lựu Đỏ</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Đặc biệt</td>
               <td>81(kg)</td>
               <td class="add">+25(kg)</td>
               <td class="minus">-15(kg)</td>
@@ -391,7 +410,7 @@
             <tr class="status-ok">
               <td>8</td>
               <td>Cherry Đỏ</td>
-              <td>Quà Tặng Trái Cây</td>
+              <td>Bán chạy nhất</td>
               <td>114(kg)</td>
               <td class="add">+30(kg)</td>
               <td class="minus">-20(kg)</td>
@@ -400,8 +419,8 @@
             </tr>
             <tr class="status-warning">
               <td>9</td>
-              <td>Dứa Vàng</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Dưa Vàng</td>
+              <td>Trái cây Việt Nam</td>
               <td>36(kg)</td>
               <td class="add">+15(kg)</td>
               <td class="minus">-8(kg)</td>
@@ -421,7 +440,7 @@
             <tr class="status-ok">
               <td>11</td>
               <td>Chanh</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Trái cây Việt Nam</td>
               <td>144(kg)</td>
               <td class="add">+50(kg)</td>
               <td class="minus">-22(kg)</td>
@@ -431,7 +450,7 @@
             <tr class="status-warning">
               <td>12</td>
               <td>Kiwi Xanh</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Đặc biệt</td>
               <td>84(kg)</td>
               <td class="add">+10(kg)</td>
               <td class="minus">-27(kg)</td>
@@ -441,7 +460,7 @@
             <tr class="status-ok">
               <td>13</td>
               <td>Táo</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Đặc biệt</td>
               <td>144(kg)</td>
               <td class="add">+40(kg)</td>
               <td class="minus">-30(kg)</td>
@@ -451,7 +470,7 @@
             <tr class="status-ok">
               <td>14</td>
               <td>Mận</td>
-              <td>Bán Chạy Nhất</td>
+              <td>Trái cây Việt Nam</td>
               <td>102(kg)</td>
               <td class="add">+30(kg)</td>
               <td class="minus">-15(kg)</td>
@@ -461,7 +480,7 @@
             <tr class="status-ok">
               <td>15</td>
               <td>Carrot</td>
-              <td>Trái Cây Việt Nam</td>
+              <td>Đặc biệt</td>
               <td>124(kg)</td>
               <td class="add">+20(kg)</td>
               <td class="minus">-10(kg)</td>
